@@ -62,7 +62,7 @@ func main() {
 	ui := fyne.NewContainerWithLayout(layout.NewBorderLayout(image, nil, nil, nil),
 		image, Content)
 	myWindow.SetContent(ui)
-	//myWindow.Resize(fyne.Size{Height: 600, Width: 400})
+	myWindow.Resize(fyne.Size{Height: 600, Width: 400})
 	myWindow.ShowAndRun()
 }
 
