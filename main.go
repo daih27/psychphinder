@@ -50,6 +50,7 @@ func main() {
 	myWindow := myApp.NewWindow("psychphinder")
 
 	line = ReadData() // Read data here only one time
+	tree := makeTreeTab()
 
 	ButtonTitle, listData, NoResults := makeListTab()
 	// Load logo
@@ -59,8 +60,12 @@ func main() {
 	// Set content
 	Content := fyne.NewContainerWithLayout(layout.NewBorderLayout(ButtonTitle, nil, nil, nil),
 		ButtonTitle, listData, NoResults)
+	tabs := container.NewAppTabs(
+		container.NewTabItem("Search", Content),
+		container.NewTabItem("References", tree),
+	)
 	ui := fyne.NewContainerWithLayout(layout.NewBorderLayout(image, nil, nil, nil),
-		image, Content)
+		image, tabs)
 	myWindow.SetContent(ui)
 	myWindow.Resize(fyne.Size{Height: 600, Width: 400})
 	myWindow.ShowAndRun()
@@ -141,7 +146,7 @@ func makeListTab() (fyne.CanvasObject, fyne.CanvasObject, fyne.CanvasObject) {
 	sep := widget.NewSeparator()
 	hbox := fyne.NewContainerWithLayout(layout.NewHBoxLayout(), SeasonText, EpisodeText, layout.NewSpacer(), TimeSearch)
 	vbox := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), BeforeSearch, MatchSearch, AfterSearch)
-	content := container.NewVBox(sep, sep, sep, TitleSearch, hbox, layout.NewSpacer(), vbox, layout.NewSpacer())
+	content := container.NewVBox(sep, sep, sep, TitleSearch, hbox, vbox)
 	split = container.New(layout.NewBorderLayout(nil, content, nil, nil), list, content)
 	split.Hide()
 	NoResults.Hide()
