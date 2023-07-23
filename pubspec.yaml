@@ -1,0 +1,55 @@
+name: psychphinder
+description: A searcher for the TV show Psych.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  csv: ^5.0.2
+  fuzzywuzzy: ^1.1.6
+  flutter_list_view: ^1.1.21
+  hive_flutter: ^1.1.0
+  provider: ^6.0.5
+  file_picker: 5.3.1
+  permission_handler: ^10.4.3
+  shared_preferences: ^2.2.0
+  flutter_donation_buttons: ^0.3.7
+
+dev_dependencies:
+  hive_generator: ^1.1.2
+  build_runner: ^2.1.10
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^2.0.0
+
+flutter_launcher_icons:
+  android: false
+  ios: false
+  windows:
+    generate: true
+    image_path: "assets/icon/icon-1024x1024.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/icon/icon-1024x1024.png"
+
+flutter:
+  fonts:
+    - family: PsychFont
+      fonts:
+        - asset: fonts/PsychFont-Regular.ttf
+        - asset: fonts/PsychFont-Bold.ttf
+          weight: 700
+
+  uses-material-design: true
+
+  assets:
+    - assets/data.csv
+    - assets/episodes.csv
+    - assets/references.csv
