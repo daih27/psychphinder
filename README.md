@@ -22,6 +22,6 @@ Feel free to open an issue If you find an error, want to add a reference that's 
 
 ## Support the project
 
-If you like the app and want to support the project, be sure to atar the and support me on Ko-fi, I'd highly appreciate that!
+If you like the app and want to support the project, be sure to star the repo and support me on Ko-fi, I'd highly appreciate that!
 
 <a href='https://ko-fi.com/D1D7NDV5D' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi4.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
