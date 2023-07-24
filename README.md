@@ -5,7 +5,7 @@ Psychphinder is an app made in Flutter to search for your favorite quotes from t
 ## Features
 
 - Search throughout all the episodes and movies
-- Add your favorite quotes to favorites
+- Save your favorite quotes
 - Backup and restore your saved quotes
 - View the references made in each episode (Only season 1 for now)
 
