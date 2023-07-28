@@ -9,6 +9,9 @@ import 'package:psychphinder/global/theme.dart';
 import 'package:check_app_version/show_dialog.dart';
 import 'classes/phrase_class.dart';
 import 'global/globals.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final Uri _url = Uri.parse('https://github.com/daih27/psychphinder');
 
 Future<void> main() async {
   await Hive.initFlutter();
@@ -72,7 +75,9 @@ class _HomeState extends State<Home> {
           'https://raw.githubusercontent.com/daih27/psychphinder/master/app_version.json',
       updateButtonColor: Colors.green,
       onPressDecline: () => Navigator.of(context).pop(),
-      onPressConfirm: () => Navigator.of(context).pop(),
+      onPressConfirm: () => launchUrl(_url),
+      updateButtonText: 'Go to GitHub',
+      laterButtonText: 'Later',
     ).checkVersion();
   }
 
