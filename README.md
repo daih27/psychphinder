@@ -2,6 +2,8 @@
 
 Psychphinder is an app made in Flutter to search for your favorite quotes from the TV show Psych 🍍
 
+<a href="https://play.google.com/store/apps/details?id=com.daih.psychphinder"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=60px /></a>
+
 ## Features
 
 - Search throughout all the episodes and movies
