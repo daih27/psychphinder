@@ -19,6 +19,7 @@ dependencies:
   permission_handler: ^10.4.3
   shared_preferences: ^2.2.0
   flutter_donation_buttons: ^0.3.7
+  check_app_version: ^1.0.1
 
 dev_dependencies:
   hive_generator: ^1.1.2

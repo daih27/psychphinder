@@ -6,6 +6,7 @@ import 'package:psychphinder/search.dart';
 import 'package:psychphinder/favorites.dart';
 import 'package:psychphinder/settings.dart';
 import 'package:psychphinder/global/theme.dart';
+import 'package:check_app_version/show_dialog.dart';
 import 'classes/phrase_class.dart';
 import 'global/globals.dart';
 
@@ -56,6 +57,23 @@ class _HomeState extends State<Home> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  init() async {
+    ShowDialog(
+      context: context,
+      jsonUrl:
+          'https://raw.githubusercontent.com/daih27/psychphinder/master/app_version.json',
+      updateButtonColor: Colors.green,
+      onPressDecline: () => Navigator.of(context).pop(),
+      onPressConfirm: () => Navigator.of(context).pop(),
+    ).checkVersion();
   }
 
   @override
