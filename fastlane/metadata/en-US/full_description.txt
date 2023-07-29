@@ -1,0 +1,8 @@
+<p>Psychphinder is an app that will let you search quotes from all the episodes and movies of the TV show Psych.</p>
+<p>&#127821; <b>Features </b> &#127821;</p>
+<p><ul><li>Search quotes from all the episodes and movies of Psych.</li>
+   <li>Save your favorite quotes.</li>
+   <li>Backup and restore your list of favorites.</li>
+   <li>See the references made throughout the show (in progress).</li>
+   <li>Choose from the three themes available.</li></ul>
+<p>You can also share your backup file with others if you want, even between different platforms!</p>
