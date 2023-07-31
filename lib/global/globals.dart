@@ -17,7 +17,7 @@ class CSVData extends ChangeNotifier {
     if (isDataLoaded) return;
     final rawData = await rootBundle.loadString("assets/data.csv");
     List<List<dynamic>> listData = const CsvToListConverter(
-            fieldDelimiter: ';', eol: '\r', shouldParseNumbers: true)
+            fieldDelimiter: ';', eol: '\r\n', shouldParseNumbers: true)
         .convert(rawData);
     for (var i = 0; i < listData.length; i++) {
       data.add(Phrase(

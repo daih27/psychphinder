@@ -27,14 +27,12 @@ class _SearchPageState extends State<SearchPage> {
           .replaceAll("  ", " ")
           .replaceAll("   ", " ");
       searchedClean[0].replaceAll('  ', '').replaceAll(' ', '');
-
       if (partialRatio(
                   input.toLowerCase().replaceAll(RegExp('[^A-Za-z0-9 ]'), ''),
                   searchedClean) >
               90 &&
           searchedClean.length >=
               input.replaceAll(RegExp('[^A-Za-z0-9 ]'), '').length - 2) {
-        // print(searchedClean);
         if (season == "All") {
           searched.add(Phrase(
               id: data[i].id,
