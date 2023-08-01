@@ -329,11 +329,6 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
                 onPressed: () async {
-                  // if (!isFavorite) {
-                  //   await box.put(widget.phrase.id, widget.phrase);
-                  // } else {
-                  //   await box.delete(widget.phrase.id);
-                  // }
                   if (widget.referencesList.isEmpty) {
                     if (!isFavorite) {
                       await box.put(widget.phrase.id, widget.phrase);
