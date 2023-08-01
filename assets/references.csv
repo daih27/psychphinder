@@ -11,7 +11,7 @@
 1;3;Speak Now or Forever Hold Your Piece;Thomas Crown (Character In The Movie The Thomas Crown Affair);s1e3_3;2235
 1;3;Speak Now or Forever Hold Your Piece;Donald Sutherland (Actor);s1e3_4;2236
 1;3;Speak Now or Forever Hold Your Piece;Hampton Inn (Hotel);s1e3_5;2284
-1;3;Speak Now or Forever Hold Your Piece;Patrick Swayze (Actor);s1e3_6;2530
+1;3;Speak Now or Forever Hold Your Piece;Patrick Swayze (Actor);s1e3_6;2530,2532
 1;3;Speak Now or Forever Hold Your Piece;Lou Diamond Phillips (Actor);s1e3_7;2548
 1;3;Speak Now or Forever Hold Your Piece;Ted Nugent (Musician);s1e3_8;2732
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Meredith Baxter-Birney (Actress);s1e4_1;3185
@@ -32,12 +32,12 @@
 1;5;9 Lives;Escape from Alcatraz (Movie);s1e5_5;4142
 1;5;9 Lives;Robert Frost (Poet);s1e5_6;4115
 1;5;9 Lives;Buick (A Division Of General Motors);s1e5_7;4331
-1;6;Weekend Warriors;Cap'n Crunch (Cereal);s1e6_1;4837
+1;6;Weekend Warriors;Cap'n Crunch (Cereal);s1e6_1;4837,4838,4840
 1;6;Weekend Warriors;Glory (Movie);s1e6_2;4864,4881
-1;6;Weekend Warriors;Denzel Washington (Actor);s1e6_3;4865
+1;6;Weekend Warriors;Denzel Washington (Actor);s1e6_3;4865,4866,4876
 1;6;Weekend Warriors;Abraham Lincoln (16th President Of The United States);s1e6_4;4520,4935
 1;6;Weekend Warriors;Phil Mickelson (Athlete);s1e6_5;4926
-1;6;Weekend Warriors;Four Score And Seven Years Ago, (Reference To Abraham Lincoln's Gettysburg Address);s1e6_6;5005
+1;6;Weekend Warriors;Four Score And Seven Years Ago... (Reference To Abraham Lincoln's Gettysburg Address);s1e6_6;5005
 1;6;Weekend Warriors;Ask Not What Your Country Can Do For You - Ask What You Can Do For Your Country (Referencing The Inaugural Address Of John F. Kennedy);s1e6_7;5007
 1;6;Weekend Warriors;War and Peace (Novel);s1e6_8;5109
 1;7;Who Ya Gonna Call?;Ghostbusters (Movie);s1e7_1;
@@ -46,25 +46,25 @@
 1;7;Who Ya Gonna Call?;Gremlins (Movie);s1e7_4;5435
 1;7;Who Ya Gonna Call?;Jaws (Movie);s1e7_5;5671,5673
 1;7;Who Ya Gonna Call?;Roy Scheider (Actor);s1e7_6;5671
-1;7;Who Ya Gonna Call?;Martin Brody (Character From The Movie Jaws);s1e7_7;5669,5919
+1;7;Who Ya Gonna Call?;Martin Brody (Character From The Movie Jaws);s1e7_7;5669,5670,5919,5920
 1;7;Who Ya Gonna Call?;The Flying Nun (TV Show);s1e7_8;5746
 1;7;Who Ya Gonna Call?;Sally Field (Actress);s1e7_9;5755
 1;7;Who Ya Gonna Call?;Terry Bradshaw (Athlete/Actor);s1e7_10;5757
-1;7;Who Ya Gonna Call?;Smokey and the Bandit (Movie);s1e7_11;5747
+1;7;Who Ya Gonna Call?;Smokey and the Bandit (Movie);s1e7_11;5747,5748
 1;7;Who Ya Gonna Call?;Norma Rae (Movie);s1e7_12;5759
-1;7;Who Ya Gonna Call?;Hooper (Movie);s1e7_13;5752
-1;7;Who Ya Gonna Call?;Pete Rose (Athlete);s1e7_14;5307
+1;7;Who Ya Gonna Call?;Hooper (Movie);s1e7_13;5752,5753,5754,5755
+1;7;Who Ya Gonna Call?;Pete Rose (Athlete);s1e7_14;5307,5309,5310,5311,5316
 1;7;Who Ya Gonna Call?;Reds (Major League Baseball Team);s1e7_15;
 1;7;Who Ya Gonna Call?;Pet Sematary (Movie);s1e7_16;
-1;7;Who Ya Gonna Call?;Louvre (Art Museum);s1e7_17;5649
+1;7;Who Ya Gonna Call?;Louvre (Art Museum);s1e7_17;5649,5651,5652,5653
 1;7;Who Ya Gonna Call?;Night Gallery (TV Show);s1e7_18;5654
 1;7;Who Ya Gonna Call?;Sybil (Movie);s1e7_19;
 1;7;Who Ya Gonna Call?;Do You Feel Pretty? (Reference To The I Feel Pretty Song From The Movie West Side Story);s1e7_20;5798
 1;8;Shawn vs. the Red Phantom;Colombo (Character In The TV Show Colombo);s1e8_1;
 1;8;Shawn vs. the Red Phantom;Star Trek IV: The Voyage Home (Movie);s1e8_2;6402
-1;8;Shawn vs. the Red Phantom;George Takei (Actor);s1e8_3;6244
+1;8;Shawn vs. the Red Phantom;George Takei (Actor);s1e8_3;6244,6245,6246,6396,6409,6413,6532,6534,6618,6625,6707,6768
 1;8;Shawn vs. the Red Phantom;Hikaru Sulu (Character In The STAR TREK Series);s1e8_4;6249,6263,6774
-1;8;Shawn vs. the Red Phantom;Wolf With A Lightsaber (Referencing Chewbacca In The Star Wars Movies);s1e8_5;6267
+1;8;Shawn vs. the Red Phantom;Wolf With A Lightsaber (Referencing Chewbacca In The Star Wars Movies);s1e8_5;6266,6267
 1;8;Shawn vs. the Red Phantom;Professor X (Character In The X-Men Comics);s1e8_6;6343,6344
 1;8;Shawn vs. the Red Phantom;Johnny Depp (Actor);s1e8_7;6424
 1;8;Shawn vs. the Red Phantom;Kate Moss (Model);s1e8_8;6429
@@ -75,6 +75,7 @@
 1;8;Shawn vs. the Red Phantom;Urkel (Character From The TV Show Family Matters);s1e8_13;6484
 1;8;Shawn vs. the Red Phantom;T2 (Referencing The Movie Terminator 2: Judgment Day);s1e8_14;6689
 1;8;Shawn vs. the Red Phantom;Afternoon Delight (Song By Starland Vocal Band);s1e8_15;6709
+1;8;Shawn vs. the Red Phantom;Superman (Character In The Superman Comics);s1e8_16;6553
 1;9;Forget Me Not;Simba (Character In The Movie The Lion King);s1e9_1;7195
 1;9;Forget Me Not;I Am Your Father (Referencing The Movie Star Wars: Episode VI - Return of the Jedi);s1e9_2;7195
 1;9;Forget Me Not;Darth Vader (Character From The Star Wars Movies);s1e9_3;7197
@@ -111,7 +112,7 @@
 1;11;He Loves Me, He Loves Me Not, He Loves Me, Oops He's Dead!;Donald Pleasence (Actor);s1e11_16;9259
 1;11;He Loves Me, He Loves Me Not, He Loves Me, Oops He's Dead!;Single White Female (Movie);s1e11_17;9276
 1;11;He Loves Me, He Loves Me Not, He Loves Me, Oops He's Dead!;Rio Bravo (Movie);s1e11_18;9437
-1;11;He Loves Me, He Loves Me Not, He Loves Me, Oops He's Dead!;John Wayne (Actor);s1e11_19;9437
+1;11;He Loves Me, He Loves Me Not, He Loves Me, Oops He's Dead!;John Wayne (Actor);s1e11_19;9437,9554
 1;11;He Loves Me, He Loves Me Not, He Loves Me, Oops He's Dead!;X Files (Movie);s1e11_20;
 1;11;He Loves Me, He Loves Me Not, He Loves Me, Oops He's Dead!;Simon Cowell (Producer);s1e11_21;9175
 1;11;He Loves Me, He Loves Me Not, He Loves Me, Oops He's Dead!;LEGO (Toy Manufacture);s1e11_22;9328,9330
@@ -124,7 +125,7 @@
 1;13;Game, Set... Muuurder?;Who's got My Golden Arm? (Ghost Story From The 1800s);s1e13_2;10671
 1;13;Game, Set... Muuurder?;Bashful, Grumpy, Dopey, Sleepy, Sneezy (Character From The Movie Snow White and the Seven Dwarfs);s1e13_3;10716,10718
 1;13;Game, Set... Muuurder?;Whitesnake (Musicians);s1e13_4;10782
-1;13;Game, Set... Muuurder?;Airwolf (TV Show);s1e13_5;10785,10790
+1;13;Game, Set... Muuurder?;Airwolf (TV Show);s1e13_5;10785,10790,11236,11238
 1;13;Game, Set... Muuurder?;Jan-Michael Vincent (Actor);s1e13_6;10790
 1;13;Game, Set... Muuurder?;Tommy Lee Jones (Actor);s1e13_7;10979
 1;13;Game, Set... Muuurder?;The Fugitive (Movie);s1e13_8;10979
@@ -132,7 +133,7 @@
 1;13;Game, Set... Muuurder?;House of the Long Shadows (Movie);s1e13_10;10983
 1;14;Poker? I Barely Know Her;Grover Cleveland (22nd And 24th President Of The United States);s1e14_1;11518
 1;14;Poker? I Barely Know Her;Poker? I Barely Know Her (Referencing The Movie Pee-wee's Big Adventure);s1e14_2;11796
-1;14;Poker? I Barely Know Her;227 (TV Show);s1e14_3;11667
+1;14;Poker? I Barely Know Her;227 (TV Show);s1e14_3;11666,11667
 1;14;Poker? I Barely Know Her;Marla Gibbs (Actress);s1e14_4;11667
 1;14;Poker? I Barely Know Her;Regina King (Actress);s1e14_5;11667
 1;14;Poker? I Barely Know Her;Jackée Harry (Actress);s1e14_6;11668
@@ -203,7 +204,7 @@
 2;2;65 Million Years Off;Dilophosaurus (Kind Of Dinosaur);s2e2_6;14215
 2;2;65 Million Years Off;Terence Trent D'Arby (Musician);s2e2_7;14309,14310
 2;2;65 Million Years Off;Jeff Goldblum (Actor);s2e2_8;14356
-2;2;65 Million Years Off;Trilobites (Fish Fossils);s2e2_9;14374,14379
+2;2;65 Million Years Off;Trilobites (Fish Fossils);s2e2_9;14374,14379,14384
 2;2;65 Million Years Off;Pinhead, Chatterbox, Cenobite, Stitch, Surgeon (Characters In The Hellraiser Movies);s2e2_10;14376
 2;2;65 Million Years Off;Battlezone (Video Game);s2e2_11;14419
 2;2;65 Million Years Off;Tony Gwynn (Athlete);s2e2_12;14485
