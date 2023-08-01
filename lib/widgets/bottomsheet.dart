@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_list_view/flutter_list_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:psychphinder/classes/phrase_class.dart';
 import 'package:psychphinder/global/globals.dart';
 
 class BottomSheetEpisode extends StatefulWidget {
@@ -10,13 +9,11 @@ class BottomSheetEpisode extends StatefulWidget {
     super.key,
     required this.indexLine,
     required this.fullEpisode,
-    required this.phrase,
     required this.referencesList,
   });
 
   final int indexLine;
   final List fullEpisode;
-  final Phrase phrase;
   final List referencesList;
 
   @override
@@ -124,8 +121,10 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                       .jumpToIndex(referenceId);
                                 }
                                 currentRef--;
+                                newId = referenceId;
                                 setState(() {
                                   currentRef;
+                                  newId;
                                 });
                               }
                             },
@@ -186,58 +185,8 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                               color: Colors.green),
                         ),
                         trailing: hasReference
-                            ? IconButton(
-                                onPressed: () {
-                                  final selectedReference =
-                                      referenceSearch(referenceData, newId);
-                                  showDialog<String>(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                      backgroundColor: Colors.green,
-                                      title: const Text(
-                                        'This is a reference to',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'PsychFont',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      content: selectedReference.length > 1
-                                          ? Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                for (var i = 0;
-                                                    i <
-                                                        selectedReference
-                                                            .length;
-                                                    i++) ...[
-                                                  Text(
-                                                    selectedReference[i],
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                ],
-                                              ],
-                                            )
-                                          : Text(
-                                              selectedReference.first,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.question_mark_rounded),
-                                color: Colors.green,
-                              )
+                            ? referenceButton(
+                                referenceData, index, context, true)
                             : null,
                       );
                     } else {
@@ -254,58 +203,8 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                           "${widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
                         ),
                         trailing: hasReference
-                            ? IconButton(
-                                onPressed: () {
-                                  final selectedReference =
-                                      referenceSearch(referenceData, index);
-                                  showDialog<String>(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                      backgroundColor: Colors.green,
-                                      title: const Text(
-                                        'This is a reference to',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'PsychFont',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      content: selectedReference.length > 1
-                                          ? Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                for (var i = 0;
-                                                    i <
-                                                        selectedReference
-                                                            .length;
-                                                    i++) ...[
-                                                  Text(
-                                                    selectedReference[i],
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                ],
-                                              ],
-                                            )
-                                          : Text(
-                                              selectedReference.first,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.question_mark_rounded),
-                                color: Colors.green,
-                              )
+                            ? referenceButton(
+                                referenceData, index, context, false)
                             : null,
                       );
                     }
@@ -346,6 +245,54 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
           ],
         );
       },
+    );
+  }
+
+  IconButton referenceButton(List<dynamic> referenceData, int index,
+      BuildContext context, bool isSelected) {
+    return IconButton(
+      onPressed: () {
+        final selectedReference = referenceSearch(referenceData, index);
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            backgroundColor: Colors.green,
+            title: const Text(
+              'This is a reference to',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'PsychFont',
+                  fontWeight: FontWeight.bold),
+            ),
+            content: selectedReference.length > 1
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (var i = 0; i < selectedReference.length; i++) ...[
+                        Text(
+                          selectedReference[i],
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    ],
+                  )
+                : Text(
+                    selectedReference.first,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+          ),
+        );
+      },
+      icon: const Icon(Icons.question_mark_rounded),
+      color: isSelected ? Colors.green : null,
     );
   }
 }

@@ -60,7 +60,6 @@ class ItemList extends StatelessWidget {
                         return BottomSheetEpisode(
                           indexLine: EpisodeUtil.index,
                           fullEpisode: EpisodeUtil.full,
-                          phrase: lines[index],
                           referencesList: const [],
                         );
                       },

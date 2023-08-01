@@ -226,7 +226,6 @@ class ReferencesRoute extends StatelessWidget {
                         return BottomSheetEpisode(
                           indexLine: EpisodeUtil.index,
                           fullEpisode: EpisodeUtil.full,
-                          phrase: dataList[int.parse(referenceSelected.first)],
                           referencesList: referenceSelected,
                         );
                       },
