@@ -52,8 +52,7 @@ class ItemList extends StatelessWidget {
                     ],
                   ),
                   onTap: () {
-                    EpisodeUtil.fullEpisode(data, lines[index].episode,
-                        lines[index].season, lines[index].line);
+                    EpisodeUtil.fullEpisode(data, lines[index]);
                     showModalBottomSheet(
                       context: context,
                       enableDrag: false,

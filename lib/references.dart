@@ -216,10 +216,9 @@ class ReferencesRoute extends StatelessWidget {
                 onTap: () {
                   if (hasReference) {
                     EpisodeUtil.fullEpisode(
-                        dataList,
-                        dataList[int.parse(referenceSelected.first)].episode,
-                        dataList[int.parse(referenceSelected.first)].season,
-                        dataList[int.parse(referenceSelected.first)].line);
+                      dataList,
+                      dataList[int.parse(referenceSelected.first)],
+                    );
                     showModalBottomSheet(
                       context: context,
                       enableDrag: false,
