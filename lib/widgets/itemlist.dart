@@ -62,6 +62,7 @@ class ItemList extends StatelessWidget {
                           indexLine: EpisodeUtil.index,
                           fullEpisode: EpisodeUtil.full,
                           phrase: lines[index],
+                          referencesList: const [],
                         );
                       },
                     );

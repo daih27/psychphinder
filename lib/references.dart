@@ -209,40 +209,10 @@ class ReferencesRoute extends StatelessWidget {
             child: Material(
               child: ListTile(
                 title: Text(data[index]),
-                trailing: referenceSelected.length > 1
-                    ? Row(mainAxisSize: MainAxisSize.min, children: [
-                        for (var i = 0; i < referenceSelected.length; i++)
-                          IconButton(
-                            icon: const Icon(Icons.question_mark_rounded,
-                                color: Colors.green),
-                            onPressed: () {
-                              EpisodeUtil.fullEpisode(
-                                  dataList,
-                                  dataList[int.parse(referenceSelected[i])]
-                                      .episode,
-                                  dataList[int.parse(referenceSelected[i])]
-                                      .season,
-                                  dataList[int.parse(referenceSelected[i])]
-                                      .line);
-                              showModalBottomSheet(
-                                context: context,
-                                enableDrag: false,
-                                builder: (BuildContext context) {
-                                  return BottomSheetEpisode(
-                                    indexLine: EpisodeUtil.index,
-                                    fullEpisode: EpisodeUtil.full,
-                                    phrase: dataList[
-                                        int.parse(referenceSelected[i])],
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                      ])
-                    : hasReference
-                        ? const Icon(Icons.question_mark_rounded,
-                            color: Colors.green)
-                        : null,
+                trailing: hasReference
+                    ? const Icon(Icons.question_mark_rounded,
+                        color: Colors.green)
+                    : null,
                 onTap: () {
                   if (hasReference) {
                     EpisodeUtil.fullEpisode(
@@ -258,6 +228,7 @@ class ReferencesRoute extends StatelessWidget {
                           indexLine: EpisodeUtil.index,
                           fullEpisode: EpisodeUtil.full,
                           phrase: dataList[int.parse(referenceSelected.first)],
+                          referencesList: referenceSelected,
                         );
                       },
                     );
