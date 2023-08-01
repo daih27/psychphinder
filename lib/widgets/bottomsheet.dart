@@ -25,11 +25,13 @@ class BottomSheetEpisode extends StatefulWidget {
 
 class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
   int currentRef = 0;
-  List<String> referenceSearch(List referenceData) {
+  late int newId = widget.indexLine;
+  List<String> referenceSearch(List referenceData, int index) {
     List<String> referenceSelected = [];
     for (var i = 0; i < referenceData.length; i++) {
       final id = referenceData[i].id.replaceAll('\r', '').trim();
-      final idPhrase = widget.phrase.reference.replaceAll('\r', '').trim();
+      final idPhrase =
+          widget.fullEpisode[index].reference.replaceAll('\r', '').trim();
       final splitted = idPhrase.split(',');
       for (var j = 0; j < splitted.length; j++) {
         if (id == splitted[j]) {
@@ -60,9 +62,8 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
     return ValueListenableBuilder(
       valueListenable: Hive.box("favorites").listenable(),
       builder: (BuildContext context, dynamic box, Widget? child) {
-        final isFavorite = widget.referencesList.isEmpty
-            ? box.get(widget.phrase.id) != null
-            : box.get(int.parse(widget.referencesList[currentRef])) != null;
+        final isFavorite = box.get(widget.fullEpisode[newId].id) != null;
+
         return Column(
           children: [
             Row(
@@ -77,16 +78,16 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                     child: Column(
                       children: [
                         Text(
-                          widget.phrase.name,
+                          widget.fullEpisode[newId].name,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'PsychFont'),
                         ),
-                        if (widget.phrase.season != 0)
+                        if (widget.fullEpisode[newId].season != 0)
                           Text(
-                            "Season ${widget.phrase.season}, Episode ${widget.phrase.episode}",
+                            "Season ${widget.fullEpisode[newId].season}, Episode ${widget.fullEpisode[newId].episode}",
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 fontSize: 15,
@@ -156,8 +157,10 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                         .jumpToIndex(referenceId);
                                   }
                                   currentRef++;
+                                  newId = referenceId;
                                   setState(() {
                                     currentRef;
+                                    newId;
                                   });
                                 }
                               })
@@ -171,153 +174,140 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                 controller: controller,
                 delegate: FlutterListViewDelegate(
                   (BuildContext context, int index) {
-                    final hasReference = widget.phrase.reference.contains("s");
-                    if (widget.referencesList.isEmpty) {
-                      if (widget.indexLine == index) {
-                        return ListTile(
-                          title: Text(
-                            "${widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
-                            style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green),
-                          ),
-                          trailing: hasReference
-                              ? IconButton(
-                                  onPressed: () {
-                                    final selectedReference =
-                                        referenceSearch(referenceData);
-                                    showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                        backgroundColor: Colors.green,
-                                        title: const Text(
-                                          'This is a reference to',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'PsychFont',
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        content: selectedReference.length > 1
-                                            ? Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  for (var i = 0;
-                                                      i <
-                                                          selectedReference
-                                                              .length;
-                                                      i++) ...[
-                                                    Text(
-                                                      selectedReference[i],
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 10),
-                                                  ],
-                                                ],
-                                              )
-                                            : Text(
-                                                selectedReference.first,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
+                    bool hasReference =
+                        widget.fullEpisode[newId].reference.contains("s");
+                    if (newId == index) {
+                      return ListTile(
+                        title: Text(
+                          "${widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green),
+                        ),
+                        trailing: hasReference
+                            ? IconButton(
+                                onPressed: () {
+                                  final selectedReference =
+                                      referenceSearch(referenceData, newId);
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      backgroundColor: Colors.green,
+                                      title: const Text(
+                                        'This is a reference to',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'PsychFont',
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    );
-                                  },
-                                  icon: const Icon(Icons.question_mark_rounded),
-                                  color: Colors.green,
-                                )
-                              : null,
-                        );
-                      } else {
-                        return ListTile(
-                          title: Text(
-                            "${widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
-                          ),
-                        );
-                      }
+                                      content: selectedReference.length > 1
+                                          ? Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                for (var i = 0;
+                                                    i <
+                                                        selectedReference
+                                                            .length;
+                                                    i++) ...[
+                                                  Text(
+                                                    selectedReference[i],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                ],
+                                              ],
+                                            )
+                                          : Text(
+                                              selectedReference.first,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.question_mark_rounded),
+                                color: Colors.green,
+                              )
+                            : null,
+                      );
                     } else {
-                      int referenceId = findIndex(widget.fullEpisode,
-                          int.parse(widget.referencesList[currentRef]));
-                      if (referenceId == index) {
-                        return ListTile(
-                          title: Text(
-                            "${widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
-                            style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green),
-                          ),
-                          trailing: hasReference
-                              ? IconButton(
-                                  onPressed: () {
-                                    final selectedReference =
-                                        referenceSearch(referenceData);
-                                    showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                        backgroundColor: Colors.green,
-                                        title: const Text(
-                                          'This is a reference to',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'PsychFont',
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        content: selectedReference.length > 1
-                                            ? Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  for (var i = 0;
-                                                      i <
-                                                          selectedReference
-                                                              .length;
-                                                      i++) ...[
-                                                    Text(
-                                                      selectedReference[i],
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 10),
-                                                  ],
-                                                ],
-                                              )
-                                            : Text(
-                                                selectedReference.first,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
+                      hasReference =
+                          widget.fullEpisode[index].reference.contains("s");
+                      return ListTile(
+                        onTap: () {
+                          newId = index;
+                          setState(() {
+                            newId;
+                          });
+                        },
+                        title: Text(
+                          "${widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
+                        ),
+                        trailing: hasReference
+                            ? IconButton(
+                                onPressed: () {
+                                  final selectedReference =
+                                      referenceSearch(referenceData, index);
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      backgroundColor: Colors.green,
+                                      title: const Text(
+                                        'This is a reference to',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'PsychFont',
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    );
-                                  },
-                                  icon: const Icon(Icons.question_mark_rounded),
-                                  color: Colors.green,
-                                )
-                              : null,
-                        );
-                      } else {
-                        return ListTile(
-                          title: Text(
-                            "${widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
-                          ),
-                        );
-                      }
+                                      content: selectedReference.length > 1
+                                          ? Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                for (var i = 0;
+                                                    i <
+                                                        selectedReference
+                                                            .length;
+                                                    i++) ...[
+                                                  Text(
+                                                    selectedReference[i],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                ],
+                                              ],
+                                            )
+                                          : Text(
+                                              selectedReference.first,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.question_mark_rounded),
+                                color: Colors.green,
+                              )
+                            : null,
+                      );
                     }
                   },
                   childCount: widget.fullEpisode.length,
@@ -329,23 +319,11 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
                 onPressed: () async {
-                  if (widget.referencesList.isEmpty) {
-                    if (!isFavorite) {
-                      await box.put(widget.phrase.id, widget.phrase);
-                    } else {
-                      await box.delete(widget.phrase.id);
-                    }
+                  if (!isFavorite) {
+                    await box.put(widget.fullEpisode[newId].id,
+                        widget.fullEpisode[newId]);
                   } else {
-                    int referenceId = findIndex(widget.fullEpisode,
-                        int.parse(widget.referencesList[currentRef]));
-                    if (!isFavorite) {
-                      await box.put(
-                          int.parse(widget.referencesList[currentRef]),
-                          widget.fullEpisode[referenceId]);
-                    } else {
-                      await box
-                          .delete(int.parse(widget.referencesList[currentRef]));
-                    }
+                    await box.delete(widget.fullEpisode[newId].id);
                   }
                 },
                 style: ButtonStyle(
