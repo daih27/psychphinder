@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:psychphinder/global/search_engine.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'dart:io';
@@ -34,9 +35,6 @@ class _SettingsPageState extends State<SettingsPage> {
               path.join(selectedDirectory, 'favorites.psychbackup');
           final sourceFile = File(sourcePath);
           final destinationFile = File(destinationPath);
-          // if (await destinationFile.exists()) {
-          //   await destinationFile.delete();
-          // }
 
           if (await sourceFile.exists()) {
             await sourceFile.copy(destinationFile.path);
@@ -45,16 +43,11 @@ class _SettingsPageState extends State<SettingsPage> {
             return "Error: Source file does not exist.";
           }
         } catch (e) {
-          // return "Error during backup: $e";
           return "Choose another directory, preferably in the folder Documents or Download";
         }
       } else {
         return "No directory selected.";
       }
-      // }
-      // else {
-      //   return "Permission denied";
-      // }
     } else {
       String? outputFile = await FilePicker.platform.saveFile(
         dialogTitle: 'Please select an output file:',
@@ -127,6 +120,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final searchEngineProvider = Provider.of<SearchEngineProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -145,226 +139,324 @@ class _SettingsPageState extends State<SettingsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.all(15),
-              width: double.infinity,
-              height: 130,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white10,
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    "Backup/restore favorites",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'PsychFont',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            backupHiveBox("favorites").then(
-                              (value) {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    backgroundColor: Colors.green,
-                                    title: Text(value!,
-                                        style: const TextStyle(
-                                            color: Colors.white)),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          style: ButtonStyle(
-                              fixedSize: MaterialStateProperty.all(
-                                const Size(100, 50),
-                              ),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.green,
-                              )),
-                          child: const Text(
-                            'Backup',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        ElevatedButton(
-                          onPressed: () {
-                            restoreHiveBox("favorites").then(
-                              (value) {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    backgroundColor: Colors.green,
-                                    title: Text(value!,
-                                        style: const TextStyle(
-                                            color: Colors.white)),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.green,
-                            ),
-                            fixedSize: MaterialStateProperty.all(
-                              const Size(100, 50),
-                            ),
-                          ),
-                          child: const Text(
-                            'Restore',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            backupRestoreFav(context),
             const SizedBox(height: 10),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.all(15),
-              width: double.infinity,
-              height: 130,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white10,
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    "Theme",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'PsychFont',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        const Text("Select theme:",
-                            style: TextStyle(fontSize: 16)),
-                        const SizedBox(width: 10),
-                        SizedBox(
-                          width: 125,
-                          child: DropdownButtonFormField<ThemeType>(
-                            icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                            iconSize: 30,
-                            iconEnabledColor: Colors.white,
-                            dropdownColor: Colors.green,
-                            decoration: InputDecoration(
-                              fillColor: Colors.green,
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 12),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.green),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.green),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.green),
-                              ),
-                            ),
-                            value: themeProvider.currentThemeType,
-                            items: const [
-                              DropdownMenuItem(
-                                value: ThemeType.light,
-                                child: Text('Light',
-                                    style: TextStyle(color: Colors.white)),
-                              ),
-                              DropdownMenuItem(
-                                value: ThemeType.dark,
-                                child: Text('Dark',
-                                    style: TextStyle(color: Colors.white)),
-                              ),
-                              DropdownMenuItem(
-                                value: ThemeType.black,
-                                child: Text('Black',
-                                    style: TextStyle(color: Colors.white)),
-                              ),
-                            ],
-                            onChanged: (value) {
-                              themeProvider.setTheme(value!);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            themeSelection(themeProvider),
             const SizedBox(height: 10),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.all(15),
-              // width: double.infinity,
-              // height: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white10,
-              ),
-              child: const Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "About",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'PsychFont',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Psychphinder is a personal project that I have tried to accomplish for several years now. It started as a simple script, and then I tried to learn how to make it more usable in the form of an app, which didn't go very well. A couple of years later, I decided to give it another go, this time for real.\n\nThis app is completely free, open source, without ads, and with a ton of effort!\n\nIf you like it and want to support the project, feel free to donate using the button below!",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 10),
-                  KofiButton(
-                    kofiName: "daih27",
-                    kofiColor: KofiColor.Red,
-                  ),
-                ],
-              ),
-            ),
-            // const KofiButton(
-            //   kofiName: "daih27",
-            //   kofiColor: KofiColor.Red,
-            // )
-            // onDonation: () {
-            //   print("On Donation!");
-            // }),
+            searchEngineSelection(searchEngineProvider),
+            const SizedBox(height: 10),
+            about(),
           ],
         ),
+      ),
+    );
+  }
+
+  Container searchEngineSelection(SearchEngineProvider searchEngineProvider) {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(15),
+      width: double.infinity,
+      height: 170,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.white10,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            "Search engine",
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'PsychFont',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            "Set your favorite search engine to use when clicking on the search icon while looking for a reference.",
+            style: TextStyle(fontSize: 16),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: Row(
+              children: [
+                const Text("Select search engine:",
+                    style: TextStyle(fontSize: 16)),
+                const SizedBox(width: 10),
+                SizedBox(
+                  width: 150,
+                  child: DropdownButtonFormField<SearchEngineType>(
+                    icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                    iconSize: 30,
+                    iconEnabledColor: Colors.white,
+                    dropdownColor: Colors.green,
+                    decoration: InputDecoration(
+                      fillColor: Colors.green,
+                      filled: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 12),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(color: Colors.green),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    value: searchEngineProvider.currentSearchEngineType,
+                    items: const [
+                      DropdownMenuItem(
+                        value: SearchEngineType.google,
+                        child: Text('Google',
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      DropdownMenuItem(
+                        value: SearchEngineType.ddg,
+                        child: Text('DuckDuckGo',
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      DropdownMenuItem(
+                        value: SearchEngineType.bing,
+                        child:
+                            Text('Bing', style: TextStyle(color: Colors.white)),
+                      ),
+                      DropdownMenuItem(
+                        value: SearchEngineType.startpage,
+                        child: Text('Startpage',
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      DropdownMenuItem(
+                        value: SearchEngineType.brave,
+                        child: Text('Brave',
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      searchEngineProvider.setSearchEngine(value!);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container about() {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(15),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.white10,
+      ),
+      child: const Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "About",
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'PsychFont',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            "Psychphinder is a personal project that I have tried to accomplish for several years now. It started as a simple script, and then I tried to learn how to make it more usable in the form of an app, which didn't go very well. A couple of years later, I decided to give it another go, this time for real.\n\nThis app is completely free, open source, without ads, and with a ton of effort!\n\nIf you like it and want to support the project, feel free to donate using the button below!",
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 10),
+          KofiButton(
+            kofiName: "daih27",
+            kofiColor: KofiColor.Red,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container themeSelection(ThemeProvider themeProvider) {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(15),
+      width: double.infinity,
+      height: 130,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.white10,
+      ),
+      child: Column(
+        children: [
+          const Text(
+            "Theme",
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'PsychFont',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: Row(
+              children: [
+                const Text("Select theme:", style: TextStyle(fontSize: 16)),
+                const SizedBox(width: 10),
+                SizedBox(
+                  width: 125,
+                  child: DropdownButtonFormField<ThemeType>(
+                    icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                    iconSize: 30,
+                    iconEnabledColor: Colors.white,
+                    dropdownColor: Colors.green,
+                    decoration: InputDecoration(
+                      fillColor: Colors.green,
+                      filled: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 12),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(color: Colors.green),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    value: themeProvider.currentThemeType,
+                    items: const [
+                      DropdownMenuItem(
+                        value: ThemeType.light,
+                        child: Text('Light',
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      DropdownMenuItem(
+                        value: ThemeType.dark,
+                        child:
+                            Text('Dark', style: TextStyle(color: Colors.white)),
+                      ),
+                      DropdownMenuItem(
+                        value: ThemeType.black,
+                        child: Text('Black',
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      themeProvider.setTheme(value!);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container backupRestoreFav(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(15),
+      width: double.infinity,
+      height: 130,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.white10,
+      ),
+      child: Column(
+        children: [
+          const Text(
+            "Backup/restore favorites",
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'PsychFont',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    backupHiveBox("favorites").then(
+                      (value) {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            backgroundColor: Colors.green,
+                            title: Text(value!,
+                                style: const TextStyle(color: Colors.white)),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  style: ButtonStyle(
+                      fixedSize: MaterialStateProperty.all(
+                        const Size(100, 50),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.green,
+                      )),
+                  child: const Text(
+                    'Backup',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    restoreHiveBox("favorites").then(
+                      (value) {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            backgroundColor: Colors.green,
+                            title: Text(value!,
+                                style: const TextStyle(color: Colors.white)),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.green,
+                    ),
+                    fixedSize: MaterialStateProperty.all(
+                      const Size(100, 50),
+                    ),
+                  ),
+                  child: const Text(
+                    'Restore',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

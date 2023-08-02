@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:psychphinder/global/search_engine.dart';
 import 'package:psychphinder/references.dart';
 import 'package:psychphinder/search.dart';
 import 'package:psychphinder/favorites.dart';
@@ -26,6 +27,7 @@ Future<void> main() async {
     MultiProvider(providers: [
       ChangeNotifierProvider.value(value: csvData),
       ChangeNotifierProvider.value(value: ThemeProvider()),
+      ChangeNotifierProvider.value(value: SearchEngineProvider()),
     ], child: const MyApp()),
   );
 }

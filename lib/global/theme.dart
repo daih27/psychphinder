@@ -85,13 +85,6 @@ class ThemeProvider with ChangeNotifier {
     _currentTheme = _getThemeData(_currentThemeType);
     notifyListeners();
   }
-  // void toggleTheme() {
-  //   ThemeType newThemeType =
-  //       _currentTheme == lightTheme ? ThemeType.dark : ThemeType.light;
-  //   _currentTheme = _getThemeData(newThemeType);
-  //   _saveTheme(newThemeType);
-  //   notifyListeners();
-  // }
 
   ThemeData _getThemeData(ThemeType themeType) {
     switch (themeType) {

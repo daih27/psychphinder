@@ -3,6 +3,8 @@ import 'package:flutter_list_view/flutter_list_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/global/globals.dart';
+import 'package:psychphinder/global/search_engine.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BottomSheetEpisode extends StatefulWidget {
   const BottomSheetEpisode({
@@ -53,6 +55,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
   @override
   Widget build(BuildContext context) {
     var csvData = Provider.of<CSVData>(context);
+    final searchEngineProvider = Provider.of<SearchEngineProvider>(context);
     final List referenceData = csvData.referenceData;
 
     FlutterListViewController controller = FlutterListViewController();
@@ -185,8 +188,8 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                               color: Colors.green),
                         ),
                         trailing: hasReference
-                            ? referenceButton(
-                                referenceData, index, context, true)
+                            ? referenceButton(referenceData, index, context,
+                                true, searchEngineProvider)
                             : null,
                       );
                     } else {
@@ -203,8 +206,8 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                           "${widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
                         ),
                         trailing: hasReference
-                            ? referenceButton(
-                                referenceData, index, context, false)
+                            ? referenceButton(referenceData, index, context,
+                                false, searchEngineProvider)
                             : null,
                       );
                     }
@@ -248,8 +251,12 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
     );
   }
 
-  IconButton referenceButton(List<dynamic> referenceData, int index,
-      BuildContext context, bool isSelected) {
+  IconButton referenceButton(
+      List<dynamic> referenceData,
+      int index,
+      BuildContext context,
+      bool isSelected,
+      SearchEngineProvider searchEngineProvider) {
     return IconButton(
       onPressed: () {
         final selectedReference = referenceSearch(referenceData, index);
@@ -270,23 +277,52 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (var i = 0; i < selectedReference.length; i++) ...[
-                        Text(
-                          selectedReference[i],
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                selectedReference[i],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                final url = Uri.parse(
+                                    '${searchEngineProvider.currentSearchEngine}${selectedReference[i]}');
+                                launchUrl(url);
+                              },
+                              icon:
+                                  const Icon(Icons.search, color: Colors.white),
+                            )
+                          ],
                         ),
                         const SizedBox(height: 10),
                       ],
                     ],
                   )
-                : Text(
-                    selectedReference.first,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                : Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          selectedReference.first,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          final url = Uri.parse(
+                              '${searchEngineProvider.currentSearchEngine}${selectedReference.first}');
+                          launchUrl(url);
+                        },
+                        icon: const Icon(Icons.search, color: Colors.white),
+                      )
+                    ],
                   ),
           ),
         );
