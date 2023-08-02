@@ -54,15 +54,15 @@
 1;7;Who Ya Gonna Call?;Norma Rae (Movie);s1e7_12;5759
 1;7;Who Ya Gonna Call?;Hooper (Movie);s1e7_13;5752,5753,5754,5755
 1;7;Who Ya Gonna Call?;Pete Rose (Athlete);s1e7_14;5307,5309,5310,5311,5316
-1;7;Who Ya Gonna Call?;Reds (Major League Baseball Team);s1e7_15;
-1;7;Who Ya Gonna Call?;Pet Sematary (Movie);s1e7_16;
+1;7;Who Ya Gonna Call?;Reds (Major League Baseball Team);s1e7_15;5325
+1;7;Who Ya Gonna Call?;Pet Sematary (Movie);s1e7_16;5418,5433
 1;7;Who Ya Gonna Call?;Louvre (Art Museum);s1e7_17;5649,5651,5652,5653
 1;7;Who Ya Gonna Call?;Night Gallery (TV Show);s1e7_18;5654
-1;7;Who Ya Gonna Call?;Sybil (Movie);s1e7_19;
-1;7;Who Ya Gonna Call?;Do You Feel Pretty? (Reference To The I Feel Pretty Song From The Movie West Side Story);s1e7_20;5798
-1;8;Shawn vs. the Red Phantom;Colombo (Character In The TV Show Colombo);s1e8_1;
+1;7;Who Ya Gonna Call?;Sybil (Movie);s1e7_19;5746
+1;7;Who Ya Gonna Call?;Do You Feel Pretty? (Reference To The I Feel Pretty Song From The Movie West Side Story);s1e7_20;5794,5795,5796,5798
+1;8;Shawn vs. the Red Phantom;Columbo (Character In The TV Show Columbo);s1e8_1;6193
 1;8;Shawn vs. the Red Phantom;Star Trek IV: The Voyage Home (Movie);s1e8_2;6402
-1;8;Shawn vs. the Red Phantom;George Takei (Actor);s1e8_3;6244,6245,6246,6396,6409,6413,6532,6534,6618,6625,6707,6768
+1;8;Shawn vs. the Red Phantom;George Takei (Actor);s1e8_3;6244,6245,6246,6396,6409,6413,6522,6532,6534,6618,6621,6625,6707,6768
 1;8;Shawn vs. the Red Phantom;Hikaru Sulu (Character In The STAR TREK Series);s1e8_4;6249,6263,6774
 1;8;Shawn vs. the Red Phantom;Wolf With A Lightsaber (Referencing Chewbacca In The Star Wars Movies);s1e8_5;6266,6267
 1;8;Shawn vs. the Red Phantom;Professor X (Character In The X-Men Comics);s1e8_6;6343,6344
@@ -76,6 +76,7 @@
 1;8;Shawn vs. the Red Phantom;T2 (Referencing The Movie Terminator 2: Judgment Day);s1e8_14;6689
 1;8;Shawn vs. the Red Phantom;Afternoon Delight (Song By Starland Vocal Band);s1e8_15;6709
 1;8;Shawn vs. the Red Phantom;Superman (Character In The Superman Comics);s1e8_16;6553
+1;8;Shawn vs. the Red Phantom;Pavel Chekov (Character In The STAR TREK Series);s1e8_17;6248,6773
 1;9;Forget Me Not;Simba (Character In The Movie The Lion King);s1e9_1;7195
 1;9;Forget Me Not;I Am Your Father (Referencing The Movie Star Wars: Episode VI - Return of the Jedi);s1e9_2;7195
 1;9;Forget Me Not;Darth Vader (Character From The Star Wars Movies);s1e9_3;7197
