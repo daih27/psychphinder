@@ -158,7 +158,7 @@ class _SettingsPageState extends State<SettingsPage> {
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(15),
       width: double.infinity,
-      height: 170,
+      height: 210,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: Colors.white10,
@@ -184,9 +184,8 @@ class _SettingsPageState extends State<SettingsPage> {
           Expanded(
             child: Row(
               children: [
-                const Text("Select search engine:",
-                    style: TextStyle(fontSize: 16)),
-                const SizedBox(width: 10),
+                const Text("Search engine", style: TextStyle(fontSize: 16)),
+                const Spacer(),
                 SizedBox(
                   width: 150,
                   child: DropdownButtonFormField<SearchEngineType>(
@@ -247,6 +246,22 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
+          ),
+          Row(
+            children: [
+              const Text("Open links inside the app",
+                  style: TextStyle(fontSize: 16)),
+              const Spacer(),
+              Switch(
+                value: searchEngineProvider.openLinks,
+                activeColor: Colors.green,
+                onChanged: (bool value) {
+                  setState(() {
+                    searchEngineProvider.saveSwitchState(value);
+                  });
+                },
+              )
+            ],
           ),
         ],
       ),
@@ -313,8 +328,8 @@ class _SettingsPageState extends State<SettingsPage> {
           Expanded(
             child: Row(
               children: [
-                const Text("Select theme:", style: TextStyle(fontSize: 16)),
-                const SizedBox(width: 10),
+                const Text("Theme", style: TextStyle(fontSize: 16)),
+                const Spacer(),
                 SizedBox(
                   width: 125,
                   child: DropdownButtonFormField<ThemeType>(

@@ -292,7 +292,12 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                               onPressed: () {
                                 final url = Uri.parse(
                                     '${searchEngineProvider.currentSearchEngine}${selectedReference[i]}');
-                                launchUrl(url);
+                                launchUrl(
+                                  url,
+                                  mode: searchEngineProvider.openLinks
+                                      ? LaunchMode.inAppWebView
+                                      : LaunchMode.externalApplication,
+                                );
                               },
                               icon:
                                   const Icon(Icons.search, color: Colors.white),
@@ -318,7 +323,12 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                         onPressed: () {
                           final url = Uri.parse(
                               '${searchEngineProvider.currentSearchEngine}${selectedReference.first}');
-                          launchUrl(url);
+                          launchUrl(
+                            url,
+                            mode: searchEngineProvider.openLinks
+                                ? LaunchMode.inAppWebView
+                                : LaunchMode.externalApplication,
+                          );
                         },
                         icon: const Icon(Icons.search, color: Colors.white),
                       )

@@ -16,6 +16,9 @@ class SearchEngineProvider with ChangeNotifier {
   static const startpageSearch = 'https://www.startpage.com/do/dsearch?query=';
   static const braveSearch = 'https://search.brave.com/search?q=';
 
+  bool _openLinks = true;
+  bool get openLinks => _openLinks;
+
   String _currentSearchEngine = googleSearch;
 
   SearchEngineType _currentSearchEngineType = SearchEngineType.google;
@@ -33,6 +36,7 @@ class SearchEngineProvider with ChangeNotifier {
 
   SearchEngineProvider() {
     _loadSearchEngine();
+    _loadSwitchState();
   }
 
   get currentSearchEngine => _currentSearchEngine;
@@ -66,5 +70,18 @@ class SearchEngineProvider with ChangeNotifier {
   Future<void> _saveSearchEngine(SearchEngineType searchEngineType) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt(_searchEngineKey, searchEngineType.index);
+  }
+
+  Future<void> _loadSwitchState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _openLinks = prefs.getBool("links") ?? true;
+    notifyListeners();
+  }
+
+  Future<void> saveSwitchState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _openLinks = value;
+    await prefs.setBool("links", value);
+    notifyListeners();
   }
 }
