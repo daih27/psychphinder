@@ -88,9 +88,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final currentThemeType =
-        Provider.of<ThemeProvider>(context).currentThemeType;
-
     void refreshFavoritesPage() {
       setState(() {
         // ignore: prefer_const_constructors
@@ -100,13 +97,11 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text(
+          title: const Text(
             'psychphinder',
             style: TextStyle(
               fontSize: 38,
-              color: currentThemeType == ThemeType.dark
-                  ? Colors.green
-                  : Colors.white,
+              color: Colors.green,
               fontFamily: 'PsychFont',
               fontWeight: FontWeight.bold,
               letterSpacing: -2.2,

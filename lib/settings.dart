@@ -123,13 +123,11 @@ class _SettingsPageState extends State<SettingsPage> {
     final searchEngineProvider = Provider.of<SearchEngineProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Settings',
           style: TextStyle(
             fontSize: 25,
-            color: themeProvider.currentThemeType == ThemeType.dark
-                ? Colors.green
-                : Colors.white,
+            color: Colors.green,
             fontFamily: 'PsychFont',
             fontWeight: FontWeight.bold,
             letterSpacing: -0.5,
@@ -139,29 +137,32 @@ class _SettingsPageState extends State<SettingsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            backupRestoreFav(context),
+            backupRestoreFav(context, themeProvider),
             const SizedBox(height: 10),
             themeSelection(themeProvider),
             const SizedBox(height: 10),
-            searchEngineSelection(searchEngineProvider),
+            searchEngineSelection(searchEngineProvider, themeProvider),
             const SizedBox(height: 10),
-            about(),
+            about(themeProvider),
           ],
         ),
       ),
     );
   }
 
-  Container searchEngineSelection(SearchEngineProvider searchEngineProvider) {
+  Container searchEngineSelection(
+      SearchEngineProvider searchEngineProvider, ThemeProvider themeProvider) {
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(15),
       width: double.infinity,
-      height: 210,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: Colors.white10,
+      height: 260,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: themeProvider.currentThemeType == ThemeType.black
+            ? Theme.of(context).colorScheme.background
+            : Theme.of(context).colorScheme.secondaryContainer,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -268,14 +269,16 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Container about() {
+  Container about(ThemeProvider themeProvider) {
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(15),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: Colors.white10,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: themeProvider.currentThemeType == ThemeType.black
+            ? Theme.of(context).colorScheme.background
+            : Theme.of(context).colorScheme.secondaryContainer,
       ),
       child: const Column(
         mainAxisSize: MainAxisSize.min,
@@ -292,11 +295,16 @@ class _SettingsPageState extends State<SettingsPage> {
           Text(
             "Psychphinder is a personal project that I have tried to accomplish for several years now. It started as a simple script, and then I tried to learn how to make it more usable in the form of an app, which didn't go very well. A couple of years later, I decided to give it another go, this time for real.\n\nThis app is completely free, open source, without ads, and with a ton of effort!\n\nIf you like it and want to support the project, feel free to donate using the button below!",
             style: TextStyle(fontSize: 16),
+            textAlign: TextAlign.justify,
           ),
           SizedBox(height: 10),
           KofiButton(
             kofiName: "daih27",
             kofiColor: KofiColor.Red,
+            style: ButtonStyle(
+              iconColor: MaterialStatePropertyAll(Colors.white),
+              foregroundColor: MaterialStatePropertyAll(Colors.white),
+            ),
           ),
         ],
       ),
@@ -310,9 +318,11 @@ class _SettingsPageState extends State<SettingsPage> {
       margin: const EdgeInsets.all(15),
       width: double.infinity,
       height: 130,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: Colors.white10,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: themeProvider.currentThemeType == ThemeType.black
+            ? Theme.of(context).colorScheme.background
+            : Theme.of(context).colorScheme.secondaryContainer,
       ),
       child: Column(
         children: [
@@ -386,16 +396,19 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Container backupRestoreFav(BuildContext context) {
+  Container backupRestoreFav(
+      BuildContext context, ThemeProvider themeProvider) {
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(15),
       width: double.infinity,
       height: 130,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: Colors.white10,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: themeProvider.currentThemeType == ThemeType.black
+            ? Theme.of(context).colorScheme.background
+            : Theme.of(context).colorScheme.secondaryContainer,
       ),
       child: Column(
         children: [
@@ -429,14 +442,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                   style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all(
-                        const Size(100, 50),
+                        const Size(120, 50),
                       ),
                       backgroundColor: MaterialStateProperty.all<Color>(
                         Colors.green,
                       )),
                   child: const Text(
                     'Backup',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -460,12 +473,12 @@ class _SettingsPageState extends State<SettingsPage> {
                       Colors.green,
                     ),
                     fixedSize: MaterialStateProperty.all(
-                      const Size(100, 50),
+                      const Size(120, 50),
                     ),
                   ),
                   child: const Text(
                     'Restore',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 )
               ],

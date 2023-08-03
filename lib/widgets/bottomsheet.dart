@@ -81,19 +81,18 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                           widget.fullEpisode[newId].name,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'PsychFont'),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'PsychFont',
+                            color: Colors.green,
+                          ),
                         ),
                         if (widget.fullEpisode[newId].season != 0)
                           Text(
                             "Season ${widget.fullEpisode[newId].season}, Episode ${widget.fullEpisode[newId].episode}",
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 15,
-                                // fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.italic,
-                                fontFamily: 'PsychFont'),
+                                fontSize: 15, fontFamily: 'PsychFont'),
                           ),
                       ],
                     ),
@@ -235,11 +234,17 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(isFavorite
-                        ? 'Remove from favorites'
-                        : 'Add to favorites'),
+                    Text(
+                        isFavorite
+                            ? 'Remove from favorites'
+                            : 'Add to favorites',
+                        style: const TextStyle(
+                          color: Colors.white,
+                        )),
+                    const SizedBox(width: 5),
                     const Icon(
                       Icons.favorite,
+                      color: Colors.white,
                     ),
                   ],
                 ),

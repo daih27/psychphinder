@@ -24,22 +24,23 @@ extension ThemeTypeExtension on ThemeType {
 
 class ThemeProvider with ChangeNotifier {
   static final ThemeData lightTheme = ThemeData(
-    colorScheme: ColorScheme.fromSwatch(
-      brightness: Brightness.light,
-      primarySwatch: Colors.green,
-      accentColor: Colors.green,
-    ),
+    useMaterial3: true,
+    colorSchemeSeed: Colors.green,
+    brightness: Brightness.light,
+    fontFamily: 'Lato',
   );
 
   static final ThemeData darkTheme = ThemeData(
-    colorScheme: ColorScheme.fromSwatch(
-      brightness: Brightness.dark,
-      accentColor: Colors.green,
-    ),
+    useMaterial3: true,
+    colorSchemeSeed: Colors.green,
+    brightness: Brightness.dark,
+    fontFamily: 'Lato',
   );
 
   static final ThemeData blackTheme = ThemeData(
+    useMaterial3: true,
     scaffoldBackgroundColor: Colors.black,
+    fontFamily: 'Lato',
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.black,
     ),
@@ -49,10 +50,8 @@ class ThemeProvider with ChangeNotifier {
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.black,
     ),
-    colorScheme: ColorScheme.fromSwatch(
-      brightness: Brightness.dark,
-      accentColor: Colors.green,
-    ),
+    colorSchemeSeed: Colors.green,
+    brightness: Brightness.dark,
     listTileTheme: const ListTileThemeData(
       tileColor: Colors.black,
     ),

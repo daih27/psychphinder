@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/classes/full_episode.dart';
 import 'package:psychphinder/global/globals.dart';
-import 'package:psychphinder/global/theme.dart';
 import 'package:psychphinder/widgets/bottomsheet.dart';
 
 class ReferencesPage extends StatelessWidget {
@@ -77,17 +76,13 @@ class EpisodesRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentThemeType =
-        Provider.of<ThemeProvider>(context).currentThemeType;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Episodes',
           style: TextStyle(
             fontSize: 25,
-            color: currentThemeType == ThemeType.dark
-                ? Colors.green
-                : Colors.white,
+            color: Colors.green,
             fontFamily: 'PsychFont',
             fontWeight: FontWeight.bold,
             letterSpacing: -0.5,
@@ -176,21 +171,17 @@ class ReferencesRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentThemeType =
-        Provider.of<ThemeProvider>(context).currentThemeType;
     var csvData = Provider.of<CSVData>(context);
     final List referenceData = csvData.referenceData;
     final List dataList = csvData.data;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'References',
           style: TextStyle(
             fontSize: 25,
-            color: currentThemeType == ThemeType.dark
-                ? Colors.green
-                : Colors.white,
+            color: Colors.green,
             fontFamily: 'PsychFont',
             fontWeight: FontWeight.bold,
             letterSpacing: -0.5,

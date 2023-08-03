@@ -48,6 +48,13 @@ flutter:
         - asset: fonts/PsychFont-Regular.ttf
         - asset: fonts/PsychFont-Bold.ttf
           weight: 700
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato/Lato-Regular.ttf
+        - asset: fonts/Lato/Lato-Bold.ttf
+          weight: 700
+        - asset: fonts/Lato/Lato-Italic.ttf
+          style: italic
 
   uses-material-design: true
 
