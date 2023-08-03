@@ -2,6 +2,7 @@
 1;1;Pilot;Sports Illustrated (Athletic Magazine);s1e1_2;520
 1;1;Pilot;Monopoly (Board Game);s1e1_3;863
 1;1;Pilot;Kurt Vonnegut (Writer);s1e1_4;357
+1;1;Pilot;The Home Depot (Home Improvement And Construction Store);s1e1_5;507
 1;2;Spellingg Bee;Bananarama (Musician);s1e2_1;1776
 1;2;Spellingg Bee;Venus (Song By Bananarama);s1e2_2;1776
 1;2;Spellingg Bee;Dan Quayle (44th Vice President Of The United States);s1e2_3;1790
@@ -84,6 +85,7 @@
 1;9;Forget Me Not;Mufasa (Character In The Movie The Lion King);s1e9_5;7196,7197
 1;9;Forget Me Not;Ossie Davis (Actor);s1e9_6;7199
 1;9;Forget Me Not;I'm Not Rappaport (Movie);s1e9_7;7197,7199
+1;9;Forget Me Not;Bruce Lee (Actor/Marital Artist);s1e9_8;6932,6937
 1;10;From the Earth to the Starbucks;Vincent Gallo (Actor);s1e10_1;8077
 1;10;From the Earth to the Starbucks;Don Cheadle (Actor);s1e10_2;8100
 1;10;From the Earth to the Starbucks;Kenickie (Character In The Movie Grease);s1e10_3;8103
@@ -224,109 +226,112 @@
 2;2;65 Million Years Off;Lennie (Character In The Movie/Novel Of Mice and Men);s2e2_25;14740,14746,14747,14750,14793,14843,14844,14846
 2;2;65 Million Years Off;Lou Boudreau (Athlete);s2e2_26;14963,14965
 2;2;65 Million Years Off;Joe DiMaggio (Athlete);s2e2_27;14966
-2;3;Psy vs. Psy;The Home Depot (Home Improvement And Construction Store);s2e3_1;
-2;3;Psy vs. Psy;Mindy Cohn (Actress);s2e3_2;
-2;3;Psy vs. Psy;Facts of Life (TV Show);s2e3_3;
-2;3;Psy vs. Psy;Reggie Jackson (Athlete);s2e3_4;
-2;3;Psy vs. Psy;Dyan Cannon (Actress);s2e3_5;
-2;3;Psy vs. Psy;Harvey Wallbanger (Mixed Drink);s2e3_6;
-2;3;Psy vs. Psy;Ecks Vs. Sever (Game);s2e3_7;
-2;3;Psy vs. Psy;Joe Versus The Volcano (Movie);s2e3_8;
-2;3;Psy vs. Psy;Jay Leno (Comedian/ TV Show Host);s2e3_9;
-2;3;Psy vs. Psy;Kevin Eubanks (Musician);s2e3_10;
-2;3;Psy vs. Psy;David Mamet (Writer);s2e3_11;
-2;3;Psy vs. Psy;Brad Pitt (Actor);s2e3_12;
-2;3;Psy vs. Psy;Angelina Jolie (Actress);s2e3_13;
-2;3;Psy vs. Psy;Easy-Bake Ovens (Children's Oven);s2e3_14;
-2;3;Psy vs. Psy;John Edwards (Politician);s2e3_15;
-2;3;Psy vs. Psy;Miss Cleo (Spokeswoman For A Psychic Pay-Per-Call Service);s2e3_16;
-2;3;Psy vs. Psy;Gladys Knight & the Pips (Musicians);s2e3_17;
-2;3;Psy vs. Psy;Ivan Boesky (American Stock Trader That Played A Prominent Role In A Wall Street Insider Trading Scandal);s2e3_18;
-2;3;Psy vs. Psy;Holly Hunter (Actress);s2e3_19;
-2;3;Psy vs. Psy;Broadcast News (Movie);s2e3_20;
-2;3;Psy vs. Psy;William Hurt (Actor);s2e3_21;
-2;3;Psy vs. Psy;Wicked (Musical);s2e3_22;
-2;3;Psy vs. Psy;Clarice (Character In The Movie The Silence Of The Lambs);s2e3_23;
-2;4;Zero to Murder in Sixty Seconds;Blue City (Movie);s2e4_1;
-2;4;Zero to Murder in Sixty Seconds;Judd Nelson (Actor);s2e4_2;
-2;4;Zero to Murder in Sixty Seconds;From the Hip (Movie);s2e4_3;
-2;4;Zero to Murder in Sixty Seconds;Wheelie and the Chopper Bunch (TV Show);s2e4_4;
-2;4;Zero to Murder in Sixty Seconds;Lionel Richie (Musician);s2e4_5;
-2;4;Zero to Murder in Sixty Seconds;Hello (Song By Lionel Richie);s2e4_6;
-2;4;Zero to Murder in Sixty Seconds;Jack and the Beanstalk (Fairy Tale From The 1800s);s2e4_7;
-2;4;Zero to Murder in Sixty Seconds;Flavor Flav (Musician);s2e4_8;
-2;4;Zero to Murder in Sixty Seconds;Michael Douglas (Actor);s2e4_9;
-2;4;Zero to Murder in Sixty Seconds;Catherine Zeta-Jones (Actress);s2e4_10;
-2;4;Zero to Murder in Sixty Seconds;Don Cheadle (Actor);s2e4_11;
-2;4;Zero to Murder in Sixty Seconds;Traffic (Movie);s2e4_12;
-2;4;Zero to Murder in Sixty Seconds;Scarface (Movie);s2e4_13;
-2;4;Zero to Murder in Sixty Seconds;Flowers for Algernon (Short Story & Novel);s2e4_14;
-2;5;And Down the Stretch Comes Murder;America's Next Top Model (TV Show);s2e5_1;
-2;5;And Down the Stretch Comes Murder;The Omen (Movie);s2e5_2;
-2;5;And Down the Stretch Comes Murder;Children of the Corn (Movie);s2e5_3;
-2;5;And Down the Stretch Comes Murder;Chad Michael Murray (Actor);s2e5_4;
-2;5;And Down the Stretch Comes Murder;Crockett (Character In The TV Show Miami Vice);s2e5_5;
-2;5;And Down the Stretch Comes Murder;Philip Michael Thomas (Actor);s2e5_6;
-2;5;And Down the Stretch Comes Murder;Milwaukee Brewers (Major League Baseball Team);s2e5_7;
-2;5;And Down the Stretch Comes Murder;Wally Joyner (Athlete);s2e5_8;
-2;5;And Down the Stretch Comes Murder;CHiPs (TV Show);s2e5_9;
-2;5;And Down the Stretch Comes Murder;Footloose (Movie);s2e5_10;
-2;5;And Down the Stretch Comes Murder;The Ice Storm (Movie);s2e5_11;
-2;5;And Down the Stretch Comes Murder;Rikki Rockett (Musician);s2e5_12;
-2;5;And Down the Stretch Comes Murder;C. C. DeVille (Musician);s2e5_13;
-2;5;And Down the Stretch Comes Murder;David Lee Roth (Musician);s2e5_14;
-2;5;And Down the Stretch Comes Murder;Poison (Musician);s2e5_15;
-2;5;And Down the Stretch Comes Murder;Brigitte Nielsen (Actress);s2e5_16;
-2;5;And Down the Stretch Comes Murder;Teen Wolf (Movie);s2e5_17;
-2;5;And Down the Stretch Comes Murder;The History Channel (TV Network);s2e5_18;
-2;5;And Down the Stretch Comes Murder;Land Of The Lost (TV Show);s2e5_19;
-2;5;And Down the Stretch Comes Murder;I, Robot (Movie);s2e5_20;
-2;5;And Down the Stretch Comes Murder;Oprah (TV Show);s2e5_21;
-2;5;And Down the Stretch Comes Murder;7-Eleven (Convenience Store);s2e5_22;
-2;5;And Down the Stretch Comes Murder;Wikipedia (Online Encyclopedia);s2e5_23;
-2;5;And Down the Stretch Comes Murder;An Enigma Wrapped In A Little Blonde Riddle (Possible Reference To A Winston Churchill Radio Broadcast On October 1, 1939);s2e5_24;
-2;6;Meat Is Murder, But Murder Is Also Murder;RoboCop (Movie);s2e6_1;
-2;6;Meat Is Murder, But Murder Is Also Murder;Hill Street Blues (TV Show);s2e6_2;
-2;6;Meat Is Murder, But Murder Is Also Murder;Diagnosis Murder (TV Show);s2e6_3;
-2;6;Meat Is Murder, But Murder Is Also Murder;Ghost Whisperer (TV Show);s2e6_4;
-2;6;Meat Is Murder, But Murder Is Also Murder;The Rockford Files (TV Show);s2e6_5;
-2;6;Meat Is Murder, But Murder Is Also Murder;Manimal (TV Show);s2e6_6;
-2;6;Meat Is Murder, But Murder Is Also Murder;Dilbert (Comic Strip);s2e6_7;
-2;6;Meat Is Murder, But Murder Is Also Murder;Marmaduke (Comic Strip);s2e6_8;
-2;6;Meat Is Murder, But Murder Is Also Murder;Matlock (TV Show);s2e6_9;
-2;6;Meat Is Murder, But Murder Is Also Murder;Cabbage Patch Kid (Dolls);s2e6_10;
-2;6;Meat Is Murder, But Murder Is Also Murder;Murder, She Wrote (TV Show);s2e6_11;
-2;6;Meat Is Murder, But Murder Is Also Murder;Lee Majors (Actor);s2e6_12;
-2;6;Meat Is Murder, But Murder Is Also Murder;Don Cheadle (Actor);s2e6_13;
-2;7;If You're So Smart, Then Why Are You Dead?;Dirty Dancing (Movie);s2e7_1;
-2;7;If You're So Smart, Then Why Are You Dead?;James Cagney (Actor);s2e7_2;
-2;7;If You're So Smart, Then Why Are You Dead?;21 Jump Street (TV Show);s2e7_3;
-2;7;If You're So Smart, Then Why Are You Dead?;Johnny Depp (Actor);s2e7_4;
-2;7;If You're So Smart, Then Why Are You Dead?;Holly Robinson (Actress);s2e7_5;
-2;7;If You're So Smart, Then Why Are You Dead?;Richard Grieco (Actor);s2e7_6;
-2;7;If You're So Smart, Then Why Are You Dead?;Macbeth (Play);s2e7_7;
-2;7;If You're So Smart, Then Why Are You Dead?;Banquo (Character In The Play Macbeth);s2e7_8;
-2;7;If You're So Smart, Then Why Are You Dead?;Craig Schiffer (Former Chief Executive Officer Of The Americas Of Dresdner Kleinwort);s2e7_9;
-2;7;If You're So Smart, Then Why Are You Dead?;Doogie Howser, M.D. (TV Show);s2e7_10;
-2;7;If You're So Smart, Then Why Are You Dead?;C. Everett Koop (Surgeon General Of The United States Under President Ronald Reagan);s2e7_11;
-2;7;If You're So Smart, Then Why Are You Dead?;Smells Like Teen Spirit (Song By Nirvana);s2e7_12;
-2;7;If You're So Smart, Then Why Are You Dead?;Courage Of Lassie (Movie);s2e7_13;
-2;7;If You're So Smart, Then Why Are You Dead?;Jake and the Fatman (TV Show);s2e7_14;
-2;7;If You're So Smart, Then Why Are You Dead?;Right Said Fred (Musician);s2e7_15;
-2;7;If You're So Smart, Then Why Are You Dead?;I'm Too Sexy (Song By Right Said Fred);s2e7_16;
-2;7;If You're So Smart, Then Why Are You Dead?;Nancy Drew (Fictional Young Amateur Detective);s2e7_17;
-2;7;If You're So Smart, Then Why Are You Dead?;Alex Trebek (TV Show Host);s2e7_18;
-2;7;If You're So Smart, Then Why Are You Dead?;Kadeem Hardison (Actor);s2e7_19;
-2;7;If You're So Smart, Then Why Are You Dead?;Sliding Doors (Movie);s2e7_20;
-2;7;If You're So Smart, Then Why Are You Dead?;Gwyneth Paltrow (Actress);s2e7_21;
-2;7;If You're So Smart, Then Why Are You Dead?;Geek Squad (Company That Services Electronics);s2e7_22;
-2;7;If You're So Smart, Then Why Are You Dead?;ColecoVision (Video Game Console);s2e7_23;
-2;7;If You're So Smart, Then Why Are You Dead?;The Man From Snowy River (Movie);s2e7_24;
-2;7;If You're So Smart, Then Why Are You Dead?;Eddie Macon's Run (Movie);s2e7_25;
-2;7;If You're So Smart, Then Why Are You Dead?;Spartacus (Movie);s2e7_26;
-2;7;If You're So Smart, Then Why Are You Dead?;Kirk Douglas (Actor);s2e7_27;
-2;7;If You're So Smart, Then Why Are You Dead?;Star Trek II: The Wrath of Khan (Movie);s2e7_28;
-2;7;If You're So Smart, Then Why Are You Dead?;Ludwig Wittgenstein (Philosopher);s2e7_29;
+2;3;Psy vs. Psy;The Home Depot (Home Improvement And Construction Store);s2e3_1;15129,15709
+2;3;Psy vs. Psy;Mindy Cohn (Actress);s2e3_2;15094
+2;3;Psy vs. Psy;Facts of Life (TV Show);s2e3_3;15094
+2;3;Psy vs. Psy;Reggie Jackson (Athlete);s2e3_4;15225
+2;3;Psy vs. Psy;Dyan Cannon (Actress);s2e3_5;15226
+2;3;Psy vs. Psy;Harvey Wallbanger (Mixed Drink);s2e3_6;15226
+2;3;Psy vs. Psy;Ecks vs. Sever (Game);s2e3_7;15259
+2;3;Psy vs. Psy;Joe Versus The Volcano (Movie);s2e3_8;15260
+2;3;Psy vs. Psy;Jay Leno (Comedian/ TV Show Host);s2e3_9;15287
+2;3;Psy vs. Psy;Kevin Eubanks (Musician);s2e3_10;15288
+2;3;Psy vs. Psy;David Mamet (Writer);s2e3_11;15327
+2;3;Psy vs. Psy;Brad Pitt (Actor);s2e3_12;15339
+2;3;Psy vs. Psy;Angelina Jolie (Actress);s2e3_13;15339
+2;3;Psy vs. Psy;Easy-Bake Ovens (Children's Oven);s2e3_14;15687
+2;3;Psy vs. Psy;John Edwards (Politician);s2e3_15;15445
+2;3;Psy vs. Psy;Miss Cleo (Spokeswoman For A Psychic Pay-Per-Call Service);s2e3_16;15446
+2;3;Psy vs. Psy;Gladys Knight & the Pips (Musicians);s2e3_17;15459,15460
+2;3;Psy vs. Psy;Ivan Boesky (American Stock Trader That Played A Prominent Role In A Wall Street Insider Trading Scandal);s2e3_18;15478
+2;3;Psy vs. Psy;Holly Hunter (Actress);s2e3_19;15601
+2;3;Psy vs. Psy;Broadcast News (Movie);s2e3_20;15601
+2;3;Psy vs. Psy;William Hurt (Actor);s2e3_21;15602
+2;3;Psy vs. Psy;Wicked (Musical);s2e3_22;15719
+2;3;Psy vs. Psy;Clarice (Character In The Movie The Silence Of The Lambs);s2e3_23;15307
+2;4;Zero to Murder in Sixty Seconds;Blue City (Movie);s2e4_1;15981,15984
+2;4;Zero to Murder in Sixty Seconds;Judd Nelson (Actor);s2e4_2;15985
+2;4;Zero to Murder in Sixty Seconds;From the Hip (Movie);s2e4_3;15984
+2;4;Zero to Murder in Sixty Seconds;Wheelie and the Chopper Bunch (TV Show);s2e4_4;16011,16012
+2;4;Zero to Murder in Sixty Seconds;Lionel Richie (Musician);s2e4_5;16113
+2;4;Zero to Murder in Sixty Seconds;Hello (Song By Lionel Richie);s2e4_6;16113
+2;4;Zero to Murder in Sixty Seconds;Jack and the Beanstalk (Fairy Tale From The 1800s);s2e4_7;16224
+2;4;Zero to Murder in Sixty Seconds;Flavor Flav (Musician);s2e4_8;16341
+2;4;Zero to Murder in Sixty Seconds;Michael Douglas (Actor);s2e4_9;16530
+2;4;Zero to Murder in Sixty Seconds;Catherine Zeta-Jones (Actress);s2e4_10;16531
+2;4;Zero to Murder in Sixty Seconds;Don Cheadle (Actor);s2e4_11;16532
+2;4;Zero to Murder in Sixty Seconds;Traffic (Movie);s2e4_12;16533
+2;4;Zero to Murder in Sixty Seconds;Scarface (Movie);s2e4_13;16535
+2;4;Zero to Murder in Sixty Seconds;Flowers for Algernon (Short Story & Novel);s2e4_14;16015
+2;4;Zero to Murder in Sixty Seconds;1999 (Song By Prince);s2e4_15;16229
+2;5;And Down the Stretch Comes Murder;America's Next Top Model (TV Show);s2e5_1;16651
+2;5;And Down the Stretch Comes Murder;The Omen (Movie);s2e5_2;16675
+2;5;And Down the Stretch Comes Murder;Children of the Corn (Movie);s2e5_3;16675
+2;5;And Down the Stretch Comes Murder;Chad Michael Murray (Actor);s2e5_4;16676
+2;5;And Down the Stretch Comes Murder;Crockett (Character In The TV Show Miami Vice);s2e5_5;16685
+2;5;And Down the Stretch Comes Murder;Philip Michael Thomas (Actor);s2e5_6;16689
+2;5;And Down the Stretch Comes Murder;Milwaukee Brewers (Major League Baseball Team);s2e5_7;16690
+2;5;And Down the Stretch Comes Murder;Wally Joyner (Athlete);s2e5_8;16697
+2;5;And Down the Stretch Comes Murder;CHiPs (TV Show);s2e5_9;16764
+2;5;And Down the Stretch Comes Murder;Footloose (Movie);s2e5_10;16784
+2;5;And Down the Stretch Comes Murder;The Ice Storm (Movie);s2e5_11;16890
+2;5;And Down the Stretch Comes Murder;Rikki Rockett (Musician);s2e5_12;16917
+2;5;And Down the Stretch Comes Murder;C. C. DeVille (Musician);s2e5_13;16917
+2;5;And Down the Stretch Comes Murder;David Lee Roth (Musician);s2e5_14;16918
+2;5;And Down the Stretch Comes Murder;Poison (Musician);s2e5_15;16919
+2;5;And Down the Stretch Comes Murder;Brigitte Nielsen (Actress);s2e5_16;16940
+2;5;And Down the Stretch Comes Murder;Teen Wolf (Movie);s2e5_17;16978
+2;5;And Down the Stretch Comes Murder;The History Channel (TV Network);s2e5_18;17128
+2;5;And Down the Stretch Comes Murder;Land Of The Lost (TV Show);s2e5_19;17151
+2;5;And Down the Stretch Comes Murder;I, Robot (Movie);s2e5_20;17138
+2;5;And Down the Stretch Comes Murder;Oprah (TV Show);s2e5_21;17195
+2;5;And Down the Stretch Comes Murder;7-Eleven (Convenience Store);s2e5_22;17267
+2;5;And Down the Stretch Comes Murder;Wikipedia (Online Encyclopedia);s2e5_23;17386
+2;5;And Down the Stretch Comes Murder;An Enigma Wrapped In A Little Blonde Riddle (Possible Reference To A Winston Churchill Radio Broadcast On October 1, 1939);s2e5_24;16891
+2;6;Meat Is Murder, But Murder Is Also Murder;RoboCop (Movie);s2e6_1;17484
+2;6;Meat Is Murder, But Murder Is Also Murder;Hill Street Blues (TV Show);s2e6_2;17579
+2;6;Meat Is Murder, But Murder Is Also Murder;Diagnosis Murder (TV Show);s2e6_3;17670,17671
+2;6;Meat Is Murder, But Murder Is Also Murder;Ghost Whisperer (TV Show);s2e6_4;17741
+2;6;Meat Is Murder, But Murder Is Also Murder;The Rockford Files (TV Show);s2e6_5;17843
+2;6;Meat Is Murder, But Murder Is Also Murder;Manimal (TV Show);s2e6_6;17850,17851
+2;6;Meat Is Murder, But Murder Is Also Murder;Dilbert (Comic Strip);s2e6_7;17885
+2;6;Meat Is Murder, But Murder Is Also Murder;Marmaduke (Comic Strip);s2e6_8;17885
+2;6;Meat Is Murder, But Murder Is Also Murder;Matlock (TV Show);s2e6_9;17936
+2;6;Meat Is Murder, But Murder Is Also Murder;Cabbage Patch Kid (Dolls);s2e6_10;18116
+2;6;Meat Is Murder, But Murder Is Also Murder;Murder, She Wrote (TV Show);s2e6_11;18195
+2;6;Meat Is Murder, But Murder Is Also Murder;Lee Majors (Actor);s2e6_12;18246
+2;6;Meat Is Murder, But Murder Is Also Murder;Don Cheadle (Actor);s2e6_13;18334
+2;6;Meat Is Murder, But Murder Is Also Murder;D'Brickashaw Ferguson (Football Player);s2e6_14;18336
+2;6;Meat Is Murder, But Murder Is Also Murder;Delroy Lindo (Actor);s2e6_15;18337
+2;7;If You're So Smart, Then Why Are You Dead?;Dirty Dancing (Movie);s2e7_1;18430
+2;7;If You're So Smart, Then Why Are You Dead?;James Cagney (Actor);s2e7_2;18433
+2;7;If You're So Smart, Then Why Are You Dead?;21 Jump Street (TV Show);s2e7_3;18437
+2;7;If You're So Smart, Then Why Are You Dead?;Johnny Depp (Actor);s2e7_4;18438
+2;7;If You're So Smart, Then Why Are You Dead?;Holly Robinson (Actress);s2e7_5;18439
+2;7;If You're So Smart, Then Why Are You Dead?;Richard Grieco (Actor);s2e7_6;18440,18441
+2;7;If You're So Smart, Then Why Are You Dead?;Macbeth (Play);s2e7_7;18448
+2;7;If You're So Smart, Then Why Are You Dead?;Banquo (Character In The Play Macbeth);s2e7_8;18448
+2;7;If You're So Smart, Then Why Are You Dead?;Craig Sheffer (Actor);s2e7_9;18489
+2;7;If You're So Smart, Then Why Are You Dead?;Doogie Howser, M.D. (TV Show);s2e7_10;18493
+2;7;If You're So Smart, Then Why Are You Dead?;C. Everett Koop (Surgeon General Of The United States Under President Ronald Reagan);s2e7_11;35483
+2;7;If You're So Smart, Then Why Are You Dead?;Smells Like Teen Spirit (Song By Nirvana);s2e7_12;18522
+2;7;If You're So Smart, Then Why Are You Dead?;Courage Of Lassie (Movie);s2e7_13;18546,18547
+2;7;If You're So Smart, Then Why Are You Dead?;Jake and the Fatman (TV Show);s2e7_14;18579
+2;7;If You're So Smart, Then Why Are You Dead?;Right Said Fred (Musician);s2e7_15;18629
+2;7;If You're So Smart, Then Why Are You Dead?;I'm Too Sexy (Song By Right Said Fred);s2e7_16;18630,18631
+2;7;If You're So Smart, Then Why Are You Dead?;Nancy Drew (Fictional Young Amateur Detective);s2e7_17;18645
+2;7;If You're So Smart, Then Why Are You Dead?;Alex Trebek (TV Show Host);s2e7_18;18682,18683
+2;7;If You're So Smart, Then Why Are You Dead?;Kadeem Hardison (Actor);s2e7_19;18755,18758
+2;7;If You're So Smart, Then Why Are You Dead?;Sliding Doors (Movie);s2e7_20;18832,18833
+2;7;If You're So Smart, Then Why Are You Dead?;Gwyneth Paltrow (Actress);s2e7_21;18835
+2;7;If You're So Smart, Then Why Are You Dead?;Geek Squad (Company That Services Electronics);s2e7_22;18958
+2;7;If You're So Smart, Then Why Are You Dead?;ColecoVision (Video Game Console);s2e7_23;18969
+2;7;If You're So Smart, Then Why Are You Dead?;The Man From Snowy River (Movie);s2e7_24;18983
+2;7;If You're So Smart, Then Why Are You Dead?;Eddie Macon's Run (Movie);s2e7_25;18984
+2;7;If You're So Smart, Then Why Are You Dead?;Spartacus (Movie);s2e7_26;18985
+2;7;If You're So Smart, Then Why Are You Dead?;Kirk Douglas (Actor);s2e7_27;18986
+2;7;If You're So Smart, Then Why Are You Dead?;Star Trek II: The Wrath of Khan (Movie);s2e7_28;19012
+2;7;If You're So Smart, Then Why Are You Dead?;Ludwig Wittgenstein (Philosopher);s2e7_29;19126
 2;8;Rob-a-Bye Baby;Big (Movie);s2e8_1;
 2;8;Rob-a-Bye Baby;Top Secret! (Movie);s2e8_2;
 2;8;Rob-a-Bye Baby;Jackie Earle Haley (Actor);s2e8_3;
@@ -391,6 +396,7 @@
 2;12;The Old and the Restless;Camp Cocoon (Reference To The Movie Cocoon);s2e12_10;
 2;12;The Old and the Restless;Help Me, Rhonda (Reference To The Song Help Me, Rhonda By The Beach Boys);s2e12_11;
 2;12;The Old and the Restless;Reunited And It Feels So Good (Reference To The Song Reunited By Peaches & Herb);s2e12_12;
+2;12;The Old and the Restless;Manimal (TV Show);s2e12_13;22479
 2;13;Lights, Camera... Homicidio;CHiPs (TV Show);s2e13_1;
 2;13;Lights, Camera... Homicidio;Judi Dench (Actress);s2e13_2;
 2;13;Lights, Camera... Homicidio;Ted Nugent (Musician);s2e13_3;
@@ -428,6 +434,8 @@
 2;15;Black and Tan: A Crime of Fashion;Bullitt (Movie);s2e15_9;
 2;15;Black and Tan: A Crime of Fashion;Old Spice (Brand Of Male Grooming Products);s2e15_10;
 2;15;Black and Tan: A Crime of Fashion;Wayne Manor (Residence Of Bruce Wayne In The Batman Comics);s2e15_11;
+2;15;Black and Tan: A Crime of Fashion;Miss Cleo (Spokeswoman For A Psychic Pay-Per-Call Service);s2e15_12;25278
+2;15;Black and Tan: A Crime of Fashion;Cleopatra (Queen of the Ptolemaic Kingdom);s2e15_13;25278
 2;16;Shawn (and Gus) of the Dead;Bob's Big Boy (Restaurant);s2e16_1;
 2;16;Shawn (and Gus) of the Dead;Shirley MacLaine (Actress);s2e16_2;
 2;16;Shawn (and Gus) of the Dead;Father of the Bride Part II (Movie);s2e16_3;
@@ -436,7 +444,7 @@
 2;16;Shawn (and Gus) of the Dead;Martin Short (Actor);s2e16_6;
 2;16;Shawn (and Gus) of the Dead;King Tut (Egyptian Pharaoh Of The 18th Dynasty);s2e16_7;
 2;16;Shawn (and Gus) of the Dead;Entrapment (Movie);s2e16_8;
-2;16;Shawn (and Gus) of the Dead;Catherine Zeta-Jones (Actress);s2e16_9;
+2;16;Shawn (and Gus) of the Dead;Catherine Zeta-Jones (Actress);s2e16_9;25871
 2;16;Shawn (and Gus) of the Dead;Red Robin (Restaurant);s2e16_10;
 2;16;Shawn (and Gus) of the Dead;Charlton Heston (Actor);s2e16_11;
 2;16;Shawn (and Gus) of the Dead;Traveling Wilburys (Musicians);s2e16_12;
@@ -478,6 +486,7 @@
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Ferris Bueller's Day Off (Movie);s3e2_25;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Can I Borrow Your Underpants For 10 Minutes? (Quote From The Movie Sixteen Candles);s3e2_26;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Barnaby Jones (Character In The TV Show Barnaby Jones);s3e2_27;
+3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Cabbage Patch (Dance);s3e2_28;27559
 3;3;Daredevils!;That's Incredible! (TV Show);s3e3_1;
 3;3;Daredevils!;The Simpsons (TV Show);s3e3_2;
 3;3;Daredevils!;The Allman Brothers (Musicians);s3e3_3;
@@ -579,7 +588,7 @@
 3;13;Any Given Friday Night at 10pm, 9pm Central;The Russians Are Coming, The Russians Are Coming (Movie);s3e13_15;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Night of the Comet (Movie);s3e13_16;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Just One of the Guys (Movie);s3e13_17;
-3;13;Any Given Friday Night at 10pm, 9pm Central;I'm Not a Playa, But I Crush A Lot (From The Song "Im Not A Player" by Big Pun);s3e13_18;
+3;13;Any Given Friday Night at 10pm, 9pm Central;"I'm Not a Playa, But I Crush A Lot (From The Song ""Im Not A Player"" by Big Pun)";s3e13_18;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Stir Crazy (Movie);s3e13_19;
 3;14;Truer Lies;Insane In The Membrane (Song By Cypress Hill);s3e14_1;
 3;14;Truer Lies;Vin Diesel (Actor);s3e14_2;
@@ -591,6 +600,7 @@
 3;14;Truer Lies;Mike Ditka (Athlete);s3e14_8;
 3;14;Truer Lies;Bat Man (Comic Book Superhero);s3e14_9;
 3;14;Truer Lies;Treadstone (Black Ops Arm Of The CIA From The Bourne Movies);s3e14_10;
+3;14;Truer Lies;7-Eleven (Convenience Store);s3e14_11;36694
 3;15;Tuesday the 17th;Rick Astley (Musician);s3e15_1;
 3;15;Tuesday the 17th;Ann-Margret (Actress);s3e15_2;
 3;15;Tuesday the 17th;Eric Stoltz (Actor);s3e15_3;
@@ -643,7 +653,7 @@
 4;1;Extradition: British Columbia;Miller's Crossing (Movie);s4e1_7;
 4;1;Extradition: British Columbia;John Turturro (Actor);s4e1_8;
 4;1;Extradition: British Columbia;Entrapment (Movie);s4e1_9;
-4;1;Extradition: British Columbia;Catherine Zeta-Jones (Actress);s4e1_10;
+4;1;Extradition: British Columbia;Catherine Zeta-Jones (Actress);s4e1_10;38941
 4;1;Extradition: British Columbia;Usain Bolt (Jamaican Sprinter and Olympian);s4e1_11;
 4;1;Extradition: British Columbia;Twister (Game);s4e1_12;
 4;1;Extradition: British Columbia;American Idol (TV Show);s4e1_13;
@@ -801,6 +811,7 @@
 4;11;Thrill Seekers and Hell-Raisers;Complicated (Song By Avril Lavigne);s4e11_12;
 4;11;Thrill Seekers and Hell-Raisers;Avril Lavigne (Musician);s4e11_13;
 4;11;Thrill Seekers and Hell-Raisers;Did You See the Sunrise? (Part II) (Episode From Magnum, P.I.);s4e11_14;
+4;11;Thrill Seekers and Hell-Raisers;Chad Michael Murray (Actor);s4e11_15;46019
 4;12;A Very Juliet Episode;Simon Baker (Actor);s4e12_1;
 4;12;A Very Juliet Episode;Pete Townshend (Musician);s4e12_2;
 4;12;A Very Juliet Episode;J. K. Rowling (Author);s4e12_3;
@@ -925,8 +936,8 @@
 5;1;Romeo and Juliet and Juliet;If Execute This Correctly, No. Can. Defend. (Quote From The Movie The Karate Kid);s5e1_26;
 5;1;Romeo and Juliet and Juliet;Your Master Teach You How To Fight With Stick?! (Quote From The Movie The Karate Kid Part II);s5e1_27;
 5;2;Feet Don't Kill Me Now;Val Kilmer (Actor);s5e2_1;
-5;2;Feet Don't Kill Me Now;Jake "The Snake" Roberts (Wrestler);s5e2_2;
-5;2;Feet Don't Kill Me Now;Damien (Jake "The Snake" Roberts' Snake);s5e2_3;
+5;2;Feet Don't Kill Me Now;"Jake ""The Snake"" Roberts (Wrestler)";s5e2_2;
+5;2;Feet Don't Kill Me Now;"Damien (Jake ""The Snake"" Roberts' Snake)";s5e2_3;
 5;2;Feet Don't Kill Me Now;Prince (Musician);s5e2_4;
 5;2;Feet Don't Kill Me Now;Phineas & Ferb (TV Show);s5e2_5;
 5;2;Feet Don't Kill Me Now;We Would Be At War With The Machines (Referencing Terminator 3: Rise of the Machines);s5e2_6;
@@ -1011,9 +1022,10 @@
 5;6;Viagra Falls;The Straight Story (Movie);s5e6_9;
 5;6;Viagra Falls;Richard Farnsworth (Actor);s5e6_10;
 5;6;Viagra Falls;Billy Zane (Actor);s5e6_11;
-5;6;Viagra Falls;We Never Give Up "Ring The Bell, Ding Ding" (Reference To The Movie Rocky III);s5e6_12;
+5;6;Viagra Falls;"We Never Give Up ""Ring The Bell, Ding Ding"" (Reference To The Movie Rocky III)";s5e6_12;
 5;6;Viagra Falls;HomeTown Buffet (Restaurant);s5e6_13;
 5;6;Viagra Falls;Ricky Nelson (Musician);s5e6_14;
+5;6;Viagra Falls;7-Eleven (Convenience Store);s5e6_15;55784
 5;7;Ferry Tale;Al Gore (45th Vice President Of The United States/Environmental Activist);s5e7_1;
 5;7;Ferry Tale;Chuck E. Cheese's (Kids Restaurant/Payplace);s5e7_2;
 5;7;Ferry Tale;Friday (Movie);s5e7_3;
@@ -1030,7 +1042,7 @@
 5;8;Shawn 2.0;The Wonder Years (TV Show);s5e8_4;
 5;8;Shawn 2.0;Alicia Silverstone (Actress);s5e8_5;
 5;8;Shawn 2.0;The Crush (Movie);s5e8_6;
-5;8;Shawn 2.0;Billy "White Shoes" Johnson (Athlete);s5e8_7;
+5;8;Shawn 2.0;"Billy ""White Shoes"" Johnson (Athlete)";s5e8_7;
 5;8;Shawn 2.0;Hammer Pants (Style Of Peg-Legged Baggy Pants From 90s);s5e8_8;
 5;8;Shawn 2.0;Hammer Time (Reference To MC Hammer's - U Can't Touch This);s5e8_9;
 5;8;Shawn 2.0;The White Shadow (TV Show);s5e8_10;
@@ -1041,6 +1053,7 @@
 5;8;Shawn 2.0;Tears For Fears (Musicians);s5e8_15;
 5;8;Shawn 2.0;Crowded House (Musicians);s5e8_16;
 5;8;Shawn 2.0;Neil Finn (Misician);s5e8_17;
+5;8;Shawn 2.0;7-Eleven (Convenience Store);s5e8_18;57716,57741
 5;9;One, Maybe Two, Ways Out;Unchained Melody (Song By The Righteous Brothers);s5e9_1;
 5;9;One, Maybe Two, Ways Out;Bourne Movie (Movie Series);s5e9_2;
 5;9;One, Maybe Two, Ways Out;The Home Depot (Home Improvement And Construction Store);s5e9_3;
@@ -1224,7 +1237,7 @@
 5;16;Yang 3 in 2D;Gwyneth Paltrow (Actress);s5e16_29;
 5;16;Yang 3 in 2D;One Tree Hill (TV Show);s5e16_30;
 5;16;Yang 3 in 2D;Dawson's Creek (TV Show);s5e16_31;
-5;16;Yang 3 in 2D;Chad Michael Murray (Actor);s5e16_32;
+5;16;Yang 3 in 2D;Chad Michael Murray (Actor);s5e16_32;66242
 5;16;Yang 3 in 2D;Michael Bay (Director/Producer);s5e16_33;
 5;16;Yang 3 in 2D;Summer School (Movie);s5e16_34;
 5;16;Yang 3 in 2D;Grover's Corners (Fictional Town In The Play Our Town);s5e16_35;
@@ -1371,15 +1384,16 @@
 6;8;The Tao of Gus;Almost Famous (Movie);s6e8_11;
 6;8;The Tao of Gus;Kate Hudson (Actress);s6e8_12;
 6;8;The Tao of Gus;Cheech (Actor/Comedian);s6e8_13;
-6;8;The Tao of Gus;Lynette Alice "Squeaky" Fromme (Member Of The "Manson Family");s6e8_14;
+6;8;The Tao of Gus;"Lynette Alice ""Squeaky"" Fromme (Member Of The ""Manson Family"")";s6e8_14;
 6;9;Neil Simon's Lover's Retreat;Monster House (Movie);s6e9_1;
 6;9;Neil Simon's Lover's Retreat;Overlook Hotel (Fictional Hotel From The Novel And Movie The Shining);s6e9_2;
-6;9;Neil Simon's Lover's Retreat;Shamu (Orca "Killer Whale");s6e9_3;
+6;9;Neil Simon's Lover's Retreat;"Shamu (Orca ""Killer Whale"")";s6e9_3;
 6;9;Neil Simon's Lover's Retreat;Nintendo DS (Handheld Gaming Consol);s6e9_4;
 6;9;Neil Simon's Lover's Retreat;The Wild Stallion (Movie);s6e9_5;
 6;9;Neil Simon's Lover's Retreat;Connie Sellecca (Actress);s6e9_6;
 6;9;Neil Simon's Lover's Retreat;The Real Housewives (Reality TV Series);s6e9_7;
-6;10;Indiana Shawn and the Temple of the Kinda Crappy, Rusty Old Dagger;Shamu (Orca "Killer Whale");s6e10_1;
+6;9;Neil Simon's Lover's Retreat;The Ice Storm (Movie);s6e9_8;74656
+6;10;Indiana Shawn and the Temple of the Kinda Crappy, Rusty Old Dagger;"Shamu (Orca ""Killer Whale"")";s6e10_1;
 6;10;Indiana Shawn and the Temple of the Kinda Crappy, Rusty Old Dagger;Sea World (Marine Mammal Park, Oceanariums, And Animal Theme Park);s6e10_2;
 6;10;Indiana Shawn and the Temple of the Kinda Crappy, Rusty Old Dagger;Van Gogh (Painter);s6e10_3;
 6;10;Indiana Shawn and the Temple of the Kinda Crappy, Rusty Old Dagger;Edgar Degas (Painter);s6e10_4;
@@ -1548,6 +1562,7 @@
 7;4;No Country for Two Old Men;I Am Legend (Movie);s7e4_2;
 7;4;No Country for Two Old Men;Von Trapps (Family The Inspired The Movie The Sound Of Music);s7e4_3;
 7;4;No Country for Two Old Men;Erik Estrada (Actor);s7e4_4;
+7;4;No Country for Two Old Men;Cabbage Patch (Dance);s7e4_5;86181,86182,86197,86239
 7;5;100 Clues;Eyes Wide Shut (Movie);s7e5_1;
 7;5;100 Clues;Boogie Nights (Movie);s7e5_2;
 7;5;100 Clues;Oscar De La Renta (Fashion Designer);s7e5_3;
