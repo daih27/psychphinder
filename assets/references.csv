@@ -124,6 +124,7 @@
 1;12;Cloudy... With a Chance of Murder;Michael Jackson (Musician);s1e12_3;9911
 1;12;Cloudy... With a Chance of Murder;Jack Be Nimble, Jack Be Quick (Nursery Rhyme);s1e12_4;10060
 1;12;Cloudy... With a Chance of Murder;Law & Order (TV Show);s1e12_5;10246
+1;12;Cloudy... With a Chance of Murder;Johnny Appleseed (American missionary);s1e12_6;10179
 1;13;Game, Set... Muuurder?;Battleship (Game);s1e13_1;10597,11239,11454
 1;13;Game, Set... Muuurder?;Who's got My Golden Arm? (Ghost Story From The 1800s);s1e13_2;10671
 1;13;Game, Set... Muuurder?;Bashful, Grumpy, Dopey, Sleepy, Sneezy (Character From The Movie Snow White and the Seven Dwarfs);s1e13_3;10716,10718
@@ -332,126 +333,127 @@
 2;7;If You're So Smart, Then Why Are You Dead?;Kirk Douglas (Actor);s2e7_27;18986
 2;7;If You're So Smart, Then Why Are You Dead?;Star Trek II: The Wrath of Khan (Movie);s2e7_28;19012
 2;7;If You're So Smart, Then Why Are You Dead?;Ludwig Wittgenstein (Philosopher);s2e7_29;19126
-2;8;Rob-a-Bye Baby;Big (Movie);s2e8_1;
-2;8;Rob-a-Bye Baby;Top Secret! (Movie);s2e8_2;
-2;8;Rob-a-Bye Baby;Jackie Earle Haley (Actor);s2e8_3;
-2;8;Rob-a-Bye Baby;Bad News Bears (Movie);s2e8_4;
-2;8;Rob-a-Bye Baby;Breaking Away (Movie);s2e8_5;
-2;8;Rob-a-Bye Baby;Little Children (Movie);s2e8_6;
-2;8;Rob-a-Bye Baby;Spock (Character From The TV Show Star Trek);s2e8_7;
-2;8;Rob-a-Bye Baby;Bones (Character From The TV Show Star Trek);s2e8_8;
-2;8;Rob-a-Bye Baby;Star Trek (TV Show);s2e8_9;
-2;8;Rob-a-Bye Baby;My Two Dads (TV Show);s2e8_10;
-2;8;Rob-a-Bye Baby;Greg Evigan (Actor);s2e8_11;
-2;8;Rob-a-Bye Baby;James Taylor (Musician);s2e8_12;
-2;8;Rob-a-Bye Baby;Only One (Song By James Taylor);s2e8_13;
-2;8;Rob-a-Bye Baby;Nate Berkus (Interior Design Expert);s2e8_14;
-2;8;Rob-a-Bye Baby;Oprah (TV Show Host);s2e8_15;
-2;8;Rob-a-Bye Baby;Dermot Mulroney (Actor);s2e8_16;
-2;8;Rob-a-Bye Baby;Highlander (Movie);s2e8_17;
-2;8;Rob-a-Bye Baby;Christopher Lambert (Actor);s2e8_18;
-2;8;Rob-a-Bye Baby;Sean Connery (Actor);s2e8_19;
-2;8;Rob-a-Bye Baby;Nanny 911 (TV Show);s2e8_20;
-2;8;Rob-a-Bye Baby;Dog Whisperer (TV Show);s2e8_21;
-2;8;Rob-a-Bye Baby;Neighbors (Movie);s2e8_22;
-2;8;Rob-a-Bye Baby;John Belushi (Actor);s2e8_23;
-2;8;Rob-a-Bye Baby;Dan Aykroyd (Actor);s2e8_24;
-2;8;Rob-a-Bye Baby;Goodnight Moon (Book);s2e8_25;
-2;8;Rob-a-Bye Baby;The Giving Tree (Book);s2e8_26;
-2;8;Rob-a-Bye Baby;Philip Glass (Musician);s2e8_27;
-2;8;Rob-a-Bye Baby;Christmas Jones (Character In The Movie The World Is Not Enough);s2e8_28;
-2;8;Rob-a-Bye Baby;Denise Richards (Actress);s2e8_29;
-2;9;Bounty Hunters!;Shaun Cassidy (Actor/Producer);s2e9_1;
-2;9;Bounty Hunters!;Tango & Cash (Movie);s2e9_2;
-2;9;Bounty Hunters!;Judge Reinhold (Actor);s2e9_3;
-2;9;Bounty Hunters!;Dead Calm (Movie);s2e9_4;
-2;9;Bounty Hunters!;Billy Zane (Actor);s2e9_5;
-2;9;Bounty Hunters!;Midnight Run (Movie);s2e9_6;
-2;9;Bounty Hunters!;Sam Elliott (Actor);s2e9_7;
-2;9;Bounty Hunters!;Patrick Swayze (Actor);s2e9_8;
-2;9;Bounty Hunters!;Road House (Movie);s2e9_9;
-2;9;Bounty Hunters!;Open Water (Movie);s2e9_10;
-2;9;Bounty Hunters!;WarGames (Movie);s2e9_11;
-2;9;Bounty Hunters!;Han Solo (Character In The Star War Movies);s2e9_12;
-2;10;Gus' Dad May Have Killed an Old Guy;Daisy Red Ryder (BB Gun);s2e10_1;
-2;10;Gus' Dad May Have Killed an Old Guy;Pepe Le Pew (Cartoon Character);s2e10_2;
-2;10;Gus' Dad May Have Killed an Old Guy;Clark Bar (Candy Bar);s2e10_3;
-2;10;Gus' Dad May Have Killed an Old Guy;The Jeffersons (TV Show);s2e10_4;
-2;10;Gus' Dad May Have Killed an Old Guy;The Tell-Tale Heart (Short Story);s2e10_5;
-2;10;Gus' Dad May Have Killed an Old Guy;Psycho (Movie);s2e10_6;
-2;11;There's Something About Mira;Hello Kitty (Fictional Character By Sanrio);s2e11_1;
-2;11;There's Something About Mira;Caddyshack (Movie);s2e11_2;
-2;11;There's Something About Mira;Jan Brady (Character From The TV Show The Brady Bunch);s2e11_3;
-2;11;There's Something About Mira;Clark Bar (Candy Bar);s2e11_4;
-2;11;There's Something About Mira;Ghost In A Ballroom (Reference To The Movie Ghostbusters);s2e11_5;
-2;12;The Old and the Restless;Henry Fonda (Actor);s2e12_1;
-2;12;The Old and the Restless;Val Kilmer (Actor);s2e12_2;
-2;12;The Old and the Restless;Real Genius (Movie);s2e12_3;
-2;12;The Old and the Restless;Dr. Howser (Reference To Doogie Howser, M.D.);s2e12_4;
-2;12;The Old and the Restless;Frogger (Arcade Game);s2e12_5;
-2;12;The Old and the Restless;Richard Nixon (36th Vice President Of The United States);s2e12_6;
-2;12;The Old and the Restless;The Who (Musicians);s2e12_7;
-2;12;The Old and the Restless;The Corrections (Novel By Author Jonathan Franzen);s2e12_8;
-2;12;The Old and the Restless;Bo Derek (Actress);s2e12_9;
-2;12;The Old and the Restless;Camp Cocoon (Reference To The Movie Cocoon);s2e12_10;
-2;12;The Old and the Restless;Help Me, Rhonda (Reference To The Song Help Me, Rhonda By The Beach Boys);s2e12_11;
-2;12;The Old and the Restless;Reunited And It Feels So Good (Reference To The Song Reunited By Peaches & Herb);s2e12_12;
+2;8;Rob-a-Bye Baby;Big (Movie);s2e8_1;19161
+2;8;Rob-a-Bye Baby;Top Secret! (Movie);s2e8_2;19161
+2;8;Rob-a-Bye Baby;Jackie Earle Haley (Actor);s2e8_3;19330
+2;8;Rob-a-Bye Baby;Bad News Bears (Movie);s2e8_4;19331
+2;8;Rob-a-Bye Baby;Breaking Away (Movie);s2e8_5;19332
+2;8;Rob-a-Bye Baby;Little Children (Movie);s2e8_6;19332
+2;8;Rob-a-Bye Baby;Spock (Character From The TV Show Star Trek);s2e8_7;19473
+2;8;Rob-a-Bye Baby;Bones (Character From The TV Show Star Trek);s2e8_8;19477
+2;8;Rob-a-Bye Baby;Star Trek (TV Show);s2e8_9;19483
+2;8;Rob-a-Bye Baby;My Two Dads (TV Show);s2e8_10;19637
+2;8;Rob-a-Bye Baby;Greg Evigan (Actor);s2e8_11;19640
+2;8;Rob-a-Bye Baby;James Taylor (Musician);s2e8_12;19704
+2;8;Rob-a-Bye Baby;Only One (Song By James Taylor);s2e8_13;19704
+2;8;Rob-a-Bye Baby;Nate Berkus (Interior Design Expert);s2e8_14;19751
+2;8;Rob-a-Bye Baby;Oprah (TV Show Host);s2e8_15;19751
+2;8;Rob-a-Bye Baby;Dermot Mulroney (Actor);s2e8_16;19528
+2;8;Rob-a-Bye Baby;Highlander (Movie);s2e8_17;19559
+2;8;Rob-a-Bye Baby;Christopher Lambert (Actor);s2e8_18;19563,19564
+2;8;Rob-a-Bye Baby;Sean Connery (Actor);s2e8_19;19563
+2;8;Rob-a-Bye Baby;Nanny 911 (TV Show);s2e8_20;19570
+2;8;Rob-a-Bye Baby;Dog Whisperer (TV Show);s2e8_21;19571
+2;8;Rob-a-Bye Baby;Neighbors (Movie);s2e8_22;19586
+2;8;Rob-a-Bye Baby;John Belushi (Actor);s2e8_23;19585
+2;8;Rob-a-Bye Baby;Dan Aykroyd (Actor);s2e8_24;19585
+2;8;Rob-a-Bye Baby;Goodnight Moon (Book);s2e8_25;19767
+2;8;Rob-a-Bye Baby;The Giving Tree (Book);s2e8_26;19767
+2;8;Rob-a-Bye Baby;Philip Glass (Musician);s2e8_27;19833
+2;8;Rob-a-Bye Baby;Christmas Jones (Character In The Movie The World Is Not Enough);s2e8_28;19946
+2;8;Rob-a-Bye Baby;Denise Richards (Actress);s2e8_29;19945
+2;9;Bounty Hunters!;Shaun Cassidy (Actor/Producer);s2e9_1;20064
+2;9;Bounty Hunters!;Tango & Cash (Movie);s2e9_2;20117
+2;9;Bounty Hunters!;Judge Reinhold (Actor);s2e9_3;20130
+2;9;Bounty Hunters!;Dead Calm (Movie);s2e9_4;20312
+2;9;Bounty Hunters!;Billy Zane (Actor);s2e9_5;20313
+2;9;Bounty Hunters!;Midnight Run (Movie);s2e9_6;20347
+2;9;Bounty Hunters!;Sam Elliott (Actor);s2e9_7;20406
+2;9;Bounty Hunters!;Patrick Swayze (Actor);s2e9_8;20405
+2;9;Bounty Hunters!;Road House (Movie);s2e9_9;20404
+2;9;Bounty Hunters!;Open Water (Movie);s2e9_10;20464
+2;9;Bounty Hunters!;WarGames (Movie);s2e9_11;20614
+2;9;Bounty Hunters!;Han Solo (Character In The Star War Movies);s2e9_12;20654
+2;10;Gus' Dad May Have Killed an Old Guy;Daisy Red Ryder (BB Gun);s2e10_1;20792
+2;10;Gus' Dad May Have Killed an Old Guy;Pepé Le Pew (Cartoon Character);s2e10_2;20853,20854
+2;10;Gus' Dad May Have Killed an Old Guy;Clif Bar (Energy Bar);s2e10_3;21014
+2;10;Gus' Dad May Have Killed an Old Guy;The Jeffersons (TV Show);s2e10_4;21479
+2;10;Gus' Dad May Have Killed an Old Guy;The Tell-Tale Heart (Short Story);s2e10_5;21362,21363,21364,21365
+2;10;Gus' Dad May Have Killed an Old Guy;Psycho (Movie);s2e10_6;21366,21367
+2;10;Gus' Dad May Have Killed an Old Guy;Ebenezer Scrooge (Character From A Christmas Carol);s2e10_7;21604,21605
+2;11;There's Something About Mira;Hello Kitty (Fictional Character By Sanrio);s2e11_1;22068
+2;11;There's Something About Mira;Caddyshack (Movie);s2e11_2;22208
+2;11;There's Something About Mira;Jan Brady (Character From The TV Show The Brady Bunch);s2e11_3;22258
+2;11;There's Something About Mira;Clark Bar (Candy Bar);s2e11_4;22299
+2;11;There's Something About Mira;Ghost In A Ballroom (Reference To The Movie Ghostbusters);s2e11_5;22435
+2;12;The Old and the Restless;Henry Fonda (Actor);s2e12_1;22583
+2;12;The Old and the Restless;Val Kilmer (Actor);s2e12_2;22774
+2;12;The Old and the Restless;Real Genius (Movie);s2e12_3;22782
+2;12;The Old and the Restless;Dr. Howser (Character From Doogie Howser, M.D.);s2e12_4;22879
+2;12;The Old and the Restless;Frogger (Arcade Game);s2e12_5;22932
+2;12;The Old and the Restless;Richard Nixon (36th Vice President Of The United States);s2e12_6;23055
+2;12;The Old and the Restless;The Who (Musicians);s2e12_7;23105
+2;12;The Old and the Restless;The Corrections (Novel By Author Jonathan Franzen);s2e12_8;23187
+2;12;The Old and the Restless;Bo Derek (Actress);s2e12_9;23216
+2;12;The Old and the Restless;Camp Cocoon (Reference To The Movie Cocoon);s2e12_10;22958
+2;12;The Old and the Restless;Help Me, Rhonda (Reference To The Song Help Me, Rhonda By The Beach Boys);s2e12_11;23239
+2;12;The Old and the Restless;Reunited And It Feels So Good (Reference To The Song Reunited By Peaches & Herb);s2e12_12;23260,23261
 2;12;The Old and the Restless;Manimal (TV Show);s2e12_13;22479
-2;13;Lights, Camera... Homicidio;CHiPs (TV Show);s2e13_1;
-2;13;Lights, Camera... Homicidio;Judi Dench (Actress);s2e13_2;
-2;13;Lights, Camera... Homicidio;Ted Nugent (Musician);s2e13_3;
-2;13;Lights, Camera... Homicidio;Blossom (TV Show);s2e13_4;
-2;13;Lights, Camera... Homicidio;B.J. and the Bear (TV Show);s2e13_5;
-2;13;Lights, Camera... Homicidio;Keith Hernandez (Athlete);s2e13_6;
-2;13;Lights, Camera... Homicidio;Susan Lucci (Actress);s2e13_7;
-2;13;Lights, Camera... Homicidio;Bea Arthur (Actress);s2e13_8;
-2;13;Lights, Camera... Homicidio;Mariah Carey (Musician);s2e13_9;
-2;13;Lights, Camera... Homicidio;The Love Boat (TV Show);s2e13_10;
-2;13;Lights, Camera... Homicidio;Charo (Actress);s2e13_11;
-2;13;Lights, Camera... Homicidio;Leaving Las Vegas (Movie);s2e13_12;
-2;13;Lights, Camera... Homicidio;El Pollo Loco (Restaurant);s2e13_13;
-2;13;Lights, Camera... Homicidio;Ernest Hemingway (Author/Journalist);s2e13_14;
-2;13;Lights, Camera... Homicidio;Roger Jon Ellory (Writer);s2e13_15;
-2;13;Lights, Camera... Homicidio;John Steinbeck (Writer);s2e13_16;
-2;13;Lights, Camera... Homicidio;Danielle Steel (Novelist);s2e13_17;
-2;13;Lights, Camera... Homicidio;Ethan Hawk (Actor);s2e13_18;
-2;13;Lights, Camera... Homicidio;Judy Blume (Author);s2e13_19;
-2;14;Dis-Lodged;The Wonder Years (TV Show);s2e14_1;
-2;14;Dis-Lodged;I Want The Truth!... You Can't Handle The Truth (Reference The The Movie A Few Good Men);s2e14_2;
-2;14;Dis-Lodged;Informer (Song By Snow);s2e14_3;
-2;14;Dis-Lodged;Billy Zane (Actor);s2e14_4;
-2;14;Dis-Lodged;Tom Hanks (Actor);s2e14_5;
-2;14;Dis-Lodged;The Terminal (Movie);s2e14_6;
-2;14;Dis-Lodged;Highlights for Children (Children's Magazine);s2e14_7;
-2;15;Black and Tan: A Crime of Fashion;Head Over Heels (Movie);s2e15_1;
-2;15;Black and Tan: A Crime of Fashion;Liza Minnelli (Actress/Musician);s2e15_2;
-2;15;Black and Tan: A Crime of Fashion;David Gest (Media Personality);s2e15_3;
-2;15;Black and Tan: A Crime of Fashion;Tommy John (Athlete);s2e15_4;
-2;15;Black and Tan: A Crime of Fashion;Judy Blume (Author);s2e15_5;
-2;15;Black and Tan: A Crime of Fashion;Are You There God? It's Me, Margaret (Novel);s2e15_6;
-2;15;Black and Tan: A Crime of Fashion;Freckle Juice (Book);s2e15_7;
-2;15;Black and Tan: A Crime of Fashion;Perry Como (Musician);s2e15_8;
-2;15;Black and Tan: A Crime of Fashion;Bullitt (Movie);s2e15_9;
-2;15;Black and Tan: A Crime of Fashion;Old Spice (Brand Of Male Grooming Products);s2e15_10;
-2;15;Black and Tan: A Crime of Fashion;Wayne Manor (Residence Of Bruce Wayne In The Batman Comics);s2e15_11;
+2;13;Lights, Camera... Homicidio;CHiPs (TV Show);s2e13_1;23321
+2;13;Lights, Camera... Homicidio;Judi Dench (Actress);s2e13_2;23332
+2;13;Lights, Camera... Homicidio;Ted Nugent (Musician);s2e13_3;23431
+2;13;Lights, Camera... Homicidio;Blossom (TV Show);s2e13_4;23457,23459
+2;13;Lights, Camera... Homicidio;B.J. and the Bear (TV Show);s2e13_5;23461
+2;13;Lights, Camera... Homicidio;Keith Hernandez (Athlete);s2e13_6;23558
+2;13;Lights, Camera... Homicidio;Susan Lucci (Actress);s2e13_7;23570
+2;13;Lights, Camera... Homicidio;Bea Arthur (Actress);s2e13_8;23573
+2;13;Lights, Camera... Homicidio;Mariah Carey (Musician);s2e13_9;23736
+2;13;Lights, Camera... Homicidio;The Love Boat (TV Show);s2e13_10;23741
+2;13;Lights, Camera... Homicidio;Charo (Actress);s2e13_11;23741
+2;13;Lights, Camera... Homicidio;Leaving Las Vegas (Movie);s2e13_12;23896
+2;13;Lights, Camera... Homicidio;El Pollo Loco (Restaurant);s2e13_13;23915,23918
+2;13;Lights, Camera... Homicidio;Ernest Hemingway (Author/Journalist);s2e13_14;23949
+2;13;Lights, Camera... Homicidio;Roger Jon Ellory (Writer);s2e13_15;23949
+2;13;Lights, Camera... Homicidio;John Steinbeck (Writer);s2e13_16;23949
+2;13;Lights, Camera... Homicidio;Danielle Steel (Novelist);s2e13_17;23949
+2;13;Lights, Camera... Homicidio;Ethan Hawke (Actor);s2e13_18;23950
+2;13;Lights, Camera... Homicidio;Judy Blume (Author);s2e13_19;23950
+2;14;Dis-Lodged;The Wonder Years (TV Show);s2e14_1;24177
+2;14;Dis-Lodged;I Want The Truth!... You Can't Handle The Truth (Reference The The Movie A Few Good Men);s2e14_2;24229,24230
+2;14;Dis-Lodged;Informer (Song By Snow);s2e14_3;24428
+2;14;Dis-Lodged;Billy Zane (Actor);s2e14_4;24507
+2;14;Dis-Lodged;Tom Hanks (Actor);s2e14_5;24545
+2;14;Dis-Lodged;The Terminal (Movie);s2e14_6;24545
+2;14;Dis-Lodged;Highlights for Children (Children's Magazine);s2e14_7;24726
+2;15;Black and Tan: A Crime of Fashion;Head Over Heels (Movie);s2e15_1;25090
+2;15;Black and Tan: A Crime of Fashion;Liza Minnelli (Actress/Musician);s2e15_2;25102
+2;15;Black and Tan: A Crime of Fashion;David Gest (Media Personality);s2e15_3;25102
+2;15;Black and Tan: A Crime of Fashion;Tommy John (Athlete);s2e15_4;25125
+2;15;Black and Tan: A Crime of Fashion;Judy Blume (Author);s2e15_5;25364
+2;15;Black and Tan: A Crime of Fashion;Are You There God? It's Me, Margaret (Novel);s2e15_6;25362,25363
+2;15;Black and Tan: A Crime of Fashion;Freckle Juice (Book);s2e15_7;25363
+2;15;Black and Tan: A Crime of Fashion;Perry Como (Musician);s2e15_8;25585
+2;15;Black and Tan: A Crime of Fashion;Bullitt (Movie);s2e15_9;25590
+2;15;Black and Tan: A Crime of Fashion;Old Spice (Brand Of Male Grooming Products);s2e15_10;25587
+2;15;Black and Tan: A Crime of Fashion;Wayne Manor (Residence Of Bruce Wayne In The Batman Comics);s2e15_11;25611
 2;15;Black and Tan: A Crime of Fashion;Miss Cleo (Spokeswoman For A Psychic Pay-Per-Call Service);s2e15_12;25278
 2;15;Black and Tan: A Crime of Fashion;Cleopatra (Queen of the Ptolemaic Kingdom);s2e15_13;25278
-2;16;Shawn (and Gus) of the Dead;Bob's Big Boy (Restaurant);s2e16_1;
-2;16;Shawn (and Gus) of the Dead;Shirley MacLaine (Actress);s2e16_2;
-2;16;Shawn (and Gus) of the Dead;Father of the Bride Part II (Movie);s2e16_3;
-2;16;Shawn (and Gus) of the Dead;Captain Ron (Movie);s2e16_4;
-2;16;Shawn (and Gus) of the Dead;Pure Luck (Movie);s2e16_5;
-2;16;Shawn (and Gus) of the Dead;Martin Short (Actor);s2e16_6;
-2;16;Shawn (and Gus) of the Dead;King Tut (Egyptian Pharaoh Of The 18th Dynasty);s2e16_7;
-2;16;Shawn (and Gus) of the Dead;Entrapment (Movie);s2e16_8;
+2;16;Shawn (and Gus) of the Dead;Bob's Big Boy (Restaurant);s2e16_1;25649
+2;16;Shawn (and Gus) of the Dead;Shirley MacLaine (Actress);s2e16_2;25694
+2;16;Shawn (and Gus) of the Dead;Father of the Bride Part II (Movie);s2e16_3;25704
+2;16;Shawn (and Gus) of the Dead;Captain Ron (Movie);s2e16_4;25705
+2;16;Shawn (and Gus) of the Dead;Pure Luck (Movie);s2e16_5;25706
+2;16;Shawn (and Gus) of the Dead;Martin Short (Actor);s2e16_6;25707
+2;16;Shawn (and Gus) of the Dead;King Tut (Egyptian Pharaoh Of The 18th Dynasty);s2e16_7;25840
+2;16;Shawn (and Gus) of the Dead;Entrapment (Movie);s2e16_8;25871
 2;16;Shawn (and Gus) of the Dead;Catherine Zeta-Jones (Actress);s2e16_9;25871
-2;16;Shawn (and Gus) of the Dead;Red Robin (Restaurant);s2e16_10;
-2;16;Shawn (and Gus) of the Dead;Charlton Heston (Actor);s2e16_11;
-2;16;Shawn (and Gus) of the Dead;Traveling Wilburys (Musicians);s2e16_12;
-2;16;Shawn (and Gus) of the Dead;Austin Kearns (Athlete);s2e16_13;
-2;16;Shawn (and Gus) of the Dead;Rock 'Em Sock 'Em (Game);s2e16_14;
-2;16;Shawn (and Gus) of the Dead;The Secret (Book);s2e16_15;
-2;16;Shawn (and Gus) of the Dead;Oprah (TV Show);s2e16_16;
+2;16;Shawn (and Gus) of the Dead;Red Robin (Restaurant);s2e16_10;25920,25940
+2;16;Shawn (and Gus) of the Dead;Charlton Heston (Actor);s2e16_11;25999
+2;16;Shawn (and Gus) of the Dead;Traveling Wilburys (Musicians);s2e16_12;26004
+2;16;Shawn (and Gus) of the Dead;Austin Kearns (Athlete);s2e16_13;26144
+2;16;Shawn (and Gus) of the Dead;Rock 'Em Sock 'Em (Game);s2e16_14;26158
+2;16;Shawn (and Gus) of the Dead;The Secret (Book);s2e16_15;26376
+2;16;Shawn (and Gus) of the Dead;Oprah (TV Show);s2e16_16;26376
 3;1;Ghosts;Shrinky Dinks (toy/activity kit);s3e1_1;
 3;1;Ghosts;Furby (Toy);s3e1_2;
 3;1;Ghosts;Dynamite (magazine);s3e1_3;
@@ -496,6 +498,7 @@
 3;3;Daredevils!;Blue Thunder (Movie);s3e3_7;
 3;3;Daredevils!;The Blue Lagoon (Movie);s3e3_8;
 3;3;Daredevils!;Aldo Nova (Musician);s3e3_9;
+3;3;Daredevils!;Red Robin (Restaurant);s3e3_10;28436
 3;4;The Greatest Adventure in the History of Basic Cable;John Priestley (Novelist, Playwright and Broadcaster);s3e4_1;
 3;4;The Greatest Adventure in the History of Basic Cable;Joey Bishop (American Entertainer);s3e4_2;
 3;4;The Greatest Adventure in the History of Basic Cable;Oxygen (TV Network);s3e4_3;
@@ -513,6 +516,8 @@
 3;5;Disco Didn't Die. It Was Murdered!;Phil Collins (Musician);s3e5_2;
 3;5;Disco Didn't Die. It Was Murdered!;Invisible Touch (Song by Phil Collins);s3e5_3;
 3;5;Disco Didn't Die. It Was Murdered!;Raiders of the Lost Ark (Movie);s3e5_4;
+3;5;Disco Didn't Die. It Was Murdered!;Val Kilmer (Actor);s3e5_6;29809
+3;5;Disco Didn't Die. It Was Murdered!;Red Robin (Restaurant);s3e5_7;30021
 3;6;There Might Be Blood;Jed Clampett (Character from Green Acres);s3e6_1;
 3;6;There Might Be Blood;Crisco (Brand of Shortening);s3e6_2;
 3;6;There Might Be Blood;Wesson (Cooking Oil);s3e6_3;
@@ -530,15 +535,16 @@
 3;10;Six Feet Under the Sea;Animal Planet (TV Network);s3e10_2;
 3;10;Six Feet Under the Sea;Phil Collins (Musician);s3e10_3;
 3;10;Six Feet Under the Sea;Michael Phelps (Swimmer);s3e10_4;
-3;10;Six Feet Under the Sea;Barnacle Bill (animated short film);s3e10_5;
+3;10;Six Feet Under the Sea;Barnacle Bill (Animated short film);s3e10_5;
 3;10;Six Feet Under the Sea;Out of Sight (Movie);s3e10_6;
 3;10;Six Feet Under the Sea;Jennifer Lopez (Actress);s3e10_7;
 3;10;Six Feet Under the Sea;El Cantante (Movie);s3e10_8;
 3;10;Six Feet Under the Sea;Rutger Hauer (Actor);s3e10_9;
+3;10;Six Feet Under the Sea;Dead Calm (Movie);s3e10_10;33454
 3;11;Lassie Did a Bad, Bad Thing;Cranium (Game);s3e11_1;
 3;11;Lassie Did a Bad, Bad Thing;Cop and A Half (Movie);s3e11_2;
 3;11;Lassie Did a Bad, Bad Thing;Jarlsberg (Type of Cheese);s3e11_3;
-3;11;Lassie Did a Bad, Bad Thing;Water Lilies ( series of oil paintings by Claude Monet);s3e11_4;
+3;11;Lassie Did a Bad, Bad Thing;Water Lilies (Series of oil paintings by Claude Monet);s3e11_4;
 3;11;Lassie Did a Bad, Bad Thing;Daisy Buchanan (Character in The Great Gatsby);s3e11_5;
 3;11;Lassie Did a Bad, Bad Thing;The Great Gatsby (Novel);s3e11_6;
 3;11;Lassie Did a Bad, Bad Thing;ThunderCats (TV Show);s3e11_7;
@@ -772,7 +778,7 @@
 4;8;Let's Get Hairy;A Different World (TV Show);s4e8_19;
 4;8;Let's Get Hairy;Dwayne Cleophus Wayne (Character From The TV Show A Different World);s4e8_20;
 4;8;Let's Get Hairy;Hellboy (Movie);s4e8_21;
-4;8;Let's Get Hairy;Sam Elliott (Actor);s4e8_22;
+4;8;Let's Get Hairy;Sam Elliott (Actor);s4e8_22;44152
 4;8;Let's Get Hairy;Pippi Longstocking (Character From In A Series Of Children's Books, Movies, And TV Shows);s4e8_23;
 4;8;Let's Get Hairy;R.P. McMurphy (Character In The Movie One Flew Over The Cuckoo's Nest);s4e8_24;
 4;9;Shawn Takes a Shot in the Dark;Wienermobile (Automobile Shaped Like A Hot Dog On A Bun);s4e9_1;
@@ -1074,6 +1080,7 @@
 5;10;Extradition II: The Actual Extradition Part;Yasmine Bleeth (Actress);s5e10_5;
 5;10;Extradition II: The Actual Extradition Part;Batman (Character From The Batman Comics);s5e10_6;
 5;10;Extradition II: The Actual Extradition Part;Where Does He Get Those Wonderful Toys? (Reference From The Movies The Dark Knight And Batman);s5e10_7;
+5;10;Extradition II: The Actual Extradition Part;Red Robin (Restaurant);s5e10_8;59804
 5;11;In Plain Fright;Facebook (Social Networking Service and Website);s5e11_1;
 5;11;In Plain Fright;Michael Myers (Movie Character In The Halloween Series);s5e11_2;
 5;11;In Plain Fright;3 Ninjas: High Noon at Mega Mountain (Movie);s5e11_3;
@@ -1642,6 +1649,7 @@
 7;10;Santa Barbarian Candidate;Thunderdome (Arena In The Movie Mad Max Beyond Thunderdome);s7e10_12;
 7;10;Santa Barbarian Candidate;Snowy River (Reference To The Movie The Man From Snowy River);s7e10_13;
 7;10;Santa Barbarian Candidate;Seabiscuit (Champion Thoroughbred Racehorse In The United States);s7e10_14;
+7;10;Santa Barbarian Candidate;Red Robin (Restaurant);s7e10_14;92110
 7;11;Office Space;Bruce Willis (Actor);s7e11_1;
 7;11;Office Space;Blind Date (Movie);s7e11_2;
 7;11;Office Space;Cagney & Lacey (TV Show Characters/TV Show);s7e11_3;
