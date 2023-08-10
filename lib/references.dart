@@ -7,63 +7,115 @@ import 'package:psychphinder/widgets/bottomsheet.dart';
 class ReferencesPage extends StatelessWidget {
   const ReferencesPage({Key? key}) : super(key: key);
 
+  List countProgress(List referenceData) {
+    List totalRefs = [0, 0, 0, 0, 0, 0, 0];
+    List total = [0, 0, 0, 0, 0, 0, 0];
+    List totalPercent = [0, 0, 0, 0, 0, 0, 0];
+    for (var i = 0; i < referenceData.length; i++) {
+      totalRefs[referenceData[i].season - 1] += 1;
+      if (referenceData[i].idLine != "") {
+        total[referenceData[i].season - 1] += 1;
+      }
+    }
+    for (var i = 0; i < totalRefs.length; i++) {
+      totalPercent[i] = total[i] / totalRefs[i];
+    }
+    return totalPercent;
+  }
+
   @override
   Widget build(BuildContext context) {
     var csvData = Provider.of<CSVData>(context);
     final Map<String, Map<String, List<String>>> data = csvData.mapData;
+    final total = countProgress(csvData.referenceData);
     return Scaffold(
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 15,
-          mainAxisExtent: 120,
-        ),
-        itemCount: data.keys.length,
-        itemBuilder: (context, index) {
-          Map<String, List<String>>? episodesData =
-              data[data.keys.elementAt(index)];
-
-          return Padding(
-            padding: const EdgeInsets.all(5),
-            child: Material(
-              child: ListTile(
-                title: Center(
-                    child: Text("Season ${data.keys.elementAt(index)}",
-                        style: const TextStyle(
-                          fontFamily: 'PsychFont',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          letterSpacing: -0.5,
-                          color: Colors.white,
-                        ))),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: const BorderSide(
-                    width: 2,
-                    color: Colors.green,
-                  ),
-                ),
-                tileColor: Colors.green,
-                contentPadding: const EdgeInsets.all(10),
-                onTap: () {
-                  if (episodesData != null) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EpisodesRoute(
-                          episodesData,
-                          data.keys.elementAt(index),
+      body: Column(
+        children: [
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(10),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 15,
+                mainAxisSpacing: 15,
+                mainAxisExtent: 120,
+              ),
+              itemCount: data.keys.length,
+              itemBuilder: (context, index) {
+                Map<String, List<String>>? episodesData =
+                    data[data.keys.elementAt(index)];
+                return Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Material(
+                    child: ListTile(
+                      title: Stack(
+                        children: [
+                          Center(
+                            child: Text(
+                              "Season ${data.keys.elementAt(index)}",
+                              style: const TextStyle(
+                                fontFamily: 'PsychFont',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                letterSpacing: -0.5,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: Text(
+                              "${double.parse((total[index] * 100).toStringAsFixed(1))}%",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: const BorderSide(
+                          width: 2,
+                          color: Colors.green,
                         ),
                       ),
-                    );
-                  }
-                },
-              ),
+                      tileColor: Colors.green,
+                      contentPadding: const EdgeInsets.all(10),
+                      onTap: () {
+                        if (episodesData != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EpisodesRoute(
+                                episodesData,
+                                data.keys.elementAt(index),
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+          const Center(
+            child: Text(
+              "This section is still a work in progress.\nI'm updating it in every new version!",
+              style: TextStyle(
+                fontFamily: "PsychFont",
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+              textScaleFactor: 1.0,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ),
     );
   }
