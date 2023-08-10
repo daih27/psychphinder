@@ -326,8 +326,34 @@ class _SearchPageState extends State<SearchPage> {
           (searched.isNotEmpty)
               ? Expanded(child: ItemList(lines: searched, data: data))
               : isSearching
-                  ? const Text("No results found.")
-                  : Container(),
+                  ? const Expanded(
+                      child: Center(
+                        child: Text(
+                          "No results found.",
+                          style: TextStyle(
+                            fontFamily: "PsychFont",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                          textScaleFactor: 1.0,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
+                  : const Expanded(
+                      child: Center(
+                        child: Text(
+                          "Welcome to psychphinder!",
+                          style: TextStyle(
+                            fontFamily: "PsychFont",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                          textScaleFactor: 1.0,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
         ],
       ),
     );
