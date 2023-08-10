@@ -306,9 +306,6 @@ class _CreateImageState extends State<CreateImagePage> {
       designSize: Size(
           1080 / ScreenUtil().pixelRatio!, 2400 / ScreenUtil().pixelRatio!),
     );
-    print(ScreenUtil().pixelRatio!);
-    print(ScreenUtil().screenWidth * ScreenUtil().pixelRatio!);
-    print(ScreenUtil().screenHeight * ScreenUtil().pixelRatio!);
     return WillPopScope(
       onWillPop: () async {
         Navigator.pop(context);
@@ -513,15 +510,25 @@ class _CreateImageState extends State<CreateImagePage> {
                                           "Made with psychphinder",
                                           style: TextStyle(
                                             fontSize: imageType == 'Wallpaper'
-                                                ? 3.5.sp
+                                                ? (ScreenUtil().screenWidth *
+                                                            ScreenUtil()
+                                                                .pixelRatio!) >=
+                                                        1080
+                                                    ? 3.5
+                                                    : 3.5.sp
                                                 : 3.5,
                                             fontFamily: 'PsychFont',
                                             color: textColor,
                                             fontWeight: FontWeight.bold,
-                                            letterSpacing:
-                                                imageType == 'Wallpaper'
-                                                    ? -0.2.sp
-                                                    : -0.2,
+                                            letterSpacing: imageType ==
+                                                    'Wallpaper'
+                                                ? (ScreenUtil().screenWidth *
+                                                            ScreenUtil()
+                                                                .pixelRatio!) >=
+                                                        1080
+                                                    ? -0.2
+                                                    : -0.2.sp
+                                                : -0.2,
                                           ),
                                           textScaleFactor: 1.0,
                                         ),
@@ -1348,11 +1355,19 @@ class TextWidget extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: imageType == 'Wallpaper' ? size.sp : size,
+        fontSize: imageType == 'Wallpaper'
+            ? (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!) >= 1080
+                ? size
+                : size.sp
+            : size,
         color: textColor,
         fontFamily: 'PsychFont',
         fontWeight: FontWeight.bold,
-        letterSpacing: imageType == 'Wallpaper' ? -0.5.sp : -0.5,
+        letterSpacing: imageType == 'Wallpaper'
+            ? (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!) >= 1080
+                ? -0.5
+                : -0.5.sp
+            : -0.5,
       ),
       textAlign: TextAlign.center,
       textScaleFactor: 1.0,
@@ -1467,11 +1482,19 @@ class PsychLogoWidget extends StatelessWidget {
     return Text(
       "psych",
       style: TextStyle(
-        fontSize: imageType == 'Wallpaper' ? size.sp : size,
+        fontSize: imageType == 'Wallpaper'
+            ? (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!) >= 1080
+                ? size
+                : size.sp
+            : size,
         color: textColor,
         fontFamily: 'PsychFont',
         fontWeight: FontWeight.bold,
-        letterSpacing: imageType == 'Wallpaper' ? -1.6.sp : -1.6,
+        letterSpacing: imageType == 'Wallpaper'
+            ? (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!) >= 1080
+                ? -1.6
+                : -1.6.sp
+            : -1.6,
       ),
       textScaleFactor: 1.0,
       textAlign: TextAlign.center,
