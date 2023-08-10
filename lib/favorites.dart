@@ -24,7 +24,20 @@ class _FavoritesPageState extends State<FavoritesPage> {
               valueListenable: Hive.box("favorites").listenable(),
               builder: (BuildContext context, dynamic box, Widget? child) {
                 final favorites = box.values.toList();
-                return ItemList(lines: favorites, data: data);
+                return favorites.isNotEmpty
+                    ? ItemList(lines: favorites, data: data)
+                    : const Center(
+                        child: Text(
+                          "You have no favorites yet.\nTry adding some!",
+                          style: TextStyle(
+                            fontFamily: "PsychFont",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                          textScaleFactor: 1.0,
+                          textAlign: TextAlign.center,
+                        ),
+                      );
               },
             ),
           ),
