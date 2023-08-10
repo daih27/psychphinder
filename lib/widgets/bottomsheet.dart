@@ -1,10 +1,16 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_list_view/flutter_list_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:psychphinder/main.dart';
 import 'package:psychphinder/global/globals.dart';
 import 'package:psychphinder/global/search_engine.dart';
+import 'package:psychphinder/widgets/create_image.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BottomSheetEpisode extends StatefulWidget {
   const BottomSheetEpisode({
@@ -50,6 +56,41 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
       }
     }
     return index;
+  }
+
+  FToast fToast = FToast();
+
+  @override
+  void initState() {
+    super.initState();
+    FToast fToast = FToast();
+    fToast.init(navigatorKey.currentContext!);
+  }
+
+  _showToast(String text) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.green,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.check, color: Colors.white),
+          const SizedBox(
+            width: 12.0,
+          ),
+          Text(text, style: const TextStyle(color: Colors.white)),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 2),
+    );
   }
 
   @override
@@ -180,7 +221,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                     if (newId == index) {
                       return ListTile(
                         title: Text(
-                          "${widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
+                          "${widget.fullEpisode[index].time[0] == '0' ? widget.fullEpisode[index].time.substring(2) : widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
                           style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -202,7 +243,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                           });
                         },
                         title: Text(
-                          "${widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
+                          "${widget.fullEpisode[index].time[0] == '0' ? widget.fullEpisode[index].time.substring(2) : widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
                         ),
                         trailing: hasReference
                             ? referenceButton(referenceData, index, context,
@@ -216,39 +257,134 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ElevatedButton(
-                onPressed: () async {
-                  if (!isFavorite) {
-                    await box.put(widget.fullEpisode[newId].id,
-                        widget.fullEpisode[newId]);
-                  } else {
-                    await box.delete(widget.fullEpisode[newId].id);
-                  }
-                },
-                style: ButtonStyle(
+            Row(
+              children: [
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (!isFavorite) {
+                      await box.put(widget.fullEpisode[newId].id,
+                          widget.fullEpisode[newId]);
+                    } else {
+                      await box.delete(widget.fullEpisode[newId].id);
+                    }
+                  },
+                  style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
-                  Colors.green,
-                )),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                        isFavorite
-                            ? 'Remove from favorites'
-                            : 'Add to favorites',
-                        style: const TextStyle(
-                          color: Colors.white,
-                        )),
-                    const SizedBox(width: 5),
-                    const Icon(
-                      Icons.favorite,
-                      color: Colors.white,
+                      Colors.green,
                     ),
-                  ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                          isFavorite
+                              ? 'Remove from favorites'
+                              : 'Add to favorites',
+                          style: const TextStyle(
+                            color: Colors.white,
+                          )),
+                      const SizedBox(width: 5),
+                      const Icon(
+                        Icons.favorite,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () async {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        backgroundColor: Colors.green,
+                        title: const Center(
+                          child: Text(
+                            'Share',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'PsychFont',
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        content: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  Colors.white,
+                                ),
+                              ),
+                              onPressed: () async {
+                                if (Platform.isAndroid) {
+                                  final result = await Share.shareWithResult(
+                                    widget.fullEpisode[newId].line,
+                                  );
+                                  if (result.status ==
+                                      ShareResultStatus.success) {
+                                    _showToast("Shared text!");
+                                  }
+                                } else {
+                                  await Clipboard.setData(
+                                    ClipboardData(
+                                        text: widget.fullEpisode[newId].line),
+                                  );
+                                  _showToast("Copied to clipboard!");
+                                }
+                              },
+                              child: const Text(
+                                "Text",
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  Colors.white,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CreateImagePage(
+                                      episode: widget.fullEpisode,
+                                      id: newId,
+                                    ),
+                                  ),
+                                ).then((value) => setState(() {
+                                      SystemChrome.setEnabledSystemUIMode(
+                                          SystemUiMode.manual,
+                                          overlays: [
+                                            SystemUiOverlay.top,
+                                            SystemUiOverlay.bottom
+                                          ]);
+                                    }));
+                              },
+                              child: const Text(
+                                "Image",
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.share),
+                ),
+              ],
             ),
           ],
         );

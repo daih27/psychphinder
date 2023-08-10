@@ -21,6 +21,12 @@ dependencies:
   flutter_donation_buttons: ^0.3.7
   check_app_version: ^1.0.1
   url_launcher: ^6.1.12
+  widgets_to_image: ^0.0.2
+  share_plus: ^7.1.0
+  fluttertoast: ^8.2.2
+  flutter_wallpaper_manager: ^0.0.4
+  gal: ^1.7.0
+  flutter_screenutil: ^5.8.4
 
 dev_dependencies:
   hive_generator: ^1.1.2

@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/global/search_engine.dart';
@@ -14,13 +17,15 @@ import 'global/globals.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final Uri _url = Uri.parse('https://github.com/daih27/psychphinder');
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(PhraseAdapter());
   await Hive.openBox('favorites');
-
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   final csvData = CSVData();
   await csvData.loadDataFromCSV();
   runApp(
@@ -37,10 +42,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: Provider.of<ThemeProvider>(context).currentTheme,
-      home: const Home(),
+    return ScreenUtilInit(
+      designSize: Size(
+          1080 / ScreenUtil().pixelRatio!, 2400 / ScreenUtil().pixelRatio!),
+      minTextAdapt: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: Provider.of<ThemeProvider>(context).currentTheme,
+          home: child,
+          builder: FToastBuilder(),
+        );
+      },
+      child: const Home(),
     );
   }
 }
@@ -96,6 +110,7 @@ class _HomeState extends State<Home> {
     }
 
     return Scaffold(
+      key: navigatorKey,
       appBar: AppBar(
           title: const Text(
             'psychphinder',
