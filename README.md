@@ -10,13 +10,14 @@ Psychphinder is an app made in Flutter to search for your favorite quotes from t
 - Save your favorite quotes
 - Backup and restore your saved quotes
 - View the references made in each episode (In progress)
+- Search what a reference means in your prefered search engine
+- Share/save a quote as image or text
+- Create wallpapers of your favorite quotes from the show
 
 ## Planned features
 
-- Search in your favorite search engine what a certain reference means (Done!)
 - Finish all the references list
 - A way to change the type and precision of the search
-- Sync the favorites list to the cloud
 
 ## Contribute
 
