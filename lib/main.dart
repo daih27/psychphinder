@@ -15,6 +15,7 @@ import 'package:check_app_version/show_dialog.dart';
 import 'classes/phrase_class.dart';
 import 'global/globals.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 final Uri _url = Uri.parse('https://github.com/daih27/psychphinder');
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -67,20 +68,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 1;
+  PageController _pageController = PageController();
   final screens = [
     const ReferencesPage(),
     const SearchPage(),
     const FavoritesPage()
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   void initState() {
+    _pageController = PageController(initialPage: _selectedIndex);
     super.initState();
     if (Platform.isWindows || Platform.isLinux) {
       init();
@@ -133,37 +130,59 @@ class _HomeState extends State<Home> {
                   ).then((value) => refreshFavoritesPage());
                 })
           ]),
-      body: IndexedStack(
-        index: _selectedIndex,
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (value) {
+          setState(() {
+            _selectedIndex = value;
+          });
+        },
         children: screens,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.psychology_alt_rounded),
-            label: 'References',
+      bottomNavigationBar: Container(
+        color: Provider.of<ThemeProvider>(context).currentThemeType ==
+                ThemeType.black
+            ? Colors.black
+            : Theme.of(context).colorScheme.surface,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+          child: GNav(
+            backgroundColor:
+                Provider.of<ThemeProvider>(context).currentThemeType ==
+                        ThemeType.black
+                    ? Colors.black
+                    : Theme.of(context).colorScheme.surface,
+            selectedIndex: _selectedIndex,
+            onTabChange: (index) {
+              _pageController.animateToPage(index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease);
+            },
+            tabBorderRadius: 15,
+            tabBackgroundColor: Colors.green,
+            curve: Curves.ease,
+            duration: const Duration(milliseconds: 300),
+            gap: 8,
+            activeColor: Colors.white,
+            color: Colors.green,
+            iconSize: 24,
+            padding: const EdgeInsets.all(16),
+            tabs: const [
+              GButton(
+                icon: Icons.psychology_alt_rounded,
+                text: 'References',
+              ),
+              GButton(
+                icon: Icons.search_rounded,
+                text: 'Search',
+              ),
+              GButton(
+                icon: Icons.favorite_rounded,
+                text: 'Favorites',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search_rounded),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_rounded),
-            label: 'Favorites',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green,
-        unselectedLabelStyle: const TextStyle(
-          fontSize: 15,
-          fontFamily: 'PsychFont',
         ),
-        selectedLabelStyle: const TextStyle(
-          fontSize: 15,
-          fontFamily: 'PsychFont',
-          fontWeight: FontWeight.bold,
-        ),
-        onTap: _onItemTapped,
       ),
     );
   }
