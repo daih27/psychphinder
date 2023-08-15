@@ -216,6 +216,8 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                 controller: controller,
                 delegate: FlutterListViewDelegate(
                   (BuildContext context, int index) {
+                    bool isFavorite =
+                        box.get(widget.fullEpisode[newId].id) != null;
                     bool hasReference =
                         widget.fullEpisode[newId].reference.contains("s");
                     if (newId == index) {
@@ -227,14 +229,25 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                         ),
-                        trailing: hasReference
-                            ? referenceButton(referenceData, index, context,
-                                true, searchEngineProvider)
-                            : null,
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            isFavorite
+                                ? const Icon(Icons.favorite_rounded,
+                                    color: Colors.green)
+                                : const SizedBox(),
+                            hasReference
+                                ? referenceButton(referenceData, index, context,
+                                    true, searchEngineProvider)
+                                : const SizedBox(),
+                          ],
+                        ),
                       );
                     } else {
                       hasReference =
                           widget.fullEpisode[index].reference.contains("s");
+                      isFavorite =
+                          box.get(widget.fullEpisode[index].id) != null;
                       return ListTile(
                         onTap: () {
                           newId = index;
@@ -245,10 +258,19 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                         title: Text(
                           "${widget.fullEpisode[index].time[0] == '0' ? widget.fullEpisode[index].time.substring(2) : widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
                         ),
-                        trailing: hasReference
-                            ? referenceButton(referenceData, index, context,
-                                false, searchEngineProvider)
-                            : null,
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            isFavorite
+                                ? const Icon(Icons.favorite_rounded,
+                                    color: Colors.white)
+                                : const SizedBox(),
+                            hasReference
+                                ? referenceButton(referenceData, index, context,
+                                    false, searchEngineProvider)
+                                : const SizedBox(),
+                          ],
+                        ),
                       );
                     }
                   },
@@ -432,7 +454,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                             IconButton(
                               onPressed: () {
                                 final url = Uri.parse(
-                                    '${searchEngineProvider.currentSearchEngine}${selectedReference[i]}');
+                                    '${searchEngineProvider.currentSearchEngine}${selectedReference[i].replaceAll("&", "%26")}');
                                 launchUrl(
                                   url,
                                   mode: searchEngineProvider.openLinks
@@ -463,7 +485,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                       IconButton(
                         onPressed: () {
                           final url = Uri.parse(
-                              '${searchEngineProvider.currentSearchEngine}${selectedReference.first}');
+                              '${searchEngineProvider.currentSearchEngine}${selectedReference.first.replaceAll("&", "%26")}');
                           launchUrl(
                             url,
                             mode: searchEngineProvider.openLinks
