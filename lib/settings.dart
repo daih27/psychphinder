@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -17,31 +18,27 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  Future<String?> backupHiveBox<T>(String boxName) async {
+  Future<String?> createBackup() async {
+    if (Hive.box('favorites').isEmpty) {
+      return "No favorites stored";
+    }
+    Map<String, dynamic> map = Hive.box('favorites')
+        .toMap()
+        .map((key, value) => MapEntry(key.toString(), value));
+    String json = jsonEncode(map);
     if (Platform.isAndroid) {
       String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
       final cacheDir = await getTemporaryDirectory();
-
       if (cacheDir.existsSync()) {
         cacheDir.deleteSync(recursive: true);
       }
       if (selectedDirectory != null) {
         try {
-          final Directory appDocumentDirectory =
-              await getApplicationDocumentsDirectory();
-          final sourcePath =
-              path.join(appDocumentDirectory.path, 'favorites.hive');
           final destinationPath =
               path.join(selectedDirectory, 'favorites.psychbackup');
-          final sourceFile = File(sourcePath);
           final destinationFile = File(destinationPath);
-
-          if (await sourceFile.exists()) {
-            await sourceFile.copy(destinationFile.path);
-            return "Backup successful.";
-          } else {
-            return "Error: Source file does not exist.";
-          }
+          await destinationFile.writeAsString(json);
+          return "Backup successful.";
         } catch (e) {
           return "Choose another directory, preferably in the folder Documents or Download";
         }
@@ -55,20 +52,12 @@ class _SettingsPageState extends State<SettingsPage> {
       );
       if (outputFile != null) {
         try {
-          final appDocumentDirectory = await getApplicationDocumentsDirectory();
-          final sourcePath =
-              path.join(appDocumentDirectory.path, 'favorites.hive');
-          final sourceFile = File(sourcePath);
           final destinationFile = File(outputFile);
           if (await destinationFile.exists()) {
             await destinationFile.delete();
           }
-          if (await sourceFile.exists()) {
-            await sourceFile.copy(destinationFile.path);
-            return "Backup successful.";
-          } else {
-            return "Error: Source file does not exist.";
-          }
+          await destinationFile.writeAsString(json);
+          return "Backup successful.";
         } catch (e) {
           return "Error during backup: $e";
         }
@@ -78,7 +67,39 @@ class _SettingsPageState extends State<SettingsPage> {
     }
   }
 
-  Future<String?> restoreHiveBox<T>(String boxName) async {
+  Future<String> restoreBackup() async {
+    if (Platform.isAndroid) {
+      final cacheDir = await getTemporaryDirectory();
+
+      if (cacheDir.existsSync()) {
+        cacheDir.deleteSync(recursive: true);
+      }
+    }
+    try {
+      FilePickerResult? file = await FilePicker.platform.pickFiles();
+      File sourceFile = File("");
+      if (file != null) {
+        if (file.files.single.path!.contains(".psychbackup")) {
+          sourceFile = File(file.files.single.path.toString());
+        } else {
+          return "Wrong file selected.";
+        }
+        Hive.box('favorites').clear();
+        Map<String, dynamic> map = jsonDecode(await sourceFile.readAsString());
+        List mapList = map.values.toList();
+        for (var i = 0; i < mapList.length; i++) {
+          Hive.box('favorites').put(mapList[i], mapList[i]);
+        }
+        return "Restore successful.";
+      } else {
+        return "No file selected.";
+      }
+    } catch (e) {
+      return "Error during restore: $e";
+    }
+  }
+
+  Future<String?> restoreBackupOld<T>(String boxName) async {
     if (Platform.isAndroid) {
       final cacheDir = await getTemporaryDirectory();
 
@@ -427,7 +448,7 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    backupHiveBox("favorites").then(
+                    createBackup().then(
                       (value) {
                         showDialog<String>(
                           context: context,
@@ -454,18 +475,83 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                  onPressed: () {
-                    restoreHiveBox("favorites").then(
-                      (value) {
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            backgroundColor: Colors.green,
-                            title: Text(value!,
-                                style: const TextStyle(color: Colors.white)),
-                          ),
-                        );
-                      },
+                  onPressed: () async {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        backgroundColor: Colors.green,
+                        title: const Text(
+                          "Choose method",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        content: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  Colors.white,
+                                ),
+                              ),
+                              onPressed: () {
+                                restoreBackup().then(
+                                  (value) {
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        backgroundColor: Colors.green,
+                                        title: Text(value,
+                                            style: const TextStyle(
+                                                color: Colors.white)),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: const Text(
+                                "New method",
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  Colors.white,
+                                ),
+                              ),
+                              onPressed: () {
+                                restoreBackupOld("favorites").then(
+                                  (value) {
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        backgroundColor: Colors.green,
+                                        title: Text(value!,
+                                            style: const TextStyle(
+                                                color: Colors.white)),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: const Text(
+                                "Old method",
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     );
                   },
                   style: ButtonStyle(

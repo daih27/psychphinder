@@ -99,13 +99,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    void refreshFavoritesPage() {
-      setState(() {
-        // ignore: prefer_const_constructors
-        screens[2] = FavoritesPage();
-      });
-    }
-
     return Scaffold(
       key: navigatorKey,
       appBar: AppBar(
@@ -126,8 +119,10 @@ class _HomeState extends State<Home> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SettingsPage()),
-                  ).then((value) => refreshFavoritesPage());
+                      builder: (context) => const SettingsPage(),
+                      maintainState: false,
+                    ),
+                  );
                 })
           ]),
       body: PageView(
