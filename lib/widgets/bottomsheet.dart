@@ -104,7 +104,6 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
       valueListenable: Hive.box("favorites").listenable(),
       builder: (BuildContext context, dynamic box, Widget? child) {
         final isFavorite = box.get(widget.fullEpisode[newId].id) != null;
-
         return Column(
           children: [
             Row(
@@ -286,7 +285,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                   onPressed: () async {
                     if (!isFavorite) {
                       await box.put(widget.fullEpisode[newId].id,
-                          widget.fullEpisode[newId]);
+                          widget.fullEpisode[newId].id);
                     } else {
                       await box.delete(widget.fullEpisode[newId].id);
                     }
