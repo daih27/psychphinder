@@ -403,10 +403,10 @@ class _CreateImageState extends State<CreateImagePage> {
                                               child: ConstrainedBox(
                                                 constraints: imageType ==
                                                         'Wallpaper'
-                                                    ? BoxConstraints(
-                                                        maxWidth: ScreenUtil()
-                                                                .screenWidth *
-                                                            0.9)
+                                                    ? applyOffset
+                                                        ? BoxConstraints(
+                                                            maxWidth: 155.w)
+                                                        : const BoxConstraints()
                                                     : const BoxConstraints(),
                                                 child: TextWidget(
                                                   text: beforeLine,
@@ -425,10 +425,10 @@ class _CreateImageState extends State<CreateImagePage> {
                                             .w,
                                         child: ConstrainedBox(
                                           constraints: imageType == 'Wallpaper'
-                                              ? BoxConstraints(
-                                                  maxWidth:
-                                                      ScreenUtil().screenWidth *
-                                                          0.85)
+                                              ? applyOffset
+                                                  ? BoxConstraints(
+                                                      maxWidth: 155.w)
+                                                  : const BoxConstraints()
                                               : const BoxConstraints(),
                                           child: TextWidget(
                                             text: mainLine,
@@ -449,10 +449,10 @@ class _CreateImageState extends State<CreateImagePage> {
                                               child: ConstrainedBox(
                                                 constraints: imageType ==
                                                         'Wallpaper'
-                                                    ? BoxConstraints(
-                                                        maxWidth: ScreenUtil()
-                                                                .screenWidth *
-                                                            0.9)
+                                                    ? applyOffset
+                                                        ? BoxConstraints(
+                                                            maxWidth: 155.w)
+                                                        : const BoxConstraints()
                                                     : const BoxConstraints(),
                                                 child: TextWidget(
                                                   text: afterLine,
