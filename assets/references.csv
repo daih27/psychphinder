@@ -15,6 +15,7 @@
 1;3;Speak Now or Forever Hold Your Piece;Patrick Swayze (Actor);s1e3_6;2530,2532
 1;3;Speak Now or Forever Hold Your Piece;Lou Diamond Phillips (Actor);s1e3_7;2548
 1;3;Speak Now or Forever Hold Your Piece;Ted Nugent (Musician);s1e3_8;2732
+1;3;Speak Now or Forever Hold Your Piece;The Italian Job (Movie);s1e3_9;2236,2237
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Meredith Baxter-Birney (Actress);s1e4_1;3185
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Mrs. Keaton (Character On The TV Show Family Ties);s1e4_2;3187
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;APK (Reference To Alex P. Keaton A Character On The TV Show Family Ties);s1e4_3;3187
@@ -229,7 +230,7 @@
 2;2;65 Million Years Off;Joe DiMaggio (Athlete);s2e2_27;14966
 2;3;Psy vs. Psy;The Home Depot (Home Improvement And Construction Store);s2e3_1;15129,15709
 2;3;Psy vs. Psy;Mindy Cohn (Actress);s2e3_2;15094
-2;3;Psy vs. Psy;Facts of Life (TV Show);s2e3_3;15094
+2;3;Psy vs. Psy;Facts of Life (TV Show);s2e3_3;15092,15093,15094
 2;3;Psy vs. Psy;Reggie Jackson (Athlete);s2e3_4;15225
 2;3;Psy vs. Psy;Dyan Cannon (Actress);s2e3_5;15226
 2;3;Psy vs. Psy;Harvey Wallbanger (Mixed Drink);s2e3_6;15226
@@ -250,6 +251,8 @@
 2;3;Psy vs. Psy;William Hurt (Actor);s2e3_21;15602
 2;3;Psy vs. Psy;Wicked (Musical);s2e3_22;15719
 2;3;Psy vs. Psy;Clarice (Character In The Movie The Silence Of The Lambs);s2e3_23;15307
+2;3;Psy vs. Psy;William Shakespeare (English playwright);s2e3_24;15091
+2;3;Psy vs. Psy;Romeo and Juliet (Play by William Shakespeare);s2e3_25;15090,15091
 2;4;Zero to Murder in Sixty Seconds;Blue City (Movie);s2e4_1;15981,15984
 2;4;Zero to Murder in Sixty Seconds;Judd Nelson (Actor);s2e4_2;15985
 2;4;Zero to Murder in Sixty Seconds;From the Hip (Movie);s2e4_3;15984
@@ -314,7 +317,7 @@
 2;7;If You're So Smart, Then Why Are You Dead?;Banquo (Character In The Play Macbeth);s2e7_8;18448
 2;7;If You're So Smart, Then Why Are You Dead?;Craig Sheffer (Actor);s2e7_9;18489
 2;7;If You're So Smart, Then Why Are You Dead?;Doogie Howser, M.D. (TV Show);s2e7_10;18493
-2;7;If You're So Smart, Then Why Are You Dead?;C. Everett Koop (Surgeon General Of The United States Under President Ronald Reagan);s2e7_11;35483
+2;7;If You're So Smart, Then Why Are You Dead?;C. Everett Koop (Surgeon General Of The United States Under President Ronald Reagan);s2e7_11;18519
 2;7;If You're So Smart, Then Why Are You Dead?;Smells Like Teen Spirit (Song By Nirvana);s2e7_12;18522
 2;7;If You're So Smart, Then Why Are You Dead?;Courage Of Lassie (Movie);s2e7_13;18546,18547
 2;7;If You're So Smart, Then Why Are You Dead?;Jake and the Fatman (TV Show);s2e7_14;18579
@@ -517,137 +520,146 @@
 3;5;Disco Didn't Die. It Was Murdered!;Phil Collins (Musician);s3e5_2;29612,29615,29618,29619
 3;5;Disco Didn't Die. It Was Murdered!;Invisible Touch (Song by Phil Collins);s3e5_3;29617
 3;5;Disco Didn't Die. It Was Murdered!;Raiders of the Lost Ark (Movie);s3e5_4;29694
-3;6;There Might Be Blood;Jed Clampett (Character from Green Acres);s3e6_1;
-3;6;There Might Be Blood;Crisco (Brand of Shortening);s3e6_2;
-3;6;There Might Be Blood;Wesson (Cooking Oil);s3e6_3;
-3;6;There Might Be Blood;The New Frontiers (Musicians);s3e6_4;
-3;6;There Might Be Blood;Night Shift (Movie);s3e6_5;
-3;6;There Might Be Blood;Fonzie (Character from Happy Days);s3e6_6;
-3;6;There Might Be Blood;Brady Bunch (TV Show);s3e6_7;
-3;6;There Might Be Blood;Stop. Hammer Time! (line from MC Hammer's - U Can't Touch This);s3e6_8;
-3;7;Talk Derby to Me;Kids Choice Awards (Annual Awards Show);s3e7_1;
+3;6;There Might Be Blood;Getty Oil (Oil Marketing Company);s3e6_1;30135
+3;6;There Might Be Blood;Jed Clampett (Character from Green Acres);s3e6_2;30135
+3;6;There Might Be Blood;Crisco (Brand of Shortening);s3e6_3;30135
+3;6;There Might Be Blood;Wesson (Cooking Oil);s3e6_4;30135
+3;6;There Might Be Blood;The New Frontiers (Musicians);s3e6_5;30161
+3;6;There Might Be Blood;Night Shift (Movie);s3e6_6;30297,30298
+3;6;There Might Be Blood;Fonzie (Character from Happy Days);s3e6_7;30299
+3;6;There Might Be Blood;Henry Winkler (Actor);s3e6_8;30299
+3;6;There Might Be Blood;The Brady Bunch (TV Show);s3e6_9;30525
+3;6;There Might Be Blood;Stop. Hammer Time! (line from MC Hammer's - U Can't Touch This);s3e6_10;30633
+3;7;Talk Derby to Me;Kids' Choice Awards (Annual Awards Show);s3e7_1;30926,31246
 3;7;Talk Derby to Me;Rollergirl (Musician);s3e7_2;
-3;8;Gus Walks into a Bank;Celebrity (Game);s3e8_1;
-3;9;Christmas Joy;Woody Harrelson (Actor);s3e9_1;
-3;9;Christmas Joy;Wildcats (Movie);s3e9_2;
-3;10;Six Feet Under the Sea;Jacques Cousteau (naval officer, explorer, ecologist, filmmaker, innovator, scientist, photographer, author and researcher);s3e10_1;
-3;10;Six Feet Under the Sea;Animal Planet (TV Network);s3e10_2;
-3;10;Six Feet Under the Sea;Phil Collins (Musician);s3e10_3;
-3;10;Six Feet Under the Sea;Michael Phelps (Swimmer);s3e10_4;
-3;10;Six Feet Under the Sea;Barnacle Bill (Animated short film);s3e10_5;
-3;10;Six Feet Under the Sea;Out of Sight (Movie);s3e10_6;
-3;10;Six Feet Under the Sea;Jennifer Lopez (Actress);s3e10_7;
-3;10;Six Feet Under the Sea;El Cantante (Movie);s3e10_8;
-3;10;Six Feet Under the Sea;Rutger Hauer (Actor);s3e10_9;
+3;8;Gus Walks into a Bank;Celebrity (Game);s3e8_1;31630
+3;9;Christmas Joy;Woody Harrelson (Actor);s3e9_1;32915
+3;9;Christmas Joy;Wildcats (Movie);s3e9_2;32915
+3;10;Six Feet Under the Sea;Jacques Cousteau (naval officer, explorer, ecologist, filmmaker, innovator, scientist, photographer, author and researcher);s3e10_1;33042
+3;10;Six Feet Under the Sea;Animal Planet (TV Network);s3e10_2;33062
+3;10;Six Feet Under the Sea;Phil Collins (Musician);s3e10_3;33271
+3;10;Six Feet Under the Sea;Michael Phelps (Swimmer);s3e10_4;33572
+3;10;Six Feet Under the Sea;Barnacle Bill (Animated short film);s3e10_5;33614
+3;10;Six Feet Under the Sea;Out of Sight (Movie);s3e10_6;33652
+3;10;Six Feet Under the Sea;Jennifer Lopez (Actress);s3e10_7;33684
+3;10;Six Feet Under the Sea;El Cantante (Movie);s3e10_8;33687
+3;10;Six Feet Under the Sea;Rutger Hauer (Actor);s3e10_9;33774
 3;10;Six Feet Under the Sea;Dead Calm (Movie);s3e10_10;33454
-3;11;Lassie Did a Bad, Bad Thing;Cranium (Game);s3e11_1;
-3;11;Lassie Did a Bad, Bad Thing;Cop and A Half (Movie);s3e11_2;
-3;11;Lassie Did a Bad, Bad Thing;Jarlsberg (Type of Cheese);s3e11_3;
-3;11;Lassie Did a Bad, Bad Thing;Water Lilies (Series of oil paintings by Claude Monet);s3e11_4;
-3;11;Lassie Did a Bad, Bad Thing;Daisy Buchanan (Character in The Great Gatsby);s3e11_5;
-3;11;Lassie Did a Bad, Bad Thing;The Great Gatsby (Novel);s3e11_6;
-3;11;Lassie Did a Bad, Bad Thing;ThunderCats (TV Show);s3e11_7;
-3;11;Lassie Did a Bad, Bad Thing;Howard Jones (Musician);s3e11_8;
-3;11;Lassie Did a Bad, Bad Thing;Kenny Loggins (Musician);s3e11_9;
-3;11;Lassie Did a Bad, Bad Thing;House at Pooh Corner (Song By Kenny Loggins);s3e11_10;
-3;11;Lassie Did a Bad, Bad Thing;This Is It (Song By Kenny Loggins);s3e11_11;
-3;11;Lassie Did a Bad, Bad Thing;Charles Bukowski (Writer);s3e11_12;
-3;11;Lassie Did a Bad, Bad Thing;Footloose (Movie);s3e11_13;
-3;11;Lassie Did a Bad, Bad Thing;Flashdance (Movie);s3e11_14;
-3;11;Lassie Did a Bad, Bad Thing;Danger Zone (Song By Kenny Loggins);s3e11_15;
-3;12;Earth, Wind and... Wait for It;Cruella de Vil (Character from 101 Dalmatians);s3e12_1;
-3;12;Earth, Wind and... Wait for It;Terry Thomas (Actor);s3e12_2;
-3;12;Earth, Wind and... Wait for It;Lauren Hutton (Actress/Model);s3e12_3;
-3;12;Earth, Wind and... Wait for It;Bolo Tie (Type of Necktie);s3e12_4;
-3;12;Earth, Wind and... Wait for It;Billy Preston (Musician);s3e12_5;
-3;12;Earth, Wind and... Wait for It;Al B. Sure! (Musician);s3e12_6;
-3;12;Earth, Wind and... Wait for It;Diane Schuur (Musician);s3e12_7;
-3;12;Earth, Wind and... Wait for It;Sure Roll On (Deodorant);s3e12_8;
-3;12;Earth, Wind and... Wait for It;Sure Thing (Movie);s3e12_9;
-3;12;Earth, Wind and... Wait for It;Little Darlings (Movie);s3e12_10;
-3;12;Earth, Wind and... Wait for It;Dirty Harry (Movie);s3e12_11;
-3;12;Earth, Wind and... Wait for It;Smokey The Bear (Mascot Of The United States Forest Service);s3e12_12;
-3;12;Earth, Wind and... Wait for It;Law & Order (TV Show);s3e12_13;
-3;12;Earth, Wind and... Wait for It;Back to School (Movie);s3e12_14;
-3;12;Earth, Wind and... Wait for It;William Zabka (Actor);s3e12_15;
-3;12;Earth, Wind and... Wait for It;Backdraft (Movie);s3e12_16;
-3;12;Earth, Wind and... Wait for It;Blair Underwood (Actress);s3e12_17;
-3;12;Earth, Wind and... Wait for It;Jet Jaguar Shoes (Shoes);s3e12_18;
-3;12;Earth, Wind and... Wait for It;Zoltar Machine (Fortune Teller Machine);s3e12_19;
-3;12;Earth, Wind and... Wait for It;Muppets (Group Of Puppet Characters);s3e12_20;
-3;12;Earth, Wind and... Wait for It;Family Matters (TV Show);s3e12_21;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Rae Dawn Chong (Actress);s3e13_1;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Quest For Fire (Movie);s3e13_2;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Bat-Signal (Distress Signal From Batman Comics);s3e13_3;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Kathy Griffin (Actress);s3e13_4;
-3;13;Any Given Friday Night at 10pm, 9pm Central;The Mentalist (TV Show);s3e13_5;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Big League Chew (Chewing Gum);s3e13_6;
-3;13;Any Given Friday Night at 10pm, 9pm Central;C. Everett Koop ( Pediatric Surgeon and Public Health Administrator);s3e13_7;
+3;11;Lassie Did a Bad, Bad Thing;Boggle (Game);s3e11_1;33855
+3;11;Lassie Did a Bad, Bad Thing;Cranium (Game);s3e11_2;33855,33856
+3;11;Lassie Did a Bad, Bad Thing;Cop and a Half (Movie);s3e11_3;33914
+3;11;Lassie Did a Bad, Bad Thing;Jarlsberg (Type of Cheese);s3e11_4;34092,34094
+3;11;Lassie Did a Bad, Bad Thing;Water Lilies (Series of oil paintings by Claude Monet);s3e11_5;34093
+3;11;Lassie Did a Bad, Bad Thing;Daisy Buchanan (Character in The Great Gatsby);s3e11_6;34102
+3;11;Lassie Did a Bad, Bad Thing;The Great Gatsby (Novel);s3e11_7;34101
+3;11;Lassie Did a Bad, Bad Thing;ThunderCats (TV Show);s3e11_8;34125
+3;11;Lassie Did a Bad, Bad Thing;Howard Jones (Musician);s3e11_9;34214
+3;11;Lassie Did a Bad, Bad Thing;Kenny Loggins (Musician);s3e11_10;34224,34225,34226,34349
+3;11;Lassie Did a Bad, Bad Thing;House at Pooh Corner (Song By Kenny Loggins);s3e11_11;34225
+3;11;Lassie Did a Bad, Bad Thing;This Is It (Song By Kenny Loggins);s3e11_12;34225
+3;11;Lassie Did a Bad, Bad Thing;Charles Bukowski (Writer);s3e11_13;34291
+3;11;Lassie Did a Bad, Bad Thing;Footloose (Movie);s3e11_14;34357
+3;11;Lassie Did a Bad, Bad Thing;Flashdance (Movie);s3e11_15;34358,34359,34360
+3;11;Lassie Did a Bad, Bad Thing;Danger Zone (Song By Kenny Loggins);s3e11_16;34476
+3;12;Earth, Wind and... Wait for It;Cruella de Vil (Character from 101 Dalmatians);s3e12_1;35338
+3;12;Earth, Wind and... Wait for It;Terry Thomas (Actor);s3e12_2;35063
+3;12;Earth, Wind and... Wait for It;Lauren Hutton (Actress/Model);s3e12_3;35063
+3;12;Earth, Wind and... Wait for It;Bolo Tie (Type of Necktie);s3e12_4;35086
+3;12;Earth, Wind and... Wait for It;Billy Preston (Musician);s3e12_5;35117
+3;12;Earth, Wind and... Wait for It;Al B. Sure! (Musician);s3e12_6;35140
+3;12;Earth, Wind and... Wait for It;Diane Schuur (Musician);s3e12_7;35140
+3;12;Earth, Wind and... Wait for It;Sure Roll-On (Deodorant);s3e12_8;35140
+3;12;Earth, Wind and... Wait for It;The Sure Thing (Movie);s3e12_9;35141
+3;12;Earth, Wind and... Wait for It;Little Darlings (Movie);s3e12_10;35188
+3;12;Earth, Wind and... Wait for It;Dirty Harry (Movie);s3e12_11;34587
+3;12;Earth, Wind and... Wait for It;Smokey The Bear (Mascot Of The United States Forest Service);s3e12_12;34588,34589
+3;12;Earth, Wind and... Wait for It;Law & Order (TV Show);s3e12_13;34712
+3;12;Earth, Wind and... Wait for It;Back to School (Movie);s3e12_14;34745
+3;12;Earth, Wind and... Wait for It;William Zabka (Actor);s3e12_15;34745
+3;12;Earth, Wind and... Wait for It;Backdraft (Movie);s3e12_16;34753
+3;12;Earth, Wind and... Wait for It;Blair Underwood (Actress);s3e12_17;34843,34844
+3;12;Earth, Wind and... Wait for It;Jet Jaguar Shoes (Shoes);s3e12_18;34880
+3;12;Earth, Wind and... Wait for It;Zoltar Machine (Fortune Teller Machine);s3e12_19;34905
+3;12;Earth, Wind and... Wait for It;Muppets (Group Of Puppet Characters);s3e12_20;34936,34937
+3;12;Earth, Wind and... Wait for It;Family Matters (TV Show);s3e12_21;35051
+3;12;Earth, Wind and... Wait for It;Knight Rider (Entertainment Franchise);s3e12_22;35196
+3;12;Earth, Wind and... Wait for It;Gardnerian Wicca (Tradition);s3e12_23;35196
+3;12;Earth, Wind and... Wait for It;John Denver (Musician);s3e12_24;34936
+3;12;Earth, Wind and... Wait for It;Gonzo (Character from The Muppets);s3e12_25;34937
+3;13;Any Given Friday Night at 10pm, 9pm Central;Rae Dawn Chong (Actress);s3e13_1;35369
+3;13;Any Given Friday Night at 10pm, 9pm Central;Quest For Fire (Movie);s3e13_2;35370
+3;13;Any Given Friday Night at 10pm, 9pm Central;Bat-Signal (Distress Signal From Batman Comics);s3e13_3;35375
+3;13;Any Given Friday Night at 10pm, 9pm Central;Kathy Griffin (Actress);s3e13_4;35446
+3;13;Any Given Friday Night at 10pm, 9pm Central;The Mentalist (TV Show);s3e13_5;35480
+3;13;Any Given Friday Night at 10pm, 9pm Central;Big League Chew (Chewing Gum);s3e13_6;35479
+3;13;Any Given Friday Night at 10pm, 9pm Central;C. Everett Koop (Pediatric Surgeon and Public Health Administrator);s3e13_7;35483
 3;13;Any Given Friday Night at 10pm, 9pm Central;Julie Sheehan (Poet);s3e13_8;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Harry Hamlin (Actor);s3e13_9;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Ralph Macchio (Actor);s3e13_10;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Peyton Manning (Athlete);s3e13_11;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Emilio Estevez (Actor);s3e13_12;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Thomas Dempsey (Athlete);s3e13_13;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Charlie Sheen (Actor);s3e13_14;
-3;13;Any Given Friday Night at 10pm, 9pm Central;The Russians Are Coming, The Russians Are Coming (Movie);s3e13_15;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Night of the Comet (Movie);s3e13_16;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Just One of the Guys (Movie);s3e13_17;
-3;13;Any Given Friday Night at 10pm, 9pm Central;"I'm Not a Playa, But I Crush A Lot (From The Song ""Im Not A Player"" by Big Pun)";s3e13_18;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Stir Crazy (Movie);s3e13_19;
-3;14;Truer Lies;Insane In The Membrane (Song By Cypress Hill);s3e14_1;
-3;14;Truer Lies;Vin Diesel (Actor);s3e14_2;
-3;14;Truer Lies;Hamburglar (McDonaldland Character);s3e14_3;
-3;14;Truer Lies;Grimace (McDonaldland Character);s3e14_4;
-3;14;Truer Lies;Mayor McCheese (McDonaldland Character);s3e14_5;
-3;14;Truer Lies;Koko B. Ware (Wrestler);s3e14_6;
-3;14;Truer Lies;Cranium (Board Game);s3e14_7;
-3;14;Truer Lies;Mike Ditka (Athlete);s3e14_8;
-3;14;Truer Lies;Bat Man (Comic Book Superhero);s3e14_9;
-3;14;Truer Lies;Treadstone (Black Ops Arm Of The CIA From The Bourne Movies);s3e14_10;
+3;13;Any Given Friday Night at 10pm, 9pm Central;Harry Hamlin (Actor);s3e13_9;35496,35497
+3;13;Any Given Friday Night at 10pm, 9pm Central;Ralph Macchio (Actor);s3e13_10;35531
+3;13;Any Given Friday Night at 10pm, 9pm Central;Peyton Manning (Athlete);s3e13_11;35559
+3;13;Any Given Friday Night at 10pm, 9pm Central;Emilio Estevez (Actor);s3e13_12;35655,35656,35726
+3;13;Any Given Friday Night at 10pm, 9pm Central;Thomas Dempsey (Athlete);s3e13_13;35665
+3;13;Any Given Friday Night at 10pm, 9pm Central;Charlie Sheen (Actor);s3e13_14;35728
+3;13;Any Given Friday Night at 10pm, 9pm Central;The Russians Are Coming, The Russians Are Coming (Movie);s3e13_15;35739,35740,35741,35742
+3;13;Any Given Friday Night at 10pm, 9pm Central;Night of the Comet (Movie);s3e13_16;35835
+3;13;Any Given Friday Night at 10pm, 9pm Central;Just One of the Guys (Movie);s3e13_17;35869
+3;13;Any Given Friday Night at 10pm, 9pm Central;"I'm Not a Playa, But I Crush A Lot (From The Song ""Im Not A Player"" by Big Pun)";s3e13_18;36024,36025
+3;13;Any Given Friday Night at 10pm, 9pm Central;Stir Crazy (Movie);s3e13_19;36089
+3;13;Any Given Friday Night at 10pm, 9pm Central;Drew Lachey (Singer/Actor);s3e13_20;35483
+3;13;Any Given Friday Night at 10pm, 9pm Central;Joyce Hyser (Actress);s3e13_21;35869
+3;14;Truer Lies;Insane In The Membrane (Song By Cypress Hill);s3e14_1;36220
+3;14;Truer Lies;Vin Diesel (Actor);s3e14_2;36356
+3;14;Truer Lies;Hamburglar (McDonaldland Character);s3e14_3;36350,36352
+3;14;Truer Lies;Grimace (McDonaldland Character);s3e14_4;36353,36357,36358,36372,36411,36412
+3;14;Truer Lies;Mayor McCheese (McDonaldland Character);s3e14_5;36351
+3;14;Truer Lies;Koko B. Ware (Wrestler);s3e14_6;36452
+3;14;Truer Lies;Cranium (Board Game);s3e14_7;36459
+3;14;Truer Lies;Mike Ditka (Athlete);s3e14_8;36484
+3;14;Truer Lies;Batman (Comic Book Superhero);s3e14_9;36621,36622,36623,36624
+3;14;Truer Lies;Treadstone (Black Ops Arm Of The CIA From The Bourne Movies);s3e14_10;36689
 3;14;Truer Lies;7-Eleven (Convenience Store);s3e14_11;36694
-3;15;Tuesday the 17th;Rick Astley (Musician);s3e15_1;
-3;15;Tuesday the 17th;Ann-Margret (Actress);s3e15_2;
-3;15;Tuesday the 17th;Eric Stoltz (Actor);s3e15_3;
-3;15;Tuesday the 17th;Boris Becker (Athlete);s3e15_4;
-3;15;Tuesday the 17th;Friday The 13th (Movie);s3e15_5;
-3;15;Tuesday the 17th;The Mowry Twins (Actresses);s3e15_6;
-3;15;Tuesday the 17th;Garrison Keillor (Author/Radio Personality);s3e15_7;
-3;15;Tuesday the 17th;What's Eating Gilbert Grape (Movie);s3e15_8;
-3;15;Tuesday the 17th;Aladdin (Movie);s3e15_9;
-3;15;Tuesday the 17th;Iago (Character From The Movie Aladdin);s3e15_10;
-3;15;Tuesday the 17th;Deep Blue Sea (Movie);s3e15_11;
-3;15;Tuesday the 17th;LL Cool J (Musician/Actor);s3e15_12;
-3;15;Tuesday the 17th;Samuel Jackson (Actor);s3e15_13;
-3;15;Tuesday the 17th;April Fool's Day (Movie);s3e15_14;
-3;15;Tuesday the 17th;Iron Sheik (Wrestler);s3e15_15;
-3;15;Tuesday the 17th;Nikolai Volkoff (Wrestler);s3e15_16;
-3;15;Tuesday the 17th;Jeff Goldblum (Actor);s3e15_17;
-3;15;Tuesday the 17th;Cyndi Lauper (Musician/Actress);s3e15_18;
-3;15;Tuesday the 17th;Vibes (Movie);s3e15_19;
-3;15;Tuesday the 17th;Judas (Disciple Of Jesus In The Bible);s3e15_20;
-3;15;Tuesday the 17th;Iago (Character In The Play Othello);s3e15_21;
-3;15;Tuesday the 17th;Annie? Are you OK? (Reference To The Song Smooth Criminal);s3e15_22;
-3;16;An Evening with Mr. Yang;Fuddruckers (Restaurant);s3e16_1;
-3;16;An Evening with Mr. Yang;Hitch (Character From The Movie Hitch);s3e16_2;
-3;16;An Evening with Mr. Yang;Will Hunting (Character From The Movie Good Will Hunting);s3e16_3;
-3;16;An Evening with Mr. Yang;Judd Nelson (Actor);s3e16_4;
-3;16;An Evening with Mr. Yang;How do you like them apples? (Quote From The Movie Good Will Hunting);s3e16_5;
-3;16;An Evening with Mr. Yang;General Mills (Cereal Manufacturer);s3e16_6;
-3;16;An Evening with Mr. Yang;Sterling Cooper (Actor);s3e16_7;
-3;16;An Evening with Mr. Yang;Kramer vs. Kramer (Movie);s3e16_8;
-3;16;An Evening with Mr. Yang;Zodiac (Movie);s3e16_9;
-3;16;An Evening with Mr. Yang;Michael Jackson (Musician);s3e16_10;
-3;16;An Evening with Mr. Yang;Doctor Dolittle (Movie);s3e16_11;
-3;16;An Evening with Mr. Yang;Men's Fitness (Magazine);s3e16_12;
-3;16;An Evening with Mr. Yang;Ryan Reynolds (Actor);s3e16_13;
-3;16;An Evening with Mr. Yang;King Kong (Character From The Movie King Kong);s3e16_14;
-3;16;An Evening with Mr. Yang;Ken Burns (Director/Producer);s3e16_15;
-3;16;An Evening with Mr. Yang;The Last of the Famous International Playboys (Third Single Released By Morrissey);s3e16_16;
-3;16;An Evening with Mr. Yang;Doubting Thomas (Reference To One Of The Twelve Apostles Of Jesus);s3e16_17;
-3;16;An Evening with Mr. Yang;Pat Swayze (Actor);s3e16_18;
-3;16;An Evening with Mr. Yang;North and South (TV mini-series);s3e16_19;
-3;16;An Evening with Mr. Yang;Now It's Time To Go See About A Girl (Quote From The Movie Good Will Hunting);s3e16_20;
+3;15;Tuesday the 17th;Rick Astley (Musician);s3e15_1;37029,37030
+3;15;Tuesday the 17th;Ann-Margret (Actress);s3e15_2;37033
+3;15;Tuesday the 17th;Eric Stoltz (Actor);s3e15_3;37035,37039
+3;15;Tuesday the 17th;Boris Becker (Athlete);s3e15_4;37035
+3;15;Tuesday the 17th;Friday the 13th (Movie);s3e15_5;37050,37314
+3;15;Tuesday the 17th;The Mowry Twins (Actresses);s3e15_6;37106
+3;15;Tuesday the 17th;Garrison Keillor (Author/Radio Personality);s3e15_7;37111
+3;15;Tuesday the 17th;What's Eating Gilbert Grape (Movie);s3e15_8;37120
+3;15;Tuesday the 17th;Aladdin (Movie);s3e15_9;37283
+3;15;Tuesday the 17th;Iago (Character From The Movie Aladdin);s3e15_10;37282
+3;15;Tuesday the 17th;Deep Blue Sea (Movie);s3e15_11;37292
+3;15;Tuesday the 17th;LL Cool J (Musician/Actor);s3e15_12;37292
+3;15;Tuesday the 17th;Samuel L. Jackson (Actor);s3e15_13;37293
+3;15;Tuesday the 17th;April Fool's Day (Movie);s3e15_14;37315
+3;15;Tuesday the 17th;Iron Sheik (Wrestler);s3e15_15;37359
+3;15;Tuesday the 17th;Nikolai Volkoff (Wrestler);s3e15_16;37359
+3;15;Tuesday the 17th;Jeff Goldblum (Actor);s3e15_17;37433
+3;15;Tuesday the 17th;Cyndi Lauper (Musician/Actress);s3e15_18;37433
+3;15;Tuesday the 17th;Vibes (Movie);s3e15_19;37432
+3;15;Tuesday the 17th;Judas (Disciple Of Jesus In The Bible);s3e15_20;37274
+3;15;Tuesday the 17th;Iago (Character In The Play Othello);s3e15_21;37282
+3;15;Tuesday the 17th;Annie? Are you OK? (Reference To The Song Smooth Criminal);s3e15_22;37307,37308,37309
+3;16;An Evening with Mr. Yang;Fuddruckers (Restaurant);s3e16_1;37599
+3;16;An Evening with Mr. Yang;Hitch (Character From The Movie Hitch);s3e16_2;37605
+3;16;An Evening with Mr. Yang;Will Hunting (Character From The Movie Good Will Hunting);s3e16_3;37606
+3;16;An Evening with Mr. Yang;Judd Nelson (Actor);s3e16_4;37613
+3;16;An Evening with Mr. Yang;How do you like them apples? (Quote From The Movie Good Will Hunting);s3e16_5;37632,38217
+3;16;An Evening with Mr. Yang;General Mills (Cereal Manufacturer);s3e16_6;37760
+3;16;An Evening with Mr. Yang;Sterling Cooper (Actor);s3e16_7;37681
+3;16;An Evening with Mr. Yang;Kramer vs. Kramer (Movie);s3e16_8;37701
+3;16;An Evening with Mr. Yang;Zodiac (Movie);s3e16_9;37749
+3;16;An Evening with Mr. Yang;Michael Jackson (Musician);s3e16_10;37862,37863
+3;16;An Evening with Mr. Yang;Doctor Dolittle (Movie);s3e16_11;37856,37857
+3;16;An Evening with Mr. Yang;Men's Fitness (Magazine);s3e16_12;37943
+3;16;An Evening with Mr. Yang;Ryan Reynolds (Actor);s3e16_13;37944
+3;16;An Evening with Mr. Yang;King Kong (Character From The Movie King Kong);s3e16_14;37974
+3;16;An Evening with Mr. Yang;Ken Burns (Director/Producer);s3e16_15;37992
+3;16;An Evening with Mr. Yang;The Last of the Famous International Playboys (Third Single Released By Morrissey);s3e16_16;38008
+3;16;An Evening with Mr. Yang;Doubting Thomas (Reference To One Of The Twelve Apostles Of Jesus);s3e16_17;38024
+3;16;An Evening with Mr. Yang;Patrick Swayze (Actor);s3e16_18;38036
+3;16;An Evening with Mr. Yang;North and South (TV mini-series);s3e16_19;38036
+3;16;An Evening with Mr. Yang;Now It's Time To Go See About A Girl (Quote From The Movie Good Will Hunting);s3e16_20;38215,38216
 3;16;An Evening with Mr. Yang;The Silence of the Lambs (Movie);s3e16_21;
 4;1;Extradition: British Columbia;The Mentalist (TV Show);s4e1_1;
 4;1;Extradition: British Columbia;Julie Christie (Actress);s4e1_2;
@@ -861,6 +873,7 @@
 4;13;Death Is in the Air;Mr. Bob Dobalina (Reference To The Monkees Song Zilch);s4e13_25;
 4;13;Death Is in the Air;Mistadobalina (Song By Del The Funkee Homosapien);s4e13_26;
 4;13;Death Is in the Air;I'm Not Falling For No Banana In My Tail Pipe (Quote From The Movie Beverly Hills Cop);s4e13_27;
+4;13;Death Is in the Air;Dirty Harry (Movie);s4e13_28;47923
 4;14;Think Tank;Big League Chew (Type of Bubble Gum);s4e14_1;
 4;14;Think Tank;Dave (Movie);s4e14_2;
 4;14;Think Tank;Kevin Kline (Actor);s4e14_3;
@@ -1503,6 +1516,7 @@
 6;15;True Grits;Superman (Action Superhero);s6e15_18;
 6;15;True Grits;Krypton (Superman's Home Planet);s6e15_19;
 6;15;True Grits;Benjamin Button (Character In The Movie The Curious Case Of Benjamin Button);s6e15_20;
+6;15;True Grits;Law & Order (TV Show);s6e15_21;80680
 6;16;Santabarbaratown;The Bachelorette (TV Show);s6e16_1;
 6;16;Santabarbaratown;Snoopy (Character In The Peanuts Comic Strip);s6e16_2;
 6;16;Santabarbaratown;Hammertime (Reference To M.C. Hammer);s6e16_3;
@@ -1587,6 +1601,7 @@
 7;5;100 Clues;Morrissey (Musician);s7e5_16;
 7;5;100 Clues;Johnny (Musician);s7e5_17;
 7;5;100 Clues;Lionel Richie (Musician);s7e5_18;
+7;5;100 Clues;Fuddruckers (Restaurant);s7e5_19;86530
 7;6;Cirque Du Soul;Eddie Murphy (Actor);s7e6_1;
 7;6;Cirque Du Soul;48 Hrs. (Movie);s7e6_2;
 7;6;Cirque Du Soul;Hertz (Car Rental);s7e6_3;
