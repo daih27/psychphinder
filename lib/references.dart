@@ -226,7 +226,6 @@ class ReferencesRoute extends StatelessWidget {
     var csvData = Provider.of<CSVData>(context);
     final List referenceData = csvData.referenceData;
     final List dataList = csvData.data;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -247,11 +246,15 @@ class ReferencesRoute extends StatelessWidget {
           final referenceSelected =
               currentReference(referenceData, data[index], season, episode);
           final hasReference = referenceSelected.isNotEmpty;
+          final String titleText = data[index].split("(").first.trim();
+          final String subtitleText =
+              data[index].split("(").last.replaceAll(')', '').trim();
           return Padding(
             padding: const EdgeInsets.all(5),
             child: Material(
               child: ListTile(
-                title: Text(data[index]),
+                title: Text(titleText),
+                subtitle: Text(subtitleText),
                 trailing: hasReference
                     ? const Icon(Icons.question_mark_rounded,
                         color: Colors.green)
