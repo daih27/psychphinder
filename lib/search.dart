@@ -100,128 +100,138 @@ class _SearchPageState extends State<SearchPage>
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      const Text("Season"),
-                      ValueListenableBuilder<String>(
-                        valueListenable: selectedSeason,
-                        builder: (context, value, _) {
-                          return DropdownButtonFormField(
-                            icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                            iconSize: 30,
-                            iconEnabledColor: Colors.white,
-                            dropdownColor: Colors.green,
-                            decoration: InputDecoration(
-                              fillColor: Colors.green,
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 12),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.green),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.green),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.green),
-                              ),
-                            ),
-                            value: value,
-                            items: seasons.map((season) {
-                              return DropdownMenuItem<String>(
-                                value: season,
-                                child: Text(season,
-                                    style:
-                                        const TextStyle(color: Colors.white)),
-                              );
-                            }).toList(),
-                            onChanged: (season) {
-                              setState(() {
-                                selectedSeason.value = season!;
-                                selectedEpisode.value = "All";
-                              });
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 20),
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: [
-                      selectedSeason.value == "Movies"
-                          ? const Text("Movie")
-                          : const Text("Episode"),
-                      ValueListenableBuilder<String>(
-                        valueListenable: selectedEpisode,
-                        builder: (context, value, _) {
-                          final selectedSeasonValue = selectedSeason.value;
-                          final episodes = episodesMap[selectedSeasonValue];
-                          return DropdownButtonFormField(
-                            icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                            iconSize: 30,
-                            iconEnabledColor: Colors.white,
-                            dropdownColor: Colors.green,
-                            isExpanded: true,
-                            decoration: InputDecoration(
-                              fillColor: Colors.green,
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 12),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.green),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.green),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.green),
-                              ),
-                            ),
-                            value: value,
-                            items: episodes!.map((episode) {
-                              return DropdownMenuItem<String>(
-                                value: episode,
-                                child: Text(episode,
-                                    style:
-                                        const TextStyle(color: Colors.white)),
-                              );
-                            }).toList(),
-                            onChanged: (episode) {
-                              setState(() {
-                                selectedEpisode.value = episode!;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+          ExpansionTile(
+            title: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text("Search options"),
             ),
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          const Text("Season"),
+                          ValueListenableBuilder<String>(
+                            valueListenable: selectedSeason,
+                            builder: (context, value, _) {
+                              return DropdownButtonFormField(
+                                icon: const Icon(
+                                    Icons.keyboard_arrow_down_rounded),
+                                iconSize: 30,
+                                iconEnabledColor: Colors.white,
+                                dropdownColor: Colors.green,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.green,
+                                  filled: true,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: 12),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide:
+                                        const BorderSide(color: Colors.green),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide:
+                                        const BorderSide(color: Colors.green),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide:
+                                        const BorderSide(color: Colors.green),
+                                  ),
+                                ),
+                                value: value,
+                                items: seasons.map((season) {
+                                  return DropdownMenuItem<String>(
+                                    value: season,
+                                    child: Text(season,
+                                        style: const TextStyle(
+                                            color: Colors.white)),
+                                  );
+                                }).toList(),
+                                onChanged: (season) {
+                                  setState(() {
+                                    selectedSeason.value = season!;
+                                    selectedEpisode.value = "All";
+                                  });
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        children: [
+                          selectedSeason.value == "Movies"
+                              ? const Text("Movie")
+                              : const Text("Episode"),
+                          ValueListenableBuilder<String>(
+                            valueListenable: selectedEpisode,
+                            builder: (context, value, _) {
+                              final selectedSeasonValue = selectedSeason.value;
+                              final episodes = episodesMap[selectedSeasonValue];
+                              return DropdownButtonFormField(
+                                icon: const Icon(
+                                    Icons.keyboard_arrow_down_rounded),
+                                iconSize: 30,
+                                iconEnabledColor: Colors.white,
+                                dropdownColor: Colors.green,
+                                isExpanded: true,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.green,
+                                  filled: true,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: 12),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide:
+                                        const BorderSide(color: Colors.green),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide:
+                                        const BorderSide(color: Colors.green),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide:
+                                        const BorderSide(color: Colors.green),
+                                  ),
+                                ),
+                                value: value,
+                                items: episodes!.map((episode) {
+                                  return DropdownMenuItem<String>(
+                                    value: episode,
+                                    child: Text(episode,
+                                        style: const TextStyle(
+                                            color: Colors.white)),
+                                  );
+                                }).toList(),
+                                onChanged: (episode) {
+                                  setState(() {
+                                    selectedEpisode.value = episode!;
+                                  });
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           isLoading
               ? const Expanded(

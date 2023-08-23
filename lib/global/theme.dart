@@ -28,6 +28,7 @@ class ThemeProvider with ChangeNotifier {
     colorSchemeSeed: Colors.green,
     brightness: Brightness.light,
     fontFamily: 'Lato',
+    dividerColor: Colors.transparent,
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -35,12 +36,14 @@ class ThemeProvider with ChangeNotifier {
     colorSchemeSeed: Colors.green,
     brightness: Brightness.dark,
     fontFamily: 'Lato',
+    dividerColor: Colors.transparent,
   );
 
   static final ThemeData blackTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: Colors.black,
     fontFamily: 'Lato',
+    dividerColor: Colors.transparent,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.black,
     ),
