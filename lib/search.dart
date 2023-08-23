@@ -13,7 +13,10 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends State<SearchPage>
+    with AutomaticKeepAliveClientMixin<SearchPage> {
+  @override
+  bool get wantKeepAlive => true;
   List searched = <Phrase>[];
 
   List<dynamic> _search(
