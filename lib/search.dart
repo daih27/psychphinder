@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:provider/provider.dart';
@@ -18,141 +19,20 @@ class _SearchPageState extends State<SearchPage>
   @override
   bool get wantKeepAlive => true;
   List searched = <Phrase>[];
-
-  List<dynamic> _search(
-      List data, String input, String season, String episode) {
-    List searched = <Phrase>[];
-    String searchedClean = "";
-    String inputClean = removeDiacritics(input)
-        .toLowerCase()
-        .replaceAll("'", '')
-        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-        .replaceAll(RegExp(r"\s+"), ' ')
-        .trim();
-    for (var i = 0; i < data.length; i++) {
-      searchedClean = removeDiacritics(data[i].line)
-          .toLowerCase()
-          .replaceAll("'", '')
-          .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-          .replaceAll(RegExp(r"\s+"), ' ')
-          .trim();
-      if (partialRatio(inputClean, searchedClean) > 90 &&
-          searchedClean.length >= inputClean.length - 2) {
-        if (season == "All") {
-          searched.add(Phrase(
-              id: data[i].id,
-              season: data[i].season,
-              episode: data[i].episode,
-              name: data[i].name,
-              time: data[i].time,
-              line: data[i].line,
-              reference: data[i].reference));
-        } else {
-          if (episode != "All" && season != "Movies") {
-            if (data[i].season == int.parse(season) &&
-                data[i].episode ==
-                    int.parse(episode.replaceAll(RegExp(r'[^0-9]'), ''))) {
-              searched.add(Phrase(
-                  id: data[i].id,
-                  season: data[i].season,
-                  episode: data[i].episode,
-                  name: data[i].name,
-                  time: data[i].time,
-                  line: data[i].line,
-                  reference: data[i].reference));
-            }
-          } else {
-            if (season != "Movies") {
-              if (data[i].season == int.parse(season)) {
-                searched.add(Phrase(
-                    id: data[i].id,
-                    season: data[i].season,
-                    episode: data[i].episode,
-                    name: data[i].name,
-                    time: data[i].time,
-                    line: data[i].line,
-                    reference: data[i].reference));
-              }
-            } else {
-              if (data[i].season == 0 &&
-                  season == "Movies" &&
-                  episode == "All") {
-                searched.add(Phrase(
-                    id: data[i].id,
-                    season: data[i].season,
-                    episode: data[i].episode,
-                    name: data[i].name,
-                    time: data[i].time,
-                    line: data[i].line,
-                    reference: data[i].reference));
-              } else {
-                if (data[i].season == 0 &&
-                    season == "Movies" &&
-                    episode[0] == "1") {
-                  if (data[i].name == "Psych: The Movie") {
-                    searched.add(Phrase(
-                        id: data[i].id,
-                        season: data[i].season,
-                        episode: data[i].episode,
-                        name: data[i].name,
-                        time: data[i].time,
-                        line: data[i].line,
-                        reference: data[i].reference));
-                  }
-                } else {
-                  if (data[i].season == 0 &&
-                      season == "Movies" &&
-                      episode[0] == "2") {
-                    if (data[i].name == "Psych 2: Lassie Come Home") {
-                      searched.add(Phrase(
-                          id: data[i].id,
-                          season: data[i].season,
-                          episode: data[i].episode,
-                          name: data[i].name,
-                          time: data[i].time,
-                          line: data[i].line,
-                          reference: data[i].reference));
-                    }
-                  } else {
-                    if (data[i].season == 0 &&
-                        season == "Movies" &&
-                        episode[0] == "3") {
-                      if (data[i].name == "Psych 3: This Is Gus") {
-                        searched.add(Phrase(
-                            id: data[i].id,
-                            season: data[i].season,
-                            episode: data[i].episode,
-                            name: data[i].name,
-                            time: data[i].time,
-                            line: data[i].line,
-                            reference: data[i].reference));
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    setState(() {
-      searched;
-    });
-    return searched;
-  }
-
+  Map map = {};
+  bool isLoading = false;
+  bool isSearching = false;
+  String input = "";
   ValueNotifier<String> selectedSeason = ValueNotifier<String>('All');
   ValueNotifier<String> selectedEpisode = ValueNotifier<String>('All');
-  bool isSearching = false;
+  final TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     var csvData = Provider.of<CSVData>(context);
     final List data = csvData.data;
     final Map<String, List<String>> episodesMap = csvData.episodesMap;
     final List<String> seasons = csvData.seasons;
-    final TextEditingController textEditingController = TextEditingController();
-
     return Scaffold(
       body: Column(
         children: [
@@ -161,14 +41,22 @@ class _SearchPageState extends State<SearchPage>
             child: TextField(
               controller: textEditingController,
               style: const TextStyle(color: Colors.white),
-              onSubmitted: (text) {
-                searched = _search(
-                  data,
-                  text,
-                  selectedSeason.value,
-                  selectedEpisode.value,
-                );
-                isSearching = true;
+              onSubmitted: (text) async {
+                map = {
+                  "data": data,
+                  "text": text,
+                  "selectedSeason": selectedSeason.value,
+                  "selectedEpisode": selectedEpisode.value
+                };
+                input = text;
+                setState(() {
+                  isLoading = true;
+                  isSearching = true;
+                });
+                searched = await compute(_search, map);
+                setState(() {
+                  isLoading = false;
+                });
               },
               cursorColor: Colors.white,
               decoration: InputDecoration(
@@ -177,14 +65,21 @@ class _SearchPageState extends State<SearchPage>
                 labelText: 'Search',
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.search),
-                  onPressed: () {
-                    searched = _search(
-                      data,
-                      textEditingController.text,
-                      selectedSeason.value,
-                      selectedEpisode.value,
-                    );
-                    isSearching = true;
+                  onPressed: () async {
+                    map = {
+                      "data": data,
+                      "text": textEditingController.text,
+                      "selectedSeason": selectedSeason.value,
+                      "selectedEpisode": selectedEpisode.value
+                    };
+                    setState(() {
+                      isLoading = true;
+                      isSearching = true;
+                    });
+                    searched = await compute(_search, map);
+                    setState(() {
+                      isLoading = false;
+                    });
                   },
                 ),
                 suffixIconColor: Colors.white,
@@ -328,39 +223,168 @@ class _SearchPageState extends State<SearchPage>
               ],
             ),
           ),
-          (searched.isNotEmpty)
-              ? Expanded(child: ItemList(lines: searched, data: data))
-              : isSearching
-                  ? const Expanded(
-                      child: Center(
-                        child: Text(
-                          "No results found.",
-                          style: TextStyle(
-                            fontFamily: "PsychFont",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+          isLoading
+              ? const Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : searched.isNotEmpty
+                  ? Expanded(
+                      child: ItemList(
+                          lines: searched, data: data, input: map["text"]))
+                  : isSearching
+                      ? const Expanded(
+                          child: Center(
+                            child: Text(
+                              "No results found.",
+                              style: TextStyle(
+                                fontFamily: "PsychFont",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                              textScaleFactor: 1.0,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                          textScaleFactor: 1.0,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    )
-                  : const Expanded(
-                      child: Center(
-                        child: Text(
-                          "Welcome to psychphinder!",
-                          style: TextStyle(
-                            fontFamily: "PsychFont",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                        )
+                      : const Expanded(
+                          child: Center(
+                            child: Text(
+                              "Welcome to psychphinder!",
+                              style: TextStyle(
+                                fontFamily: "PsychFont",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                              textScaleFactor: 1.0,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                          textScaleFactor: 1.0,
-                          textAlign: TextAlign.center,
                         ),
-                      ),
-                    ),
         ],
       ),
     );
   }
+}
+
+Future<List<Phrase>> _search(map) async {
+  List data = map["data"];
+  String input = map["text"];
+  String season = map["selectedSeason"];
+  String episode = map["selectedEpisode"];
+  List<Phrase> searched = <Phrase>[];
+  String searchedClean = "";
+  String inputClean = removeDiacritics(input)
+      .toLowerCase()
+      .replaceAll("'", '')
+      .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+      .replaceAll(RegExp(r"\s+"), ' ')
+      .trim();
+  for (var i = 0; i < data.length; i++) {
+    searchedClean = removeDiacritics(data[i].line)
+        .toLowerCase()
+        .replaceAll("'", '')
+        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+        .replaceAll(RegExp(r"\s+"), ' ')
+        .trim();
+    if (partialRatio(inputClean, searchedClean) > 90 &&
+        searchedClean.length >= inputClean.length - 2) {
+      if (season == "All") {
+        searched.add(Phrase(
+            id: data[i].id,
+            season: data[i].season,
+            episode: data[i].episode,
+            name: data[i].name,
+            time: data[i].time,
+            line: data[i].line,
+            reference: data[i].reference));
+      } else {
+        if (episode != "All" && season != "Movies") {
+          if (data[i].season == int.parse(season) &&
+              data[i].episode ==
+                  int.parse(episode.replaceAll(RegExp(r'[^0-9]'), ''))) {
+            searched.add(Phrase(
+                id: data[i].id,
+                season: data[i].season,
+                episode: data[i].episode,
+                name: data[i].name,
+                time: data[i].time,
+                line: data[i].line,
+                reference: data[i].reference));
+          }
+        } else {
+          if (season != "Movies") {
+            if (data[i].season == int.parse(season)) {
+              searched.add(Phrase(
+                  id: data[i].id,
+                  season: data[i].season,
+                  episode: data[i].episode,
+                  name: data[i].name,
+                  time: data[i].time,
+                  line: data[i].line,
+                  reference: data[i].reference));
+            }
+          } else {
+            if (data[i].season == 0 && season == "Movies" && episode == "All") {
+              searched.add(Phrase(
+                  id: data[i].id,
+                  season: data[i].season,
+                  episode: data[i].episode,
+                  name: data[i].name,
+                  time: data[i].time,
+                  line: data[i].line,
+                  reference: data[i].reference));
+            } else {
+              if (data[i].season == 0 &&
+                  season == "Movies" &&
+                  episode[0] == "1") {
+                if (data[i].name == "Psych: The Movie") {
+                  searched.add(Phrase(
+                      id: data[i].id,
+                      season: data[i].season,
+                      episode: data[i].episode,
+                      name: data[i].name,
+                      time: data[i].time,
+                      line: data[i].line,
+                      reference: data[i].reference));
+                }
+              } else {
+                if (data[i].season == 0 &&
+                    season == "Movies" &&
+                    episode[0] == "2") {
+                  if (data[i].name == "Psych 2: Lassie Come Home") {
+                    searched.add(Phrase(
+                        id: data[i].id,
+                        season: data[i].season,
+                        episode: data[i].episode,
+                        name: data[i].name,
+                        time: data[i].time,
+                        line: data[i].line,
+                        reference: data[i].reference));
+                  }
+                } else {
+                  if (data[i].season == 0 &&
+                      season == "Movies" &&
+                      episode[0] == "3") {
+                    if (data[i].name == "Psych 3: This Is Gus") {
+                      searched.add(Phrase(
+                          id: data[i].id,
+                          season: data[i].season,
+                          episode: data[i].episode,
+                          name: data[i].name,
+                          time: data[i].time,
+                          line: data[i].line,
+                          reference: data[i].reference));
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return searched;
 }
