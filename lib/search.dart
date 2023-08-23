@@ -3,6 +3,7 @@ import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/classes/phrase_class.dart';
 import 'package:psychphinder/widgets/itemlist.dart';
+import 'package:diacritic/diacritic.dart';
 import 'global/globals.dart';
 
 class SearchPage extends StatefulWidget {
@@ -19,20 +20,21 @@ class _SearchPageState extends State<SearchPage> {
       List data, String input, String season, String episode) {
     List searched = <Phrase>[];
     String searchedClean = "";
+    String inputClean = removeDiacritics(input)
+        .toLowerCase()
+        .replaceAll("'", '')
+        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+        .replaceAll(RegExp(r"\s+"), ' ')
+        .trim();
     for (var i = 0; i < data.length; i++) {
-      searchedClean = data[i]
-          .line
+      searchedClean = removeDiacritics(data[i].line)
           .toLowerCase()
-          .replaceAll(RegExp('[^A-Za-z0-9 ]'), '')
-          .replaceAll("  ", " ")
-          .replaceAll("   ", " ");
-      searchedClean[0].replaceAll('  ', '').replaceAll(' ', '');
-      if (partialRatio(
-                  input.toLowerCase().replaceAll(RegExp('[^A-Za-z0-9 ]'), ''),
-                  searchedClean) >
-              90 &&
-          searchedClean.length >=
-              input.replaceAll(RegExp('[^A-Za-z0-9 ]'), '').length - 2) {
+          .replaceAll("'", '')
+          .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+          .replaceAll(RegExp(r"\s+"), ' ')
+          .trim();
+      if (partialRatio(inputClean, searchedClean) > 90 &&
+          searchedClean.length >= inputClean.length - 2) {
         if (season == "All") {
           searched.add(Phrase(
               id: data[i].id,
