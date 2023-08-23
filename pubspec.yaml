@@ -29,6 +29,7 @@ dependencies:
   flutter_screenutil: ^5.8.4
   google_nav_bar: ^5.0.6
   diacritic: ^0.1.4
+  highlight_text: ^1.7.0
 
 dev_dependencies:
   hive_generator: ^1.1.2
