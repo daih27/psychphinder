@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:psychphinder/classes/full_episode.dart';
 import 'package:psychphinder/global/globals.dart';
 import 'package:psychphinder/widgets/bottomsheet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReferencesPage extends StatelessWidget {
   const ReferencesPage({Key? key}) : super(key: key);
@@ -130,15 +131,26 @@ class EpisodesRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Episodes',
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.green,
-            fontFamily: 'PsychFont',
-            fontWeight: FontWeight.bold,
-            letterSpacing: -0.5,
-          ),
+        title: Column(
+          children: [
+            const Text(
+              'Episodes',
+              style: TextStyle(
+                fontSize: 25,
+                color: Colors.green,
+                fontFamily: 'PsychFont',
+                fontWeight: FontWeight.bold,
+                letterSpacing: -0.5,
+              ),
+            ),
+            Text(
+              "Season $season",
+              style: const TextStyle(
+                fontFamily: 'PsychFont',
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
       ),
       body: ListView.builder(
@@ -165,7 +177,6 @@ class EpisodesRoute extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ReferencesRoute(
-                        referencesData,
                         season,
                         data.keys.elementAt(index),
                       ),
@@ -181,41 +192,67 @@ class EpisodesRoute extends StatelessWidget {
   }
 }
 
-class ReferencesRoute extends StatelessWidget {
-  final List<String> data;
+class ReferencesRoute extends StatefulWidget {
   final String season;
   final String episode;
-  const ReferencesRoute(this.data, this.season, this.episode, {Key? key})
+  const ReferencesRoute(this.season, this.episode, {Key? key})
       : super(key: key);
 
-  List<String> currentReference(
-      List referenceData, String reference, String season, String episode) {
-    List<String> referenceSelected = [];
+  @override
+  State<ReferencesRoute> createState() => _ReferencesRouteState();
+}
 
-    String extractNumberBeforeHyphen(String input) {
-      final pattern = RegExp(r'^\d{1,2}\s-\s');
-      final match = pattern.firstMatch(input);
-      if (match != null) {
-        return match.group(0)!.replaceAll(' - ', '');
-      }
-      return '';
+class _ReferencesRouteState extends State<ReferencesRoute> {
+  late final Future sortByInit;
+  late bool sortByAlphabetical;
+  late bool firstLoad;
+  late final String episodeNumber;
+
+  @override
+  void initState() {
+    episodeNumber = extractNumberBeforeHyphen(widget.episode);
+    sortByInit = loadSort();
+    firstLoad = true;
+    super.initState();
+  }
+
+  String extractNumberBeforeHyphen(String input) {
+    final pattern = RegExp(r'^\d{1,2}\s-\s');
+    final match = pattern.firstMatch(input);
+    if (match != null) {
+      return match.group(0)!.replaceAll(' - ', '');
     }
+    return '';
+  }
 
+  Future<bool> loadSort() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("sortRef") ?? true;
+  }
+
+  Future<void> saveSort(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("sortRef", value);
+  }
+
+  List referenceList(List referenceData) {
+    List references = [];
     for (var i = 0; i < referenceData.length; i++) {
-      final data = referenceData[i].reference.replaceAll('\r', '').trim();
-      final referenceClean = reference.replaceAll('\r', '').trim();
-      final idClean = referenceData[i].idLine.replaceAll('\r', '').trim();
-      final splitted = idClean.split(',');
-      final episodeNumber = extractNumberBeforeHyphen(episode);
+      if (referenceData[i].season == int.parse(widget.season) &&
+          referenceData[i].episode == int.parse(episodeNumber)) {
+        references.add(referenceData[i]);
+      }
+    }
+    return references;
+  }
 
-      // final epsiodeClean = referenceData[i].episode.replaceAll('\r', '').trim();
-      for (var j = 0; j < splitted.length; j++) {
-        if (data == referenceClean &&
-            referenceData[i].episode == int.parse(episodeNumber) &&
-            referenceData[i].season == int.parse(season) &&
-            splitted.first != "") {
-          referenceSelected.add(splitted[j]);
-        }
+  List currentReference(int index, List references) {
+    final splitted =
+        references[index].idLine.replaceAll('\r', '').trim().split(',');
+    List<String> referenceSelected = [];
+    for (var j = 0; j < splitted.length; j++) {
+      if (splitted.first != "") {
+        referenceSelected.add(splitted[j]);
       }
     }
     return referenceSelected;
@@ -226,64 +263,132 @@ class ReferencesRoute extends StatelessWidget {
     var csvData = Provider.of<CSVData>(context);
     final List referenceData = csvData.referenceData;
     final List dataList = csvData.data;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'References',
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.green,
-            fontFamily: 'PsychFont',
-            fontWeight: FontWeight.bold,
-            letterSpacing: -0.5,
-          ),
-        ),
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(10),
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          final referenceSelected =
-              currentReference(referenceData, data[index], season, episode);
-          final hasReference = referenceSelected.isNotEmpty;
-          final String titleText = data[index].split("(").first.trim();
-          final String subtitleText =
-              data[index].split("(").last.replaceAll(')', '').trim();
-          return Padding(
-            padding: const EdgeInsets.all(5),
-            child: Material(
-              child: ListTile(
-                title: Text(titleText),
-                subtitle: Text(subtitleText),
-                trailing: hasReference
-                    ? const Icon(Icons.question_mark_rounded,
-                        color: Colors.green)
-                    : null,
-                onTap: () {
-                  if (hasReference) {
-                    EpisodeUtil.fullEpisode(
-                      dataList,
-                      dataList[int.parse(referenceSelected.first)],
-                    );
-                    showModalBottomSheet(
-                      context: context,
-                      enableDrag: false,
-                      builder: (BuildContext context) {
-                        return BottomSheetEpisode(
-                          indexLine: EpisodeUtil.index,
-                          fullEpisode: EpisodeUtil.full,
-                          referencesList: referenceSelected,
-                        );
-                      },
-                    );
-                  }
+    final references = referenceList(referenceData);
+    return FutureBuilder<dynamic>(
+      future: sortByInit,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if (firstLoad) {
+            sortByAlphabetical = snapshot.data;
+            firstLoad = false;
+          }
+          sortByAlphabetical == true
+              ? references.sort((a, b) => a.reference.compareTo(b.reference))
+              : references.sort((a, b) => a.idLine.compareTo(b.idLine));
+          return WillPopScope(
+            onWillPop: () async {
+              saveSort(sortByAlphabetical);
+              Navigator.pop(context);
+              return false;
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                title: Column(
+                  children: [
+                    const Text(
+                      'References',
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.green,
+                        fontFamily: 'PsychFont',
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                    Text(
+                      "Season ${widget.season}, Episode $episodeNumber",
+                      style: const TextStyle(
+                        fontFamily: 'PsychFont',
+                        fontSize: 12,
+                      ),
+                    )
+                  ],
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Stack(
+                      children: [
+                        IconButton(
+                          iconSize: 28,
+                          icon: const Icon(Icons.sort_rounded),
+                          onPressed: () {
+                            setState(() {
+                              sortByAlphabetical == true
+                                  ? sortByAlphabetical = false
+                                  : sortByAlphabetical = true;
+                            });
+                            // saveSort(sortBy);
+                          },
+                        ),
+                        Positioned(
+                          right: 6,
+                          bottom: 2,
+                          child: sortByAlphabetical == true
+                              ? const Icon(Icons.sort_by_alpha_rounded,
+                                  size: 14)
+                              : const Icon(Icons.schedule_rounded, size: 14),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              body: ListView.builder(
+                padding: const EdgeInsets.all(10),
+                itemCount: references.length,
+                itemBuilder: (context, index) {
+                  final referenceSelected = currentReference(index, references);
+                  final hasReference = referenceSelected.isNotEmpty;
+                  final String titleText =
+                      references[index].reference.split("(").first.trim();
+                  final String subtitleText = references[index]
+                      .reference
+                      .split("(")
+                      .last
+                      .replaceAll(')', '')
+                      .trim();
+                  return Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Material(
+                      child: ListTile(
+                        title: Text(titleText),
+                        subtitle: Text(subtitleText),
+                        trailing: hasReference
+                            ? const Icon(Icons.question_mark_rounded,
+                                color: Colors.green)
+                            : null,
+                        onTap: () {
+                          if (hasReference) {
+                            EpisodeUtil.fullEpisode(
+                              dataList,
+                              dataList[int.parse(referenceSelected.first)],
+                            );
+                            showModalBottomSheet(
+                              context: context,
+                              enableDrag: false,
+                              builder: (BuildContext context) {
+                                return BottomSheetEpisode(
+                                  indexLine: EpisodeUtil.index,
+                                  fullEpisode: EpisodeUtil.full,
+                                  referencesList: referenceSelected,
+                                );
+                              },
+                            );
+                          }
+                        },
+                        contentPadding: const EdgeInsets.all(10),
+                      ),
+                    ),
+                  );
                 },
-                contentPadding: const EdgeInsets.all(10),
               ),
             ),
           );
-        },
-      ),
+        } else {
+          return const Scaffold();
+        }
+      },
     );
   }
 }
