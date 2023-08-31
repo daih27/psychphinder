@@ -6,6 +6,7 @@ import 'package:psychphinder/classes/phrase_class.dart';
 import 'package:psychphinder/widgets/itemlist.dart';
 import 'package:diacritic/diacritic.dart';
 import 'global/globals.dart';
+import 'package:number_to_words_english/number_to_words_english.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -278,6 +279,17 @@ class _SearchPageState extends State<SearchPage>
   }
 }
 
+String replaceNumbersForWords(String input) {
+  RegExp regExp = RegExp(r'\d+');
+  Iterable<Match> matches = regExp.allMatches(input);
+  for (Match match in matches) {
+    input = input.replaceAll(match.group(0)!,
+        NumberToWordsEnglish.convert(int.parse(match.group(0)!)));
+  }
+
+  return input;
+}
+
 Future<List<Phrase>> _search(map) async {
   List data = map["data"];
   String input = map["text"];
@@ -285,19 +297,19 @@ Future<List<Phrase>> _search(map) async {
   String episode = map["selectedEpisode"];
   List<Phrase> searched = <Phrase>[];
   String searchedClean = "";
-  String inputClean = removeDiacritics(input)
+  String inputClean = replaceNumbersForWords(removeDiacritics(input)
       .toLowerCase()
       .replaceAll("'", '')
       .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
       .replaceAll(RegExp(r"\s+"), ' ')
-      .trim();
+      .trim());
   for (var i = 0; i < data.length; i++) {
-    searchedClean = removeDiacritics(data[i].line)
+    searchedClean = replaceNumbersForWords(removeDiacritics(data[i].line)
         .toLowerCase()
         .replaceAll("'", '')
         .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
         .replaceAll(RegExp(r"\s+"), ' ')
-        .trim();
+        .trim());
     if (partialRatio(inputClean, searchedClean) > 90 &&
         searchedClean.length >= inputClean.length - 2) {
       if (season == "All") {

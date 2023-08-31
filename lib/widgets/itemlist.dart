@@ -5,6 +5,7 @@ import 'package:psychphinder/widgets/bottomsheet.dart';
 import 'package:highlight_text/highlight_text.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:diacritic/diacritic.dart';
+import 'package:number_to_words_english/number_to_words_english.dart';
 
 class ItemList extends StatelessWidget {
   const ItemList(
@@ -13,6 +14,18 @@ class ItemList extends StatelessWidget {
   final List lines;
   final List data;
   final String? input;
+
+  String replaceNumbersForWords(String input) {
+    RegExp regExp = RegExp(r'\d+');
+    Iterable<Match> matches = regExp.allMatches(input);
+    for (Match match in matches) {
+      input = input.replaceAll(match.group(0)!,
+          NumberToWordsEnglish.convert(int.parse(match.group(0)!)));
+      input = "$input ${match.group(0)!}";
+    }
+
+    return input;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,26 +49,32 @@ class ItemList extends StatelessWidget {
               final List inputSplit = input!.split(" ");
               final List linesSplit = lines[index].line.split(" ");
               for (var i = 0; i < inputSplit.length; i++) {
-                var inputClean = removeDiacritics(inputSplit[i])
-                    .toLowerCase()
-                    .toLowerCase()
-                    .replaceAll("'", '')
-                    .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-                    .replaceAll(RegExp(r"\s+"), ' ')
-                    .trim();
+                var inputClean = replaceNumbersForWords(
+                    removeDiacritics(inputSplit[i])
+                        .toLowerCase()
+                        .replaceAll("'", '')
+                        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+                        .replaceAll(RegExp(r"\s+"), ' ')
+                        .trim());
                 for (var j = 0; j < linesSplit.length; j++) {
-                  var lineClean = removeDiacritics(linesSplit[j])
-                      .toLowerCase()
+                  var lineCleanWithNumbers = removeDiacritics(linesSplit[j])
                       .toLowerCase()
                       .replaceAll("'", '')
                       .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
                       .replaceAll(RegExp(r"\s+"), ' ')
                       .trim();
-                  if (weightedRatio(lineClean, inputClean) >= 92 &&
-                      inputClean.length >= lineClean.length) {
+                  var lineCleanWithoutNumbers =
+                      replaceNumbersForWords(lineCleanWithNumbers);
+                  if (weightedRatio(lineCleanWithoutNumbers, inputClean) >=
+                          92 &&
+                      inputClean.length >= lineCleanWithoutNumbers.length) {
                     words[linesSplit[j]] = highlightedWord;
                   } else {
                     words[inputSplit[i]] = highlightedWord;
+                  }
+                  if (lineCleanWithNumbers != lineCleanWithoutNumbers &&
+                      weightedRatio(lineCleanWithoutNumbers, input!) >= 90) {
+                    words[linesSplit[j]] = highlightedWord;
                   }
                 }
               }
