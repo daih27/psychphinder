@@ -782,11 +782,12 @@
 3;14;Truer Lies;7-Eleven (Convenience store);s3e14_11;36694
 3;14;Truer Lies;Liar, liar, pants on fire (Rhyme);s3e14_12;36203
 3;14;Truer Lies;Loch Ness Monster (Mythical creature);s3e14_13;36729
-3;14;Truer Lies;Bigfoot (Mythical creature);s3e14_14;36730
+3;14;Truer Lies;Bigfoot (Mythical creature);s3e14_14;36730,36732
 3;14;Truer Lies;Wayne's World (Movie);s3e14_15;36822
 3;14;Truer Lies;Dave's World (TV Show);s3e14_16;36822
 3;14;Truer Lies;It's a Small World (Boat ride);s3e14_17;36822
 3;14;Truer Lies;Speed (Movie);s3e14_18;36947,36948
+3;14;Truer Lies;Hefty (Brand of household products);s3e14_19;36166
 3;15;Tuesday the 17th;Rick Astley (Musician);s3e15_1;37029,37030
 3;15;Tuesday the 17th;Ann-Margret (Actress);s3e15_2;37033
 3;15;Tuesday the 17th;Eric Stoltz (Actor);s3e15_3;37035,37039
@@ -883,235 +884,328 @@
 4;2;He Dead;Mr. Green Jeans (Chracter from Captain Kangaroo);s4e2_19;39675
 4;2;He Dead;Fonzie (Character from Happy Days);s4e2_20;39748,39750
 4;2;He Dead;Dust in the Wind (Song by Kansas);s4e2_21;39842,39843,39844,39845
-4;3;High Noon-ish;Keebler Elves (Keebler Company Mascots);s4e3_1;
-4;3;High Noon-ish;Kryptonite (Radioactive Remains Of Superman's Native Planet Krypton);s4e3_2;
-4;3;High Noon-ish;Blazing Saddles (Movie);s4e3_3;
-4;3;High Noon-ish;Posse (Movie);s4e3_4;
-4;3;High Noon-ish;David Niven (Actor);s4e3_5;
-4;3;High Noon-ish;Neil Bernard (Misician);s4e3_6;
-4;3;High Noon-ish;The Shawshank Redemption (Movie);s4e3_7;
-4;3;High Noon-ish;Morgan Freeman (Actor);s4e3_8;
-4;3;High Noon-ish;Tim Robbins (Actor);s4e3_9;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Grand Theft Auto (Video Game);s4e4_1;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Brett Favre (Athlete);s4e4_2;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Erin Brockovich (Movie);s4e4_3;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;The Exorcist (Movie);s4e4_4;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;You're gonna die up there (Quote from the movie The Exorcist);s4e4_5;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Facebook (Social Networking Service and Website);s4e4_6;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Lucy (Character From The Peanuts Comics);s4e4_7;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Pretty In Pink (Movie);s4e4_8;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Carson Daly (Television Host);s4e4_9;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Simon Baker (Actor);s4e4_10;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Run Lola Run (Movie);s4e4_11;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Ouija Board (Supposedly Used To Communicate With Any Spirits);s4e4_12;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;When Harry Met Sally... (Movie);s4e4_13;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Red Heat (Movie);s4e4_14;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Linda Blair (Actress);s4e4_15;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Chained Heat (Movie);s4e4_16;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Siouxsie Sioux (Musician);s4e4_17;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Bauhaus (Band);s4e4_18;
-4;4;The Devil's in the Details... and the Upstairs Bedroom;Bjork (Musician);s4e4_19;
-4;5;Shawn Gets the Yips;Yankees (Major League Baseball Team);s4e5_1;
-4;5;Shawn Gets the Yips;Chuck Knoblauch (Athlete);s4e5_2;
-4;5;Shawn Gets the Yips;Keith Olbermann (Political Commentator);s4e5_3;
-4;5;Shawn Gets the Yips;Wes Craven (Director/Writer);s4e5_4;
-4;5;Shawn Gets the Yips;Fred Flintstone (Character From The TV Show The Flintstones);s4e5_5;
-4;5;Shawn Gets the Yips;A Sports car Named Desire (1951) (Referencing The Movie A Streetcar Named Desire);s4e5_6;
-4;5;Shawn Gets the Yips;Nordstrom (Department Store);s4e5_7;
-4;5;Shawn Gets the Yips;Meineke (Car Care Center);s4e5_8;
-4;5;Shawn Gets the Yips;Tony Robbins (Self-Help Author And Success Coach);s4e5_9;
-4;5;Shawn Gets the Yips;Lethal Weapon 2 (Movie);s4e5_10;
-4;5;Shawn Gets the Yips;Speed (Movie);s4e5_11;
-4;5;Shawn Gets the Yips;Sonny & Cher (Musicians);s4e5_12;
-4;5;Shawn Gets the Yips;Daniel Day-Lewis (Actor);s4e5_13;
-4;5;Shawn Gets the Yips;Torii Hunter (Athlete);s4e5_14;
-4;5;Shawn Gets the Yips;Hannibal Lecter (Movie Character);s4e5_15;
-4;6;Bollywood Homicide;Harry Potter and the Prisoner of Azkaban (Movie);s4e6_1;
-4;6;Bollywood Homicide;All That Jazz (Movie);s4e6_2;
-4;6;Bollywood Homicide;White Nights (Movie);s4e6_3;
-4;6;Bollywood Homicide;Gregory Hines (Actor);s4e6_4;
-4;6;Bollywood Homicide;Nine 1/2 Weeks (Movie);s4e6_5;
-4;6;Bollywood Homicide;Solomon Kane (Fictional Character created by the pulp-era writer Robert E. Howard);s4e6_6;
-4;6;Bollywood Homicide;Indiana Jones and the Temple of Doom (Movie);s4e6_7;
-4;6;Bollywood Homicide;Corey Haim (Actor);s4e6_8;
-4;7;High Top Fade-Out;Joker (Character In The Batman Comics);s4e7_1;
-4;7;High Top Fade-Out;Matthew McConaughey (Actor);s4e7_2;
-4;7;High Top Fade-Out;Colonel Sanders (Founder Of Kentucky Fried Chicken);s4e7_3;
-4;7;High Top Fade-Out;New Edition (Musicians);s4e7_4;
-4;7;High Top Fade-Out;Beyonce (Musician);s4e7_5;
-4;7;High Top Fade-Out;Destiny's Child (Musicians);s4e7_6;
-4;7;High Top Fade-Out;Happy Feet (Movie);s4e7_7;
-4;7;High Top Fade-Out;Abercrombie & Fitch (Clothing Store);s4e7_8;
-4;7;High Top Fade-Out;Caruso (Actor);s4e7_9;
-4;7;High Top Fade-Out;Rosetta Stone (Language Learning Software);s4e7_10;
-4;7;High Top Fade-Out;Mr. Wizard (Stage Name Of TV Scientist Don Herbert);s4e7_11;
-4;7;High Top Fade-Out;Like Big Butts And I Can Not Lie (Lyrics From Sir Mix-A-Lot's Song Baby Got Back);s4e7_12;
-4;7;High Top Fade-Out;Patrick Fugit (Actor);s4e7_13;
-4;7;High Top Fade-Out;Hammer Pants (Style Of Peg-Legged Baggy Pants From 90s);s4e7_14;
-4;7;High Top Fade-Out;Steve Martin (Actor);s4e7_15;
-4;7;High Top Fade-Out;The Spanish Prisoner (Movie);s4e7_16;
-4;7;High Top Fade-Out;Lean on Me (Movie);s4e7_17;
-4;7;High Top Fade-Out;American Ninja (Movie);s4e7_18;
-4;7;High Top Fade-Out;To Live and Die in L.A. (Movie);s4e7_19;
-4;7;High Top Fade-Out;Sugar Hill (Musician);s4e7_20;
-4;8;Let's Get Hairy;Hacksaw Jim Duggan (Wrestler);s4e8_1;
-4;8;Let's Get Hairy;The Junkyard Dog (Wrester);s4e8_2;
-4;8;Let's Get Hairy;Robert Goulet (Entertainer);s4e8_3;
-4;8;Let's Get Hairy;Mr. Bean (Stage Name Of Actor Rowan Atkinson);s4e8_4;
-4;8;Let's Get Hairy;The Wizard Of Oz (Movie);s4e8_5;
-4;8;Let's Get Hairy;Tony Randall (Actor);s4e8_6;
-4;8;Let's Get Hairy;Royal Rumble (Wrestling Pay-Per-View Event);s4e8_7;
-4;8;Let's Get Hairy;Mr. Peanut (Mascot of Planters);s4e8_8;
-4;8;Let's Get Hairy;Wonder Woman (Comic Superheroine);s4e8_9;
-4;8;Let's Get Hairy;Bat Phone (A Private Telephone Number That Is Handled At A Higher Priority Than A Public Line. Originating From The Batman Comics);s4e8_10;
-4;8;Let's Get Hairy;Halle Berry (Actress);s4e8_11;
-4;8;Let's Get Hairy;Gothika (Movie);s4e8_12;
-4;8;Let's Get Hairy;Vampira (Actress/ Stage Name Of Maila Nurmi);s4e8_13;
-4;8;Let's Get Hairy;Third Thompson Twin With Dreds (Referencing One Of The Musicians The Thompson Twins);s4e8_14;
-4;8;Let's Get Hairy;Deniece Williams (Musician);s4e8_15;
-4;8;Let's Get Hairy;Anna Paquin (Actress);s4e8_16;
-4;8;Let's Get Hairy;Almost Famous (Movie);s4e8_17;
-4;8;Let's Get Hairy;Poltergeist (Movie);s4e8_18;
-4;8;Let's Get Hairy;A Different World (TV Show);s4e8_19;
-4;8;Let's Get Hairy;Dwayne Cleophus Wayne (Character From The TV Show A Different World);s4e8_20;
-4;8;Let's Get Hairy;Hellboy (Movie);s4e8_21;
+4;3;High Noon-ish;Keebler elves (Keebler Company mascots);s4e3_1;39982
+4;3;High Noon-ish;Kryptonite (Radioactive remains of Superman's native planet Krypton);s4e3_2;39988
+4;3;High Noon-ish;Blazing Saddles (Movie);s4e3_3;40025
+4;3;High Noon-ish;Posse (Movie);s4e3_4;40074
+4;3;High Noon-ish;David Niven (Actor);s4e3_5;40476
+4;3;High Noon-ish;Yul Brynner (Actor);s4e3_6;40577
+4;3;High Noon-ish;The Shawshank Redemption (Movie);s4e3_7;40580
+4;3;High Noon-ish;Morgan Freeman (Actor);s4e3_8;40583
+4;3;High Noon-ish;Tim Robbins (Actor);s4e3_9;40580
+4;3;High Noon-ish;Flowers in the Attic (Novel written by V. C. Andrews);s4e3_10;40307
+4;3;High Noon-ish;Febreze (Brand of household odor eliminators);s4e3_11;40419
+4;3;High Noon-ish;Winston Zeddemore (Character from the movie Ghostbusters);s4e3_12;40485
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Grand Theft Auto (Video Game);s4e4_1;40713
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Brett Favre (Athlete);s4e4_2;40780
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Erin Brockovich (Movie);s4e4_3;40790
+4;4;The Devil's in the Details... and the Upstairs Bedroom;The Exorcist (Movie);s4e4_4;40815,40973
+4;4;The Devil's in the Details... and the Upstairs Bedroom;You're gonna die up there (Quote from the movie The Exorcist);s4e4_5;40814,40815
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Movin' Out (Song by Billy Joel);s4e4_6;41142,41143
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Lucy (Character from the Peanuts comics);s4e4_7;40925,40926,40927,40928
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Pretty In Pink (Movie);s4e4_8;40974,40975
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Carson Daly (Television host);s4e4_9;41097
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Simon Baker (Actor);s4e4_10;41097
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Run Lola Run (Movie);s4e4_11;41188,41189,41190,41191
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Ouija board (Spirit board);s4e4_12;40808,40812,41219
+4;4;The Devil's in the Details... and the Upstairs Bedroom;When Harry Met Sally... (Movie);s4e4_13;41312,41313
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Red Heat (Movie);s4e4_14;41337
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Linda Blair (Actress);s4e4_15;41334
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Chained Heat (Movie);s4e4_16;41335
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Siouxsie Sioux (Musician);s4e4_17;40846
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Bauhaus (Band);s4e4_18;40845
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Björk (Musician);s4e4_19;40847,40848
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Noah's Ark (Ship in the Genesis flood narrative);s4e4_20;40626,40630,40634,40635,40646,40647
+4;4;The Devil's in the Details... and the Upstairs Bedroom;The Devil Went Down to Georgia (Song by Charlie Daniels);s4e4_21;40768,40769,40770,40771
+4;4;The Devil's in the Details... and the Upstairs Bedroom;William Underwood Company (Food company);s4e4_22;40775
+4;4;The Devil's in the Details... and the Upstairs Bedroom;Burning Man (Annual festival);s4e4_23;40909,40914
+4;5;Shawn Gets the Yips;Yankees (Major League Baseball team);s4e5_1;41424
+4;5;Shawn Gets the Yips;Chuck Knoblauch (Athlete);s4e5_2;41424
+4;5;Shawn Gets the Yips;Keith Olbermann (Political commentator);s4e5_3;41428
+4;5;Shawn Gets the Yips;Wes Craven (Director/Writer);s4e5_4;41493
+4;5;Shawn Gets the Yips;Fred Flintstone (Character from the TV show The Flintstones);s4e5_5;41551
+4;5;Shawn Gets the Yips;A Streetcar Named Desire (Movie);s4e5_6;41554
+4;5;Shawn Gets the Yips;Nordstrom (Department store);s4e5_7;41560
+4;5;Shawn Gets the Yips;Meineke (Car Care Center);s4e5_8;41614
+4;5;Shawn Gets the Yips;Tony Robbins (Self-help author and success coach);s4e5_9;41676
+4;5;Shawn Gets the Yips;Lethal Weapon 2 (Movie);s4e5_10;41787,41788
+4;5;Shawn Gets the Yips;Speed (Movie);s4e5_11;41785
+4;5;Shawn Gets the Yips;Sonny & Cher (Musicians);s4e5_12;41861
+4;5;Shawn Gets the Yips;Daniel Day-Lewis (Actor);s4e5_13;41873
+4;5;Shawn Gets the Yips;Torii Hunter (Athlete);s4e5_14;42075,42076
+4;5;Shawn Gets the Yips;Hannibal Lecter (Movie character);s4e5_15;42088
+4;5;Shawn Gets the Yips;Bigfoot (Mythical creature);s4e5_16;41620,41622,41623
+4;5;Shawn Gets the Yips;Altered States (Movie);s4e5_17;41654
+4;5;Shawn Gets the Yips;Baskin-Robbins (Ice cream specialty shop);s4e5_18;41677
+4;5;Shawn Gets the Yips;Tretorn (Sneakers, boots and outerwear manufacturer);s4e5_19;41873
+4;5;Shawn Gets the Yips;Danny Glover (Actor);s4e5_20;41788
+4;5;Shawn Gets the Yips;The Lair of the White Worm (Movie);s4e5_21;41862
+4;6;Bollywood Homicide;Harry Potter and the Prisoner of Azkaban (Movie);s4e6_1;42338
+4;6;Bollywood Homicide;All That Jazz (Movie);s4e6_2;42342
+4;6;Bollywood Homicide;White Nights (Movie);s4e6_3;42343
+4;6;Bollywood Homicide;Gregory Hines (Actor);s4e6_4;42344
+4;6;Bollywood Homicide;9 1/2 Weeks (Movie);s4e6_5;42668
+4;6;Bollywood Homicide;Solomon Kane (Movie);s4e6_6;
+4;6;Bollywood Homicide;Indiana Jones and the Temple of Doom (Movie);s4e6_7;42782
+4;6;Bollywood Homicide;Corey Haim (Actor);s4e6_8;42881
+4;6;Bollywood Homicide;Mikhail Baryshnikov (Choreographer);s4e6_9;42344
+4;6;Bollywood Homicide;Kajagoogoo (Band);s4e6_10;42536
+4;6;Bollywood Homicide;The Sixth Sense (Movie);s4e6_11;42549
+4;6;Bollywood Homicide;Zalman King (Director);s4e6_12;42669
+4;7;High Top Fade-Out;Joker (Character in the Batman comics);s4e7_1;42907
+4;7;High Top Fade-Out;Matthew McConaughey (Actor);s4e7_2;42907
+4;7;High Top Fade-Out;Colonel Sanders (Founder of Kentucky Fried Chicken);s4e7_3;42907
+4;7;High Top Fade-Out;New Edition (Musicians);s4e7_4;42946
+4;7;High Top Fade-Out;Beyoncé (Musician);s4e7_5;43000
+4;7;High Top Fade-Out;Destiny's Child (Musicians);s4e7_6;43000
+4;7;High Top Fade-Out;Happy Feet (Movie);s4e7_7;43068
+4;7;High Top Fade-Out;Abercrombie & Fitch (Clothing store);s4e7_8;43098,43099
+4;7;High Top Fade-Out;David Caruso (Actor);s4e7_9;43126
+4;7;High Top Fade-Out;Rosetta Stone (Language learning software);s4e7_10;43131,43132,43134
+4;7;High Top Fade-Out;Mr. Wizard (Stage name of TV scientist Don Herbert);s4e7_11;43246
+4;7;High Top Fade-Out;Baby Got Back (Song by Sir Mix-A-Lot);s4e7_12;43250
+4;7;High Top Fade-Out;Patrick Fugit (Actor);s4e7_13;43339
+4;7;High Top Fade-Out;Hammer Pants (Style of peg-legged baggy pants from the 90s);s4e7_14;43349
+4;7;High Top Fade-Out;Steve Martin (Actor);s4e7_15;43377
+4;7;High Top Fade-Out;The Spanish Prisoner (Movie);s4e7_16;43378
+4;7;High Top Fade-Out;Lean on Me (Movie);s4e7_17;43414
+4;7;High Top Fade-Out;American Ninja (Movie);s4e7_18;43430,43478
+4;7;High Top Fade-Out;To Live and Die in L.A. (Movie);s4e7_19;43452
+4;7;High Top Fade-Out;Sugar Hill (Musician);s4e7_20;43537
+4;7;High Top Fade-Out;Madonna (Musician);s4e7_21;42898
+4;7;High Top Fade-Out;L.A. Law (TV Show);s4e7_22;42898
+4;7;High Top Fade-Out;Bobby Brown (Musician);s4e7_23;42946
+4;7;High Top Fade-Out;Ronnie DeVoe (Musician);s4e7_24;42946
+4;7;High Top Fade-Out;The Purpose Driven Life (Book written by Rick Warren);s4e7_25;43027
+4;7;High Top Fade-Out;Big Brother (Character from Nineteen Eighty-Four);s4e7_26;43039
+4;7;High Top Fade-Out;Rosetta Stone (Stele composed of granodiorite);s4e7_27;43131
+4;7;High Top Fade-Out;Uruguayan Air Force Flight 571 (Accident);s4e7_28;43206
+4;7;High Top Fade-Out;Something is rotten in the state of Denmark (Line from Hamlet);s4e7_29;43392
+4;8;Let's Get Hairy;Hacksaw Jim Duggan (Wrestler);s4e8_1;43644,43645
+4;8;Let's Get Hairy;The Junkyard Dog (Wrester);s4e8_2;43652,43653
+4;8;Let's Get Hairy;Robert Goulet (Entertainer);s4e8_3;43675
+4;8;Let's Get Hairy;Mr. Bean (Stage name of actor Rowan Atkinson);s4e8_4;43675
+4;8;Let's Get Hairy;The Wizard of Oz (Movie);s4e8_5;43676
+4;8;Let's Get Hairy;Tony Randall (Actor);s4e8_6;43677
+4;8;Let's Get Hairy;Royal Rumble (Wrestling pay-per-view event);s4e8_7;43643,43645
+4;8;Let's Get Hairy;Mr. Peanut (Mascot of Planters);s4e8_8;43728
+4;8;Let's Get Hairy;Wonder Woman (Comic superheroine);s4e8_9;43762
+4;8;Let's Get Hairy;Bat Phone (Private telephone number from the Batman comics);s4e8_10;43768
+4;8;Let's Get Hairy;Halle Berry (Actress);s4e8_11;43775
+4;8;Let's Get Hairy;Gothika (Movie);s4e8_12;43777,43778
+4;8;Let's Get Hairy;Vampira (Actress/Stage name of Maila Nurmi);s4e8_13;43827
+4;8;Let's Get Hairy;Joe Leeway (Musician);s4e8_14;43819
+4;8;Let's Get Hairy;Deniece Williams (Musician);s4e8_15;43928
+4;8;Let's Get Hairy;Anna Paquin (Actress);s4e8_16;43963,43964,44262,44268
+4;8;Let's Get Hairy;Almost Famous (Movie);s4e8_17;43963,43964,44262,44263
+4;8;Let's Get Hairy;Poltergeist (Movie);s4e8_18;44064
+4;8;Let's Get Hairy;A Different World (TV Show);s4e8_19;44065
+4;8;Let's Get Hairy;Dwayne Cleophus Wayne (Character from the TV show A Different World);s4e8_20;44065
+4;8;Let's Get Hairy;Hellboy (Movie);s4e8_21;44083
 4;8;Let's Get Hairy;Sam Elliott (Actor);s4e8_22;44152
-4;8;Let's Get Hairy;Pippi Longstocking (Character From In A Series Of Children's Books, Movies, And TV Shows);s4e8_23;
-4;8;Let's Get Hairy;R.P. McMurphy (Character In The Movie One Flew Over The Cuckoo's Nest);s4e8_24;
-4;9;Shawn Takes a Shot in the Dark;Wienermobile (Automobile Shaped Like A Hot Dog On A Bun);s4e9_1;
-4;9;Shawn Takes a Shot in the Dark;Yelp (A Social Networking, User Review, And Local Search Site);s4e9_2;
-4;9;Shawn Takes a Shot in the Dark;Starbucks (Coffeehouse);s4e9_3;
-4;9;Shawn Takes a Shot in the Dark;The Mentalist (TV Show);s4e9_4;
-4;9;Shawn Takes a Shot in the Dark;Billy Zane (Actor);s4e9_5;
-4;9;Shawn Takes a Shot in the Dark;Vin Diesel (Actor);s4e9_6;
-4;9;Shawn Takes a Shot in the Dark;Michelle Rodriguez (Actress);s4e9_7;
-4;9;Shawn Takes a Shot in the Dark;Paul Walker (Actor);s4e9_8;
-4;9;Shawn Takes a Shot in the Dark;Lucas Black (Actor);s4e9_9;
-4;10;You Can't Handle This Episode;Gomer (Character From The TV Show Gomer Pile USMC);s4e10_1;
-4;10;You Can't Handle This Episode;Yo-Yo Ma (Musician);s4e10_2;
-4;10;You Can't Handle This Episode;Captain America (Comic Book Character);s4e10_3;
-4;10;You Can't Handle This Episode;The Guardian (Movie);s4e10_4;
-4;10;You Can't Handle This Episode;Vincent D'Onofrio (Actor);s4e10_5;
-4;10;You Can't Handle This Episode;Kamala (Wrestler);s4e10_6;
-4;10;You Can't Handle This Episode;An Officer And A Gentleman (Movie);s4e10_7;
-4;10;You Can't Handle This Episode;Louis Gossett (Actor);s4e10_8;
-4;10;You Can't Handle This Episode;The Love Boat (TV Show);s4e10_9;
-4;10;You Can't Handle This Episode;Eve Plumb (Actress);s4e10_10;
-4;10;You Can't Handle This Episode;The Great Santini (Movie);s4e10_11;
-4;10;You Can't Handle This Episode;Robert Duvall (Actor);s4e10_12;
-4;10;You Can't Handle This Episode;Van Wilder (Movie);s4e10_13;
-4;11;Thrill Seekers and Hell-Raisers;Super Friends (TV Show);s4e11_1;
-4;11;Thrill Seekers and Hell-Raisers;Magnum, P.I. (TV Show);s4e11_2;
-4;11;Thrill Seekers and Hell-Raisers;Mary-Kate and Ashley Olsen (Actresses);s4e11_3;
-4;11;Thrill Seekers and Hell-Raisers;It's a Small World (A Popular Attraction At Walt Disney Theme Parks);s4e11_4;
-4;11;Thrill Seekers and Hell-Raisers;Final Destination (Movie);s4e11_5;
-4;11;Thrill Seekers and Hell-Raisers;Kevin Costner (Actor);s4e11_6;
-4;11;Thrill Seekers and Hell-Raisers;Willow (Movie);s4e11_7;
-4;11;Thrill Seekers and Hell-Raisers;Meshach Taylor (Actor);s4e11_8;
-4;11;Thrill Seekers and Hell-Raisers;Phil Moore (Game Show Host);s4e11_9;
-4;11;Thrill Seekers and Hell-Raisers;Ben Hur (Movie);s4e11_10;
-4;11;Thrill Seekers and Hell-Raisers;It's Complicated (TV Show);s4e11_11;
-4;11;Thrill Seekers and Hell-Raisers;Complicated (Song By Avril Lavigne);s4e11_12;
-4;11;Thrill Seekers and Hell-Raisers;Avril Lavigne (Musician);s4e11_13;
-4;11;Thrill Seekers and Hell-Raisers;Did You See the Sunrise? (Part II) (Episode From Magnum, P.I.);s4e11_14;
+4;8;Let's Get Hairy;Pippi Longstocking (Character from a series of children's books, movies, and TV shows);s4e8_23;44376
+4;8;Let's Get Hairy;R.P. McMurphy (Character in the movie One Flew Over The Cuckoo's Nest);s4e8_24;43873
+4;8;Let's Get Hairy;Rolo (Chocolate brand);s4e8_25;43637
+4;8;Let's Get Hairy;Wolfen (Movie);s4e8_26;43750
+4;8;Let's Get Hairy;Hot Cross Buns (Nursery rhyme);s4e8_27;43853
+4;8;Let's Get Hairy;Charley Cheswick (Character in the movie One Flew Over The Cuckoo's Nest);s4e8_28;43874
+4;8;Let's Get Hairy;Let's Hear It for the Boy (Song by Deniece Williams);s4e8_29;43925,43926
+4;8;Let's Get Hairy;Harry Monroe (Character from Stir Crazy);s4e8_30;44011
+4;8;Let's Get Hairy;Stir Crazy (Movie);s4e8_31;44012
+4;8;Let's Get Hairy;Dolph Lundgren (Actor);s4e8_32;44014
+4;8;Let's Get Hairy;Skip Donahue (Character from Stir Crazy);s4e8_33;44013
+4;8;Let's Get Hairy;Fairuza Balk (Actress);s4e8_34;44204
+4;9;Shawn Takes a Shot in the Dark;Wienermobile (Automobile shaped like a hot dog on a bun);s4e9_1;44596
+4;9;Shawn Takes a Shot in the Dark;Yelp (A social networking, user review, and local search site);s4e9_2;44776,44782
+4;9;Shawn Takes a Shot in the Dark;Starbucks (Coffeehouse);s4e9_3;44778
+4;9;Shawn Takes a Shot in the Dark;The Mentalist (TV Show);s4e9_4;44888
+4;9;Shawn Takes a Shot in the Dark;Billy Zane (Actor);s4e9_5;44889
+4;9;Shawn Takes a Shot in the Dark;Vin Diesel (Actor);s4e9_6;45059
+4;9;Shawn Takes a Shot in the Dark;Michelle Rodriguez (Actress);s4e9_7;45060
+4;9;Shawn Takes a Shot in the Dark;Paul Walker (Actor);s4e9_8;45060,45068
+4;9;Shawn Takes a Shot in the Dark;Lucas Black (Actor);s4e9_9;45065
+4;9;Shawn Takes a Shot in the Dark;Zamboni (Ice resurfacer);s4e9_10;44597
+4;9;Shawn Takes a Shot in the Dark;Albert Einstein (Theoretical physicist);s4e9_11;44741
+4;9;Shawn Takes a Shot in the Dark;Hefty (Brand of household products);s4e9_12;44748
+4;9;Shawn Takes a Shot in the Dark;Reservoir Dogs (Movie);s4e9_13;44756
+4;9;Shawn Takes a Shot in the Dark;Maureen O'Hara (Actress);s4e9_14;44990,44991
+4;9;Shawn Takes a Shot in the Dark;The Fast and the Furious: Tokyo Drift (Movie);s4e9_15;45065
+4;10;You Can't Handle This Episode;Gomer (Character from the TV show Gomer Pile USMC);s4e10_1;45256
+4;10;You Can't Handle This Episode;Yo-Yo Ma (Musician);s4e10_2;45326
+4;10;You Can't Handle This Episode;Captain America (Comic book character);s4e10_3;45412
+4;10;You Can't Handle This Episode;The Guardian (Movie);s4e10_4;45438
+4;10;You Can't Handle This Episode;Vincent D'Onofrio (Actor);s4e10_5;45443
+4;10;You Can't Handle This Episode;Kamala (Wrestler);s4e10_6;45593,45594,45595
+4;10;You Can't Handle This Episode;An Officer and a Gentleman (Movie);s4e10_7;45665
+4;10;You Can't Handle This Episode;Louis Gossett (Actor);s4e10_8;45666
+4;10;You Can't Handle This Episode;The Love Boat (TV Show);s4e10_9;45693
+4;10;You Can't Handle This Episode;Eve Plumb (Actress);s4e10_10;45693
+4;10;You Can't Handle This Episode;The Great Santini (Movie);s4e10_11;45734
+4;10;You Can't Handle This Episode;Robert Duvall (Actor);s4e10_12;45736,45737
+4;10;You Can't Handle This Episode;Enemy Mine (Movie);s4e10_13;45668
+4;10;You Can't Handle This Episode;Don't ask, don't tell (Official United States policy on military service of non-heterosexual people);s4e10_14;45299
+4;10;You Can't Handle This Episode;Mike Sharpe (Wrestler);s4e10_15;45328,45329
+4;11;Thrill Seekers and Hell-Raisers;Super Friends (TV Show);s4e11_1;45889
+4;11;Thrill Seekers and Hell-Raisers;Magnum, P.I. (TV Show);s4e11_2;45919
+4;11;Thrill Seekers and Hell-Raisers;Ashley Olsen (Actress);s4e11_3;45928
+4;11;Thrill Seekers and Hell-Raisers;It's a Small World (Boat ride);s4e11_4;45991
+4;11;Thrill Seekers and Hell-Raisers;Final Destination (Movie);s4e11_5;46080,46081
+4;11;Thrill Seekers and Hell-Raisers;Kevin Costner (Actor);s4e11_6;46099
+4;11;Thrill Seekers and Hell-Raisers;Willow (Movie);s4e11_7;46234
+4;11;Thrill Seekers and Hell-Raisers;Meshach Taylor (Actor);s4e11_8;46245
+4;11;Thrill Seekers and Hell-Raisers;Alive: The Story of the Andes Survivors (Book by Piers Paul Read);s4e11_9;46624
+4;11;Thrill Seekers and Hell-Raisers;Ben-Hur (Movie);s4e11_10;46121
+4;11;Thrill Seekers and Hell-Raisers;It's Complicated (TV Show);s4e11_11;46291
+4;11;Thrill Seekers and Hell-Raisers;Complicated (Song by Avril Lavigne);s4e11_12;46292
+4;11;Thrill Seekers and Hell-Raisers;Avril Lavigne (Musician);s4e11_13;46292
+4;11;Thrill Seekers and Hell-Raisers;Did You See the Sunrise? Part 2 (Episode From Magnum, P.I.);s4e11_14;45921
 4;11;Thrill Seekers and Hell-Raisers;Chad Michael Murray (Actor);s4e11_15;46019
-4;12;A Very Juliet Episode;Simon Baker (Actor);s4e12_1;
-4;12;A Very Juliet Episode;Pete Townshend (Musician);s4e12_2;
-4;12;A Very Juliet Episode;J. K. Rowling (Author);s4e12_3;
-4;12;A Very Juliet Episode;Harry Potter (Movie/Book Character From The Harry Potter Series);s4e12_4;
-4;12;A Very Juliet Episode;Dumbo (Movie);s4e12_5;
-4;12;A Very Juliet Episode;Goodfellas (Movie);s4e12_6;
-4;12;A Very Juliet Episode;Tommy Lee Jones (Actor);s4e12_7;
-4;12;A Very Juliet Episode;The Fugitive (Movie);s4e12_8;
-4;12;A Very Juliet Episode;Harrison Ford (Actor);s4e12_9;
-4;12;A Very Juliet Episode;Billy Zane (Actor);s4e12_10;
-4;12;A Very Juliet Episode;Saving Private Ryan (Movie);s4e12_11;
-4;12;A Very Juliet Episode;Grease (Movie);s4e12_12;
-4;12;A Very Juliet Episode;Thunder Road (Reference To The Movie Grease);s4e12_13;
-4;12;A Very Juliet Episode;Planet of the Apes (Movie);s4e12_14;
-4;12;A Very Juliet Episode;Franklin Delano Roosevelt (32nd President Of The United States);s4e12_15;
-4;12;A Very Juliet Episode;Mr. T (Actor);s4e12_16;
-4;12;A Very Juliet Episode;The Blues Brothers (Movie);s4e12_17;
-4;13;Death Is in the Air;Blame it on Rio (Movie);s4e13_1;
-4;13;Death Is in the Air;The Thorn Birds (TV Miniseries);s4e13_2;
-4;13;Death Is in the Air;Richard Chamberlain (Actor);s4e13_3;
-4;13;Death Is in the Air;Patrick Dempsey (Actor);s4e13_4;
-4;13;Death Is in the Air;Outbreak (Movie);s4e13_5;
-4;13;Death Is in the Air;Grey's Anatomy (TV Show);s4e13_6;
-4;13;Death Is in the Air;Ted Bundy (One Of The Most Prolific Serial Killers In U.S. History);s4e13_7;
-4;13;Death Is in the Air;Elisabeth Shue (Actress);s4e13_8;
-4;13;Death Is in the Air;Hippy Hippy Shake (Song Originally By Chan Romero);s4e13_9;
-4;13;Death Is in the Air;Ginger Rogers (Actress);s4e13_10;
-4;13;Death Is in the Air;Ginger (Character From The TV Show Gilligan's Island);s4e13_11;
-4;13;Death Is in the Air;Val Kilmer (Actor);s4e13_12;
-4;13;Death Is in the Air;Nicolas Cage (Actor);s4e13_13;
-4;13;Death Is in the Air;Con Air (Movie);s4e13_14;
-4;13;Death Is in the Air;AXE For Men (Deodorant Body Spray);s4e13_15;
-4;13;Death Is in the Air;Back to the Future (Movie);s4e13_16;
-4;13;Death Is in the Air;Christopher Lloyd (Actor);s4e13_17;
-4;13;Death Is in the Air;Frankenberry (Cereal By General Mills);s4e13_18;
-4;13;Death Is in the Air;Decoder Ring (Ring Made To Reveal Secrete Messages);s4e13_19;
-4;13;Death Is in the Air;Iron Eagle II (Movie);s4e13_20;
-4;13;Death Is in the Air;Iron Eagle IV (Movie);s4e13_21;
-4;13;Death Is in the Air;Taking of Beverly Hills (Movie);s4e13_22;
-4;13;Death Is in the Air;Lady Sings the Blues (Movie);s4e13_23;
-4;13;Death Is in the Air;Sidney J. Furie (Director);s4e13_24;
-4;13;Death Is in the Air;Mr. Bob Dobalina (Reference To The Monkees Song Zilch);s4e13_25;
-4;13;Death Is in the Air;Mistadobalina (Song By Del The Funkee Homosapien);s4e13_26;
-4;13;Death Is in the Air;I'm Not Falling For No Banana In My Tail Pipe (Quote From The Movie Beverly Hills Cop);s4e13_27;
-4;13;Death Is in the Air;Dirty Harry (Movie);s4e13_28;47923
-4;14;Think Tank;Big League Chew (Type of Bubble Gum);s4e14_1;
-4;14;Think Tank;Dave (Movie);s4e14_2;
-4;14;Think Tank;Kevin Kline (Actor);s4e14_3;
-4;14;Think Tank;Winnie from The Wonder Years (Reference To The Character Winnie From The TV Show The Wonder Years);s4e14_4;
-4;14;Think Tank;Cribs (TV Show);s4e14_5;
-4;14;Think Tank;Kenneth Branagh (Actor);s4e14_6;
-4;14;Think Tank;Scrooge (Character From The Novel A Christmas Carol);s4e14_7;
-4;14;Think Tank;Lava Lamp (Lamp Mostly Used From Decoration);s4e14_8;
-4;14;Think Tank;Under Siege (Movie);s4e14_9;
-4;14;Think Tank;Above the Law (Movie);s4e14_10;
-4;14;Think Tank;Steven Seagal (Actor);s4e14_11;
-4;14;Think Tank;Tom Cruise (Actor);s4e14_12;
-4;14;Think Tank;Valkyrie (Movie);s4e14_13;
-4;14;Think Tank;Die Hard 3 (Movie);s4e14_14;
-4;14;Think Tank;Kevin Costner (Actor);s4e14_15;
-4;14;Think Tank;Hoverboard (Reference To The Movie Back To The Future Part II);s4e14_16;
-4;14;Think Tank;The Jetsons (TV Show);s4e14_17;
-4;15;The Head, the Tail, the Whole Damn Episode;Jaws 4 (Movie);s4e15_1;
-4;15;The Head, the Tail, the Whole Damn Episode;Baha Men (Musicians);s4e15_2;
-4;15;The Head, the Tail, the Whole Damn Episode;Michael Ironside (Actor);s4e15_3;
-4;15;The Head, the Tail, the Whole Damn Episode;White Chicks (Movie);s4e15_4;
-4;15;The Head, the Tail, the Whole Damn Episode;Fisher Stevens (Actor);s4e15_5;
-4;15;The Head, the Tail, the Whole Damn Episode;Michelle Pfeiffer (Actress);s4e15_6;
-4;15;The Head, the Tail, the Whole Damn Episode;America's Funniest Home Videos (TV Show);s4e15_7;
-4;15;The Head, the Tail, the Whole Damn Episode;Denzel Washington (Actor);s4e15_8;
-4;15;The Head, the Tail, the Whole Damn Episode;Glory (Movie);s4e15_9;
-4;15;The Head, the Tail, the Whole Damn Episode;Leverage (TV Show);s4e15_10;
-4;15;The Head, the Tail, the Whole Damn Episode;Leon Robinson (Actor);s4e15_11;
-4;15;The Head, the Tail, the Whole Damn Episode;Like a Prayer (Referencing One Of Madonna's Music Videos);s4e15_12;
-4;16;Mr. Yin Presents...;The Little Mermaid (Movie);s4e16_1;
-4;16;Mr. Yin Presents...;Alfred Hitchcock (Director);s4e16_2;
-4;16;Mr. Yin Presents...;Rear Window (Movie);s4e16_3;
-4;16;Mr. Yin Presents...;Night Court (TV Show);s4e16_4;
-4;16;Mr. Yin Presents...;Bruce Campbell (Actor);s4e16_5;
-4;16;Mr. Yin Presents...;The Silence of the Lambs (Movie);s4e16_6;
-4;16;Mr. Yin Presents...;Frankie Faison (Actor);s4e16_7;
-4;16;Mr. Yin Presents...;Frenzy (Movie);s4e16_8;
-4;16;Mr. Yin Presents...;The Cannonball Run (Movie);s4e16_9;
-4;16;Mr. Yin Presents...;Burt Reynolds (Actor);s4e16_10;
-4;16;Mr. Yin Presents...;Hooper (Movie);s4e16_11;
-4;16;Mr. Yin Presents...;Stroker Ace (Movie);s4e16_12;
-4;16;Mr. Yin Presents...;North by Northwest (Movie);s4e16_13;
-4;16;Mr. Yin Presents...;In Good Company (Movie);s4e16_14;
-4;16;Mr. Yin Presents...;Topher Grace (Actor);s4e16_15;
-4;16;Mr. Yin Presents...;Psycho (Music);s4e16_16;
-4;16;Mr. Yin Presents...;Rod Taylor (Actor);s4e16_17;
-4;16;Mr. Yin Presents...;Sean Connery (Actor);s4e16_18;
-4;16;Mr. Yin Presents...;The Birds (Movie);s4e16_19;
-4;16;Mr. Yin Presents...;Marnie (Movie);s4e16_20;
-4;16;Mr. Yin Presents...;Vertigo (Movie);s4e16_21;
-4;16;Mr. Yin Presents...;Canada Lee (Actor);s4e16_22;
-4;16;Mr. Yin Presents...;Lifeboat (Movie);s4e16_23;
+4;11;Thrill Seekers and Hell-Raisers;Andie Walsh (Character from Pretty in Pink);s4e11_16;45928
+4;11;Thrill Seekers and Hell-Raisers;Duckie Dale (Character from Pretty in Pink);s4e11_17;45928
+4;11;Thrill Seekers and Hell-Raisers;Mary-Kate Olsen (Actress);s4e11_18;45928
+4;11;Thrill Seekers and Hell-Raisers;Waterworld (Movie);s4e11_19;46099
+4;11;Thrill Seekers and Hell-Raisers;Samson (Legendary Israelite warrior and judge);s4e11_20;46120
+4;11;Thrill Seekers and Hell-Raisers;Prometheus (Greek God);s4e11_21;46121
+4;11;Thrill Seekers and Hell-Raisers;Book of Genesis (First book of the Hebrew Bible);s4e11_22;46123
+4;11;Thrill Seekers and Hell-Raisers;The Exorcist (Movie);s4e11_23;46123
+4;11;Thrill Seekers and Hell-Raisers;Book of Exodus (Second book of the Hebrew Bible);s4e11_24;46123
+4;11;Thrill Seekers and Hell-Raisers;Leviathan (Mythological creature);s4e11_25;46124
+4;11;Thrill Seekers and Hell-Raisers;Book of Leviticus (Third book of the Hebrew Bible);s4e11_26;46124
+4;11;Thrill Seekers and Hell-Raisers;Do the Right Thing (Movie);s4e11_27;46124
+4;11;Thrill Seekers and Hell-Raisers;The Smiths (Band);s4e11_28;46216
+4;11;Thrill Seekers and Hell-Raisers;The Queen is Dead (Album and song by The Smiths);s4e11_29;46218
+4;11;Thrill Seekers and Hell-Raisers;Did You See the Sunrise? Part 1 (Episode From Magnum, P.I.);s4e11_30;45920
+4;12;A Very Juliet Episode;Simon Baker (Actor);s4e12_1;46731,46732
+4;12;A Very Juliet Episode;Pete Townshend (Musician);s4e12_2;46767
+4;12;A Very Juliet Episode;J. K. Rowling (Author);s4e12_3;46786
+4;12;A Very Juliet Episode;Harry Potter (Novel series);s4e12_4;46786
+4;12;A Very Juliet Episode;Dumbo (Movie);s4e12_5;46830
+4;12;A Very Juliet Episode;Goodfellas (Movie);s4e12_6;46941
+4;12;A Very Juliet Episode;Tommy Lee Jones (Actor);s4e12_7;46972
+4;12;A Very Juliet Episode;The Fugitive (Movie);s4e12_8;46973
+4;12;A Very Juliet Episode;Harrison Ford (Actor);s4e12_9;46975
+4;12;A Very Juliet Episode;Billy Zane (Actor);s4e12_10;47034,47035,47229
+4;12;A Very Juliet Episode;Saving Private Ryan (Movie);s4e12_11;47040
+4;12;A Very Juliet Episode;Grease (Movie);s4e12_12;47072,47074,47085
+4;12;A Very Juliet Episode;Thunder Road (Reference to the movie Grease);s4e12_13;47084
+4;12;A Very Juliet Episode;Planet of the Apes (Movie);s4e12_14;47090
+4;12;A Very Juliet Episode;Franklin Delano Roosevelt (32nd president of the United States);s4e12_15;47109
+4;12;A Very Juliet Episode;Mr. T (Actor);s4e12_16;47130
+4;12;A Very Juliet Episode;The Blues Brothers (Movie);s4e12_17;47130
+4;12;A Very Juliet Episode;Missing Persons (Band);s4e12_18;46755
+4;12;A Very Juliet Episode;Conan O'Brien (Television host);s4e12_19;46968
+4;12;A Very Juliet Episode;Sandy Olsson (Character from Grease);s4e12_20;47073
+4;12;A Very Juliet Episode;Danny Zuko (Character from Grease);s4e12_21;47073
+4;12;A Very Juliet Episode;Kenickie Murdoch (Character from Grease);s4e12_22;47084
+4;13;Death Is in the Air;Blame it on Rio (Movie);s4e13_1;47328
+4;13;Death Is in the Air;The Thorn Birds (TV miniseries);s4e13_2;47394
+4;13;Death Is in the Air;Richard Chamberlain (Actor);s4e13_3;47393
+4;13;Death Is in the Air;Patrick Dempsey (Actor);s4e13_4;47441
+4;13;Death Is in the Air;Outbreak (Movie);s4e13_5;47438,47439,47440
+4;13;Death Is in the Air;Grey's Anatomy (TV Show);s4e13_6;47442
+4;13;Death Is in the Air;Ted Bundy (American serial killer);s4e13_7;47462
+4;13;Death Is in the Air;Elisabeth Shue (Actress);s4e13_8;47496
+4;13;Death Is in the Air;Hippy Hippy Shake (Song originally by Chan Romero);s4e13_9;47495
+4;13;Death Is in the Air;Ginger Rogers (Actress);s4e13_10;47515
+4;13;Death Is in the Air;Ginger (Character from Gilligan's Island);s4e13_11;47515
+4;13;Death Is in the Air;Val Kilmer (Actor);s4e13_12;47571,47572
+4;13;Death Is in the Air;Nicolas Cage (Actor);s4e13_13;47610
+4;13;Death Is in the Air;Con Air (Movie);s4e13_14;47610
+4;13;Death Is in the Air;Axe for men (Deodorant body spray);s4e13_15;47645
+4;13;Death Is in the Air;Back to the Future (Movie);s4e13_16;47729
+4;13;Death Is in the Air;Christopher Lloyd (Actor);s4e13_17;47716,47717
+4;13;Death Is in the Air;Frankenberry (Cereal by General Mills);s4e13_18;48001
+4;13;Death Is in the Air;Decoder Ring (Ring Mmde to reveal secret messages);s4e13_19;48000
+4;13;Death Is in the Air;Iron Eagle II (Movie);s4e13_20;48037
+4;13;Death Is in the Air;Iron Eagle IV (Movie);s4e13_21;48038
+4;13;Death Is in the Air;The Taking of Beverly Hills (Movie);s4e13_22;48039
+4;13;Death Is in the Air;Lady Sings the Blues (Movie);s4e13_23;48037
+4;13;Death Is in the Air;Sidney J. Furie (Director);s4e13_24;48036
+4;13;Death Is in the Air;Mr. Bob Dobalina (Reference to the Monkees song Zilch);s4e13_25;47346
+4;13;Death Is in the Air;Mistadobalina (Song by Del The Funkee Homosapien);s4e13_26;47346
+4;13;Death Is in the Air;I'm not falling for no banana in my tail pipe (Quote from the movie Beverly Hills Cop);s4e13_27;47353
+4;13;Death Is in the Air;Michael Vick (American football quarterback);s4e13_28;47923
+4;13;Death Is in the Air;Marsellus Wallace (Character from Pulp Fiction);s4e13_29;47387
+4;13;Death Is in the Air;Stay Puft Marshmallow Man (Character from Ghostbusters);s4e13_31;47435
+4;13;Death Is in the Air;Spiderman (Comic book character);s4e13_32;47750
+4;13;Death Is in the Air;Michael Ironside (Actor);s4e13_33;47870,47871
+4;13;Death Is in the Air;Jack and the Beanstalk (Fairy tale from the 1800s);s4e13_34;47958
+4;14;Think Tank;Big League Chew (Type of bubble gum);s4e14_1;48177
+4;14;Think Tank;Dave (Movie);s4e14_2;48113
+4;14;Think Tank;Kevin Kline (Actor);s4e14_3;48193
+4;14;Think Tank;Winnie (Character from The Wonder Years);s4e14_4;48205
+4;14;Think Tank;Cribs (TV Show);s4e14_5;48215
+4;14;Think Tank;Kenneth Branagh (Actor);s4e14_6;48227
+4;14;Think Tank;Ebenezer Scrooge (Character from A Christmas Carol);s4e14_7;48247
+4;14;Think Tank;Lava Lamp (Lamp mostly used from decoration);s4e14_8;48267
+4;14;Think Tank;Under Siege (Movie);s4e14_9;48276
+4;14;Think Tank;Above the Law (Movie);s4e14_10;48279
+4;14;Think Tank;Steven Seagal (Actor);s4e14_11;48277
+4;14;Think Tank;Tom Cruise (Actor);s4e14_12;48376
+4;14;Think Tank;Valkyrie (Movie);s4e14_13;48376
+4;14;Think Tank;Die Hard 3 (Movie);s4e14_14;48535
+4;14;Think Tank;Kevin Costner (Actor);s4e14_15;48616
+4;14;Think Tank;Back to the Future Part II (Movie);s4e14_16;48712,48713,48714
+4;14;Think Tank;The Jetsons (TV Show);s4e14_17;48721
+4;14;Think Tank;Kryptonite (Radioactive remains of Superman's native planet Krypton);s4e14_18;48330
+4;14;Think Tank;Charlotte's Web (Book by E. B. White);s4e14_19;48062
+4;14;Think Tank;Bill Mitchell (Character from Dave);s4e14_20;48113,48192,48193,48195
+4;14;Think Tank;Ronald Reagan (40th president of the United States);s4e14_21;48191,48192
+4;14;Think Tank;Loch Ness Monster (Mythical creature);s4e14_22;48258
+4;14;Think Tank;Ed Lover (American deejay);s4e14_23;48334
+4;14;Think Tank;Scanners (Movie);s4e14_24;48344
+4;14;Think Tank;Gerald Ford (38th president of the United States);s4e14_25;48381
+4;14;Think Tank;Eric Stoltz (Actor);s4e14_26;48566
+4;14;Think Tank;The Bodyguard (Movie);s4e14_27;48616
+4;14;Think Tank;George Lazenby (Actor);s4e14_28;48622
+4;14;Think Tank;Carly Simon (Musician);s4e14_29;48669
+4;14;Think Tank;Wall Street (Movie);s4e14_30;48677,48678,48679,48680,48681
+4;14;Think Tank;If it doesn't fit, you must acquit (Quote);s4e14_31;48694,48695
+4;15;The Head, the Tail, the Whole Damn Episode;Jaws: The Revenge (Movie);s4e15_1;48869
+4;15;The Head, the Tail, the Whole Damn Episode;Baha Men (Musicians);s4e15_2;48914
+4;15;The Head, the Tail, the Whole Damn Episode;Michael Ironside (Actor);s4e15_3;48933
+4;15;The Head, the Tail, the Whole Damn Episode;White Chicks (Movie);s4e15_4;49184,49185
+4;15;The Head, the Tail, the Whole Damn Episode;Fisher Stevens (Actor);s4e15_5;49237
+4;15;The Head, the Tail, the Whole Damn Episode;Michelle Pfeiffer (Actress);s4e15_6;49237
+4;15;The Head, the Tail, the Whole Damn Episode;America's Funniest Home Videos (TV Show);s4e15_7;49565
+4;15;The Head, the Tail, the Whole Damn Episode;Denzel Washington (Actor);s4e15_8;49629
+4;15;The Head, the Tail, the Whole Damn Episode;Glory (Movie);s4e15_9;49629
+4;15;The Head, the Tail, the Whole Damn Episode;Leverage (TV Show);s4e15_10;49653
+4;15;The Head, the Tail, the Whole Damn Episode;Leon Robinson (Actor);s4e15_11;49663
+4;15;The Head, the Tail, the Whole Damn Episode;Like a Prayer (Song by Madonna);s4e15_12;49663
+4;15;The Head, the Tail, the Whole Damn Episode;Wonder Twins (Fictional superhero);s4e15_13;48911
+4;15;The Head, the Tail, the Whole Damn Episode;USS Constitution (Three-masted wooden-hulled heavy frigate of the United States Navy);s4e15_14;48933
+4;15;The Head, the Tail, the Whole Damn Episode;Marlon Wayans (Actor);s4e15_15;49183
+4;16;Mr. Yin Presents...;The Little Mermaid (Movie);s4e16_1;49969
+4;16;Mr. Yin Presents...;Alfred Hitchcock (Director);s4e16_2;49997,50173,50214,50286,50492
+4;16;Mr. Yin Presents...;Rear Window (Movie);s4e16_3;50569
+4;16;Mr. Yin Presents...;Night Court (TV Show);s4e16_4;50113
+4;16;Mr. Yin Presents...;Bruce Campbell (Actor);s4e16_5;50143
+4;16;Mr. Yin Presents...;The Silence of the Lambs (Movie);s4e16_6;50157,50158
+4;16;Mr. Yin Presents...;Frankie Faison (Actor);s4e16_7;50159
+4;16;Mr. Yin Presents...;Frenzy (Movie);s4e16_8;50211
+4;16;Mr. Yin Presents...;The Cannonball Run (Movie);s4e16_9;50217
+4;16;Mr. Yin Presents...;Burt Reynolds (Actor);s4e16_10;50219
+4;16;Mr. Yin Presents...;Hooper (Movie);s4e16_11;50218
+4;16;Mr. Yin Presents...;Stroker Ace (Movie);s4e16_12;50218
+4;16;Mr. Yin Presents...;North by Northwest (Movie);s4e16_13;50284
+4;16;Mr. Yin Presents...;In Good Company (Movie);s4e16_14;50318
+4;16;Mr. Yin Presents...;Topher Grace (Actor);s4e16_15;50317
+4;16;Mr. Yin Presents...;Psycho (Movie);s4e16_16;50423
+4;16;Mr. Yin Presents...;Rod Taylor (Actor);s4e16_17;50538,50539
+4;16;Mr. Yin Presents...;Sean Connery (Actor);s4e16_18;50511,50535
+4;16;Mr. Yin Presents...;The Birds (Movie);s4e16_19;50529
+4;16;Mr. Yin Presents...;Marnie (Movie);s4e16_20;50532
+4;16;Mr. Yin Presents...;Vertigo (Movie);s4e16_21;50573
+4;16;Mr. Yin Presents...;Canada Lee (Actor);s4e16_22;50555
+4;16;Mr. Yin Presents...;Lifeboat (Movie);s4e16_23;50555
+4;16;Mr. Yin Presents...;René Auberjonois (Actor);s4e16_24;49971
+4;16;Mr. Yin Presents...;Benson (TV Show);s4e16_25;49972
+4;16;Mr. Yin Presents...;Seinfeld (TV Show);s4e16_26;50269
+4;16;Mr. Yin Presents...;The 39 Steps (Movie);s4e16_27;50282
+4;16;Mr. Yin Presents...;Rope (Movie);s4e16_28;50743
+4;16;Mr. Yin Presents...;Tippi Hedren (Actress);s4e16_29;50530,50533
+4;16;Mr. Yin Presents...;Kim Novak (Actress);s4e16_30;50574
 5;1;Romeo and Juliet and Juliet;John Jacob Jingleheimer Schmidt (Traditional Children's Song Of Obscure Origin);s5e1_1;
 5;1;Romeo and Juliet and Juliet;Michael Jackson (Musician);s5e1_2;
 5;1;Romeo and Juliet and Juliet;Lisa Marie Presley (Musician);s5e1_3;
@@ -1504,13 +1598,12 @@
 6;3;This Episode Sucks;Freeze Frames May Be A Reference To The TV Miniseries Salem's Lot;s6e3_30;
 6;3;This Episode Sucks;Let The Right Ones In Buddy (Reference The Movie Let The Right One In);s6e3_31;
 6;3;This Episode Sucks;Shawn's Costume (The Character Lastat From The Novel The Vampire Lestat);s6e3_32;
-6;3;This Episode Sucks;I Can't Help Being A Gorgeous Fiend. It's Just The Card I Drew. (Reference To The Novel The Queen of the Damned);s6e3_33;
-6;3;This Episode Sucks;See You Next Wednesday (A Reference To A Recurring Gag In Most Films Directed By John Landis);s6e3_34;
-6;3;This Episode Sucks;If He Lets A Vampire Into His House, It's Free to Feed On Him At Will (Reference To The Movie The Lost Boys);s6e3_35;
-6;3;This Episode Sucks;Laverne & Shirley (TV Show);s6e3_36;
-6;3;This Episode Sucks;Shoot The Glass (Quote From The Movie Die Hard);s6e3_37;
-6;3;This Episode Sucks;Quantum Leap (TV Show);s6e3_38;
-6;3;This Episode Sucks;Scott Bakula (Actor);s6e3_39;
+6;3;This Episode Sucks;If He Lets A Vampire Into His House, It's Free to Feed On Him At Will (Reference To The Movie The Lost Boys);s6e3_33;
+6;3;This Episode Sucks;Laverne & Shirley (TV Show);s6e3_34;
+6;3;This Episode Sucks;Shoot The Glass (Quote from the movie Die Hard);s6e3_35;
+6;3;This Episode Sucks;Quantum Leap (TV Show);s6e3_36;
+6;3;This Episode Sucks;Scott Bakula (Actor);s6e3_37;
+6;3;This Episode Sucks;Van Wilder (Movie);s6e3_38;69163
 6;3;This Episode Sucks;Is Tamara Here? (Quote From The Movie The Strangers);s6e3_40;
 6;4;The Amazing Psych-Man & Tap Man, Issue #2;C'mon Son! (Reference To Ed Lover);s6e4_1;
 6;4;The Amazing Psych-Man & Tap Man, Issue #2;Phineas & Ferb (TV Show);s6e4_2;
