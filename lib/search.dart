@@ -290,6 +290,17 @@ String replaceNumbersForWords(String input) {
   return input;
 }
 
+String replaceContractions(String input) {
+  input = input.replaceAll('\'s', ' is');
+  input = input.replaceAll('\'m', ' am');
+  input = input.replaceAll('\'re', ' are');
+  input = input.replaceAll('\'ll', ' will');
+  input = input.replaceAll('n\'t', ' not');
+  input = input.replaceAll('\'d', ' would');
+  input = input.replaceAll('\'ve', ' have');
+  return input;
+}
+
 Future<List<Phrase>> _search(map) async {
   List data = map["data"];
   String input = map["text"];
@@ -297,19 +308,21 @@ Future<List<Phrase>> _search(map) async {
   String episode = map["selectedEpisode"];
   List<Phrase> searched = <Phrase>[];
   String searchedClean = "";
-  String inputClean = replaceNumbersForWords(removeDiacritics(input)
-      .toLowerCase()
-      .replaceAll("'", '')
-      .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-      .replaceAll(RegExp(r"\s+"), ' ')
-      .trim());
+  String inputClean =
+      replaceContractions(replaceNumbersForWords(removeDiacritics(input)))
+          .toLowerCase()
+          .replaceAll("'", '')
+          .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+          .replaceAll(RegExp(r"\s+"), ' ')
+          .trim();
   for (var i = 0; i < data.length; i++) {
-    searchedClean = replaceNumbersForWords(removeDiacritics(data[i].line)
+    searchedClean = replaceContractions(
+            replaceNumbersForWords(removeDiacritics(data[i].line)))
         .toLowerCase()
         .replaceAll("'", '')
         .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
         .replaceAll(RegExp(r"\s+"), ' ')
-        .trim());
+        .trim();
     if (partialRatio(inputClean, searchedClean) > 90 &&
         searchedClean.length >= inputClean.length - 2) {
       if (season == "All") {

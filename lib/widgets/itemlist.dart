@@ -27,6 +27,17 @@ class ItemList extends StatelessWidget {
     return input;
   }
 
+  String replaceContractions(String input) {
+    input = input.replaceAll('\'s', ' is');
+    input = input.replaceAll('\'m', ' am');
+    input = input.replaceAll('\'re', ' are');
+    input = input.replaceAll('\'ll', ' will');
+    input = input.replaceAll('n\'t', ' not');
+    input = input.replaceAll('\'d', ' would');
+    input = input.replaceAll('\'ve', ' have');
+    return input;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -46,35 +57,106 @@ class ItemList extends StatelessWidget {
                   color: Colors.green,
                 ),
               );
-              final List inputSplit = input!.split(" ");
-              final List linesSplit = lines[index].line.split(" ");
-              for (var i = 0; i < inputSplit.length; i++) {
-                var inputClean = replaceNumbersForWords(
-                    removeDiacritics(inputSplit[i])
-                        .toLowerCase()
-                        .replaceAll("'", '')
-                        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-                        .replaceAll(RegExp(r"\s+"), ' ')
-                        .trim());
-                for (var j = 0; j < linesSplit.length; j++) {
-                  var lineCleanWithNumbers = removeDiacritics(linesSplit[j])
-                      .toLowerCase()
-                      .replaceAll("'", '')
-                      .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-                      .replaceAll(RegExp(r"\s+"), ' ')
-                      .trim();
-                  var lineCleanWithoutNumbers =
-                      replaceNumbersForWords(lineCleanWithNumbers);
-                  if (weightedRatio(lineCleanWithoutNumbers, inputClean) >=
-                          92 &&
-                      inputClean.length >= lineCleanWithoutNumbers.length) {
-                    words[linesSplit[j]] = highlightedWord;
-                  } else {
-                    words[inputSplit[i]] = highlightedWord;
+              final inputClean = removeDiacritics(input!)
+                  .toLowerCase()
+                  .replaceAll("'", '')
+                  .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+                  .replaceAll(RegExp(r"\s+"), ' ')
+                  .trim();
+              final linesClean = removeDiacritics(lines[index].line)
+                  .toLowerCase()
+                  .replaceAll("'", '')
+                  .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+                  .replaceAll(RegExp(r"\s+"), ' ')
+                  .trim();
+              final List inputSplit = inputClean.split(" ");
+              final List inputSplitNotClean = input!.split(" ");
+              final List linesSplitNotClean = lines[index].line.split(" ");
+              final List inputSplitWithoutNumbers =
+                  replaceNumbersForWords(inputClean).split(" ");
+              final bool inputHasContractions =
+                  input! != replaceContractions(input!);
+              final bool lineHasContractions =
+                  lines[index].line != replaceContractions(lines[index].line);
+              final bool inputHasNumbers = inputClean.contains(RegExp(r'\d+'));
+              final bool lineHasNumbers = linesClean.contains(RegExp(r'\d+'));
+              if (inputHasNumbers && lineHasNumbers) {
+                for (var i = 0; i < inputSplit.length; i++) {
+                  for (var j = 0; j < linesSplitNotClean.length; j++) {
+                    words[input!] = highlightedWord;
+                    if (weightedRatio(linesSplitNotClean[j], inputSplit[i]) >=
+                        20) {
+                      words[linesSplitNotClean[j]] = highlightedWord;
+                    }
                   }
-                  if (lineCleanWithNumbers != lineCleanWithoutNumbers &&
-                      weightedRatio(lineCleanWithoutNumbers, input!) >= 90) {
-                    words[linesSplit[j]] = highlightedWord;
+                }
+              }
+              if (inputHasNumbers && !lineHasNumbers) {
+                for (var i = 0; i < inputSplitWithoutNumbers.length; i++) {
+                  for (var j = 0; j < linesSplitNotClean.length; j++) {
+                    words[inputSplitWithoutNumbers[i]] = highlightedWord;
+                    if (weightedRatio(linesSplitNotClean[j],
+                            inputSplitWithoutNumbers[i]) >=
+                        90) {
+                      words[linesSplitNotClean[j]] = highlightedWord;
+                    }
+                  }
+                }
+              }
+              if (!inputHasNumbers && lineHasNumbers) {
+                for (var i = 0; i < inputSplit.length; i++) {
+                  for (var j = 0; j < linesSplitNotClean.length; j++) {
+                    words[inputSplit[i]] = highlightedWord;
+                    if (weightedRatio(inputSplit[i],
+                            replaceNumbersForWords(linesSplitNotClean[j])) >=
+                        90) {
+                      words[linesSplitNotClean[j]] = highlightedWord;
+                    }
+                  }
+                }
+              }
+              if (!inputHasNumbers &&
+                  !lineHasNumbers &&
+                  !inputHasContractions &&
+                  !lineHasContractions) {
+                for (var i = 0; i < inputSplitNotClean.length; i++) {
+                  words[inputSplitNotClean[i]] = highlightedWord;
+                  for (var j = 0; j < linesSplitNotClean.length; j++) {
+                    if (weightedRatio(
+                                inputSplitNotClean[i], linesSplitNotClean[j]) >=
+                            86 &&
+                        linesSplitNotClean[j].length >=
+                            inputSplitNotClean[i].length) {
+                      words[linesSplitNotClean[j]] = highlightedWord;
+                    }
+                  }
+                }
+              }
+              if (inputHasContractions && lineHasContractions) {
+                for (var i = 0; i < inputSplitNotClean.length; i++) {
+                  words[inputSplitNotClean[i]] = highlightedWord;
+                  words[replaceContractions(inputSplitNotClean[i])] =
+                      highlightedWord;
+                }
+              }
+              if (inputHasContractions && !lineHasContractions) {
+                for (var i = 0; i < inputSplitNotClean.length; i++) {
+                  words[replaceContractions(inputSplitNotClean[i])] =
+                      highlightedWord;
+                }
+              }
+              if (!inputHasContractions && lineHasContractions) {
+                for (var i = 0; i < inputSplit.length; i++) {
+                  words[inputSplit[i]] = highlightedWord;
+                  for (var j = 0; j < linesSplitNotClean.length; j++) {
+                    if (weightedRatio(
+                                replaceContractions(linesSplitNotClean[j]),
+                                inputSplit[i]) >=
+                            86 &&
+                        linesSplitNotClean[j].length >=
+                            inputSplitNotClean[i].length) {
+                      words[linesSplitNotClean[j]] = highlightedWord;
+                    }
                   }
                 }
               }
