@@ -4,6 +4,7 @@ import 'package:psychphinder/classes/full_episode.dart';
 import 'package:psychphinder/global/globals.dart';
 import 'package:psychphinder/widgets/bottomsheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ReferencesPage extends StatelessWidget {
   const ReferencesPage({Key? key}) : super(key: key);
@@ -348,16 +349,31 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
                       .last
                       .replaceAll(')', '')
                       .trim();
+                  final hasVideo = references[index].link != "";
                   return Padding(
                     padding: const EdgeInsets.all(5),
                     child: Material(
                       child: ListTile(
                         title: Text(titleText),
                         subtitle: Text(subtitleText),
-                        trailing: hasReference
-                            ? const Icon(Icons.question_mark_rounded,
-                                color: Colors.green)
-                            : null,
+                        trailing: Stack(
+                          children: [
+                            if (hasReference)
+                              const Icon(Icons.question_mark_rounded,
+                                  color: Colors.green)
+                            else
+                              const SizedBox(),
+                            if (hasVideo)
+                              const Positioned(
+                                right: 0,
+                                bottom: 0,
+                                child: Icon(FontAwesomeIcons.youtube,
+                                    color: Colors.green, size: 9),
+                              )
+                            else
+                              const SizedBox(),
+                          ],
+                        ),
                         onTap: () {
                           if (hasReference) {
                             EpisodeUtil.fullEpisode(

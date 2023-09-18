@@ -73,6 +73,7 @@ class CSVData extends ChangeNotifier {
         reference: listData3[i][3].toString(),
         id: listData3[i][4].toString(),
         idLine: listData3[i][5].toString(),
+        link: listData3[i][6].toString(),
       ));
 
       if (!mapData.containsKey(referenceData[i].season.toString())) {

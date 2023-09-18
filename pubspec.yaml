@@ -31,6 +31,7 @@ dependencies:
   diacritic: ^0.1.4
   highlight_text: ^1.7.0
   number_to_words_english: ^2.0.2
+  font_awesome_flutter: ^10.5.0
 
 dev_dependencies:
   hive_generator: ^1.1.2

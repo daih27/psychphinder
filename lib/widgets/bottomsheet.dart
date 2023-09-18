@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list_view/flutter_list_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:psychphinder/classes/reference_class.dart';
 import 'package:psychphinder/main.dart';
 import 'package:psychphinder/global/globals.dart';
 import 'package:psychphinder/global/search_engine.dart';
@@ -11,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomSheetEpisode extends StatefulWidget {
   const BottomSheetEpisode({
@@ -31,20 +34,20 @@ class BottomSheetEpisode extends StatefulWidget {
 class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
   int currentRef = 0;
   late int newId = widget.indexLine;
-  List<String> referenceSearch(List referenceData, int index) {
-    List<String> referenceSelected = [];
-    for (var i = 0; i < referenceData.length; i++) {
-      final id = referenceData[i].id.replaceAll('\r', '').trim();
-      final idPhrase =
-          widget.fullEpisode[index].reference.replaceAll('\r', '').trim();
-      final splitted = idPhrase.split(',');
-      for (var j = 0; j < splitted.length; j++) {
-        if (id == splitted[j]) {
-          referenceSelected.add(referenceData[i].reference);
-        }
-      }
-    }
-    return referenceSelected;
+  Future<Map<String, dynamic>>? _calculationFuture;
+  List<Reference> referenceSelected = [];
+  List<int> episodeReferenceId = [];
+  List<bool> episodeReferenceHasVideo = [];
+
+  Future<Map<String, dynamic>> calculateReferenceList(
+      List referenceData) async {
+    final Map<String, dynamic> input = {
+      'referenceData': referenceData,
+      'fullEpisode': widget.fullEpisode,
+    };
+    // await Future.delayed(Duration(seconds: 2));
+    final Map<String, dynamic> result = await compute(referenceList, input);
+    return result;
   }
 
   int findIndex(List fullEpisode, int referenceId) {
@@ -56,6 +59,31 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
       }
     }
     return index;
+  }
+
+  int findIndex2(int index, List referencesListIndex) {
+    int index2 = 0;
+    for (var i = 0; i < referencesListIndex.length; i++) {
+      if (referencesListIndex[i] == index) {
+        index2 = i;
+        return index2;
+      }
+    }
+    return index2;
+  }
+
+  List<Reference> selectReference(
+    int index,
+    List<Reference> selectedReference,
+    List<int> episodeReferenceId,
+  ) {
+    List<Reference> selected = [];
+    for (var i = 0; i < selectedReference.length; i++) {
+      if (episodeReferenceId[i] == index) {
+        selected.add(selectedReference[i]);
+      }
+    }
+    return selected;
   }
 
   FToast fToast = FToast();
@@ -98,330 +126,392 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
     var csvData = Provider.of<CSVData>(context);
     final searchEngineProvider = Provider.of<SearchEngineProvider>(context);
     final List referenceData = csvData.referenceData;
-
+    _calculationFuture ??= calculateReferenceList(referenceData);
     FlutterListViewController controller = FlutterListViewController();
-    return ValueListenableBuilder(
-      valueListenable: Hive.box("favorites").listenable(),
-      builder: (BuildContext context, dynamic box, Widget? child) {
-        final isFavorite = box.get(widget.fullEpisode[newId].id) != null;
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                widget.referencesList.length > 19
-                    ? Expanded(flex: 1, child: Container())
-                    : const SizedBox(width: 0),
-                Expanded(
-                  flex: 8,
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          widget.fullEpisode[newId].name,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'PsychFont',
-                            color: Colors.green,
+    return FutureBuilder(
+      future: _calculationFuture,
+      builder:
+          (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          referenceSelected = snapshot.data!['referenceSelected'];
+          episodeReferenceId = snapshot.data!['episodeReferenceId'];
+          episodeReferenceHasVideo = snapshot.data!['episodeReferenceHasVideo'];
+          return ValueListenableBuilder(
+            valueListenable: Hive.box("favorites").listenable(),
+            builder: (BuildContext context, dynamic box, Widget? child) {
+              final isFavorite = box.get(widget.fullEpisode[newId].id) != null;
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      widget.referencesList.length > 19
+                          ? Expanded(flex: 1, child: Container())
+                          : const SizedBox(width: 0),
+                      Expanded(
+                        flex: 8,
+                        child: Center(
+                          child: Column(
+                            children: [
+                              Text(
+                                widget.fullEpisode[newId].name,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'PsychFont',
+                                  color: Colors.green,
+                                ),
+                              ),
+                              if (widget.fullEpisode[newId].season != 0)
+                                Text(
+                                  "Season ${widget.fullEpisode[newId].season}, Episode ${widget.fullEpisode[newId].episode}",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: 15, fontFamily: 'PsychFont'),
+                                ),
+                            ],
                           ),
                         ),
-                        if (widget.fullEpisode[newId].season != 0)
-                          Text(
-                            "Season ${widget.fullEpisode[newId].season}, Episode ${widget.fullEpisode[newId].episode}",
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontSize: 15, fontFamily: 'PsychFont'),
-                          ),
-                      ],
-                    ),
+                      ),
+                      widget.referencesList.length > 1
+                          ? Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_circle_left,
+                                    size: 25,
+                                  ),
+                                  onPressed: () {
+                                    if (currentRef > 0) {
+                                      int referenceId = findIndex(
+                                          widget.fullEpisode,
+                                          int.parse(widget
+                                              .referencesList[currentRef - 1]));
+                                      if (referenceId >= 3) {
+                                        controller.sliverController
+                                            .jumpToIndex(referenceId - 3);
+                                      } else {
+                                        controller.sliverController
+                                            .jumpToIndex(referenceId);
+                                      }
+                                      currentRef--;
+                                      newId = referenceId;
+                                      setState(() {
+                                        currentRef;
+                                        newId;
+                                      });
+                                    }
+                                  },
+                                ),
+                                Text(
+                                  "${currentRef + 1}/${widget.referencesList.length}",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_circle_right,
+                                      size: 25,
+                                    ),
+                                    onPressed: () {
+                                      if (currentRef <
+                                          widget.referencesList.length - 1) {
+                                        int referenceId = findIndex(
+                                            widget.fullEpisode,
+                                            int.parse(widget.referencesList[
+                                                currentRef + 1]));
+                                        if (referenceId >= 3) {
+                                          controller.sliverController
+                                              .jumpToIndex(referenceId - 3);
+                                        } else {
+                                          controller.sliverController
+                                              .jumpToIndex(referenceId);
+                                        }
+                                        currentRef++;
+                                        newId = referenceId;
+                                        setState(() {
+                                          currentRef;
+                                          newId;
+                                        });
+                                      }
+                                    })
+                              ],
+                            )
+                          : const SizedBox(),
+                    ],
                   ),
-                ),
-                widget.referencesList.length > 1
-                    ? Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.arrow_circle_left,
-                              size: 25,
-                            ),
-                            onPressed: () {
-                              if (currentRef > 0) {
-                                int referenceId = findIndex(
-                                    widget.fullEpisode,
-                                    int.parse(
-                                        widget.referencesList[currentRef - 1]));
-                                if (referenceId >= 3) {
-                                  controller.sliverController
-                                      .jumpToIndex(referenceId - 3);
-                                } else {
-                                  controller.sliverController
-                                      .jumpToIndex(referenceId);
-                                }
-                                currentRef--;
-                                newId = referenceId;
+                  Expanded(
+                    child: FlutterListView(
+                      controller: controller,
+                      delegate: FlutterListViewDelegate(
+                        (BuildContext context, int index) {
+                          bool isFavorite =
+                              box.get(widget.fullEpisode[newId].id) != null;
+                          bool hasReference =
+                              widget.fullEpisode[newId].reference.contains("s");
+                          if (newId == index) {
+                            return ListTile(
+                              title: Text(
+                                "${widget.fullEpisode[index].time[0] == '0' ? widget.fullEpisode[index].time.substring(2) : widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  isFavorite
+                                      ? const Icon(Icons.favorite_rounded,
+                                          color: Colors.green)
+                                      : const SizedBox(),
+                                  hasReference
+                                      ? Stack(children: [
+                                          referenceButton(
+                                            referenceData,
+                                            context,
+                                            true,
+                                            searchEngineProvider,
+                                            selectReference(
+                                                index,
+                                                referenceSelected,
+                                                episodeReferenceId),
+                                          ),
+                                          episodeReferenceHasVideo[findIndex2(
+                                                  index, episodeReferenceId)]
+                                              ? const Positioned(
+                                                  right: 6,
+                                                  bottom: 6,
+                                                  child: Icon(
+                                                      FontAwesomeIcons.youtube,
+                                                      color: Colors.green,
+                                                      size: 10),
+                                                )
+                                              : const SizedBox(),
+                                        ])
+                                      : const SizedBox(),
+                                ],
+                              ),
+                            );
+                          } else {
+                            hasReference = widget.fullEpisode[index].reference
+                                .contains("s");
+                            isFavorite =
+                                box.get(widget.fullEpisode[index].id) != null;
+                            return ListTile(
+                              onTap: () {
+                                newId = index;
                                 setState(() {
-                                  currentRef;
                                   newId;
                                 });
-                              }
-                            },
-                          ),
-                          Text(
-                            "${currentRef + 1}/${widget.referencesList.length}",
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                          IconButton(
-                              icon: const Icon(
-                                Icons.arrow_circle_right,
-                                size: 25,
+                              },
+                              title: Text(
+                                "${widget.fullEpisode[index].time[0] == '0' ? widget.fullEpisode[index].time.substring(2) : widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
                               ),
-                              onPressed: () {
-                                if (currentRef <
-                                    widget.referencesList.length - 1) {
-                                  int referenceId = findIndex(
-                                      widget.fullEpisode,
-                                      int.parse(widget
-                                          .referencesList[currentRef + 1]));
-                                  if (referenceId >= 3) {
-                                    controller.sliverController
-                                        .jumpToIndex(referenceId - 3);
-                                  } else {
-                                    controller.sliverController
-                                        .jumpToIndex(referenceId);
-                                  }
-                                  currentRef++;
-                                  newId = referenceId;
-                                  setState(() {
-                                    currentRef;
-                                    newId;
-                                  });
-                                }
-                              })
-                        ],
-                      )
-                    : const SizedBox(),
-              ],
-            ),
-            Expanded(
-              child: FlutterListView(
-                controller: controller,
-                delegate: FlutterListViewDelegate(
-                  (BuildContext context, int index) {
-                    bool isFavorite =
-                        box.get(widget.fullEpisode[newId].id) != null;
-                    bool hasReference =
-                        widget.fullEpisode[newId].reference.contains("s");
-                    if (newId == index) {
-                      return ListTile(
-                        title: Text(
-                          "${widget.fullEpisode[index].time[0] == '0' ? widget.fullEpisode[index].time.substring(2) : widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
-                          style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            isFavorite
-                                ? const Icon(Icons.favorite_rounded,
-                                    color: Colors.green)
-                                : const SizedBox(),
-                            hasReference
-                                ? referenceButton(referenceData, index, context,
-                                    true, searchEngineProvider)
-                                : const SizedBox(),
-                          ],
-                        ),
-                      );
-                    } else {
-                      hasReference =
-                          widget.fullEpisode[index].reference.contains("s");
-                      isFavorite =
-                          box.get(widget.fullEpisode[index].id) != null;
-                      return ListTile(
-                        onTap: () {
-                          newId = index;
-                          setState(() {
-                            newId;
-                          });
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  isFavorite
+                                      ? const Icon(Icons.favorite_rounded,
+                                          color: Colors.white)
+                                      : const SizedBox(),
+                                  hasReference
+                                      ? Stack(children: [
+                                          referenceButton(
+                                            referenceData,
+                                            context,
+                                            false,
+                                            searchEngineProvider,
+                                            selectReference(
+                                                index,
+                                                referenceSelected,
+                                                episodeReferenceId),
+                                          ),
+                                          episodeReferenceHasVideo[findIndex2(
+                                                  index, episodeReferenceId)]
+                                              ? const Positioned(
+                                                  right: 6,
+                                                  bottom: 6,
+                                                  child: Icon(
+                                                      FontAwesomeIcons.youtube,
+                                                      color: Colors.white,
+                                                      size: 10),
+                                                )
+                                              : const SizedBox(),
+                                        ])
+                                      : const SizedBox(),
+                                ],
+                              ),
+                            );
+                          }
                         },
-                        title: Text(
-                          "${widget.fullEpisode[index].time[0] == '0' ? widget.fullEpisode[index].time.substring(2) : widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            isFavorite
-                                ? const Icon(Icons.favorite_rounded,
-                                    color: Colors.white)
-                                : const SizedBox(),
-                            hasReference
-                                ? referenceButton(referenceData, index, context,
-                                    false, searchEngineProvider)
-                                : const SizedBox(),
-                          ],
-                        ),
-                      );
-                    }
-                  },
-                  childCount: widget.fullEpisode.length,
-                  initIndex: widget.indexLine - 3,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                const Spacer(),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (!isFavorite) {
-                      await box.put(widget.fullEpisode[newId].id,
-                          widget.fullEpisode[newId].id);
-                    } else {
-                      await box.delete(widget.fullEpisode[newId].id);
-                    }
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Colors.green,
+                        childCount: widget.fullEpisode.length,
+                        initIndex: widget.indexLine - 3,
+                      ),
                     ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
+                  Row(
                     children: [
-                      Text(
-                          isFavorite
-                              ? 'Remove from favorites'
-                              : 'Add to favorites',
-                          style: const TextStyle(
-                            color: Colors.white,
-                          )),
-                      const SizedBox(width: 5),
-                      const Icon(
-                        Icons.favorite,
-                        color: Colors.white,
+                      const Spacer(),
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (!isFavorite) {
+                            await box.put(widget.fullEpisode[newId].id,
+                                widget.fullEpisode[newId].id);
+                          } else {
+                            await box.delete(widget.fullEpisode[newId].id);
+                          }
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Colors.green,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                                isFavorite
+                                    ? 'Remove from favorites'
+                                    : 'Add to favorites',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                )),
+                            const SizedBox(width: 5),
+                            const Icon(
+                              Icons.favorite,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () async {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              backgroundColor: Colors.green,
+                              title: const Center(
+                                child: Text(
+                                  'Share',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'PsychFont',
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              content: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                    onPressed: () async {
+                                      if (Platform.isAndroid) {
+                                        final result =
+                                            await Share.shareWithResult(
+                                          widget.fullEpisode[newId].line,
+                                        );
+                                        if (result.status ==
+                                            ShareResultStatus.success) {
+                                          _showToast("Shared text!");
+                                        }
+                                      } else {
+                                        await Clipboard.setData(
+                                          ClipboardData(
+                                              text: widget
+                                                  .fullEpisode[newId].line),
+                                        );
+                                        _showToast("Copied to clipboard!");
+                                      }
+                                    },
+                                    child: const Text(
+                                      "Text",
+                                      style: TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => CreateImagePage(
+                                            episode: widget.fullEpisode,
+                                            id: newId,
+                                          ),
+                                        ),
+                                      ).then((value) => setState(() {
+                                            SystemChrome.setEnabledSystemUIMode(
+                                                SystemUiMode.manual,
+                                                overlays: [
+                                                  SystemUiOverlay.top,
+                                                  SystemUiOverlay.bottom
+                                                ]);
+                                          }));
+                                    },
+                                    child: const Text(
+                                      "Image",
+                                      style: TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.share),
                       ),
                     ],
                   ),
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: () async {
-                    showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        backgroundColor: Colors.green,
-                        title: const Center(
-                          child: Text(
-                            'Share',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'PsychFont',
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        content: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                  Colors.white,
-                                ),
-                              ),
-                              onPressed: () async {
-                                if (Platform.isAndroid) {
-                                  final result = await Share.shareWithResult(
-                                    widget.fullEpisode[newId].line,
-                                  );
-                                  if (result.status ==
-                                      ShareResultStatus.success) {
-                                    _showToast("Shared text!");
-                                  }
-                                } else {
-                                  await Clipboard.setData(
-                                    ClipboardData(
-                                        text: widget.fullEpisode[newId].line),
-                                  );
-                                  _showToast("Copied to clipboard!");
-                                }
-                              },
-                              child: const Text(
-                                "Text",
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                  Colors.white,
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CreateImagePage(
-                                      episode: widget.fullEpisode,
-                                      id: newId,
-                                    ),
-                                  ),
-                                ).then((value) => setState(() {
-                                      SystemChrome.setEnabledSystemUIMode(
-                                          SystemUiMode.manual,
-                                          overlays: [
-                                            SystemUiOverlay.top,
-                                            SystemUiOverlay.bottom
-                                          ]);
-                                    }));
-                              },
-                              child: const Text(
-                                "Image",
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.share),
-                ),
-              ],
-            ),
-          ],
-        );
+                ],
+              );
+            },
+          );
+        }
       },
     );
   }
 
   IconButton referenceButton(
       List<dynamic> referenceData,
-      int index,
       BuildContext context,
       bool isSelected,
-      SearchEngineProvider searchEngineProvider) {
+      SearchEngineProvider searchEngineProvider,
+      List<Reference> selectedReference) {
     return IconButton(
       onPressed: () {
-        final selectedReference = referenceSearch(referenceData, index);
         showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
@@ -443,7 +533,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                           children: [
                             Expanded(
                               child: Text(
-                                selectedReference[i],
+                                selectedReference[i].reference,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -453,7 +543,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                             IconButton(
                               onPressed: () {
                                 final url = Uri.parse(
-                                    '${searchEngineProvider.currentSearchEngine}${selectedReference[i].replaceAll("&", "%26")}');
+                                    '${searchEngineProvider.currentSearchEngine}${selectedReference[i].reference.replaceAll("&", "%26")}');
                                 launchUrl(
                                   url,
                                   mode: searchEngineProvider.openLinks
@@ -463,7 +553,40 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                               },
                               icon:
                                   const Icon(Icons.search, color: Colors.white),
-                            )
+                            ),
+                            for (var j = 0;
+                                j < selectedReference[i].link.split(",").length;
+                                j++)
+                              selectedReference[i].link != ""
+                                  ? IconButton(
+                                      onPressed: () {
+                                        final url = Uri.parse(
+                                            selectedReference[i]
+                                                .link
+                                                .split(",")[j]);
+                                        launchUrl(
+                                          url,
+                                          mode: searchEngineProvider.openLinks
+                                              ? LaunchMode.inAppWebView
+                                              : LaunchMode.externalApplication,
+                                        );
+                                      },
+                                      icon: selectedReference[i]
+                                              .link
+                                              .split(",")[j]
+                                              .contains("youtu.be")
+                                          ? const FaIcon(
+                                              FontAwesomeIcons.youtube,
+                                              color: Colors.white)
+                                          : selectedReference[i]
+                                                  .link
+                                                  .split(",")[j]
+                                                  .contains("imdb.com")
+                                              ? const FaIcon(
+                                                  FontAwesomeIcons.imdb,
+                                                  color: Colors.white)
+                                              : Container())
+                                  : const SizedBox()
                           ],
                         ),
                         const SizedBox(height: 10),
@@ -474,7 +597,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                     children: [
                       Expanded(
                         child: Text(
-                          selectedReference.first,
+                          selectedReference.first.reference,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -484,7 +607,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                       IconButton(
                         onPressed: () {
                           final url = Uri.parse(
-                              '${searchEngineProvider.currentSearchEngine}${selectedReference.first.replaceAll("&", "%26")}');
+                              '${searchEngineProvider.currentSearchEngine}${selectedReference.first.reference.replaceAll("&", "%26")}');
                           launchUrl(
                             url,
                             mode: searchEngineProvider.openLinks
@@ -493,7 +616,35 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                           );
                         },
                         icon: const Icon(Icons.search, color: Colors.white),
-                      )
+                      ),
+                      for (var j = 0;
+                          j < selectedReference.first.link.split(",").length;
+                          j++)
+                        selectedReference.first.link != ""
+                            ? IconButton(
+                                onPressed: () {
+                                  final url = Uri.parse(selectedReference
+                                      .first.link
+                                      .split(",")[j]);
+                                  launchUrl(
+                                    url,
+                                    mode: searchEngineProvider.openLinks
+                                        ? LaunchMode.inAppWebView
+                                        : LaunchMode.externalApplication,
+                                  );
+                                },
+                                icon: selectedReference.first.link
+                                        .split(",")[j]
+                                        .contains("youtu.be")
+                                    ? const FaIcon(FontAwesomeIcons.youtube,
+                                        color: Colors.white)
+                                    : selectedReference.first.link
+                                            .split(",")[j]
+                                            .contains("imdb.com")
+                                        ? const FaIcon(FontAwesomeIcons.imdb,
+                                            color: Colors.white)
+                                        : Container())
+                            : const SizedBox()
                     ],
                   ),
           ),
@@ -503,4 +654,43 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
       color: isSelected ? Colors.green : null,
     );
   }
+}
+
+Future<Map<String, dynamic>> referenceList(Map<String, dynamic> input) async {
+  List<dynamic> referenceData = input['referenceData'];
+  List<dynamic> fullEpisode = input['fullEpisode'];
+  List<Reference> referenceSelected = [];
+  List<int> episodeReferenceId = [];
+  List<bool> episodeReferenceHasVideo = [];
+  int season = fullEpisode[0].season;
+  int episode = fullEpisode[0].episode;
+  int seasonReference;
+  int episodeReference;
+
+  for (var i = 0; i < fullEpisode.length; i++) {
+    final idPhrase = fullEpisode[i].reference.replaceAll('\r', '').trim();
+    final splitted = idPhrase.split(',');
+    for (var k = 0; k < referenceData.length; k++) {
+      seasonReference = referenceData[k].season;
+      episodeReference = referenceData[k].episode;
+      if (season == seasonReference && episode == episodeReference) {
+        for (var j = 0; j < splitted.length; j++) {
+          if (referenceData[k].id == splitted[j]) {
+            referenceSelected.add(referenceData[k]);
+            episodeReferenceId.add(i);
+            if (referenceData[k].link.contains("youtu.be")) {
+              episodeReferenceHasVideo.add(true);
+            } else {
+              episodeReferenceHasVideo.add(false);
+            }
+          }
+        }
+      }
+    }
+  }
+  return {
+    'referenceSelected': referenceSelected,
+    'episodeReferenceId': episodeReferenceId,
+    'episodeReferenceHasVideo': episodeReferenceHasVideo,
+  };
 }

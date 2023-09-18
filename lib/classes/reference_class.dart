@@ -5,6 +5,7 @@ class Reference {
   String reference;
   String id;
   String idLine;
+  String link;
 
   Reference(
       {required this.season,
@@ -12,5 +13,6 @@ class Reference {
       required this.name,
       required this.reference,
       required this.id,
-      required this.idLine});
+      required this.idLine,
+      required this.link});
 }

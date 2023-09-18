@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:psychphinder/classes/full_episode.dart';
+import 'package:psychphinder/global/globals.dart';
 import 'package:psychphinder/widgets/bottomsheet.dart';
 import 'package:highlight_text/highlight_text.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
@@ -38,8 +41,149 @@ class ItemList extends StatelessWidget {
     return input;
   }
 
+  Map<String, HighlightedWord> highlightedWords(String input, int index) {
+    Map<String, HighlightedWord> words = {};
+    HighlightedWord highlightedWord = HighlightedWord(
+      textStyle: const TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.green,
+      ),
+    );
+    final inputClean = removeDiacritics(input)
+        .toLowerCase()
+        .replaceAll("'", '')
+        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+        .replaceAll(RegExp(r"\s+"), ' ')
+        .trim();
+    final linesClean = removeDiacritics(lines[index].line)
+        .toLowerCase()
+        .replaceAll("'", '')
+        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+        .replaceAll(RegExp(r"\s+"), ' ')
+        .trim();
+    final List inputSplit = inputClean.split(" ");
+    final List inputSplitNotClean = input.split(" ");
+    final List linesSplitNotClean = lines[index].line.split(" ");
+    final List inputSplitWithoutNumbers =
+        replaceNumbersForWords(inputClean).split(" ");
+    final bool inputHasContractions = input != replaceContractions(input);
+    final bool lineHasContractions =
+        lines[index].line != replaceContractions(lines[index].line);
+    final bool inputHasNumbers = inputClean.contains(RegExp(r'\d+'));
+    final bool lineHasNumbers = linesClean.contains(RegExp(r'\d+'));
+    if (inputHasNumbers && lineHasNumbers) {
+      for (var i = 0; i < inputSplit.length; i++) {
+        for (var j = 0; j < linesSplitNotClean.length; j++) {
+          words[input] = highlightedWord;
+          if (weightedRatio(linesSplitNotClean[j], inputSplit[i]) >= 20) {
+            words[linesSplitNotClean[j]] = highlightedWord;
+          }
+        }
+      }
+    }
+    if (inputHasNumbers && !lineHasNumbers) {
+      for (var i = 0; i < inputSplitWithoutNumbers.length; i++) {
+        for (var j = 0; j < linesSplitNotClean.length; j++) {
+          words[inputSplitWithoutNumbers[i]] = highlightedWord;
+          if (weightedRatio(
+                  linesSplitNotClean[j], inputSplitWithoutNumbers[i]) >=
+              90) {
+            words[linesSplitNotClean[j]] = highlightedWord;
+          }
+        }
+      }
+    }
+    if (!inputHasNumbers && lineHasNumbers) {
+      for (var i = 0; i < inputSplit.length; i++) {
+        for (var j = 0; j < linesSplitNotClean.length; j++) {
+          words[inputSplit[i]] = highlightedWord;
+          if (weightedRatio(inputSplit[i],
+                  replaceNumbersForWords(linesSplitNotClean[j])) >=
+              90) {
+            words[linesSplitNotClean[j]] = highlightedWord;
+          }
+        }
+      }
+    }
+    if (!inputHasNumbers &&
+        !lineHasNumbers &&
+        !inputHasContractions &&
+        !lineHasContractions) {
+      for (var i = 0; i < inputSplitNotClean.length; i++) {
+        words[inputSplitNotClean[i]] = highlightedWord;
+        for (var j = 0; j < linesSplitNotClean.length; j++) {
+          if (weightedRatio(inputSplitNotClean[i], linesSplitNotClean[j]) >=
+                  86 &&
+              linesSplitNotClean[j].length >= inputSplitNotClean[i].length) {
+            words[linesSplitNotClean[j]] = highlightedWord;
+          }
+        }
+      }
+    }
+    if (inputHasContractions && lineHasContractions) {
+      for (var i = 0; i < inputSplitNotClean.length; i++) {
+        words[inputSplitNotClean[i]] = highlightedWord;
+        words[replaceContractions(inputSplitNotClean[i])] = highlightedWord;
+      }
+    }
+    if (inputHasContractions && !lineHasContractions) {
+      for (var i = 0; i < inputSplitNotClean.length; i++) {
+        words[replaceContractions(inputSplitNotClean[i])] = highlightedWord;
+      }
+    }
+    if (!inputHasContractions && lineHasContractions) {
+      for (var i = 0; i < inputSplit.length; i++) {
+        words[inputSplit[i]] = highlightedWord;
+        for (var j = 0; j < linesSplitNotClean.length; j++) {
+          if (weightedRatio(replaceContractions(linesSplitNotClean[j]),
+                      inputSplit[i]) >=
+                  86 &&
+              linesSplitNotClean[j].length >= inputSplitNotClean[i].length) {
+            words[linesSplitNotClean[j]] = highlightedWord;
+          }
+        }
+      }
+    }
+    return words;
+  }
+
+  List<bool> checkVideo(List referenceData, List lines) {
+    List<bool> videos = [];
+    int seasonReference;
+    int episodeReference;
+    int season;
+    int episode;
+    for (var i = 0; i < lines.length; i++) {
+      season = lines[i].season;
+      episode = lines[i].episode;
+      bool splittedIsTrue = false;
+      for (var j = 0; j < referenceData.length; j++) {
+        seasonReference = referenceData[j].season;
+        episodeReference = referenceData[j].episode;
+        if (seasonReference == season && episodeReference == episode) {
+          final idPhrase = lines[i].reference.replaceAll('\r', '').trim();
+          final splitted = idPhrase.split(',');
+          for (var k = 0; k < splitted.length; k++) {
+            if (splitted[k] == referenceData[j].id &&
+                referenceData[j].link.contains("youtu.be")) {
+              splittedIsTrue = true;
+            }
+          }
+        }
+      }
+      if (splittedIsTrue) {
+        videos.add(true);
+      } else {
+        videos.add(false);
+      }
+    }
+    return videos;
+  }
+
   @override
   Widget build(BuildContext context) {
+    var csvData = Provider.of<CSVData>(context);
+    final List referenceData = csvData.referenceData;
     return ValueListenableBuilder(
       valueListenable: Hive.box("favorites").listenable(),
       builder: (BuildContext context, dynamic box, Widget? child) {
@@ -49,125 +193,14 @@ class ItemList extends StatelessWidget {
           itemBuilder: (context, index) {
             final isFavorite = box.get(lines[index].id) != null;
             final hasReference = lines[index].reference.contains("s");
-            Map<String, HighlightedWord> words = {};
-            if (input != null) {
-              HighlightedWord highlightedWord = HighlightedWord(
-                textStyle: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
-                ),
-              );
-              final inputClean = removeDiacritics(input!)
-                  .toLowerCase()
-                  .replaceAll("'", '')
-                  .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-                  .replaceAll(RegExp(r"\s+"), ' ')
-                  .trim();
-              final linesClean = removeDiacritics(lines[index].line)
-                  .toLowerCase()
-                  .replaceAll("'", '')
-                  .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-                  .replaceAll(RegExp(r"\s+"), ' ')
-                  .trim();
-              final List inputSplit = inputClean.split(" ");
-              final List inputSplitNotClean = input!.split(" ");
-              final List linesSplitNotClean = lines[index].line.split(" ");
-              final List inputSplitWithoutNumbers =
-                  replaceNumbersForWords(inputClean).split(" ");
-              final bool inputHasContractions =
-                  input! != replaceContractions(input!);
-              final bool lineHasContractions =
-                  lines[index].line != replaceContractions(lines[index].line);
-              final bool inputHasNumbers = inputClean.contains(RegExp(r'\d+'));
-              final bool lineHasNumbers = linesClean.contains(RegExp(r'\d+'));
-              if (inputHasNumbers && lineHasNumbers) {
-                for (var i = 0; i < inputSplit.length; i++) {
-                  for (var j = 0; j < linesSplitNotClean.length; j++) {
-                    words[input!] = highlightedWord;
-                    if (weightedRatio(linesSplitNotClean[j], inputSplit[i]) >=
-                        20) {
-                      words[linesSplitNotClean[j]] = highlightedWord;
-                    }
-                  }
-                }
-              }
-              if (inputHasNumbers && !lineHasNumbers) {
-                for (var i = 0; i < inputSplitWithoutNumbers.length; i++) {
-                  for (var j = 0; j < linesSplitNotClean.length; j++) {
-                    words[inputSplitWithoutNumbers[i]] = highlightedWord;
-                    if (weightedRatio(linesSplitNotClean[j],
-                            inputSplitWithoutNumbers[i]) >=
-                        90) {
-                      words[linesSplitNotClean[j]] = highlightedWord;
-                    }
-                  }
-                }
-              }
-              if (!inputHasNumbers && lineHasNumbers) {
-                for (var i = 0; i < inputSplit.length; i++) {
-                  for (var j = 0; j < linesSplitNotClean.length; j++) {
-                    words[inputSplit[i]] = highlightedWord;
-                    if (weightedRatio(inputSplit[i],
-                            replaceNumbersForWords(linesSplitNotClean[j])) >=
-                        90) {
-                      words[linesSplitNotClean[j]] = highlightedWord;
-                    }
-                  }
-                }
-              }
-              if (!inputHasNumbers &&
-                  !lineHasNumbers &&
-                  !inputHasContractions &&
-                  !lineHasContractions) {
-                for (var i = 0; i < inputSplitNotClean.length; i++) {
-                  words[inputSplitNotClean[i]] = highlightedWord;
-                  for (var j = 0; j < linesSplitNotClean.length; j++) {
-                    if (weightedRatio(
-                                inputSplitNotClean[i], linesSplitNotClean[j]) >=
-                            86 &&
-                        linesSplitNotClean[j].length >=
-                            inputSplitNotClean[i].length) {
-                      words[linesSplitNotClean[j]] = highlightedWord;
-                    }
-                  }
-                }
-              }
-              if (inputHasContractions && lineHasContractions) {
-                for (var i = 0; i < inputSplitNotClean.length; i++) {
-                  words[inputSplitNotClean[i]] = highlightedWord;
-                  words[replaceContractions(inputSplitNotClean[i])] =
-                      highlightedWord;
-                }
-              }
-              if (inputHasContractions && !lineHasContractions) {
-                for (var i = 0; i < inputSplitNotClean.length; i++) {
-                  words[replaceContractions(inputSplitNotClean[i])] =
-                      highlightedWord;
-                }
-              }
-              if (!inputHasContractions && lineHasContractions) {
-                for (var i = 0; i < inputSplit.length; i++) {
-                  words[inputSplit[i]] = highlightedWord;
-                  for (var j = 0; j < linesSplitNotClean.length; j++) {
-                    if (weightedRatio(
-                                replaceContractions(linesSplitNotClean[j]),
-                                inputSplit[i]) >=
-                            86 &&
-                        linesSplitNotClean[j].length >=
-                            inputSplitNotClean[i].length) {
-                      words[linesSplitNotClean[j]] = highlightedWord;
-                    }
-                  }
-                }
-              }
-            }
+            final hasVideo = checkVideo(referenceData, lines);
             return Padding(
               padding: const EdgeInsets.all(5),
               child: Material(
                 child: ListTile(
                   title: TextHighlight(
                     text: lines[index].line,
-                    words: words,
+                    words: input != null ? highlightedWords(input!, index) : {},
                   ),
                   subtitle: Text(
                     lines[index].season != 0
@@ -185,9 +218,23 @@ class ItemList extends StatelessWidget {
                           color: Colors.green,
                         ),
                       if (hasReference)
-                        const Icon(
-                          Icons.question_mark_rounded,
-                          color: Colors.green,
+                        Stack(
+                          children: [
+                            if (hasReference)
+                              const Icon(Icons.question_mark_rounded,
+                                  color: Colors.green)
+                            else
+                              const SizedBox(),
+                            if (hasVideo.isNotEmpty && hasVideo[index])
+                              const Positioned(
+                                right: 0,
+                                bottom: 0,
+                                child: Icon(FontAwesomeIcons.youtube,
+                                    color: Colors.green, size: 9),
+                              )
+                            else
+                              const SizedBox(),
+                          ],
                         ),
                     ],
                   ),
