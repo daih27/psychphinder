@@ -45,7 +45,6 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
       'referenceData': referenceData,
       'fullEpisode': widget.fullEpisode,
     };
-    // await Future.delayed(Duration(seconds: 2));
     final Map<String, dynamic> result = await compute(referenceList, input);
     return result;
   }
@@ -61,15 +60,23 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
     return index;
   }
 
-  int findIndex2(int index, List referencesListIndex) {
-    int index2 = 0;
+  List<int> findIndex2(int index, List referencesListIndex) {
+    List<int> index2 = [];
     for (var i = 0; i < referencesListIndex.length; i++) {
       if (referencesListIndex[i] == index) {
-        index2 = i;
-        return index2;
+        index2.add(i);
       }
     }
     return index2;
+  }
+
+  bool searchHasVideo(List<int> indexes, List episodeReferenceHasVideo) {
+    for (var i = 0; i < indexes.length; i++) {
+      if (episodeReferenceHasVideo[indexes[i]]) {
+        return true;
+      }
+    }
+    return false;
   }
 
   List<Reference> selectReference(
@@ -262,6 +269,9 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                           bool hasReference =
                               widget.fullEpisode[newId].reference.contains("s");
                           if (newId == index) {
+                            bool hasVideo = searchHasVideo(
+                                findIndex2(index, episodeReferenceId),
+                                episodeReferenceHasVideo);
                             return ListTile(
                               title: Text(
                                 "${widget.fullEpisode[index].time[0] == '0' ? widget.fullEpisode[index].time.substring(2) : widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
@@ -289,8 +299,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                                 referenceSelected,
                                                 episodeReferenceId),
                                           ),
-                                          episodeReferenceHasVideo[findIndex2(
-                                                  index, episodeReferenceId)]
+                                          hasVideo
                                               ? const Positioned(
                                                   right: 6,
                                                   bottom: 6,
@@ -310,6 +319,9 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                 .contains("s");
                             isFavorite =
                                 box.get(widget.fullEpisode[index].id) != null;
+                            bool hasVideo = searchHasVideo(
+                                findIndex2(index, episodeReferenceId),
+                                episodeReferenceHasVideo);
                             return ListTile(
                               onTap: () {
                                 newId = index;
@@ -339,8 +351,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                                 referenceSelected,
                                                 episodeReferenceId),
                                           ),
-                                          episodeReferenceHasVideo[findIndex2(
-                                                  index, episodeReferenceId)]
+                                          hasVideo
                                               ? const Positioned(
                                                   right: 6,
                                                   bottom: 6,
