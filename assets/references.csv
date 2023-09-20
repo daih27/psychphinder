@@ -635,7 +635,7 @@
 3;6;There Might Be Blood;Fonzie (Character from Happy Days);s3e6_7;30299;
 3;6;There Might Be Blood;Henry Winkler (Actor);s3e6_8;30299;
 3;6;There Might Be Blood;The Brady Bunch (TV Show);s3e6_9;30525;
-3;6;There Might Be Blood;Stop. Hammer Time! (Line from MC Hammer's song U Can't Touch This);s3e6_10;30633;
+3;6;There Might Be Blood;Stop. Hammer Time! (Line from MC Hammer's song U Can't Touch This);s3e6_10;30633;https://youtu.be/otCpCn0l4Wo?t=129
 3;6;There Might Be Blood;McMillan & Wife (TV Show);s3e6_11;30348,30349;
 3;6;There Might Be Blood;Craig T. Nelson (Actor);s3e6_12;30497;
 3;6;There Might Be Blood;Jan Brady-Covington (Character from The Brady Bunch);s3e6_13;30529;
@@ -643,7 +643,7 @@
 3;6;There Might Be Blood;Dr. Dre (Music producer and rapper);s3e6_15;30730;
 3;6;There Might Be Blood;Dr Pepper (Carbonated soft drink);s3e6_16;30731;
 3;6;There Might Be Blood;Dr. No (Movie);s3e6_17;30731;
-3;6;There Might Be Blood;Silkwood (Movie);s3e6_18;30760;
+3;6;There Might Be Blood;Silkwood (Movie);s3e6_18;30760,30761;https://youtu.be/P2Ec20v7wX8?t=46
 3;6;There Might Be Blood;Entertainment Weekly (Magazine);s3e6_19;30847;
 3;7;Talk Derby to Me;Kids' Choice Awards (Annual awards show);s3e7_1;30926,31246;
 3;7;Talk Derby to Me;Divine Secrets of the Ya-Ya Sisterhood (Movie);s3e7_2;30961;
@@ -653,14 +653,14 @@
 3;7;Talk Derby to Me;Tommy Hilfiger (Fashion designer);s3e7_6;31376;
 3;7;Talk Derby to Me;Keanu Reeves (Actor);s3e7_7;31409;
 3;7;Talk Derby to Me;The Lake House (Movie);s3e7_8;31410,31411;
-3;7;Talk Derby to Me;Rollergirl (Musician);s3e7_9;;
+3;7;Talk Derby to Me;Monkey Washing Cat (Youtube video);s3e7_9;31419,31420;https://youtu.be/gkviIYKjPyw
 3;8;Gus Walks into a Bank;Celebrity (Game);s3e8_1;31630;
 3;8;Gus Walks into a Bank;Colin Farrell (Actor);s3e8_2;31699;
 3;8;Gus Walks into a Bank;Orange Julius (Chain of fruit drink beverage stores);s3e8_3;31841,31899;
 3;8;Gus Walks into a Bank;Lhasa Apso (Dog breed);s3e8_4;31912;
 3;8;Gus Walks into a Bank;Oreo (Brand of cookies);s3e8_5;31985;
 3;8;Gus Walks into a Bank;Sidney Poitier (Actor);s3e8_6;32275;
-3;8;Gus Walks into a Bank;Virgil Tibbs (Character from the movie In the Heat of the Night);s3e8_7;32278;
+3;8;Gus Walks into a Bank;Virgil Tibbs (Character from the movie In the Heat of the Night);s3e8_7;32278;https://youtu.be/i6n8VyqaCQ4?feature=shared&t=51
 3;8;Gus Walks into a Bank;Ball Park (Food brand);s3e8_8;32317;
 3;9;Christmas Joy;Woody Harrelson (Actor);s3e9_1;32915;
 3;9;Christmas Joy;Wildcats (Movie);s3e9_2;32915;
@@ -680,7 +680,7 @@
 3;10;Six Feet Under the Sea;Rutger Hauer (Actor);s3e10_9;33774;
 3;10;Six Feet Under the Sea;Dead Calm (Movie);s3e10_10;33454;
 3;10;Six Feet Under the Sea;You're a Grand Old Flag (Song by George M. Cohan);s3e10_11;33092;
-3;10;Six Feet Under the Sea;The Day of the Dolphin (Movie);s3e10_12;33246,33247,33256;
+3;10;Six Feet Under the Sea;The Day of the Dolphin (Movie);s3e10_12;33246,33247,33256;https://youtu.be/R5Mx_c3duF0?t=139
 3;10;Six Feet Under the Sea;Against All Odds (Song by Phil Collins);s3e10_13;33303;
 3;10;Six Feet Under the Sea;Thomas Guide (Series of atlases);s3e10_14;33417;
 3;10;Six Feet Under the Sea;Jarrod Saltalamacchia (Baseball catcher);s3e10_15;33459;
@@ -707,7 +707,7 @@
 3;11;Lassie Did a Bad, Bad Thing;Drakkar Noir (Men's fragrance);s3e11_20;34044;
 3;11;Lassie Did a Bad, Bad Thing;Pinot noir (Red wine);s3e11_21;34045;
 3;11;Lassie Did a Bad, Bad Thing;Fortress of Solitude (Fictional fortress from the Superman comics);s3e11_22;34047;
-3;11;Lassie Did a Bad, Bad Thing;The Little Engine That Could (Book by Watty Piper);s3e11_23;34064;
+3;11;Lassie Did a Bad, Bad Thing;The Little Engine That Could (Book by Watty Piper);s3e11_23;34064;https://youtu.be/Yx9xO98kcBU
 3;11;Lassie Did a Bad, Bad Thing;Things Can Only Get Better (Song by Howard Jones);s3e11_24;34215;
 3;11;Lassie Did a Bad, Bad Thing;I'm Alright (Song by Kenny Loggins);s3e11_25;34265;
 3;11;Lassie Did a Bad, Bad Thing;Jim Messina (Musician);s3e11_26;34316,34317;
@@ -716,6 +716,7 @@
 3;11;Lassie Did a Bad, Bad Thing;Something Wild (Movie);s3e11_29;34521;
 3;11;Lassie Did a Bad, Bad Thing;Something About the Way You Look Tonight (Song by Elton John);s3e11_30;34522;
 3;11;Lassie Did a Bad, Bad Thing;Deep Blue Something (Band);s3e11_31;34522;
+3;11;Lassie Did a Bad, Bad Thing;Pepsi Challenge (Marketing promotion from Pepsi);s3e11_32;33826;https://youtu.be/eiO_JES4yBY
 3;12;Earth, Wind and... Wait for It;Cruella de Vil (Character from 101 Dalmatians);s3e12_1;35338;
 3;12;Earth, Wind and... Wait for It;Terry Thomas (Actor);s3e12_2;35063;
 3;12;Earth, Wind and... Wait for It;Lauren Hutton (Actress/Model);s3e12_3;35063;
@@ -743,7 +744,7 @@
 3;12;Earth, Wind and... Wait for It;Gonzo (Character from The Muppets);s3e12_25;34937;
 3;12;Earth, Wind and... Wait for It;Ming the Merciless (Character from the Flash Gordon comic);s3e12_26;34706;
 3;12;Earth, Wind and... Wait for It;Sun Tzu (Chinese general);s3e12_27;34742;
-3;12;Earth, Wind and... Wait for It;Big (Movie);s3e12_28;34905,34906;
+3;12;Earth, Wind and... Wait for It;Big (Movie);s3e12_28;34905,34906;https://youtu.be/Q6RK4479XD8
 3;12;Earth, Wind and... Wait for It;Lady Godiva (Anglo-Saxon noblewoman);s3e12_29;35331,35339;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Rae Dawn Chong (Actress);s3e13_1;35369;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Quest For Fire (Movie);s3e13_2;35370;
@@ -762,12 +763,12 @@
 3;13;Any Given Friday Night at 10pm, 9pm Central;The Russians Are Coming, The Russians Are Coming (Movie);s3e13_15;35739,35740,35741,35742;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Night of the Comet (Movie);s3e13_16;35835;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Just One of the Guys (Movie);s3e13_17;35869;
-3;13;Any Given Friday Night at 10pm, 9pm Central;"I'm Not a Playa, But I Crush A Lot (From the song ""Im Not A Player"" by Big Pun)";s3e13_18;36024,36025;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Stir Crazy (Movie);s3e13_19;36089;
+3;13;Any Given Friday Night at 10pm, 9pm Central;"I'm not a playa, but i crush a lot (From the song ""Im Not A Player"" by Big Pun)";s3e13_18;36024,36025;
+3;13;Any Given Friday Night at 10pm, 9pm Central;Stir Crazy (Movie);s3e13_19;36089,36090;https://youtu.be/n7-JWYAGl_A?t=135
 3;13;Any Given Friday Night at 10pm, 9pm Central;Drew Lachey (Singer/Actor);s3e13_20;35483;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Joyce Hyser (Actress);s3e13_21;35869;
 3;13;Any Given Friday Night at 10pm, 9pm Central;This Little Piggy (Nursery rhyme);s3e13_22;35395;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Footloose (Song by Kenny Loggins);s3e13_23;35426;
+3;13;Any Given Friday Night at 10pm, 9pm Central;Footloose (Song by Kenny Loggins);s3e13_23;35422,35426;https://youtu.be/ltrMfT4Qz5Y?t=62
 3;13;Any Given Friday Night at 10pm, 9pm Central;Boutros Boutros-Ghali (Egyptian politican);s3e13_24;35442;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Rent (Musical);s3e13_25;35556;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Taye Diggs (Actor);s3e13_26;35557;
@@ -791,7 +792,7 @@
 3;14;Truer Lies;Wayne's World (Movie);s3e14_15;36822;
 3;14;Truer Lies;Dave's World (TV Show);s3e14_16;36822;
 3;14;Truer Lies;It's a Small World (Boat ride);s3e14_17;36822;
-3;14;Truer Lies;Speed (Movie);s3e14_18;36947,36948;
+3;14;Truer Lies;Speed (Movie);s3e14_18;36947,36948;https://youtu.be/mmuDvVwq430
 3;14;Truer Lies;Hefty (Brand of household products);s3e14_19;36166;
 3;15;Tuesday the 17th;Rick Astley (Musician);s3e15_1;37029,37030;
 3;15;Tuesday the 17th;Ann-Margret (Actress);s3e15_2;37033;
@@ -821,7 +822,7 @@
 3;16;An Evening with Mr. Yang;Hitch (Character from the movie Hitch);s3e16_2;37605;
 3;16;An Evening with Mr. Yang;Will Hunting (Character from the movie Good Will Hunting);s3e16_3;37606;
 3;16;An Evening with Mr. Yang;Judd Nelson (Actor);s3e16_4;37613;
-3;16;An Evening with Mr. Yang;How do you like them apples? (Quote from the Movie Good Will Hunting);s3e16_5;37632,38217;
+3;16;An Evening with Mr. Yang;How do you like them apples? (Quote from the Movie Good Will Hunting);s3e16_5;37632,38217;https://youtu.be/gcZPWkNY6x8?t=98
 3;16;An Evening with Mr. Yang;General Mills (Cereal manufacturer);s3e16_6;37760;
 3;16;An Evening with Mr. Yang;Sterling Cooper (Actor);s3e16_7;37681;
 3;16;An Evening with Mr. Yang;Kramer vs. Kramer (Movie);s3e16_8;37701;
@@ -836,7 +837,7 @@
 3;16;An Evening with Mr. Yang;Doubting Thomas (Reference to one of the Twelve Apostles of Jesus);s3e16_17;38024;
 3;16;An Evening with Mr. Yang;Patrick Swayze (Actor);s3e16_18;38036;
 3;16;An Evening with Mr. Yang;North and South (TV mini-series);s3e16_19;38036;
-3;16;An Evening with Mr. Yang;Now it's time to go see about a girl (Quote from the movie Good Will Hunting);s3e16_20;38215,38216;
+3;16;An Evening with Mr. Yang;Now it's time to go see about a girl (Quote from the movie Good Will Hunting);s3e16_20;38215,38216;https://youtu.be/ViCfc3eIpv4?t=138
 3;16;An Evening with Mr. Yang;The Silence of the Lambs (Movie);s3e16_21;;
 3;16;An Evening with Mr. Yang;Ben (Movie);s3e16_22;37850;
 3;16;An Evening with Mr. Yang;Willard (Movie);s3e16_23;37880;
