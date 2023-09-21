@@ -557,17 +557,18 @@
 3;1;Ghosts;Luciano Pavarotti (Italian operatic tenor);s3e1_13;26894;
 3;1;Ghosts;Red Rover (Children's game);s3e1_14;27020;
 3;1;Ghosts;Lawn darts (Lawn game);s3e1_15;27020;
+3;1;Ghosts;Spider-man (Movie);s3e1_16;27049;https://youtu.be/_5d6rTQcU2U?t=88
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Molly Ringwald (Actress);s3e2_1;27130;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Andrew McCarthy (Actor);s3e2_2;27130;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Fresh Horses (Movie);s3e2_3;27132;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Judd Nelson (Actor);s3e2_4;27126,27143;
-3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;From the Hip (Movie);s3e2_5;;
+3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;From the Hip (Movie);s3e2_5;27144,27145;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Bring It On (Movie);s3e2_6;27209;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Ravi Shankar (Musician);s3e2_7;27267,27270;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Step By Step (TV Show);s3e2_8;27300;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Abe Froman, Sausage King of Chicago (Movie reference from Ferris Bueller's Day Off);s3e2_9;27370;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;The Wonder Years (TV Show);s3e2_10;27371;
-3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;The Breakfast Club (Movie);s3e2_11;27389,27392,27583;
+3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;The Breakfast Club (Movie);s3e2_11;27388,27389,27392,27583;https://youtu.be/CP1X1c-BLPA?t=251
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Parker Stevenson (Actor);s3e2_12;27514;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;John Cusack (Actor);s3e2_13;27516;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Ludwig van Beethoven (Musician);s3e2_14;27543;
@@ -578,15 +579,15 @@
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Flubber (Movie);s3e2_19;27584,27585,27586;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;John Hughes (Director/Writer);s3e2_20;27582,27588;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;The Adventures of Milo and Otis (Movie);s3e2_21;27602;
-3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;We Are Not Alone (Song by Karla DeVito);s3e2_22;27609;
+3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;We Are Not Alone (Song by Karla DeVito);s3e2_22;27609;https://youtu.be/KVkTAhSxV9w
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Sixteen Candles (Movie);s3e2_23;27651,27652;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Pretty in Pink (Movie);s3e2_24;27677,27847;
-3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Can I borrow your underpants for 10 minutes? (Quote from the movie Sixteen Candles);s3e2_26;27651,27652;
+3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Can I borrow your underpants for 10 minutes? (Quote from the movie Sixteen Candles);s3e2_26;27651,27652;https://youtu.be/YQQv9yva924?t=149
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Barnaby Jones (Character in the TV show Barnaby Jones);s3e2_27;27367;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Cabbage Patch (Dance);s3e2_28;27559;
-3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Duckie Dale (Character from Pretty in Pink);s3e2_29;27580;
+3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Duckie Dale (Character from Pretty in Pink);s3e2_29;27580,27590;
 3;3;Daredevils!;That's Incredible! (TV Show);s3e3_1;27954;
-3;3;Daredevils!;The Simpsons (TV Show);s3e3_2;27954,27955;
+3;3;Daredevils!;The Simpsons (TV Show);s3e3_2;27954,27955;https://youtu.be/aMvyTlcUoD4
 3;3;Daredevils!;The Allman Brothers (Musicians);s3e3_3;28052;
 3;3;Daredevils!;Glen Campbell (Musician);s3e3_4;28129;
 3;3;Daredevils!;Police Woman (TV Show);s3e3_5;28146;
@@ -597,7 +598,7 @@
 3;3;Daredevils!;Red Robin (Restaurant);s3e3_10;28436;
 3;3;Daredevils!;Die Hard (Movie);s3e3_11;28072;
 3;3;Daredevils!;High Road to China (Movie);s3e3_12;28212;
-3;3;Daredevils!;Chinatown (Movie);s3e3_13;28237;
+3;3;Daredevils!;Chinatown (Movie);s3e3_13;28237;https://youtu.be/wnrdetFAo1o?t=71
 3;3;Daredevils!;My Father the Hero (Movie);s3e3_14;28237;
 3;3;Daredevils!;George Thorogood (Musician);s3e3_15;28363;
 3;4;The Greatest Adventure in the History of Basic Cable;John Priestley (Novelist, playwright and broadcaster);s3e4_1;28893;
@@ -607,11 +608,11 @@
 3;4;The Greatest Adventure in the History of Basic Cable;Tony! Toni! Tone! (Musicians);s3e4_5;29075;
 3;4;The Greatest Adventure in the History of Basic Cable;Wet Wet Wet (Musicians);s3e4_6;29075;
 3;4;The Greatest Adventure in the History of Basic Cable;Val Kilmer (Actor);s3e4_7;29118;
-3;4;The Greatest Adventure in the History of Basic Cable;Idle Hands (Movie);s3e4_8;29262;
+3;4;The Greatest Adventure in the History of Basic Cable;Idle Hands (Movie);s3e4_8;29262;https://youtu.be/1KF9bKXXV8Q
 3;4;The Greatest Adventure in the History of Basic Cable;Jack Lord (Actor);s3e4_9;29276;
 3;4;The Greatest Adventure in the History of Basic Cable;Harry Belafonte (Musician);s3e4_10;29296;
 3;4;The Greatest Adventure in the History of Basic Cable;The Secret of NIMH (Movie);s3e4_11;29307;
-3;4;The Greatest Adventure in the History of Basic Cable;John Woo (Director);s3e4_12;29337;
+3;4;The Greatest Adventure in the History of Basic Cable;John Woo (Director);s3e4_12;29337;https://youtu.be/Qp3-JzWWuRY?t=472
 3;4;The Greatest Adventure in the History of Basic Cable;Dean and Sammy (Reference to members of Rat Pack: Sammy Davis Jr. and Dean Martin);s3e4_13;28952,28953,28954;
 3;4;The Greatest Adventure in the History of Basic Cable;Red Robin (Restaurant);s3e4_14;29330;
 3;4;The Greatest Adventure in the History of Basic Cable;Wow! Wow! Wubbzy! (Children's TV show);s3e4_15;28798;
@@ -624,8 +625,8 @@
 3;5;Disco Didn't Die. It Was Murdered!;Raiders of the Lost Ark (Movie);s3e5_4;29694;
 3;5;Disco Didn't Die. It Was Murdered!;"Jimmy ""Popeye"" Doyle (Character from the movie The French Connection)";s3e5_5;29744;
 3;5;Disco Didn't Die. It Was Murdered!;Noah's Ark (Ship in the Genesis flood narrative);s3e5_6;29906;
-3;5;Disco Didn't Die. It Was Murdered!;Theme From Shaft (Song by Isaac Hayes);s3e5_7;30033;
-3;5;Disco Didn't Die. It Was Murdered!;Lies (Song by Thompson Twins);s3e5_8;30061,30062;
+3;5;Disco Didn't Die. It Was Murdered!;Theme From Shaft (Song by Isaac Hayes);s3e5_7;30033;https://youtu.be/Q429AOpL_ds?t=200
+3;5;Disco Didn't Die. It Was Murdered!;Lies (Song by Thompson Twins);s3e5_8;30061,30062;https://youtu.be/MNeVjVu9O6w?t=42
 3;6;There Might Be Blood;Getty Oil (Oil marketing company);s3e6_1;30135;
 3;6;There Might Be Blood;Jed Clampett (Character from Green Acres);s3e6_2;30135;
 3;6;There Might Be Blood;Crisco (Brand of shortening);s3e6_3;30135;
