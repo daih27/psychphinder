@@ -9,6 +9,8 @@ import 'dart:io';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/global/theme.dart';
 import 'package:flutter_donation_buttons/flutter_donation_buttons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -301,10 +303,10 @@ class _SettingsPageState extends State<SettingsPage> {
             ? Theme.of(context).colorScheme.background
             : Theme.of(context).colorScheme.secondaryContainer,
       ),
-      child: const Column(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
+          const Text(
             "About",
             style: TextStyle(
               fontSize: 20,
@@ -312,20 +314,46 @@ class _SettingsPageState extends State<SettingsPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 10),
-          Text(
-            "Psychphinder is a personal project that I have tried to accomplish for several years now. It started as a simple script, and then I tried to learn how to make it more usable in the form of an app, which didn't go very well. A couple of years later, I decided to give it another go, this time for real.\n\nThis app is completely free, open source, without ads, and with a ton of effort!\n\nIf you like it and want to support the project, feel free to donate using the button below!",
+          const SizedBox(height: 10),
+          const Text(
+            "Psychphinder is a personal project that I have tried to accomplish for several years now. It started as a simple script, and then I tried to learn how to make it more usable in the form of an app, which didn't go very well. A couple of years later, I decided to give it another go, this time for real.\n\nThis app is completely free, open source, without ads, and with a ton of effort!\n\nIf you like it and want to support the project, feel free to use any of the buttons below.",
             style: TextStyle(fontSize: 16),
             textAlign: TextAlign.justify,
           ),
-          SizedBox(height: 10),
-          KofiButton(
+          const SizedBox(height: 10),
+          const KofiButton(
             kofiName: "daih27",
             kofiColor: KofiColor.Red,
             style: ButtonStyle(
               iconColor: MaterialStatePropertyAll(Colors.white),
               foregroundColor: MaterialStatePropertyAll(Colors.white),
             ),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            clipBehavior: Clip.hardEdge,
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: TextButton(
+                onPressed: () {
+                  launchUrl(
+                      Uri.parse("https://github.com/daih27/psychphinder"));
+                },
+                child: const Row(mainAxisSize: MainAxisSize.min, children: [
+                  Icon(FontAwesomeIcons.github, color: Colors.white),
+                  Text(
+                    "    Star the repository on Github",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ])),
           ),
         ],
       ),
