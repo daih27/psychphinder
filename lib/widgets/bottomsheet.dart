@@ -336,8 +336,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   isFavorite
-                                      ? const Icon(Icons.favorite_rounded,
-                                          color: Colors.white)
+                                      ? const Icon(Icons.favorite_rounded)
                                       : const SizedBox(),
                                   hasReference
                                       ? Stack(children: [
@@ -357,7 +356,6 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                                   bottom: 6,
                                                   child: Icon(
                                                       FontAwesomeIcons.youtube,
-                                                      color: Colors.white,
                                                       size: 10),
                                                 )
                                               : const SizedBox(),
