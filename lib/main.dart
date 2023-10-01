@@ -16,6 +16,9 @@ import 'classes/phrase_class.dart';
 import 'global/globals.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final Uri _url = Uri.parse('https://github.com/daih27/psychphinder');
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -79,12 +82,51 @@ class _HomeState extends State<Home> {
   void initState() {
     _pageController = PageController(initialPage: _selectedIndex);
     super.initState();
+    showWhatsNew(context);
     if (Platform.isWindows || Platform.isLinux) {
-      init();
+      showUpdateLinuxWindows();
     }
   }
 
-  init() async {
+  Future<void> showWhatsNew(BuildContext context) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    int buildNumber = int.parse(packageInfo.buildNumber);
+    int latestAppVersion = pref.getInt("latestAppVersion") ?? buildNumber;
+    bool isFirstLoaded = pref.getBool("isFirstLoaded") ?? true;
+    print(latestAppVersion);
+    if (isFirstLoaded || buildNumber > latestAppVersion) {
+      pref.setInt("latestAppVersion", buildNumber);
+      pref.setBool("isFirstLoaded", false);
+      String dialogContent = await rootBundle.loadString('assets/CHANGELOG.md');
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('What\'s new?'),
+                content: SizedBox(
+                    width: double.maxFinite,
+                    height: 500,
+                    child: Center(child: Markdown(data: dialogContent))),
+                actions: <Widget>[
+                  ElevatedButton(
+                    child: const Text('OK'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      );
+    }
+  }
+
+  showUpdateLinuxWindows() async {
     ShowDialog(
       context: context,
       jsonUrl:

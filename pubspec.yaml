@@ -32,6 +32,8 @@ dependencies:
   highlight_text: ^1.7.0
   number_to_words_english: ^2.0.2
   font_awesome_flutter: ^10.5.0
+  flutter_markdown: ^0.6.17+3
+  package_info_plus: ^4.1.0
 
 dev_dependencies:
   hive_generator: ^1.1.2
@@ -73,3 +75,4 @@ flutter:
     - assets/data.csv
     - assets/episodes.csv
     - assets/references.csv
+    - assets/CHANGELOG.md
