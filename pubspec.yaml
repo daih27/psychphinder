@@ -1,7 +1,7 @@
 name: psychphinder
 description: A searcher for the TV show Psych.
 publish_to: 'none'
-version: 1.1.0+12
+version: 1.1.0+13
 
 environment:
   sdk: '>=3.0.5 <4.0.0'

@@ -1,4 +1,4 @@
-# 1.1.0 (22/09/2023)
+# 1.1.0 (03/10/2023)
 
 - New feature! Now when you open the app, you can view a random quote (that has a reference). If you tap on the reference you can see the whole episode, share it, save it to favorites and create a wallpaper from it!.
 - Added a "What's new" screen when the app updates, showing in it the latest and past changes.
