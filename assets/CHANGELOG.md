@@ -1,3 +1,10 @@
+# 1.1.0 (22/09/2023)
+
+- New feature! Now when you open the app, you can view a random quote (that has a reference). If you tap on the reference you can see the whole episode, and then share it, save it to favorites and create a wallpaper from it!.
+- Added a "What's new" screen when the app updates, showing in it the latest and past changes.
+- Completed all the references from season 5.
+- Fixes some icons using the white color when using the light theme.
+
 # 1.0.9 (22/09/2023)
 
 - New feature! Added video links to references from season 1 to season 5! Check out for example Topher Grace running on the beach at the of In Good Company in season 4, episode 16. There are plenty more!
