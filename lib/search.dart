@@ -2,11 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:provider/provider.dart';
+import 'package:psychphinder/classes/full_episode.dart';
 import 'package:psychphinder/classes/phrase_class.dart';
+import 'package:psychphinder/widgets/bottomsheet.dart';
 import 'package:psychphinder/widgets/itemlist.dart';
 import 'package:diacritic/diacritic.dart';
 import 'global/globals.dart';
 import 'package:number_to_words_english/number_to_words_english.dart';
+import 'dart:math';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -24,9 +27,110 @@ class _SearchPageState extends State<SearchPage>
   bool isLoading = false;
   bool isSearching = false;
   String input = "";
+  late int randomIndex;
+  Random rng = Random();
   ValueNotifier<String> selectedSeason = ValueNotifier<String>('All');
   ValueNotifier<String> selectedEpisode = ValueNotifier<String>('All');
   final TextEditingController textEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    randomIndex = rng.nextInt(1613);
+  }
+
+  Widget randomReference(List data, List referenceData) {
+    List<String> splittedLine = referenceData[randomIndex].idLine.split(',');
+    int randomIndexSplitted = rng.nextInt(splittedLine.length);
+    int randomSplittedLine = int.parse(splittedLine[randomIndexSplitted]);
+    String line = data[randomSplittedLine].line;
+
+    Widget randomReference = Padding(
+      padding: const EdgeInsets.all(10),
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color:
+              Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              referenceData[randomIndex].name,
+              style: const TextStyle(
+                fontFamily: 'PsychFont',
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Season ${referenceData[randomIndex].season}, Episode ${referenceData[randomIndex].episode}",
+              style: const TextStyle(
+                fontFamily: 'PsychFont',
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextButton(
+              style: TextButton.styleFrom(
+                  foregroundColor:
+                      Theme.of(context).colorScheme.onPrimaryContainer),
+              onPressed: () {
+                EpisodeUtil.fullEpisode(data, data[randomSplittedLine]);
+                showModalBottomSheet(
+                  context: context,
+                  enableDrag: false,
+                  builder: (BuildContext context) {
+                    return BottomSheetEpisode(
+                      indexLine: EpisodeUtil.index,
+                      fullEpisode: EpisodeUtil.full,
+                      referencesList: const [],
+                    );
+                  },
+                );
+              },
+              child: Text(line, textAlign: TextAlign.center),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    "${data[randomSplittedLine].time[0] == '0' ? data[randomSplittedLine].time.substring(2) : data[randomSplittedLine].time}",
+                    style: const TextStyle(
+                      fontFamily: 'PsychFont',
+                    ),
+                  ),
+                ),
+                const Expanded(
+                    flex: 2, child: Center(child: Text("Random quote"))),
+                Flexible(
+                  flex: 1,
+                  child: IconButton(
+                      onPressed: () {
+                        setState(
+                          () {
+                            randomIndex = rng.nextInt(1613);
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.refresh_rounded)),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+
+    return randomReference;
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -34,6 +138,7 @@ class _SearchPageState extends State<SearchPage>
     final List data = csvData.data;
     final Map<String, List<String>> episodesMap = csvData.episodesMap;
     final List<String> seasons = csvData.seasons;
+    final List referenceData = csvData.referenceData;
     return Scaffold(
       body: Column(
         children: [
@@ -259,17 +364,26 @@ class _SearchPageState extends State<SearchPage>
                             ),
                           ),
                         )
-                      : const Expanded(
+                      : Expanded(
                           child: Center(
-                            child: Text(
-                              "Welcome to psychphinder!",
-                              style: TextStyle(
-                                fontFamily: "PsychFont",
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                              textScaleFactor: 1.0,
-                              textAlign: TextAlign.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Spacer(flex: 2),
+                                const Text(
+                                  "Welcome to psychphinder!",
+                                  style: TextStyle(
+                                    fontFamily: "PsychFont",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                  textScaleFactor: 1.0,
+                                  textAlign: TextAlign.center,
+                                ),
+                                const Spacer(),
+                                randomReference(data, referenceData),
+                                const Spacer(),
+                              ],
                             ),
                           ),
                         ),

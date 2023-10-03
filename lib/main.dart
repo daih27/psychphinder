@@ -94,7 +94,6 @@ class _HomeState extends State<Home> {
     int buildNumber = int.parse(packageInfo.buildNumber);
     int latestAppVersion = pref.getInt("latestAppVersion") ?? buildNumber;
     bool isFirstLoaded = pref.getBool("isFirstLoaded") ?? true;
-    print(latestAppVersion);
     if (isFirstLoaded || buildNumber > latestAppVersion) {
       pref.setInt("latestAppVersion", buildNumber);
       pref.setBool("isFirstLoaded", false);
