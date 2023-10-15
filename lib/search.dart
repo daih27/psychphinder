@@ -36,7 +36,7 @@ class _SearchPageState extends State<SearchPage>
   @override
   void initState() {
     super.initState();
-    randomIndex = rng.nextInt(1613);
+    randomIndex = rng.nextInt(1955);
   }
 
   Widget randomReference(List data, List referenceData) {
@@ -115,7 +115,7 @@ class _SearchPageState extends State<SearchPage>
                       onPressed: () {
                         setState(
                           () {
-                            randomIndex = rng.nextInt(1613);
+                            randomIndex = rng.nextInt(1955);
                           },
                         );
                       },
