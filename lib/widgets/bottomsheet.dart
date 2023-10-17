@@ -206,10 +206,16 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                               .referencesList[currentRef - 1]));
                                       if (referenceId >= 3) {
                                         controller.sliverController
-                                            .jumpToIndex(referenceId - 3);
+                                            .animateToIndex(referenceId - 3,
+                                                duration: const Duration(
+                                                    milliseconds: 300),
+                                                curve: Curves.ease);
                                       } else {
                                         controller.sliverController
-                                            .jumpToIndex(referenceId);
+                                            .animateToIndex(referenceId,
+                                                duration: const Duration(
+                                                    milliseconds: 300),
+                                                curve: Curves.ease);
                                       }
                                       currentRef--;
                                       newId = referenceId;
@@ -241,10 +247,16 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                                 currentRef + 1]));
                                         if (referenceId >= 3) {
                                           controller.sliverController
-                                              .jumpToIndex(referenceId - 3);
+                                              .animateToIndex(referenceId - 3,
+                                                  duration: const Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease);
                                         } else {
                                           controller.sliverController
-                                              .jumpToIndex(referenceId);
+                                              .animateToIndex(referenceId,
+                                                  duration: const Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease);
                                         }
                                         currentRef++;
                                         newId = referenceId;
@@ -261,6 +273,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                   ),
                   Expanded(
                     child: FlutterListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
                       controller: controller,
                       delegate: FlutterListViewDelegate(
                         (BuildContext context, int index) {
