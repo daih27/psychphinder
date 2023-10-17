@@ -101,45 +101,6 @@ class _SettingsPageState extends State<SettingsPage> {
     }
   }
 
-  Future<String?> restoreBackupOld<T>(String boxName) async {
-    if (Platform.isAndroid) {
-      final cacheDir = await getTemporaryDirectory();
-
-      if (cacheDir.existsSync()) {
-        cacheDir.deleteSync(recursive: true);
-      }
-    }
-
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles();
-      File sourceFile = File("");
-
-      if (result != null) {
-        if (result.files.single.path!.contains(".psychbackup")) {
-          sourceFile = File(result.files.single.path!);
-        } else {
-          return "Wrong file selected.";
-        }
-      }
-      await Hive.close();
-      final appDocumentDirectory = await getApplicationDocumentsDirectory();
-      final destinationPath =
-          path.join(appDocumentDirectory.path, 'favorites.hive');
-      final destinationFile = File(destinationPath);
-
-      if (await sourceFile.exists()) {
-        await sourceFile.copy(destinationFile.path);
-        await Hive.openBox('favorites');
-        return "Restore successful.";
-      } else {
-        await Hive.openBox('favorites');
-        return "No file selected.";
-      }
-    } catch (e) {
-      return "Error during restore: $e";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -504,82 +465,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () async {
-                    showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        backgroundColor: Colors.green,
-                        title: const Text(
-                          "Choose method",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        content: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                  Colors.white,
-                                ),
-                              ),
-                              onPressed: () {
-                                restoreBackup().then(
-                                  (value) {
-                                    showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                        backgroundColor: Colors.green,
-                                        title: Text(value,
-                                            style: const TextStyle(
-                                                color: Colors.white)),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: const Text(
-                                "New method",
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                  Colors.white,
-                                ),
-                              ),
-                              onPressed: () {
-                                restoreBackupOld("favorites").then(
-                                  (value) {
-                                    showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                        backgroundColor: Colors.green,
-                                        title: Text(value!,
-                                            style: const TextStyle(
-                                                color: Colors.white)),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: const Text(
-                                "Old method",
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                    restoreBackup().then(
+                      (value) {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            backgroundColor: Colors.green,
+                            title: Text(value,
+                                style: const TextStyle(color: Colors.white)),
+                          ),
+                        );
+                      },
                     );
                   },
                   style: ButtonStyle(
