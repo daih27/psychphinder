@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:psychphinder/main.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
+import 'package:file_saver/file_saver.dart';
 
 class CreateImagePage extends StatefulWidget {
   final List episode;
@@ -552,15 +554,27 @@ class _CreateImageState extends State<CreateImagePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       shareImage(),
-                      Platform.isAndroid
-                          ? 15.horizontalSpace
+                      !kIsWeb
+                          ? (Platform.isAndroid
+                              ? 15.horizontalSpace
+                              : const SizedBox())
                           : const SizedBox(),
-                      Platform.isAndroid ? saveToGallery() : const SizedBox(),
+                      !kIsWeb
+                          ? (Platform.isAndroid
+                              ? saveToGallery()
+                              : const SizedBox())
+                          : const SizedBox(),
                     ],
                   ),
-                  Platform.isAndroid ? 15.verticalSpace : const SizedBox(),
-                  imageType == 'Wallpaper' && Platform.isAndroid
-                      ? saveAsWallpaper(context)
+                  !kIsWeb
+                      ? (Platform.isAndroid
+                          ? 15.verticalSpace
+                          : const SizedBox())
+                      : const SizedBox(),
+                  !kIsWeb
+                      ? (imageType == 'Wallpaper' && Platform.isAndroid
+                          ? saveAsWallpaper(context)
+                          : const SizedBox())
                       : const SizedBox(),
                 ],
               ),
@@ -652,7 +666,7 @@ class _CreateImageState extends State<CreateImagePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            Platform.isAndroid ? "Share" : "Save",
+            !kIsWeb ? (Platform.isAndroid ? "Share" : "Save") : "Save",
             style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -661,7 +675,11 @@ class _CreateImageState extends State<CreateImagePage> {
           ),
           5.horizontalSpace,
           Icon(
-            Platform.isAndroid ? Icons.share_rounded : Icons.save_rounded,
+            !kIsWeb
+                ? (Platform.isAndroid
+                    ? Icons.share_rounded
+                    : Icons.save_rounded)
+                : Icons.save_rounded,
             color: Colors.white,
           ),
         ],
@@ -671,26 +689,32 @@ class _CreateImageState extends State<CreateImagePage> {
         setState(() {
           this.bytes = bytes;
         });
-        if (Platform.isAndroid) {
-          final cacheDir = await getTemporaryDirectory();
-          final fileName = path.join(cacheDir.path, 'image.png');
-          await File(fileName).writeAsBytes(bytes!);
-          final result = await Share.shareXFiles([XFile(fileName)]);
-          if (cacheDir.existsSync()) {
-            cacheDir.deleteSync(recursive: true);
-          }
-          if (result.status == ShareResultStatus.success) {
-            _showToast("Shared image!");
+        if (!kIsWeb) {
+          if (Platform.isAndroid) {
+            final cacheDir = await getTemporaryDirectory();
+            final fileName = path.join(cacheDir.path, 'image.png');
+            await File(fileName).writeAsBytes(bytes!);
+            final result = await Share.shareXFiles([XFile(fileName)]);
+            if (cacheDir.existsSync()) {
+              cacheDir.deleteSync(recursive: true);
+            }
+            if (result.status == ShareResultStatus.success) {
+              _showToast("Shared image!");
+            }
+          } else {
+            String? outputFile = await FilePicker.platform.saveFile(
+              dialogTitle: 'Please select an output file:',
+              fileName: 'image.png',
+            );
+            if (outputFile != null) {
+              File(outputFile).writeAsBytes(bytes!);
+              _showToast("Saved image!");
+            }
           }
         } else {
-          String? outputFile = await FilePicker.platform.saveFile(
-            dialogTitle: 'Please select an output file:',
-            fileName: 'image.png',
-          );
-          if (outputFile != null) {
-            File(outputFile).writeAsBytes(bytes!);
-            _showToast("Saved image!");
-          }
+          await FileSaver.instance
+              .saveFile(name: 'psychphinder.png', bytes: bytes!);
+          _showToast("Saved image!");
         }
       },
     );
@@ -726,13 +750,15 @@ class _CreateImageState extends State<CreateImagePage> {
         setState(() {
           this.bytes = bytes;
         });
-        if (Platform.isAndroid) {
-          final cacheDir = await getTemporaryDirectory();
-          await Gal.putImageBytes(bytes!);
-          if (cacheDir.existsSync()) {
-            cacheDir.deleteSync(recursive: true);
+        if (!kIsWeb) {
+          if (Platform.isAndroid) {
+            final cacheDir = await getTemporaryDirectory();
+            await Gal.putImageBytes(bytes!);
+            if (cacheDir.existsSync()) {
+              cacheDir.deleteSync(recursive: true);
+            }
+            _showToast("Saved image!");
           }
-          _showToast("Saved image!");
         }
       },
     );

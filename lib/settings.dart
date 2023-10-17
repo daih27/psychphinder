@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
+import 'package:file_saver/file_saver.dart';
+import 'package:flutter/foundation.dart';
+import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:psychphinder/global/search_engine.dart';
@@ -28,73 +31,104 @@ class _SettingsPageState extends State<SettingsPage> {
         .toMap()
         .map((key, value) => MapEntry(key.toString(), value));
     String json = jsonEncode(map);
-    if (Platform.isAndroid) {
-      String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-      final cacheDir = await getTemporaryDirectory();
-      if (cacheDir.existsSync()) {
-        cacheDir.deleteSync(recursive: true);
-      }
-      if (selectedDirectory != null) {
-        try {
-          final destinationPath =
-              path.join(selectedDirectory, 'favorites.psychbackup');
-          final destinationFile = File(destinationPath);
-          await destinationFile.writeAsString(json);
-          return "Backup successful.";
-        } catch (e) {
-          return "Choose another directory, preferably in the folder Documents or Download";
+    if (!kIsWeb) {
+      if (Platform.isAndroid) {
+        String? selectedDirectory =
+            await FilePicker.platform.getDirectoryPath();
+        final cacheDir = await getTemporaryDirectory();
+        if (cacheDir.existsSync()) {
+          cacheDir.deleteSync(recursive: true);
+        }
+        if (selectedDirectory != null) {
+          try {
+            final destinationPath =
+                path.join(selectedDirectory, 'favorites.psychbackup');
+            final destinationFile = File(destinationPath);
+            await destinationFile.writeAsString(json);
+            return "Backup successful.";
+          } catch (e) {
+            return "Choose another directory, preferably in the folder Documents or Download";
+          }
+        } else {
+          return "No directory selected.";
         }
       } else {
-        return "No directory selected.";
+        String? outputFile = await FilePicker.platform.saveFile(
+          dialogTitle: 'Please select an output file:',
+          fileName: 'favorites.psychbackup',
+        );
+        if (outputFile != null) {
+          try {
+            final destinationFile = File(outputFile);
+            if (await destinationFile.exists()) {
+              await destinationFile.delete();
+            }
+            await destinationFile.writeAsString(json);
+            return "Backup successful.";
+          } catch (e) {
+            return "Error during backup: $e";
+          }
+        } else {
+          return "No directory selected.";
+        }
       }
     } else {
-      String? outputFile = await FilePicker.platform.saveFile(
-        dialogTitle: 'Please select an output file:',
-        fileName: 'favorites.psychbackup',
-      );
-      if (outputFile != null) {
-        try {
-          final destinationFile = File(outputFile);
-          if (await destinationFile.exists()) {
-            await destinationFile.delete();
-          }
-          await destinationFile.writeAsString(json);
-          return "Backup successful.";
-        } catch (e) {
-          return "Error during backup: $e";
-        }
-      } else {
-        return "No directory selected.";
-      }
+      var bytes = Uint8List.fromList(utf8.encode(json));
+      await FileSaver.instance
+          .saveFile(name: 'favorites.psychbackup', bytes: bytes);
+      return "Backup successful.";
     }
   }
 
   Future<String> restoreBackup() async {
-    if (Platform.isAndroid) {
-      final cacheDir = await getTemporaryDirectory();
+    if (!kIsWeb) {
+      if (Platform.isAndroid) {
+        final cacheDir = await getTemporaryDirectory();
 
-      if (cacheDir.existsSync()) {
-        cacheDir.deleteSync(recursive: true);
+        if (cacheDir.existsSync()) {
+          cacheDir.deleteSync(recursive: true);
+        }
       }
     }
     try {
-      FilePickerResult? file = await FilePicker.platform.pickFiles();
-      File sourceFile = File("");
-      if (file != null) {
-        if (file.files.single.path!.contains(".psychbackup")) {
-          sourceFile = File(file.files.single.path.toString());
+      if (!kIsWeb) {
+        FilePickerResult? file = await FilePicker.platform.pickFiles();
+        File sourceFile = File("");
+        if (file != null) {
+          if (file.files.single.path!.contains(".psychbackup")) {
+            sourceFile = File(file.files.single.path.toString());
+          } else {
+            return "Wrong file selected.";
+          }
+          Hive.box('favorites').clear();
+          Map<String, dynamic> map =
+              jsonDecode(await sourceFile.readAsString());
+          List mapList = map.values.toList();
+          for (var i = 0; i < mapList.length; i++) {
+            Hive.box('favorites').put(mapList[i], mapList[i]);
+          }
+          return "Restore successful.";
         } else {
-          return "Wrong file selected.";
+          return "No file selected.";
         }
-        Hive.box('favorites').clear();
-        Map<String, dynamic> map = jsonDecode(await sourceFile.readAsString());
-        List mapList = map.values.toList();
-        for (var i = 0; i < mapList.length; i++) {
-          Hive.box('favorites').put(mapList[i], mapList[i]);
-        }
-        return "Restore successful.";
       } else {
-        return "No file selected.";
+        final result = await FilePicker.platform
+            .pickFiles(type: FileType.any, allowMultiple: false);
+
+        if (result != null && result.files.isNotEmpty) {
+          final fileBytes = result.files.first.bytes;
+          Map<String, dynamic> map =
+              jsonDecode(utf8.decode(fileBytes!.toList()));
+          Hive.box('favorites').clear();
+          List mapList = map.values.toList();
+          for (var object in mapList) {
+            await Hive.box('favorites').put(object, object);
+          }
+          html.window.location.reload();
+          return "Restore successful.";
+        } else {
+          return "No file selected.";
+        }
       }
     } catch (e) {
       return "Error during restore: $e";

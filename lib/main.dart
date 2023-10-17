@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,8 +84,10 @@ class _HomeState extends State<Home> {
     _pageController = PageController(initialPage: _selectedIndex);
     super.initState();
     showWhatsNew(context);
-    if (Platform.isWindows || Platform.isLinux) {
-      showUpdateLinuxWindows();
+    if (!kIsWeb) {
+      if (Platform.isWindows || Platform.isLinux) {
+        showUpdateLinuxWindows();
+      }
     }
   }
 
@@ -93,10 +96,8 @@ class _HomeState extends State<Home> {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     int buildNumber = int.parse(packageInfo.buildNumber);
     int latestAppVersion = pref.getInt("latestAppVersion") ?? buildNumber;
-    bool isFirstLoaded = pref.getBool("isFirstLoaded") ?? true;
-    if (isFirstLoaded || buildNumber > latestAppVersion) {
+    if (buildNumber > latestAppVersion) {
       pref.setInt("latestAppVersion", buildNumber);
-      pref.setBool("isFirstLoaded", false);
       String dialogContent = await rootBundle.loadString('assets/CHANGELOG.md');
       WidgetsBinding.instance.addPostFrameCallback(
         (_) {
