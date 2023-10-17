@@ -205,7 +205,7 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.all(16),
             tabs: const [
               GButton(
-                icon: Icons.psychology_alt_rounded,
+                icon: Icons.help_rounded,
                 text: 'References',
               ),
               GButton(
