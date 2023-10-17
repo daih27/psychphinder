@@ -10,6 +10,7 @@ import 'package:diacritic/diacritic.dart';
 import 'global/globals.dart';
 import 'package:number_to_words_english/number_to_words_english.dart';
 import 'dart:math';
+import 'global/did_you_know.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class _SearchPageState extends State<SearchPage>
   bool isSearching = false;
   String input = "";
   late int randomIndex;
+  late int randomIndexDYK;
   Random rng = Random();
   ValueNotifier<String> selectedSeason = ValueNotifier<String>('All');
   ValueNotifier<String> selectedEpisode = ValueNotifier<String>('All');
@@ -37,6 +39,7 @@ class _SearchPageState extends State<SearchPage>
   void initState() {
     super.initState();
     randomIndex = rng.nextInt(1955);
+    randomIndexDYK = rng.nextInt(DYK.didYouKnowOptions.length);
   }
 
   Widget randomReference(List data, List referenceData) {
@@ -129,6 +132,38 @@ class _SearchPageState extends State<SearchPage>
     );
 
     return randomReference;
+  }
+
+  Widget didYouKnow() {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        // decoration: BoxDecoration(
+        //   color:
+        //       Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+        //   borderRadius: BorderRadius.circular(10),
+        // ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Text(
+              "Did you know?",
+              style: TextStyle(
+                fontFamily: 'PsychFont',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              DYK.didYouKnowOptions[randomIndexDYK],
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -369,7 +404,7 @@ class _SearchPageState extends State<SearchPage>
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Spacer(flex: 2),
+                                const Spacer(flex: 8),
                                 const Text(
                                   "Welcome to psychphinder!",
                                   style: TextStyle(
@@ -380,6 +415,8 @@ class _SearchPageState extends State<SearchPage>
                                   textScaleFactor: 1.0,
                                   textAlign: TextAlign.center,
                                 ),
+                                const Spacer(),
+                                didYouKnow(),
                                 const Spacer(),
                                 randomReference(data, referenceData),
                                 const Spacer(),
