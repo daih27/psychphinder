@@ -1,3 +1,11 @@
+# 1.1.1 (17/10/2023)
+
+- Added a "Did you know?" section when starting the app. Feel free to suggest some interesting facts about Psych!
+- Completed all the references from season 6.
+- Changed the References tab icon.
+- Fixed scrolling effect when tapping on a reference that's near the end of an episode.
+- Removed the old method for restoring favorites.
+
 # 1.1.0 (03/10/2023)
 
 - New feature! Now when you open the app, you can view a random quote (that has a reference). If you tap on the reference you can see the whole episode, share it, save it to favorites and create a wallpaper from it!.
