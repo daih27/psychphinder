@@ -448,14 +448,23 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      if (Platform.isAndroid) {
-                                        final result =
-                                            await Share.shareWithResult(
-                                          widget.fullEpisode[newId].line,
-                                        );
-                                        if (result.status ==
-                                            ShareResultStatus.success) {
-                                          _showToast("Shared text!");
+                                      if (!kIsWeb) {
+                                        if (Platform.isAndroid) {
+                                          final result =
+                                              await Share.shareWithResult(
+                                            widget.fullEpisode[newId].line,
+                                          );
+                                          if (result.status ==
+                                              ShareResultStatus.success) {
+                                            _showToast("Shared text!");
+                                          }
+                                        } else {
+                                          await Clipboard.setData(
+                                            ClipboardData(
+                                                text: widget
+                                                    .fullEpisode[newId].line),
+                                          );
+                                          _showToast("Copied to clipboard!");
                                         }
                                       } else {
                                         await Clipboard.setData(
