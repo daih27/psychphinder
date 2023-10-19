@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gal/gal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
 import 'dart:io';
 import 'package:share_plus/share_plus.dart';
@@ -36,6 +37,8 @@ class _CreateImageState extends State<CreateImagePage> {
   bool afterLineCheck = false;
   bool showPsychphinder = true;
   bool applyOffset = true;
+  int resolutionW = 0;
+  int resolutionH = 0;
   String widgetTopRight = 'Episode name';
   String widgetTopLeft = 'Psych logo';
   String widgetBottomLeft = 'Season and episode';
@@ -43,10 +46,12 @@ class _CreateImageState extends State<CreateImagePage> {
   String imageType = 'Post';
   double wallpaperOffset = 16;
   double wallpaperScale = 1.07;
-  final double psychLogoSize = 18;
-  final double infoSize = 8;
-  final double lineSize = 14;
-  final double secondarylineSize = 8;
+  double psychLogoSize = 18;
+  double infoSize = 8;
+  double lineSize = 14;
+  double secondarylineSize = 8;
+  double boxSize = 110;
+  double madeWithPsychphidnerSize = 3.5;
   Color bgColor = Colors.green;
   Color textColor = Colors.white;
   FToast fToast = FToast();
@@ -78,6 +83,8 @@ class _CreateImageState extends State<CreateImagePage> {
     if (widget.episode[widget.id].season == 0) {
       widgetBottomLeft = "Movie";
     }
+
+    getResolution().whenComplete(() => changeOffset());
   }
 
   void update(String value, int selectedIndex) {
@@ -115,6 +122,7 @@ class _CreateImageState extends State<CreateImagePage> {
           textColor: textColor,
           applyOffset: applyOffset,
           imageType: imageType,
+          box: boxSize,
         );
       case "Season and episode" || "Movie":
         return SeasonAndEpisodeWidget(
@@ -157,6 +165,7 @@ class _CreateImageState extends State<CreateImagePage> {
           textColor: textColor,
           applyOffset: applyOffset,
           imageType: imageType,
+          box: boxSize,
         );
       case "Season and episode" || "Movie":
         return SeasonAndEpisodeWidget(
@@ -182,6 +191,7 @@ class _CreateImageState extends State<CreateImagePage> {
           textColor: textColor,
           applyOffset: applyOffset,
           imageType: imageType,
+          box: boxSize,
         );
     }
   }
@@ -201,6 +211,7 @@ class _CreateImageState extends State<CreateImagePage> {
           textColor: textColor,
           applyOffset: applyOffset,
           imageType: imageType,
+          box: boxSize,
         );
       case "Season and episode" || "Movie":
         return SeasonAndEpisodeWidget(
@@ -244,6 +255,7 @@ class _CreateImageState extends State<CreateImagePage> {
           textColor: textColor,
           applyOffset: applyOffset,
           imageType: imageType,
+          box: boxSize,
         );
       case "Season and episode" || "Movie":
         return SeasonAndEpisodeWidget(
@@ -301,6 +313,82 @@ class _CreateImageState extends State<CreateImagePage> {
     );
   }
 
+  Future<void> getResolution() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(
+      () {
+        resolutionW = pref.getInt("ResolutionWidth") ??
+            (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!).toInt();
+        resolutionH = pref.getInt("ResolutionHeight") ??
+            (ScreenUtil().screenHeight * ScreenUtil().pixelRatio!).toInt();
+      },
+    );
+    pref.setInt("ResolutionWidth", resolutionW);
+    pref.setInt("ResolutionHeight", resolutionH);
+  }
+
+  Future<void> setResolutionHeight(int resolutionHeight) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt("ResolutionHeight", resolutionHeight);
+  }
+
+  Future<void> setResolutionWidth(int resolutionWidth) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt("ResolutionWidth", resolutionWidth);
+  }
+
+  void reduceSizeBelow1080() {
+    if (imageType == 'Wallpaper') {
+      if (resolutionW < 1080) {
+        double ratio = resolutionW / 1080;
+        setState(() {
+          psychLogoSize = 18 * ratio;
+          infoSize = 8 * ratio;
+          lineSize = 14 * ratio;
+          secondarylineSize = 8 * ratio;
+          boxSize = 70;
+          madeWithPsychphidnerSize = 3.5 * ratio;
+        });
+      } else {
+        setState(() {
+          psychLogoSize = 18;
+          infoSize = 8;
+          lineSize = 14;
+          secondarylineSize = 8;
+          boxSize = 110;
+          madeWithPsychphidnerSize = 3.5;
+        });
+      }
+    } else {
+      setState(() {
+        psychLogoSize = 18;
+        infoSize = 8;
+        lineSize = 14;
+        secondarylineSize = 8;
+        boxSize = 110;
+        madeWithPsychphidnerSize = 3.5;
+      });
+    }
+  }
+
+  Future<void> changeOffset() async {
+    setState(() {
+      if (resolutionW / resolutionH > 1) {
+        applyOffset = false;
+      } else {
+        applyOffset = true;
+      }
+
+      if (applyOffset) {
+        wallpaperOffset = 16;
+        wallpaperScale = 1.07;
+      } else {
+        wallpaperOffset = 0;
+        wallpaperScale = 1;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
@@ -308,6 +396,7 @@ class _CreateImageState extends State<CreateImagePage> {
       designSize: Size(
           1080 / ScreenUtil().pixelRatio!, 2400 / ScreenUtil().pixelRatio!),
     );
+    reduceSizeBelow1080();
     return WillPopScope(
       onWillPop: () async {
         Navigator.pop(context);
@@ -329,34 +418,27 @@ class _CreateImageState extends State<CreateImagePage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              AspectRatio(
-                aspectRatio: imageType == 'Post'
-                    ? 1
-                    : ScreenUtil().screenWidth / ((ScreenUtil().screenHeight)),
-                child: Transform.scale(
-                  scale: imageType == 'Post'
-                      ? ScreenUtil().screenWidth / (1080 / 6)
-                      : ScreenUtil().screenWidth /
-                          ((ScreenUtil().screenWidth *
-                                  ScreenUtil().pixelRatio!) *
-                              wallpaperScale /
-                              6),
-                  alignment: Alignment.center,
+              SizedBox(
+                width: imageType == 'Wallpaper'
+                    ? (resolutionW >= resolutionH
+                        ? ScreenUtil().screenWidth * 0.7
+                        : null)
+                    : ScreenUtil().screenHeight * 0.5,
+                height: imageType == 'Wallpaper'
+                    ? (resolutionH > resolutionW
+                        ? ScreenUtil().screenHeight * 0.5
+                        : null)
+                    : null,
+                child: FittedBox(
                   child: Center(
                     child: UnconstrainedBox(
                       child: SizedBox(
                         height: imageType == 'Post'
                             ? 1080 / 6
-                            : (ScreenUtil().screenHeight *
-                                    ScreenUtil().pixelRatio!) *
-                                wallpaperScale /
-                                6,
+                            : (resolutionH) * wallpaperScale / 6,
                         width: imageType == 'Post'
                             ? 1080 / 6
-                            : (ScreenUtil().screenWidth *
-                                    ScreenUtil().pixelRatio!) *
-                                wallpaperScale /
-                                6,
+                            : (resolutionW) * wallpaperScale / 6,
                         child: WidgetsToImage(
                           controller: controller,
                           child: Container(
@@ -366,29 +448,25 @@ class _CreateImageState extends State<CreateImagePage> {
                                 Positioned(
                                   top: imageType == 'Post'
                                       ? (widgetTopLeft == 'Psych logo' ? -2 : 5)
-                                          .h
                                       : (widgetTopLeft == 'Psych logo'
-                                              ? (9 + wallpaperOffset)
-                                              : (17 + wallpaperOffset))
-                                          .h,
+                                          ? (9 + wallpaperOffset)
+                                          : (17 + wallpaperOffset)),
                                   left: imageType == 'Post'
-                                      ? 5.w
-                                      : (5 + wallpaperOffset).w,
+                                      ? 5
+                                      : (5 + wallpaperOffset),
                                   child: topLeftWidget(),
                                 ),
                                 Positioned(
                                     top: imageType == 'Post'
                                         ? (widgetTopRight == 'Psych logo'
-                                                ? -2
-                                                : 5)
-                                            .h
+                                            ? -2
+                                            : 5)
                                         : (widgetTopRight == 'Psych logo'
-                                                ? (9 + wallpaperOffset)
-                                                : (17 + wallpaperOffset))
-                                            .h,
+                                            ? (9 + wallpaperOffset)
+                                            : (17 + wallpaperOffset)),
                                     right: imageType == 'Post'
-                                        ? 5.w
-                                        : (5 + wallpaperOffset).w,
+                                        ? 5
+                                        : (5 + wallpaperOffset),
                                     child: topRightWidget()),
                                 Center(
                                   child: Column(
@@ -400,14 +478,13 @@ class _CreateImageState extends State<CreateImagePage> {
                                           ? Padding(
                                               padding:
                                                   const EdgeInsets.fromLTRB(
-                                                          8, 2, 8, 2)
-                                                      .w,
+                                                      8, 2, 8, 2),
                                               child: ConstrainedBox(
                                                 constraints: imageType ==
                                                         'Wallpaper'
                                                     ? applyOffset
-                                                        ? BoxConstraints(
-                                                            maxWidth: 155.w)
+                                                        ? const BoxConstraints(
+                                                            maxWidth: 155)
                                                         : const BoxConstraints()
                                                     : const BoxConstraints(),
                                                 child: TextWidget(
@@ -423,19 +500,18 @@ class _CreateImageState extends State<CreateImagePage> {
                                           : Container(),
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
-                                                8, 2, 8, 2)
-                                            .w,
+                                            8, 2, 8, 2),
                                         child: ConstrainedBox(
                                           constraints: imageType == 'Wallpaper'
                                               ? applyOffset
-                                                  ? BoxConstraints(
-                                                      maxWidth: 155.w)
+                                                  ? const BoxConstraints(
+                                                      maxWidth: 155)
                                                   : const BoxConstraints()
                                               : const BoxConstraints(),
                                           child: TextWidget(
                                             text: mainLine,
                                             size: imageType == 'Wallpaper'
-                                                ? lineSize / wallpaperScale
+                                                ? lineSize
                                                 : lineSize,
                                             textColor: textColor,
                                             imageType: imageType,
@@ -446,14 +522,13 @@ class _CreateImageState extends State<CreateImagePage> {
                                           ? Padding(
                                               padding:
                                                   const EdgeInsets.fromLTRB(
-                                                          8, 2, 8, 2)
-                                                      .w,
+                                                      8, 2, 8, 2),
                                               child: ConstrainedBox(
                                                 constraints: imageType ==
                                                         'Wallpaper'
                                                     ? applyOffset
-                                                        ? BoxConstraints(
-                                                            maxWidth: 155.w)
+                                                        ? const BoxConstraints(
+                                                            maxWidth: 155)
                                                         : const BoxConstraints()
                                                     : const BoxConstraints(),
                                                 child: TextWidget(
@@ -473,64 +548,45 @@ class _CreateImageState extends State<CreateImagePage> {
                                 Positioned(
                                   bottom: imageType == 'Post'
                                       ? (widgetBottomLeft == 'Psych logo'
-                                              ? 0
-                                              : 5)
-                                          .h
+                                          ? 0
+                                          : 5)
                                       : (widgetBottomLeft == 'Psych logo'
-                                              ? (5 + wallpaperOffset)
-                                              : (10 + wallpaperOffset))
-                                          .h,
+                                          ? (5 + wallpaperOffset)
+                                          : (10 + wallpaperOffset)),
                                   left: imageType == 'Post'
-                                      ? 5.w
-                                      : (5 + wallpaperOffset).w,
+                                      ? 5
+                                      : (5 + wallpaperOffset),
                                   child: bottomLeftWidget(),
                                 ),
                                 Positioned(
                                   bottom: imageType == 'Post'
                                       ? (widgetBottomRight == 'Psych logo'
-                                              ? 2
-                                              : 5)
-                                          .h
+                                          ? 2
+                                          : 5)
                                       : (widgetBottomRight == 'Psych logo'
-                                              ? (7 + wallpaperOffset)
-                                              : (10 + wallpaperOffset))
-                                          .h,
+                                          ? (7 + wallpaperOffset)
+                                          : (10 + wallpaperOffset)),
                                   right: imageType == 'Post'
-                                      ? 5.w
-                                      : (5 + wallpaperOffset).w,
+                                      ? 5
+                                      : (5 + wallpaperOffset),
                                   child: bottomRightWidget(),
                                 ),
                                 showPsychphinder
                                     ? Positioned(
                                         bottom: imageType == 'Post'
-                                            ? 1.h
-                                            : (6 + wallpaperOffset).h,
+                                            ? 1
+                                            : (6 + wallpaperOffset),
                                         right: imageType == 'Post'
-                                            ? 1.w
-                                            : (1 + wallpaperOffset).w,
+                                            ? 1
+                                            : (1 + wallpaperOffset),
                                         child: Text(
                                           "Made with psychphinder",
                                           style: TextStyle(
-                                            fontSize: imageType == 'Wallpaper'
-                                                ? (ScreenUtil().screenWidth *
-                                                            ScreenUtil()
-                                                                .pixelRatio!) >=
-                                                        1080
-                                                    ? 3.5
-                                                    : 3.5.sp
-                                                : 3.5,
+                                            fontSize: madeWithPsychphidnerSize,
                                             fontFamily: 'PsychFont',
                                             color: textColor,
                                             fontWeight: FontWeight.bold,
-                                            letterSpacing: imageType ==
-                                                    'Wallpaper'
-                                                ? (ScreenUtil().screenWidth *
-                                                            ScreenUtil()
-                                                                .pixelRatio!) >=
-                                                        1080
-                                                    ? -0.2
-                                                    : -0.2.sp
-                                                : -0.2,
+                                            letterSpacing: -0.2,
                                           ),
                                           textScaleFactor: 1.0,
                                         ),
@@ -931,6 +987,74 @@ class _CreateImageState extends State<CreateImagePage> {
         textScaleFactor: 1.0,
       ),
       children: [
+        imageType == 'Wallpaper'
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    const Text(
+                      'Resolution',
+                      style: TextStyle(fontSize: 16),
+                      textScaleFactor: 1.0,
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      width: 100,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Width',
+                          counterText: "",
+                        ),
+                        maxLength: 4,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            resolutionW = int.parse(value);
+                            setResolutionWidth(resolutionW);
+                            changeOffset();
+                          });
+                        },
+                        initialValue: resolutionW.toString(),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    const Text(
+                      'x',
+                    ),
+                    const SizedBox(width: 10),
+                    SizedBox(
+                      width: 100,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Height',
+                          counterText: "",
+                        ),
+                        maxLength: 4,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            resolutionH = int.parse(value);
+                            setResolutionHeight(resolutionH);
+                            changeOffset();
+                          });
+                        },
+                        initialValue: resolutionH.toString(),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            : const SizedBox(),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -1264,7 +1388,7 @@ class _CreateImageState extends State<CreateImagePage> {
                   ],
                 ),
               )
-            : Container(),
+            : const SizedBox(),
       ],
     );
   }
@@ -1381,19 +1505,11 @@ class TextWidget extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: imageType == 'Wallpaper'
-            ? (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!) >= 1080
-                ? size
-                : size.sp
-            : size,
+        fontSize: size,
         color: textColor,
         fontFamily: 'PsychFont',
         fontWeight: FontWeight.bold,
-        letterSpacing: imageType == 'Wallpaper'
-            ? (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!) >= 1080
-                ? -0.5
-                : -0.5.sp
-            : -0.5,
+        letterSpacing: -0.5,
       ),
       textAlign: TextAlign.center,
       textScaleFactor: 1.0,
@@ -1465,12 +1581,14 @@ class EpisodeNameWidget extends StatelessWidget {
     required this.textColor,
     required this.applyOffset,
     required this.imageType,
+    required this.box,
   });
   final String name;
   final double size;
   final Color textColor;
   final bool applyOffset;
   final String imageType;
+  final double box;
 
   @override
   Widget build(BuildContext context) {
@@ -1478,10 +1596,10 @@ class EpisodeNameWidget extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: ConstrainedBox(
           constraints: imageType == 'Wallpaper'
-              ? applyOffset
-                  ? BoxConstraints(maxWidth: 90.w)
-                  : BoxConstraints(maxWidth: 110.w)
-              : const BoxConstraints(maxWidth: 110),
+              ? (applyOffset
+                  ? BoxConstraints(maxWidth: box - 20)
+                  : BoxConstraints(maxWidth: box))
+              : BoxConstraints(maxWidth: box),
           child: TextWidget(
             text: name,
             size: size,
@@ -1508,19 +1626,11 @@ class PsychLogoWidget extends StatelessWidget {
     return Text(
       "psych",
       style: TextStyle(
-        fontSize: imageType == 'Wallpaper'
-            ? (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!) >= 1080
-                ? size
-                : size.sp
-            : size,
+        fontSize: size,
         color: textColor,
         fontFamily: 'PsychFont',
         fontWeight: FontWeight.bold,
-        letterSpacing: imageType == 'Wallpaper'
-            ? (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!) >= 1080
-                ? -1.6
-                : -1.6.sp
-            : -1.6,
+        letterSpacing: -1.6,
       ),
       textScaleFactor: 1.0,
       textAlign: TextAlign.center,
