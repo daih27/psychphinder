@@ -266,22 +266,26 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
             ),
           ),
-          Row(
-            children: [
-              const Text("Open links inside the app",
-                  style: TextStyle(fontSize: 16)),
-              const Spacer(),
-              Switch(
-                value: searchEngineProvider.openLinks,
-                activeColor: Colors.green,
-                onChanged: (bool value) {
-                  setState(() {
-                    searchEngineProvider.saveSwitchState(value);
-                  });
-                },
-              )
-            ],
-          ),
+          !kIsWeb
+              ? (Platform.isAndroid
+                  ? Row(
+                      children: [
+                        const Text("Open links inside the app",
+                            style: TextStyle(fontSize: 16)),
+                        const Spacer(),
+                        Switch(
+                          value: searchEngineProvider.openLinks,
+                          activeColor: Colors.green,
+                          onChanged: (bool value) {
+                            setState(() {
+                              searchEngineProvider.saveSwitchState(value);
+                            });
+                          },
+                        )
+                      ],
+                    )
+                  : const SizedBox())
+              : const SizedBox(),
         ],
       ),
     );
