@@ -2,10 +2,14 @@
 
 Psychphinder is an app made in Flutter to search for your favorite quotes from the TV show Psych 🍍
 
-<a href="https://play.google.com/store/apps/details?id=com.daih.psychphinder"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=60px /></a>
+<div>
+    <a href="https://play.google.com/store/apps/details?id=com.daih.psychphinder"><img align=center src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=80px/></a>
+    <a href="https://daih27.github.io/psychphinder"><img align=center src="https://raw.githubusercontent.com/daih27/psychphinder/c13b27d64957a738bed2ce9e749f260b925956d6/github_assets/browser.png" height=55px /></a>
+</div>
 
 ## Features
 
+- Available as a [web app](https://daih27.github.io/psychphinder) for full cross-platform support
 - Search throughout all the episodes and movies
 - Save your favorite quotes
 - Backup and restore your saved quotes
@@ -14,10 +18,6 @@ Psychphinder is an app made in Flutter to search for your favorite quotes from t
 - Share/save a quote as image or text
 - Create wallpapers of your favorite quotes from the show
 
-## Planned features
-
-- Finish all the references list
-- A way to change the type and precision of the search
 
 ## Contribute
 
