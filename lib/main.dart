@@ -109,7 +109,13 @@ class _HomeState extends State<Home> {
                 content: SizedBox(
                     width: double.maxFinite,
                     height: 500,
-                    child: Center(child: Markdown(data: dialogContent))),
+                    child: Center(
+                        child: Markdown(
+                      data: dialogContent,
+                      onTapLink: (text, url, title) {
+                        launchUrl(Uri.parse(url!));
+                      },
+                    ))),
                 actions: <Widget>[
                   ElevatedButton(
                     child: const Text('OK'),
