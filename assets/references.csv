@@ -6,7 +6,7 @@
 1;2;Spellingg Bee;Bananarama (Musician);s1e2_1;1776;
 1;2;Spellingg Bee;Venus (Song by Bananarama);s1e2_2;1776;
 1;2;Spellingg Bee;Dan Quayle (44th Vice President of the United States);s1e2_3;1790;
-1;2;Spellingg Bee;What's your glitch?! (Quote from the movie Reality Bites);s1e2_4;1706;
+1;2;Spellingg Bee;Reality Bites (Movie);s1e2_4;1706;https://youtu.be/Y9NMb0nK9F4?t=96
 1;2;Spellingg Bee;Bud Collins (American journalist);s1e2_5;1252;
 1;2;Spellingg Bee;The Phantom of the Opera (Novel written by Gaston Leroux);s1e2_6;1336;
 1;3;Speak Now or Forever Hold Your Piece;Air Supply (Musicians);s1e3_1;2182;
@@ -22,7 +22,7 @@
 1;3;Speak Now or Forever Hold Your Piece;Peter Pan (Fictional character);s1e3_11;2304;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Meredith Baxter-Birney (Actress);s1e4_1;3185;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Mrs. Keaton (Character on the TV show Family Ties);s1e4_2;3187;
-1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;APK (Reference to Alex P. Keaton, a character on the TV show Family Ties);s1e4_3;3187;
+1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Alex P. Keaton (Character from Family Ties);s1e4_3;3187;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Jane Austen (Novelist);s1e4_4;3252;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Joan Jett (Musician);s1e4_5;3450;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Penny Marshall (Actress);s1e4_6;3451;
@@ -45,18 +45,18 @@
 1;6;Weekend Warriors;Denzel Washington (Actor);s1e6_3;4865,4866,4876;
 1;6;Weekend Warriors;Abraham Lincoln (16th President of the United States);s1e6_4;4520,4935;
 1;6;Weekend Warriors;Phil Mickelson (Athlete);s1e6_5;4926;
-1;6;Weekend Warriors;Four score and seven years ago... (Reference to Abraham Lincoln's Gettysburg Address);s1e6_6;5005;https://youtu.be/BvA0J_2ZpIQ?t=8
-1;6;Weekend Warriors;Ask not what your country can do for you, ask what you can do for your country (Referencing the inaugural address of John F. Kennedy);s1e6_7;5007;https://youtu.be/PzRg--jhO8g
+1;6;Weekend Warriors;Gettysburg Address (Speech by Abraham Lincoln);s1e6_6;5005;https://youtu.be/BvA0J_2ZpIQ?t=8
+1;6;Weekend Warriors;Inaugural address (Speech by John F. Kennedy);s1e6_7;5007;https://youtu.be/PzRg--jhO8g
 1;6;Weekend Warriors;War and Peace (Novel);s1e6_8;5109;
 1;6;Weekend Warriors;William Quantrill (Confederate guerrilla leader);s1e6_9;4520;
 1;6;Weekend Warriors;Engelbert Humperdinck (Singer);s1e6_10;4797;
-1;6;Weekend Warriors;Mary Hart (Television personality and actress);s1e6_11;4900;
+1;6;Weekend Warriors;Mary Hart (Television personality/Actress);s1e6_11;4900;
 1;7;Who Ya Gonna Call?;Poltergeist (Movie);s1e7_2;5434;https://youtu.be/OHSsuX7VoQY?t=230
 1;7;Who Ya Gonna Call?;Poltergeist II: The Other Side (Movie);s1e7_3;5434;
 1;7;Who Ya Gonna Call?;Gremlins (Movie);s1e7_4;5435;
 1;7;Who Ya Gonna Call?;Jaws (Movie);s1e7_5;5671,5673;
 1;7;Who Ya Gonna Call?;Roy Scheider (Actor);s1e7_6;5671;
-1;7;Who Ya Gonna Call?;Martin Brody (Character from the movie Jaws);s1e7_7;5669,5670,5919,5920;
+1;7;Who Ya Gonna Call?;Martin Brody (Character from Jaws);s1e7_7;5669,5670,5919,5920;
 1;7;Who Ya Gonna Call?;The Flying Nun (TV Show);s1e7_8;5746;
 1;7;Who Ya Gonna Call?;Sally Field (Actress);s1e7_9;5755;
 1;7;Who Ya Gonna Call?;Terry Bradshaw (Athlete/Actor);s1e7_10;5757;
@@ -69,24 +69,24 @@
 1;7;Who Ya Gonna Call?;Louvre (Art museum);s1e7_17;5649,5651,5652,5653;
 1;7;Who Ya Gonna Call?;Night Gallery (TV Show);s1e7_18;5654;
 1;7;Who Ya Gonna Call?;Sybil (Movie);s1e7_19;5746;https://youtu.be/HJe0_pPA0x8
-1;7;Who Ya Gonna Call?;Do you feel pretty? (Reference to the I Feel Pretty song from the movie West Side Story);s1e7_20;5794,5795,5796,5798;
+1;7;Who Ya Gonna Call?;I Feel Pretty (Song from West Side Story);s1e7_20;5794,5795,5796,5798;https://youtu.be/RgHtBxOs4qw?t=4
 1;7;Who Ya Gonna Call?;Whippet (Dog breed);s1e7_21;5696;
 1;8;Shawn vs. the Red Phantom;Columbo (Character from the TV show Columbo);s1e8_1;6193;
 1;8;Shawn vs. the Red Phantom;Star Trek IV: The Voyage Home (Movie);s1e8_2;6402;
 1;8;Shawn vs. the Red Phantom;George Takei (Actor);s1e8_3;6244,6245,6246,6396,6409,6413,6522,6532,6534,6618,6621,6625,6707,6768;
 1;8;Shawn vs. the Red Phantom;Hikaru Sulu (Character from the Star Trek series);s1e8_4;6249,6263,6774;
-1;8;Shawn vs. the Red Phantom;Wolf With A Lightsaber (Referencing Chewbacca in the Star Wars movies);s1e8_5;6266,6267;
-1;8;Shawn vs. the Red Phantom;Professor X (Character in the X-Men comics);s1e8_6;6343,6344;
+1;8;Shawn vs. the Red Phantom;Chewbacca (Character from Star Wars);s1e8_5;6266,6267;
+1;8;Shawn vs. the Red Phantom;Professor X (Character from the X-Men comics);s1e8_6;6343,6344;
 1;8;Shawn vs. the Red Phantom;Johnny Depp (Actor);s1e8_7;6424;https://youtu.be/Pg8AwEY4hFE
 1;8;Shawn vs. the Red Phantom;Kate Moss (Model);s1e8_8;6429;
 1;8;Shawn vs. the Red Phantom;Stephen Dorff (Actor);s1e8_9;6432;
 1;8;Shawn vs. the Red Phantom;Keith Moon (Musician);s1e8_10;6444;
-1;8;Shawn vs. the Red Phantom;Jan Brady (Character from the TV show The Brady Bunch);s1e8_11;6486;
+1;8;Shawn vs. the Red Phantom;Jan Brady (Character from The Brady Bunch);s1e8_11;6486;
 1;8;Shawn vs. the Red Phantom;Tina Yothers (Actress);s1e8_12;6487;
-1;8;Shawn vs. the Red Phantom;Urkel (Character from the TV show Family Matters);s1e8_13;6484;
-1;8;Shawn vs. the Red Phantom;T2 (Referencing the movie Terminator 2: Judgment Day);s1e8_14;6689;
+1;8;Shawn vs. the Red Phantom;Urkel (Character from Family Matters);s1e8_13;6484;
+1;8;Shawn vs. the Red Phantom;Terminator 2: Judgment Day (Movie);s1e8_14;6689;
 1;8;Shawn vs. the Red Phantom;Afternoon Delight (Song by Starland Vocal Band);s1e8_15;6709;
-1;8;Shawn vs. the Red Phantom;Superman (Character from the Superman comics);s1e8_16;6016,6553;https://youtu.be/Q2l4bz1FT8U?t=10
+1;8;Shawn vs. the Red Phantom;Superman (Action superhero);s1e8_16;6016,6553;https://youtu.be/Q2l4bz1FT8U?t=10
 1;8;Shawn vs. the Red Phantom;Pavel Chekov (Character from the Star Trek series);s1e8_17;6248,6773;
 1;8;Shawn vs. the Red Phantom;My Little Pony (Entertainment franchise);s1e8_18;6085;
 1;8;Shawn vs. the Red Phantom;Damien Thorn (Character from The Omen);s1e8_19;6845;
@@ -95,13 +95,14 @@
 1;8;Shawn vs. the Red Phantom;Batman & Robin (Movie);s1e8_22;6322;https://youtu.be/Vr6gACml4h0?t=35
 1;9;Forget Me Not;Simba (Character in the movie The Lion King);s1e9_1;7195;
 1;9;Forget Me Not;I am your father (Referencing the movie Star Wars: Episode VI - Return of the Jedi);s1e9_2;7195;https://youtu.be/_lOT2p_FCvA?t=67
-1;9;Forget Me Not;Darth Vader (Character from the Star Wars movies);s1e9_3;7197;
+1;9;Forget Me Not;Darth Vader (Character from Star Wars);s1e9_3;7197;
 1;9;Forget Me Not;James Earl Jones (Actor);s1e9_4;7198;
-1;9;Forget Me Not;Mufasa (Character from the movie The Lion King);s1e9_5;7196,7197;
+1;9;Forget Me Not;Mufasa (Character from The Lion King);s1e9_5;7196,7197;
 1;9;Forget Me Not;Ossie Davis (Actor);s1e9_6;7199;
 1;9;Forget Me Not;I'm Not Rappaport (Movie);s1e9_7;7197,7199;
 1;9;Forget Me Not;Bruce Lee (Actor/Marital artist);s1e9_8;6932,6937;
 1;9;Forget Me Not;When Animals Attack! (TV special);s1e9_9;7159;
+1;9;Forget Me Not;Sherlock Holmes (Fictional detective);s1e9_10;7633;
 1;10;From the Earth to the Starbucks;Vincent Gallo (Actor);s1e10_1;8077;
 1;10;From the Earth to the Starbucks;Don Cheadle (Actor);s1e10_2;8100;
 1;10;From the Earth to the Starbucks;Kenickie (Character in the movie Grease);s1e10_3;8103;https://youtu.be/qpypGusvWDA?t=38
@@ -176,7 +177,7 @@
 1;14;Poker? I Barely Know Her;James Bond (Character from James Bond);s1e14_10;11924;
 1;14;Poker? I Barely Know Her;Matt Lauer (Journalist/Host of NBC's The Today Show);s1e14_11;12036;
 1;14;Poker? I Barely Know Her;Diane Lane (Actress);s1e14_12;12036;
-1;14;Poker? I Barely Know Her;Superman (Character from the Superman comics);s1e14_13;12071;
+1;14;Poker? I Barely Know Her;Superman (Action superhero);s1e14_13;12071;
 1;14;Poker? I Barely Know Her;Rocky Balboa (Character in the Rocky movies);s1e14_14;12072;
 1;14;Poker? I Barely Know Her;Teri Polo (Actress);s1e14_15;12083;
 1;14;Poker? I Barely Know Her;Chaka Khan (Musician);s1e14_16;12086;
@@ -228,7 +229,7 @@
 2;1;American Duos;Lindy Hop (Dance);s2e1_19;13481;
 2;1;American Duos;Little Red Corvette (Song by Prince);s2e1_20;13542;https://youtu.be/v0KpfrJE4zw?t=47
 2;1;American Duos;Rain Man (Movie);s2e1_21;13537,13538;
-2;1;American Duos;Mr. Bean (TV Show);s2e1_22;13555,13595;
+2;1;American Duos;Mr. Bean (Stage name of actor Rowan Atkinson);s2e1_22;13555,13595;
 2;1;American Duos;Tony Randall (Actor);s2e1_23;13561;
 2;1;American Duos;Hall & Oates (Musicians);s2e1_24;13613,13614;
 2;1;American Duos;Keyser Soze (Character in the movie The Usual Suspects);s2e1_25;13629;
@@ -771,7 +772,7 @@
 3;13;Any Given Friday Night at 10pm, 9pm Central;The Russians Are Coming, The Russians Are Coming (Movie);s3e13_15;35739,35740,35741,35742;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Night of the Comet (Movie);s3e13_16;35835;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Just One of the Guys (Movie);s3e13_17;35869;
-3;13;Any Given Friday Night at 10pm, 9pm Central;"I'm not a playa, but i crush a lot (From the song ""Im Not A Player"" by Big Pun)";s3e13_18;36024,36025;
+3;13;Any Given Friday Night at 10pm, 9pm Central;"I'm not a playa, but I crush a lot (From the song ""Im Not A Player"" by Big Pun)";s3e13_18;36024,36025;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Stir Crazy (Movie);s3e13_19;36089,36090;https://youtu.be/n7-JWYAGl_A?t=135
 3;13;Any Given Friday Night at 10pm, 9pm Central;Drew Lachey (Singer/Actor);s3e13_20;35483;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Joyce Hyser (Actress);s3e13_21;35869;
@@ -1146,6 +1147,7 @@
 4;13;Death Is in the Air;Michael Ironside (Actor);s4e13_33;47870,47871;
 4;13;Death Is in the Air;Jack and the Beanstalk (Fairy tale from the 1800s);s4e13_34;47958;
 4;13;Death Is in the Air;Life (Cereal);s4e13_35;47997;https://youtu.be/vYEXzx-TINc
+4;13;Death Is in the Air;Atlantis (Fictional island);s4e13_36;47530;
 4;14;Think Tank;Big League Chew (Type of bubble gum);s4e14_1;48177;
 4;14;Think Tank;Dave (Movie);s4e14_2;48113,48193;
 4;14;Think Tank;Kevin Kline (Actor);s4e14_3;48193;
@@ -1720,8 +1722,8 @@
 6;5;Dead Man's Curve Ball;Michael Chiklis (Actor);s6e5_1;70285,70286;
 6;5;Dead Man's Curve Ball;Pete Rose (Athlete);s6e5_2;70523;
 6;5;Dead Man's Curve Ball;The Commish (TV Show);s6e5_3;70287;
-6;5;Dead Man's Curve Ball;Tito Jackson (Musician);s6e5_4;70415;
-6;5;Dead Man's Curve Ball;Rod Carew (Athlete);s6e5_5;70417;
+6;5;Dead Man's Curve Ball;Tito Jackson (Musician);s6e5_4;70415,71193;
+6;5;Dead Man's Curve Ball;Rod Carew (Athlete);s6e5_5;70417,71194;
 6;5;Dead Man's Curve Ball;Baltimore Orioles (Major League Baseball team);s6e5_6;70584;
 6;5;Dead Man's Curve Ball;Oakland Athletics (Major League Baseball team);s6e5_7;70995;
 6;5;Dead Man's Curve Ball;Texas Rangers (Major League Baseball team);s6e5_8;70571;
@@ -1912,6 +1914,7 @@
 6;14;Autopsy Turvy;Yoo-hoo (Brand of chocolate-flavored beverage);s6e14_27;80209,80212,80214;
 6;14;Autopsy Turvy;Kiss Kiss Bang Bang (Movie);s6e14_28;79775;https://youtu.be/627tXhFGAHo?t=61
 6;14;Autopsy Turvy;Back to the Future (Movie);s6e14_29;79747,79748,79749;https://youtu.be/wH4omE0QGug?t=99
+6;14;Autopsy Turvy;Sherlock Holmes (Fictional detective);s6e14_30;80272;
 6;15;True Grits;Penitentiary (Movie);s6e15_1;80462,80463;
 6;15;True Grits;Penitentiary II (Movie);s6e15_2;80463;
 6;15;True Grits;Penitentiary III (Movie);s6e15_3;80463;
@@ -2077,71 +2080,246 @@
 7;5;100 Clues;Colonel James Braddock (Character from Missing in Action);s7e5_37;86994;
 7;5;100 Clues;Billy Boy (Folk song);s7e5_38;87181;
 7;5;100 Clues;Clue (Movie);s7e5_39;87436,87437;https://youtu.be/tN0nLZvne5U?t=27
-7;6;Cirque Du Soul;Eddie Murphy (Actor);s7e6_1;;
-7;6;Cirque Du Soul;48 Hrs. (Movie);s7e6_2;;
-7;6;Cirque Du Soul;Hertz (Car Rental);s7e6_3;;
-7;6;Cirque Du Soul;To Catch A Predator (TV Show);s7e6_4;;
-7;6;Cirque Du Soul;Tito Jackson (Muscian);s7e6_5;;
-7;6;Cirque Du Soul;Mikey (Character In The Movie Swingers);s7e6_6;;
-7;6;Cirque Du Soul;Nikki (Character In The Movie Swingers);s7e6_7;;
-7;6;Cirque Du Soul;Swingers (Movie);s7e6_8;;
-7;7;Deez Nups;The Hangover (Movie);s7e7_1;;
-7;7;Deez Nups;Michael Damian (Actor/Musician);s7e7_2;;
-7;7;Deez Nups;Spider-Man (Comic Book Superhero);s7e7_3;;
-7;7;Deez Nups;The Humpty Dance (Song/Dance By Digital Undergound);s7e7_4;;
-7;7;Deez Nups;Up (Movie);s7e7_5;;
-7;7;Deez Nups;Space Camp (Space & Science Exhibit/Camp);s7e7_6;;
-7;7;Deez Nups;NRA (National Rifle Association);s7e7_7;;
-7;7;Deez Nups;Wang Chung (Musicians);s7e7_8;;
-7;8;Right Turn or Left for Dead;Animotion (Musicians);s7e8_1;;
-7;8;Right Turn or Left for Dead;Joanie (Character In The TV Show Joanie Loves Chachi);s7e8_2;;
-7;8;Right Turn or Left for Dead;Chachi (Character In The TV Show Joanie Loves Chachi);s7e8_3;;
-7;8;Right Turn or Left for Dead;Sid (Character In The Movie Sid and Nancy);s7e8_4;;
-7;8;Right Turn or Left for Dead;Nancy (Character In The Movie Sid and Nancy);s7e8_5;;
-7;8;Right Turn or Left for Dead;Bert (Character In The TV Show Sesame Street);s7e8_6;;
-7;8;Right Turn or Left for Dead;Ernie (Character In The TV Show Sesame Street);s7e8_7;;
-7;8;Right Turn or Left for Dead;Erasure (Musician);s7e8_8;;
-7;8;Right Turn or Left for Dead;Take A Chance On Me (Song By Erasure);s7e8_9;;
-7;8;Right Turn or Left for Dead;Hooch (Character In The Movie Turner & Hooch);s7e8_10;;
-7;8;Right Turn or Left for Dead;George Costanza (Character In The TV Show Seinfeld);s7e8_11;;
-7;9;Juliet Wears the Pantsuit;Bill Clinton (42nd President of the United States);s7e9_1;;
-7;9;Juliet Wears the Pantsuit;Maria Shriver (American Journalist/Author);s7e9_2;;
-7;9;Juliet Wears the Pantsuit;Where Does The Lotion Go? (Quote From The Movie The Silence of the Lambs);s7e9_3;;
-7;9;Juliet Wears the Pantsuit;Jamie Foxx (Actor/Musician);s7e9_4;;
-7;9;Juliet Wears the Pantsuit;Jamie Foxx With An Old Chello (Reference To The Movie The Soloist);s7e9_5;;
-7;9;Juliet Wears the Pantsuit;Poltergeist (Movie);s7e9_6;;
-7;9;Juliet Wears the Pantsuit;Herman Cain (Entrepreneur/2012 U.S. Presidential Candidate);s7e9_7;;
-7;9;Juliet Wears the Pantsuit;Single White Female (Movie);s7e9_8;;
-7;9;Juliet Wears the Pantsuit;Bridget Fonda (Actress);s7e9_9;;
-7;9;Juliet Wears the Pantsuit;Steven Weber (Actor);s7e9_10;;
-7;9;Juliet Wears the Pantsuit;Our House In The Middle Of Our Street (Reference To The Song Our House by Madness);s7e9_11;;
-7;9;Juliet Wears the Pantsuit;Jennifer jason Leigh (Actress);s7e9_12;;
-7;9;Juliet Wears the Pantsuit;Tom Sizemore (Actor);s7e9_13;;
-7;9;Juliet Wears the Pantsuit;LeVert (Musician);s7e9_14;;
-7;9;Juliet Wears the Pantsuit;Whodini (Musician);s7e9_15;;
-7;9;Juliet Wears the Pantsuit;Cuba Gooding, Jr. (Actor);s7e9_16;;
-7;9;Juliet Wears the Pantsuit;Radio (Movie);s7e9_17;;
-7;9;Juliet Wears the Pantsuit;Boat Trip (Movie);s7e9_18;;
-7;9;Juliet Wears the Pantsuit;Sleeping With The Enemy (Movie);s7e9_19;;
-7;9;Juliet Wears the Pantsuit;Fibonacci Sequence (Numbers In A Specific Integer Sequence);s7e9_20;;
-7;10;Santa Barbarian Candidate;EMF (Musicians);s7e10_1;;
-7;10;Santa Barbarian Candidate;You're Unbelievable (Song By EMF);s7e10_2;;
-7;10;Santa Barbarian Candidate;James Cromwell (Actor);s7e10_3;;
-7;10;Santa Barbarian Candidate;Babe (Movie);s7e10_4;;
-7;10;Santa Barbarian Candidate;That'll Do, That'll Do (Quote From The Movie Shrek);s7e10_5;;
-7;10;Santa Barbarian Candidate;Dave And Busters (Restaurant And Entertainment Business);s7e10_6;;
-7;10;Santa Barbarian Candidate;Rob Lowe (Actor);s7e10_7;;
-7;10;Santa Barbarian Candidate;How Do You Like Them Apples (Quote From The Movie Good Will Hunting);s7e10_8;;
-7;10;Santa Barbarian Candidate;Barack And Michelle (44th US President and First Lady);s7e10_9;;
-7;10;Santa Barbarian Candidate;Franco Nero (Actor);s7e10_10;;
-7;10;Santa Barbarian Candidate;Tommy Howell (Actor);s7e10_11;;
-7;10;Santa Barbarian Candidate;Thunderdome (Arena In The Movie Mad Max Beyond Thunderdome);s7e10_12;;
-7;10;Santa Barbarian Candidate;Snowy River (Reference To The Movie The Man From Snowy River);s7e10_13;;
-7;10;Santa Barbarian Candidate;Seabiscuit (Champion Thoroughbred Racehorse In The United States);s7e10_14;;
+7;6;Cirque Du Soul;Eddie Murphy (Actor);s7e6_1;87480,88328;
+7;6;Cirque Du Soul;48 Hrs. (Movie);s7e6_2;87481;
+7;6;Cirque Du Soul;Jonathan Taylor Thomas (Actor);s7e6_3;87831,87832;
+7;6;Cirque Du Soul;To Catch A Predator (TV Show);s7e6_4;87866;
+7;6;Cirque Du Soul;Tito Jackson (Muscian);s7e6_5;88141,88266,88270;
+7;6;Cirque Du Soul;Mike Peters (Character from Swingers);s7e6_6;88186;
+7;6;Cirque Du Soul;Nikki (Character from Swingers);s7e6_7;88186;
+7;6;Cirque Du Soul;Swingers (Movie);s7e6_8;88186;https://youtu.be/lMrKsKQWrl8
+7;6;Cirque Du Soul;Star Wars (Movie);s7e6_9;87519,87520;
+7;6;Cirque Du Soul;Steve Perry (Musician);s7e6_10;87527;
+7;6;Cirque Du Soul;John A. Gotti (Actor/Former mobster);s7e6_11;87565;
+7;6;Cirque Du Soul;O. J. Simpson (Athlete);s7e6_12;87774,88276;
+7;6;Cirque Du Soul;Hertz (Car rental company);s7e6_13;87775;
+7;6;Cirque Du Soul;Trident (Chewing gum);s7e6_14;88020;
+7;6;Cirque Du Soul;Terminator (Movie);s7e6_15;88276;https://youtu.be/qP_MvA6ubs8
+7;6;Cirque Du Soul;Halle Berry (Actress);s7e6_16;88326;
+7;6;Cirque Du Soul;Boomerang (Movie);s7e6_17;88326;
+7;7;Deez Nups;The Hangover (Movie);s7e7_1;88520;https://youtu.be/aE2s3kxKcvE
+7;7;Deez Nups;Michael Damian (Actor/Musician);s7e7_2;88718,88721,88968,89216;
+7;7;Deez Nups;Spider-Man (Comic book superhero);s7e7_3;88893;
+7;7;Deez Nups;The Humpty Dance (Song/Dance by Digital Undergound);s7e7_4;89168;https://youtu.be/PBsjggc5jHM?t=195
+7;7;Deez Nups;Up (Movie);s7e7_5;89186;
+7;7;Deez Nups;Space Camp (Space & science exhibit/camp);s7e7_6;89115;
+7;7;Deez Nups;NRA (National Rifle Association);s7e7_7;89128;
+7;7;Deez Nups;Wang Chung (Musicians);s7e7_8;89148,89213;
+7;7;Deez Nups;The Wizard of Oz (Movie);s7e7_9;88490;https://youtu.be/TP_wx0qrKu0
+7;7;Deez Nups;Mr. Bean (Stage name of actor Rowan Atkinson);s7e7_10;88733;
+7;7;Deez Nups;Chitty Chitty Bang Bang (Movie);s7e7_11;88784;
+7;7;Deez Nups;Batman & Robin (Movie);s7e7_12;88785;
+7;7;Deez Nups;Hannah and Her Sisters (Movie);s7e7_13;88786;
+7;7;Deez Nups;Ponyboy Michael Curtis (Character from The Outsiders);s7e7_14;88878;
+7;7;Deez Nups;Perry White (Character from Superman);s7e7_15;89121;https://youtu.be/K2nXs3PsgBU
+7;7;Deez Nups;Kunta Kinte (Character from Roots);s7e7_16;89106;
+7;7;Deez Nups;Prosecco (Italian white wine);s7e7_17;89155,89165;
+7;8;Right Turn or Left for Dead;Animotion (Musicians);s7e8_1;89293;
+7;8;Right Turn or Left for Dead;Joanie Cunningham (Character from Joanie Loves Chachi);s7e8_2;89298;
+7;8;Right Turn or Left for Dead;Chachi Arcola (Character from Joanie Loves Chachi);s7e8_3;89298;
+7;8;Right Turn or Left for Dead;Sid Vicious (Character from Sid and Nancy);s7e8_4;89296;
+7;8;Right Turn or Left for Dead;Nancy Spungen (Character from Sid and Nancy);s7e8_5;89296;
+7;8;Right Turn or Left for Dead;Bert (Character from Sesame Street);s7e8_6;89299;
+7;8;Right Turn or Left for Dead;Ernie (Character from Sesame Street);s7e8_7;89299;
+7;8;Right Turn or Left for Dead;Erasure (Musicians);s7e8_8;89328;
+7;8;Right Turn or Left for Dead;Take A Chance On Me (Song by Erasure);s7e8_9;89329;
+7;8;Right Turn or Left for Dead;Hooch (Character from Turner & Hooch);s7e8_10;89423;
+7;8;Right Turn or Left for Dead;George Costanza (Character from Seinfeld);s7e8_11;89447,89448,89449,89451,89970;https://youtu.be/H-8ZSP7D3-Y?t=143
+7;8;Right Turn or Left for Dead;Michael Damian (Actor/Musician);s7e8_12;89269;
+7;8;Right Turn or Left for Dead;Trix (Cereal);s7e8_13;89298;
+7;8;Right Turn or Left for Dead;Y.M.C.A (Song by Village People);s7e8_14;89321;
+7;8;Right Turn or Left for Dead;Alf Kjellin (Director/Actor);s7e8_15;89405,89587;
+7;8;Right Turn or Left for Dead;Quasimodo (Character from The Hunchback of Notre-Dame);s7e8_16;89732;
+7;8;Right Turn or Left for Dead;The Wizard of Oz (Movie);s7e8_17;89741,89743;
+7;8;Right Turn or Left for Dead;Carl XVI Gustaf (Monarch of Sweden);s7e8_18;89785;
+7;8;Right Turn or Left for Dead;Max von Sydow (Actor);s7e8_19;89793;
+7;8;Right Turn or Left for Dead;Jonas Gustavsson (Swedish ice hockey goaltender);s7e8_20;89806;
+7;8;Right Turn or Left for Dead;Toronto Maple Leafs (Ice hockey team);s7e8_21;89807;
+7;8;Right Turn or Left for Dead;November Rain (Song by Guns N' Roses);s7e8_22;89871;https://youtu.be/8SbUC-UaAxE
+7;8;Right Turn or Left for Dead;Gazpacho (Dish);s7e8_23;89906;
+7;8;Right Turn or Left for Dead;Chicken Dance (Song by Werner Thomas);s7e8_24;89907;
+7;8;Right Turn or Left for Dead;Looney Tunes (TV Show);s7e8_25;90163;
+7;9;Juliet Wears the Pantsuit;Bill Clinton (42nd president of the United States);s7e9_1;90267;
+7;9;Juliet Wears the Pantsuit;Maria Shriver (American journalist/Author);s7e9_2;90268;
+7;9;Juliet Wears the Pantsuit;The Silence of the Lambs (Movie);s7e9_3;90285,90292,90293;https://youtu.be/QRqXBsgnYok?t=41
+7;9;Juliet Wears the Pantsuit;Jamie Foxx (Actor/Musician);s7e9_4;90332;
+7;9;Juliet Wears the Pantsuit;The Soloist (Movie);s7e9_5;90332;https://youtu.be/fygUSgOC9Ak?t=163
+7;9;Juliet Wears the Pantsuit;Poltergeist (Movie);s7e9_6;90398;
+7;9;Juliet Wears the Pantsuit;Herman Cain (American businessman);s7e9_7;90449;
+7;9;Juliet Wears the Pantsuit;Single White Female (Movie);s7e9_8;90701,90703,91023;https://youtu.be/KISK76nF-XE?t=114
+7;9;Juliet Wears the Pantsuit;Bridget Fonda (Actress);s7e9_9;90702;
+7;9;Juliet Wears the Pantsuit;Steven Weber (Actor);s7e9_10;90702;
+7;9;Juliet Wears the Pantsuit;Our House (Song by Madness);s7e9_11;90721,90722;https://youtu.be/KwIe_sjKeAY?t=71
+7;9;Juliet Wears the Pantsuit;Jennifer Jason Leigh (Actress);s7e9_12;90761;
+7;9;Juliet Wears the Pantsuit;Tom Sizemore (Actor);s7e9_13;90797;
+7;9;Juliet Wears the Pantsuit;LeVert (Musicians);s7e9_14;90890;
+7;9;Juliet Wears the Pantsuit;Whodini (Musicians);s7e9_15;90891;
+7;9;Juliet Wears the Pantsuit;Cuba Gooding Jr. (Actor);s7e9_16;90934,91010;
+7;9;Juliet Wears the Pantsuit;Radio (Movie);s7e9_17;90934,90936;
+7;9;Juliet Wears the Pantsuit;Boat Trip (Movie);s7e9_18;91013;
+7;9;Juliet Wears the Pantsuit;Sleeping with the Enemy (Movie);s7e9_19;91024;
+7;9;Juliet Wears the Pantsuit;Fibonacci sequence (Mathematical sequence);s7e9_20;91116,91119;
+7;9;Juliet Wears the Pantsuit;Froot Loops (Cereal);s7e9_21;90259,90498,90499;
+7;9;Juliet Wears the Pantsuit;Baywatch (TV Show);s7e9_22;90363;
+7;9;Juliet Wears the Pantsuit;David Chokachi (Actor);s7e9_23;90369,90374;
+7;9;Juliet Wears the Pantsuit;Buffalo Bill (American soldier);s7e9_24;90395;
+7;9;Juliet Wears the Pantsuit;Emily Bronte (Novelist/Poet);s7e9_25;90477;
+7;9;Juliet Wears the Pantsuit;Blue Ivy Carter (Daughter of Jay-Z and Beyoncé);s7e9_26;90622;
+7;9;Juliet Wears the Pantsuit;Wendy's (Restaurant);s7e9_27;90629,90630,90631;
+7;9;Juliet Wears the Pantsuit;Zima (Beverage);s7e9_28;90685;
+7;9;Juliet Wears the Pantsuit;Johnny Lawrence (Character from The Karate Kid);s7e9_29;91174;
+7;9;Juliet Wears the Pantsuit;The Karate Kid (Movie);s7e9_30;91173,91174;
+7;10;Santa Barbarian Candidate;EMF (Musicians);s7e10_1;91211;
+7;10;Santa Barbarian Candidate;Unbelievable (Song by EMF);s7e10_2;91212;
+7;10;Santa Barbarian Candidate;James Cromwell (Actor);s7e10_3;91354;
+7;10;Santa Barbarian Candidate;Babe (Movie);s7e10_4;91353,91355;https://youtu.be/rjQtzV9IZ0Q
+7;10;Santa Barbarian Candidate;Dave & Buster's (Restaurant and entertainment business);s7e10_6;91361;
+7;10;Santa Barbarian Candidate;Rob Lowe (Actor);s7e10_7;91413;
+7;10;Santa Barbarian Candidate;Good Will Hunting (Movie);s7e10_8;91454;https://youtu.be/gcZPWkNY6x8?t=98
+7;10;Santa Barbarian Candidate;Barack Obama (44th president of the United States);s7e10_9;91545;https://youtu.be/8iY-S2UxC6o
+7;10;Santa Barbarian Candidate;Franco Nero (Actor);s7e10_10;91633;
+7;10;Santa Barbarian Candidate;C. Thomas Howell (Actor);s7e10_11;91685,91723;
+7;10;Santa Barbarian Candidate;Mad Max Beyond Thunderdome (Movie);s7e10_12;91827;
+7;10;Santa Barbarian Candidate;The Man from Snowy River (Movie);s7e10_13;91893;https://youtu.be/3NBhLkavRFk
 7;10;Santa Barbarian Candidate;Red Robin (Restaurant);s7e10_14;92110;
-7;11;Office Space;Bruce Willis (Actor);s7e11_1;;
-7;11;Office Space;Blind Date (Movie);s7e11_2;;
-7;11;Office Space;Cagney & Lacey (TV Show Characters/TV Show);s7e11_3;;
-7;11;Office Space;Jack Bauer (Character In The TV Show 24);s7e11_4;;
-7;11;Office Space;Rob Lowe (Actor);s7e11_5;;
-7;11;Office Space;Color Me Mine (Paint Your Own Pottery Studio);s7e11_6;;
+7;10;Santa Barbarian Candidate;Neptune (Roman god of freshwater and the sea);s7e10_15;91337;
+7;10;Santa Barbarian Candidate;Charlie Young (Character from The West Wing);s7e10_16;91348,91350;
+7;10;Santa Barbarian Candidate;James Carville (American political assistant/author);s7e10_17;91351;
+7;10;Santa Barbarian Candidate;Rick James (Musician);s7e10_18;91487;
+7;10;Santa Barbarian Candidate;King James Version (Early Modern English translation of the Bible);s7e10_19;91487;
+7;10;Santa Barbarian Candidate;Michelle Obama (Former First Lady of the United States);s7e10_20;91545;https://youtu.be/8iY-S2UxC6o
+7;10;Santa Barbarian Candidate;Along Came Polly (Movie);s7e10_21;91593,91594;https://youtu.be/IV84ha3uEGg
+7;10;Santa Barbarian Candidate;Side Out (Movie);s7e10_22;91686,91723;
+7;10;Santa Barbarian Candidate;Clairol (Personal care product company);s7e10_23;91888;https://youtu.be/hCrEyOWAEVw?t=15
+7;10;Santa Barbarian Candidate;Seabiscuit (American racehorse);s7e10_24;91903;
+7;11;Office Space;Bruce Willis (Actor);s7e11_1;92221;
+7;11;Office Space;Blind Date (Movie);s7e11_2;92221;
+7;11;Office Space;Christine Cagney (Character from Cagney & Lacey);s7e11_3;92525;
+7;11;Office Space;Jack Bauer (Character from 24);s7e11_4;92805;
+7;11;Office Space;Rob Lowe (Actor);s7e11_5;92823;
+7;11;Office Space;Color Me Mine (Do-it-yourself pottery studio);s7e11_6;92823;
+7;11;Office Space;Adult Swim (Cable channel);s7e11_7;92432;
+7;11;Office Space;Junior G-Men (American boys club);s7e11_8;92445;
+7;11;Office Space;V8 (Beverage);s7e11_9;92458;
+7;11;Office Space;Mary Beth Lacey (Character from Cagney & Lacey);s7e11_10;92526;
+7;11;Office Space;Spenser: For Hire (TV Show);s7e11_11;92728;
+7;11;Office Space;Chris Klein (Actor);s7e11_12;92732;
+7;11;Office Space;Axe (Deodorant brand);s7e11_13;92746;
+7;11;Office Space;Gigantor (TV Show);s7e11_14;92783;
+7;11;Office Space;Depend (Brand of adult diapers);s7e11_15;92802;
+7;11;Office Space;Beelzebub (Philistine god);s7e11_16;92902;
+7;11;Office Space;Atlantis (Fictional island);s7e11_17;92979;
+7;11;Office Space;T.J. Maxx (Department store chain);s7e11_18;93035;
+7;11;Office Space;Rubin Carter (Boxer);s7e11_19;93079;
+7;11;Office Space;Patrick Wilson (Actor/Director);s7e11_20;93083;
+7;11;Office Space;Glengarry Glen Ross (Movie);s7e11_21;93103,93104,93105;https://youtu.be/elrnAl6ygeM?t=150
+7;11;Office Space;Alec Baldwin (Actor);s7e11_22;93106;
+7;12;Dead Air;Drew Barrymore (Actress/Producer);s7e12_1;93211;
+7;12;Dead Air;Firestarter (Movie);s7e12_2;93211;
+7;12;Dead Air;Doppleganger (Movie);s7e12_3;93212;
+7;12;Dead Air;Jonas Brothers (Musicians);s7e12_4;93221;
+7;12;Dead Air;Howard Stern (Broadcaster/Media personality);s7e12_5;93245;
+7;12;Dead Air;Django Unchained (Movie);s7e12_6;93328;
+7;12;Dead Air;Moviefone (Movie information service);s7e12_7;93382;
+7;12;Dead Air;Good Morning, Vietnam (Movie);s7e12_8;93454,93455;https://youtu.be/Erf2iFHG44M?t=7
+7;12;Dead Air;Clear Channel (US broadcasting company);s7e12_9;93561;
+7;12;Dead Air;The Hunger Games (Movie/Novel);s7e12_10;93566;
+7;12;Dead Air;Blair Underwood (Actor);s7e12_11;93583;
+7;12;Dead Air;The Graduate (Movie);s7e12_12;93600;https://youtu.be/-3lKbMBab18?t=80
+7;12;Dead Air;Bull Durham (Movie);s7e12_13;93637,93638,93639,93640,93641,93642,93643,93644;https://youtu.be/DKO8pmzU1Lk?t=24
+7;12;Dead Air;I Believe I Can Fly (Song by R. Kelly);s7e12_14;93642;
+7;12;Dead Air;Prometheus (Movie);s7e12_15;93647;
+7;12;Dead Air;Captain Morgan (Brand of flavored rums);s7e12_16;93671;
+7;12;Dead Air;El Pollo Loco (Restaurant);s7e12_17;93722;
+7;12;Dead Air;Bruce Wayne (Character from Batman);s7e12_18;93728;
+7;12;Dead Air;Consolidated Edison (Energy company);s7e12_19;93917;
+7;12;Dead Air;Aimee Mann (Musician);s7e12_20;94054;
+7;12;Dead Air;Eli Roth (Director/Screenwriter);s7e12_21;94059;
+7;13;Nip and Suck It!;Caitlyn Jenner (Media personality);s7e13_1;94239;
+7;13;Nip and Suck It!;Fire Marshal Bill (Character from In Living Color);s7e13_2;94240;
+7;13;Nip and Suck It!;The Love Boat (TV Show);s7e13_3;94247;
+7;13;Nip and Suck It!;Dallas Cowboys (American football team);s7e13_4;94248;
+7;13;Nip and Suck It!;Val Kilmer (Actor);s7e13_5;94267,94272,94288;
+7;13;Nip and Suck It!;Julia Roberts (Actress);s7e13_6;94275;
+7;13;Nip and Suck It!;Cameron Diaz (Actress);s7e13_7;94275;
+7;13;Nip and Suck It!;Patricia Heaton (Actress/Producer);s7e13_8;94276;
+7;13;Nip and Suck It!;Weird Science (Movie);s7e13_9;94277;
+7;13;Nip and Suck It!;Beanie Babies (Stuffed toys);s7e13_10;94292;
+7;13;Nip and Suck It!;Denzel Washington (Actor);s7e13_11;94311;
+7;13;Nip and Suck It!;ABC Movie of the Week (TV Show);s7e13_12;94361;
+7;13;Nip and Suck It!;The Brady Bunch (TV Show);s7e13_13;94400;https://youtu.be/ICVXf8Vznec?feature=shared&t=86
+7;13;Nip and Suck It!;Newhart (TV Show);s7e13_14;94423;https://youtu.be/5yyB06HvAjI?t=174
+7;13;Nip and Suck It!;Dogstar (Musicians);s7e13_15;94461,94482;
+7;13;Nip and Suck It!;Maroon 5 (Musicians);s7e13_16;94607;
+7;13;Nip and Suck It!;Grace Jones (Musician/Actress);s7e13_17;94749;
+7;13;Nip and Suck It!;Boomerang (Movie);s7e13_18;94749;
+7;13;Nip and Suck It!;Lil Wayne (Rapper/Singer);s7e13_19;94805;
+7;13;Nip and Suck It!;Wayne Newton (Singer/Actor);s7e13_20;94805;
+7;13;Nip and Suck It!;People (Magazine);s7e13_21;94844;
+7;13;Nip and Suck It!;Catherine O'Leary (Famous for her cow allegedly started the Great Chicago Fire);s7e13_22;94960;
+7;13;Nip and Suck It!;Face/Off (Movie);s7e13_23;95078;
+7;13;Nip and Suck It!;Barnes & Noble (Retail outlet company);s7e13_24;95106;
+7;14;No Trout About It;Mickey Mouse (Cartoon character);s7e14_1;95173;
+7;14;No Trout About It;Dyson Airblade (Electric hand dryer);s7e14_2;95252;
+7;14;No Trout About It;Air Bud (Movie);s7e14_3;95266;
+7;14;No Trout About It;Richard Dreyfuss (Actor);s7e14_4;95446;
+7;14;No Trout About It;Jaws (Movie);s7e14_5;95446;
+7;14;No Trout About It;Travelocity (Travel agency);s7e14_6;95482;
+7;14;No Trout About It;Hips Don't Lie (Song by Shakira);s7e14_7;95495,95496;
+7;14;No Trout About It;Fifty Shades of Grey (Novel by E. L. James);s7e14_8;95556;
+7;14;No Trout About It;David Caruso (Actor/Producer);s7e14_9;95560;
+7;14;No Trout About It;Duran Duran (Musicians);s7e14_10;95629;
+7;14;No Trout About It;Rio (Song by Duran Duran);s7e14_11;95630;
+7;14;No Trout About It;Hungry Like the Wolf (Song by Duran Duran);s7e14_12;95632;
+7;14;No Trout About It;A View to a Kill (Song by Duran Duran);s7e14_13;95633;
+7;14;No Trout About It;The Reflex (Song by Duran Duran);s7e14_14;95633;
+7;14;No Trout About It;CHiPs (TV Show);s7e14_15;95767,95768;
+7;14;No Trout About It;Twinkie (Food);s7e14_16;95854;
+7;14;No Trout About It;WD-40 (Brand of penetrating oil);s7e14_17;95950;
+7;14;No Trout About It;Magic Mike (Movie);s7e14_18;95969;
+7;14;No Trout About It;Sherlock Holmes (Fictional detective);s7e14_19;95986;
+7;14;No Trout About It;Kyle Bornheimer (Actor/Comedian);s7e14_20;95996;
+7;14;No Trout About It;Blink 182 (Musicians);s7e14_21;95998;
+7;14;No Trout About It;P90X (Workout program);s7e14_22;96033;
+7;14;No Trout About It;Oz (TV Show);s7e14_23;96097;
+7;14;No Trout About It;The Wizard of Oz (Movie);s7e14_24;96099;
+7;14;No Trout About It;Shuffle Off to Buffalo (Song by The Boswell Sisters);s7e14_25;96172;
+7;15;Psych: The Musical;Junípero Serra (Priest);s7e15_1;96218;
+7;15;Psych: The Musical;Don't Rain On My Parade (Song by Barbra Streisand);s7e15_2;96233;https://youtu.be/emdaIJeVoTQ?t=8
+7;15;Psych: The Musical;Jack the Ripper (Serial killer);s7e15_3;96346,96791;
+7;15;Psych: The Musical;Into the Woods (Musical by James Lapine);s7e15_4;96475;
+7;15;Psych: The Musical;Lil Wayne (Rapper/Singer);s7e15_5;96483;
+7;15;Psych: The Musical;Cheech & Chong (Comedy duo);s7e15_6;96501;
+7;15;Psych: The Musical;Major-General's Song (Song from The Pirates of Penzance);s7e15_7;96524;https://youtu.be/hlTisI_HSgw?t=19
+7;15;Psych: The Musical;Paul Hogan (Actor/Comedian);s7e15_8;96574,96575;
+7;15;Psych: The Musical;Crocodile Dundee (Movie);s7e15_9;96575;
+7;15;Psych: The Musical;Hellboy (Movie);s7e15_10;96577;
+7;15;Psych: The Musical;Avon Products (Cosmetics company);s7e15_11;96591;
+7;15;Psych: The Musical;WALL-E (Movie);s7e15_12;96658;
+7;15;Psych: The Musical;The Walt Disney Company (Mass media company);s7e15_13;96660;
+7;15;Psych: The Musical;Gigantor (TV Show);s7e15_14;96739;
+7;15;Psych: The Musical;I Can't Believe It's Not Butter! (Food);s7e15_15;96675;
+7;15;Psych: The Musical;The Phantom (Movie);s7e15_16;96749;
+7;15;Psych: The Musical;Billy Zane (Actor);s7e15_17;96750;
+7;15;Psych: The Musical;The Phantom of the Opera (Musical by Andrew Lloyd Webber);s7e15_18;96750;
+7;15;Psych: The Musical;Mr. T (Actor);s7e15_19;96759;
+7;15;Psych: The Musical;Cracker Jack (Brand of snack food);s7e15_20;96759;
+7;15;Psych: The Musical;Christopher Lambert (Actor/Producer);s7e15_21;96879;
+7;15;Psych: The Musical;Highlander (Movie);s7e15_22;96879;
+7;15;Psych: The Musical;Dum Dums (Lollipop);s7e15_23;96883;
+7;15;Psych: The Musical;Jean-Claude Van Damme (Actor/Martial artist);s7e15_24;96885;
+7;15;Psych: The Musical;Mongkut (King of Thailand);s7e15_25;96888;
+7;15;Psych: The Musical;The King and I (Movie);s7e15_26;96889;https://youtu.be/1JHH6iwgIek?t=5
+7;15;Psych: The Musical;Judge Reinhold (Actor);s7e15_27;96940;
+7;15;Psych: The Musical;Chicago White Sox (Baseball team);s7e15_28;96969;
+7;15;Psych: The Musical;Harold Baines (Baseball player);s7e15_29;96969,96975;
+7;15;Psych: The Musical;Audra McDonald (Actress/Singer);s7e15_30;96822,96980;
+7;15;Psych: The Musical;Gigi Van Tranh (Character from Miss Saigon);s7e15_31;97003,97004;
+7;15;Psych: The Musical;Miss Saigon (Musical by Alain Boublil and Claude-Michel Schönberg);s7e15_32;97005;
+7;15;Psych: The Musical;Tevin Campbell (Musician);s7e15_33;97055;
+7;15;Psych: The Musical;Two-Face (Comic book character);s7e15_34;97068;
+7;15;Psych: The Musical;The Notebook (Movie);s7e15_35;97266;
+7;15;Psych: The Musical;Tootsie Roll (Chocolate-flavored taffy);s7e15_36;97306;
+7;15;Psych: The Musical;Kofi Annan (Ghanaian diplomat);s7e15_37;97438;
+7;15;Psych: The Musical;The Road Runner Show (TV Show);s7e15_38;97650;https://youtu.be/mV2V65Kw890
+7;15;Psych: The Musical;Beelzebub (Philistine god);s7e15_39;97788;
