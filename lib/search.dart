@@ -38,7 +38,7 @@ class _SearchPageState extends State<SearchPage>
   @override
   void initState() {
     super.initState();
-    randomIndex = rng.nextInt(1955);
+    randomIndex = rng.nextInt(2325);
     randomIndexDYK = rng.nextInt(DYK.didYouKnowOptions.length);
   }
 
@@ -118,7 +118,7 @@ class _SearchPageState extends State<SearchPage>
                       onPressed: () {
                         setState(
                           () {
-                            randomIndex = rng.nextInt(1955);
+                            randomIndex = rng.nextInt(2325);
                           },
                         );
                       },
