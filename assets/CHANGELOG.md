@@ -1,3 +1,10 @@
+# 1.1.2 (28/10/2023)
+
+- Completed all the references from season 7.
+- Reworked the function to create a wallpaper. Now you can choose the desired resolution.
+- Removed the progress percentage in the references tab.
+- Released psychphinder as a web app! [Check it out!](https://daih27.github.io/psychphinder)
+
 # 1.1.1 (17/10/2023)
 
 - Added a "Did you know?" section when starting the app. Feel free to suggest some interesting facts about Psych!
