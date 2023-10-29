@@ -2,7 +2,10 @@
 <p>&#127821; <b>Features </b> &#127821;</p>
 <p><ul><li>Search quotes from all the episodes and movies of Psych.</li>
    <li>Save your favorite quotes.</li>
-   <li>Backup and restore your list of favorites.</li>
-   <li>See the references made throughout the show (in progress).</li>
+   <li>Backup and restore your saved quotes.</li>
+   <li>View the references made in each episode.</li>
+   <li>Search what a reference means in your prefered search engine.</li>
+   <li>Share/save a quote as image or text.</li>
+   <li>Create wallpapers of your favorite quotes from the show.</li>
    <li>Choose from the three themes available.</li></ul>
 <p>You can also share your backup file with others if you want, even between different platforms!</p>

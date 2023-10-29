@@ -1,0 +1,4 @@
+Completed all the references from season 7.
+Reworked the function to create a wallpaper. Now you can choose the desired resolution.
+Removed the progress percentage in the references tab.
+Released psychphinder as a web app!
