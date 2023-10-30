@@ -11,7 +11,7 @@
 1;2;Spellingg Bee;The Phantom of the Opera (Novel written by Gaston Leroux);s1e2_6;1336;
 1;3;Speak Now or Forever Hold Your Piece;Air Supply (Musicians);s1e3_1;2182;
 1;3;Speak Now or Forever Hold Your Piece;Ocean's Eleven (Movie);s1e3_2;2235;
-1;3;Speak Now or Forever Hold Your Piece;Thomas Crown (Character in the movie The Thomas Crown Affair);s1e3_3;2235;
+1;3;Speak Now or Forever Hold Your Piece;Thomas Crown (Character from The Thomas Crown Affair);s1e3_3;2235;
 1;3;Speak Now or Forever Hold Your Piece;Donald Sutherland (Actor);s1e3_4;2236;
 1;3;Speak Now or Forever Hold Your Piece;Hampton Inn (Hotel);s1e3_5;2284;
 1;3;Speak Now or Forever Hold Your Piece;Patrick Swayze (Actor);s1e3_6;2530,2532;
@@ -21,13 +21,13 @@
 1;3;Speak Now or Forever Hold Your Piece;Argonauts (Band of heroes in Greek mythology);s1e3_10;2472;
 1;3;Speak Now or Forever Hold Your Piece;Peter Pan (Fictional character);s1e3_11;2304;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Meredith Baxter-Birney (Actress);s1e4_1;3185;
-1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Mrs. Keaton (Character on the TV show Family Ties);s1e4_2;3187;
+1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Mrs. Keaton (Character from Family Ties);s1e4_2;3187;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Alex P. Keaton (Character from Family Ties);s1e4_3;3187;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Jane Austen (Novelist);s1e4_4;3252;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Joan Jett (Musician);s1e4_5;3450;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Penny Marshall (Actress);s1e4_6;3451;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Grace Jones (Musician);s1e4_7;3451;
-1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Pinky Tuscadero (Character in the TV show Happy Days);s1e4_8;3452;
+1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Pinky Tuscadero (Character from Happy Days);s1e4_8;3452;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Lizzie Borden (Central figure in the hatchet murders of her father and stepmother);s1e4_9;3458;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Kathy Bates (Actress);s1e4_10;3458;
 1;4;Woman Seeking Dead Husband: Smokers Okay, No Pets;Dread Pirate Wilcroft (Reference to Dread Pirate Roberts in the movie The Princess Bride);s1e4_11;3563;
@@ -71,7 +71,7 @@
 1;7;Who Ya Gonna Call?;Sybil (Movie);s1e7_19;5746;https://youtu.be/HJe0_pPA0x8
 1;7;Who Ya Gonna Call?;I Feel Pretty (Song from West Side Story);s1e7_20;5794,5795,5796,5798;https://youtu.be/RgHtBxOs4qw?t=4
 1;7;Who Ya Gonna Call?;Whippet (Dog breed);s1e7_21;5696;
-1;8;Shawn vs. the Red Phantom;Columbo (Character from the TV show Columbo);s1e8_1;6193;
+1;8;Shawn vs. the Red Phantom;Columbo (Character from Columbo);s1e8_1;6193;
 1;8;Shawn vs. the Red Phantom;Star Trek IV: The Voyage Home (Movie);s1e8_2;6402;
 1;8;Shawn vs. the Red Phantom;George Takei (Actor);s1e8_3;6244,6245,6246,6396,6409,6413,6522,6532,6534,6618,6621,6625,6707,6768;
 1;8;Shawn vs. the Red Phantom;Hikaru Sulu (Character from the Star Trek series);s1e8_4;6249,6263,6774;
@@ -93,7 +93,7 @@
 1;8;Shawn vs. the Red Phantom;Star Trek (TV Show);s1e8_20;6240;
 1;8;Shawn vs. the Red Phantom;Simmons Beautyrest (Matress);s1e8_21;6165;https://youtu.be/dNyEcnwPJxk?t=16
 1;8;Shawn vs. the Red Phantom;Batman & Robin (Movie);s1e8_22;6322;https://youtu.be/Vr6gACml4h0?t=35
-1;9;Forget Me Not;Simba (Character in the movie The Lion King);s1e9_1;7195;
+1;9;Forget Me Not;Simba (Character from The Lion King);s1e9_1;7195;
 1;9;Forget Me Not;I am your father (Referencing the movie Star Wars: Episode VI - Return of the Jedi);s1e9_2;7195;https://youtu.be/_lOT2p_FCvA?t=67
 1;9;Forget Me Not;Darth Vader (Character from Star Wars);s1e9_3;7197;
 1;9;Forget Me Not;James Earl Jones (Actor);s1e9_4;7198;
@@ -105,8 +105,8 @@
 1;9;Forget Me Not;Sherlock Holmes (Fictional detective);s1e9_10;7633;
 1;10;From the Earth to the Starbucks;Vincent Gallo (Actor);s1e10_1;8077;
 1;10;From the Earth to the Starbucks;Don Cheadle (Actor);s1e10_2;8100;
-1;10;From the Earth to the Starbucks;Kenickie (Character in the movie Grease);s1e10_3;8103;https://youtu.be/qpypGusvWDA?t=38
-1;10;From the Earth to the Starbucks;Danny Zuko (Character in the movie Grease);s1e10_4;8103;https://youtu.be/qpypGusvWDA?t=38
+1;10;From the Earth to the Starbucks;Kenickie (Character from Grease);s1e10_3;8103;https://youtu.be/qpypGusvWDA?t=38
+1;10;From the Earth to the Starbucks;Danny Zuko (Character from Grease);s1e10_4;8103;https://youtu.be/qpypGusvWDA?t=38
 1;10;From the Earth to the Starbucks;John Travolta (Actor);s1e10_5;8104;
 1;10;From the Earth to the Starbucks;CIF Wrestling (California Interscholastic Federation Wrestling);s1e10_6;8143;
 1;10;From the Earth to the Starbucks;Heisman (College football award);s1e10_7;8145;
@@ -148,7 +148,7 @@
 1;12;Cloudy... With a Chance of Murder;Guns don't kill people, people kill people (Slogan);s1e12_9;10497,10498;
 1;13;Game, Set... Muuurder?;Battleship (Game);s1e13_1;10597,11239,11454;
 1;13;Game, Set... Muuurder?;Who's got my golden arm? (Ghost story from the 1800s);s1e13_2;10671;
-1;13;Game, Set... Muuurder?;Bashful, Grumpy, Dopey, Sleepy, Sneezy (Character from the movie Snow White and the Seven Dwarfs);s1e13_3;10716,10718;
+1;13;Game, Set... Muuurder?;Bashful, Grumpy, Dopey, Sleepy, Sneezy (Character from Snow White and the Seven Dwarfs);s1e13_3;10716,10718;
 1;13;Game, Set... Muuurder?;Whitesnake (Musicians);s1e13_4;10782;
 1;13;Game, Set... Muuurder?;Airwolf (TV Show);s1e13_5;10785,10790,11236,11238;
 1;13;Game, Set... Muuurder?;Jan-Michael Vincent (Actor);s1e13_6;10790;
@@ -172,13 +172,13 @@
 1;14;Poker? I Barely Know Her;Regina King (Actress);s1e14_5;11667;
 1;14;Poker? I Barely Know Her;Jackée Harry (Actress);s1e14_6;11668;
 1;14;Poker? I Barely Know Her;Hal Williams (Actor);s1e14_7;11668,11669;
-1;14;Poker? I Barely Know Her;Lester Jenkins (Character from the TV show 227);s1e14_8;11669;
-1;14;Poker? I Barely Know Her;Cameron Frye (Character in the movie Ferris Bueller's Day Off);s1e14_9;12004;
+1;14;Poker? I Barely Know Her;Lester Jenkins (Character from 227);s1e14_8;11669;
+1;14;Poker? I Barely Know Her;Cameron Frye (Character from Ferris Bueller's Day Off);s1e14_9;12004;
 1;14;Poker? I Barely Know Her;James Bond (Character from James Bond);s1e14_10;11924;
 1;14;Poker? I Barely Know Her;Matt Lauer (Journalist/Host of NBC's The Today Show);s1e14_11;12036;
 1;14;Poker? I Barely Know Her;Diane Lane (Actress);s1e14_12;12036;
 1;14;Poker? I Barely Know Her;Superman (Action superhero);s1e14_13;12071;
-1;14;Poker? I Barely Know Her;Rocky Balboa (Character in the Rocky movies);s1e14_14;12072;
+1;14;Poker? I Barely Know Her;Rocky Balboa (Character from Rocky);s1e14_14;12072;
 1;14;Poker? I Barely Know Her;Teri Polo (Actress);s1e14_15;12083;
 1;14;Poker? I Barely Know Her;Chaka Khan (Musician);s1e14_16;12086;
 1;14;Poker? I Barely Know Her;Passenger 57 (Movie);s1e14_17;12264,12265;https://youtu.be/QaIEZligRj8?t=91
@@ -232,7 +232,7 @@
 2;1;American Duos;Mr. Bean (Stage name of actor Rowan Atkinson);s2e1_22;13555,13595;
 2;1;American Duos;Tony Randall (Actor);s2e1_23;13561;
 2;1;American Duos;Hall & Oates (Musicians);s2e1_24;13613,13614;
-2;1;American Duos;Keyser Soze (Character in the movie The Usual Suspects);s2e1_25;13629;
+2;1;American Duos;Keyser Soze (Character from The Usual Suspects);s2e1_25;13629;
 2;1;American Duos;Count Chocula (Cereal);s2e1_26;13675;
 2;1;American Duos;Kris Kristofferson (Actor/Musician);s2e1_27;13733;
 2;1;American Duos;William Hung (Musician);s2e1_28;13911;
@@ -253,7 +253,7 @@
 2;2;65 Million Years Off;Terence Trent D'Arby (Musician);s2e2_7;14309,14310;
 2;2;65 Million Years Off;Jeff Goldblum (Actor);s2e2_8;14356;
 2;2;65 Million Years Off;Trilobites (Fish fossils);s2e2_9;14374,14379,14384;
-2;2;65 Million Years Off;Pinhead, Chatterbox, Cenobite, Stitch, Surgeon (Characters in the Hellraiser movies);s2e2_10;14376;
+2;2;65 Million Years Off;Pinhead, Chatterbox, Cenobite, Stitch, Surgeon (Characters from Hellraiser);s2e2_10;14376;
 2;2;65 Million Years Off;Battlezone (Video game);s2e2_11;14419;
 2;2;65 Million Years Off;Tony Gwynn (Athlete);s2e2_12;14485;
 2;2;65 Million Years Off;Sigourney Weaver (Actress);s2e2_13;14542;
@@ -268,7 +268,7 @@
 2;2;65 Million Years Off;Death and the Maiden (Movie);s2e2_22;14553;
 2;2;65 Million Years Off;Half Moon Street (Movie);s2e2_23;14554;
 2;2;65 Million Years Off;Of Mice and Men (Movie/Novel);s2e2_24;14739,14766;
-2;2;65 Million Years Off;Lennie Small (Character in the movie/novel Of Mice and Men);s2e2_25;14740,14746,14747,14750,14793,14843,14844,14846;https://youtu.be/5Ddap2Pyhtw
+2;2;65 Million Years Off;Lennie Small (Character from Of Mice and Men);s2e2_25;14740,14746,14747,14750,14793,14843,14844,14846;https://youtu.be/5Ddap2Pyhtw
 2;2;65 Million Years Off;Lou Boudreau (Athlete);s2e2_26;14963,14965;
 2;2;65 Million Years Off;Joe DiMaggio (Athlete);s2e2_27;14966;
 2;3;Psy vs. Psy;The Home Depot (Home improvement company);s2e3_1;15084,15129,15709;
@@ -293,7 +293,7 @@
 2;3;Psy vs. Psy;Broadcast News (Movie);s2e3_20;15601;https://youtu.be/2zTqIJeCd3c?
 2;3;Psy vs. Psy;William Hurt (Actor);s2e3_21;15602;
 2;3;Psy vs. Psy;Wicked (Musical);s2e3_22;15719;
-2;3;Psy vs. Psy;Clarice (Character in the movie The Silence Of The Lambs);s2e3_23;15307;
+2;3;Psy vs. Psy;Clarice (Character from The Silence Of The Lambs);s2e3_23;15307;
 2;3;Psy vs. Psy;William Shakespeare (English playwright);s2e3_24;15091;
 2;3;Psy vs. Psy;Romeo and Juliet (Play by William Shakespeare);s2e3_25;15090,15091;
 2;3;Psy vs. Psy;Waiting for Godot (Play by Samuel Beckett);s2e3_26;15055;
@@ -368,7 +368,7 @@
 2;7;If You're So Smart, Then Why Are You Dead?;Holly Robinson (Actress);s2e7_5;18439;
 2;7;If You're So Smart, Then Why Are You Dead?;Richard Grieco (Actor);s2e7_6;18440,18441;
 2;7;If You're So Smart, Then Why Are You Dead?;Macbeth (Play);s2e7_7;18448;
-2;7;If You're So Smart, Then Why Are You Dead?;Banquo (Character in the play Macbeth);s2e7_8;18448;
+2;7;If You're So Smart, Then Why Are You Dead?;Banquo (Character from Macbeth);s2e7_8;18448;
 2;7;If You're So Smart, Then Why Are You Dead?;Craig Sheffer (Actor);s2e7_9;18489;
 2;7;If You're So Smart, Then Why Are You Dead?;Doogie Howser, M.D. (TV Show);s2e7_10;18493;
 2;7;If You're So Smart, Then Why Are You Dead?;C. Everett Koop (Surgeon General of the United States under president Ronald Reagan);s2e7_11;18519;
@@ -402,8 +402,8 @@
 2;8;Rob-a-Bye Baby;Bad News Bears (Movie);s2e8_4;19331;
 2;8;Rob-a-Bye Baby;Breaking Away (Movie);s2e8_5;19332;
 2;8;Rob-a-Bye Baby;Little Children (Movie);s2e8_6;19332;
-2;8;Rob-a-Bye Baby;Spock (Character from the TV show Star Trek);s2e8_7;19473;
-2;8;Rob-a-Bye Baby;Bones (Character from the TV show Star Trek);s2e8_8;19477;
+2;8;Rob-a-Bye Baby;Spock (Character from Star Trek);s2e8_7;19473;
+2;8;Rob-a-Bye Baby;Bones (Character from Star Trek);s2e8_8;19477;
 2;8;Rob-a-Bye Baby;Star Trek (TV Show);s2e8_9;19483;
 2;8;Rob-a-Bye Baby;My Two Dads (TV Show);s2e8_10;19637;
 2;8;Rob-a-Bye Baby;Greg Evigan (Actor);s2e8_11;19640;
@@ -423,7 +423,7 @@
 2;8;Rob-a-Bye Baby;Goodnight Moon (Book);s2e8_25;19767;
 2;8;Rob-a-Bye Baby;The Giving Tree (Book);s2e8_26;19767;
 2;8;Rob-a-Bye Baby;Philip Glass (Musician);s2e8_27;19833;
-2;8;Rob-a-Bye Baby;Christmas Jones (Character in the movie The World Is Not Enough);s2e8_28;19946;
+2;8;Rob-a-Bye Baby;Christmas Jones (Character from The World Is Not Enough);s2e8_28;19946;
 2;8;Rob-a-Bye Baby;Denise Richards (Actress);s2e8_29;19945;
 2;9;Bounty Hunters!;Shaun Cassidy (Actor/Producer);s2e9_1;20064;
 2;9;Bounty Hunters!;Tango & Cash (Movie);s2e9_2;20117;
@@ -436,7 +436,7 @@
 2;9;Bounty Hunters!;Road House (Movie);s2e9_9;20404;
 2;9;Bounty Hunters!;Open Water (Movie);s2e9_10;20464;https://youtu.be/Z9q1qJi1nMs?t=26
 2;9;Bounty Hunters!;WarGames (Movie);s2e9_11;20614;
-2;9;Bounty Hunters!;Han Solo (Character in the Star War movies);s2e9_12;20654;
+2;9;Bounty Hunters!;Han Solo (Character from Star War);s2e9_12;20654;
 2;9;Bounty Hunters!;David Letterman (Television host);s2e9_13;20289;
 2;9;Bounty Hunters!;Tiki Barber (Football player);s2e9_14;20511;
 2;10;Gus' Dad May Have Killed an Old Guy;Daisy Red Ryder (BB gun);s2e10_1;20792;
@@ -450,7 +450,7 @@
 2;10;Gus' Dad May Have Killed an Old Guy;Hogmanay (Celebration);s2e10_9;21006;
 2;11;There's Something About Mira;Hello Kitty (Fictional character by Sanrio);s2e11_1;22068;
 2;11;There's Something About Mira;Caddyshack (Movie);s2e11_2;22208;
-2;11;There's Something About Mira;Jan Brady (Character from the TV show The Brady Bunch);s2e11_3;22258;
+2;11;There's Something About Mira;Jan Brady (Character from The Brady Bunch);s2e11_3;22258;
 2;11;There's Something About Mira;Clark Bar (Candy bar);s2e11_4;22299;
 2;11;There's Something About Mira;Ghost In A Ballroom (Reference to the movie Ghostbusters);s2e11_5;22435;
 2;11;There's Something About Mira;Short Circuit (Movie);s2e11_6;22114;
@@ -560,7 +560,7 @@
 3;1;Ghosts;Augusto Pinochet (Chilean dictator);s3e1_8;26454;
 3;1;Ghosts;Strange Case of Dr. Jekyll and Mr. Hyde (Novella written by Robert Louis Stevenson);s3e1_9;26573;
 3;1;Ghosts;Magnum, P.I. (TV Show);s3e1_10;26765;
-3;1;Ghosts;Tom Highway (Character from the movie Heartbreak Ridge);s3e1_11;26778,26779;
+3;1;Ghosts;Tom Highway (Character from Heartbreak Ridge);s3e1_11;26778,26779;
 3;1;Ghosts;The Three Tenors (Operatic singing trio);s3e1_12;26893;
 3;1;Ghosts;Luciano Pavarotti (Italian operatic tenor);s3e1_13;26894;
 3;1;Ghosts;Red Rover (Children's game);s3e1_14;27020;
@@ -591,7 +591,7 @@
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Sixteen Candles (Movie);s3e2_23;27651,27652;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Pretty in Pink (Movie);s3e2_24;27677,27847;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Can I borrow your underpants for 10 minutes? (Quote from the movie Sixteen Candles);s3e2_26;27651,27652;https://youtu.be/YQQv9yva924?t=149
-3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Barnaby Jones (Character in the TV show Barnaby Jones);s3e2_27;27367;
+3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Barnaby Jones (Character from Barnaby Jones);s3e2_27;27367;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Cabbage Patch (Dance);s3e2_28;27559;
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?;Duckie Dale (Character from Pretty in Pink);s3e2_29;27580,27590;
 3;3;Daredevils!;That's Incredible! (TV Show);s3e3_1;27954;
@@ -631,7 +631,7 @@
 3;5;Disco Didn't Die. It Was Murdered!;Phil Collins (Musician);s3e5_2;29612,29615,29618,29619;
 3;5;Disco Didn't Die. It Was Murdered!;Invisible Touch (Song by Phil Collins);s3e5_3;29617;
 3;5;Disco Didn't Die. It Was Murdered!;Raiders of the Lost Ark (Movie);s3e5_4;29694;
-3;5;Disco Didn't Die. It Was Murdered!;"Jimmy ""Popeye"" Doyle (Character from the movie The French Connection)";s3e5_5;29744;
+3;5;Disco Didn't Die. It Was Murdered!;"Jimmy ""Popeye"" Doyle (Character from The French Connection)";s3e5_5;29744;
 3;5;Disco Didn't Die. It Was Murdered!;Noah's Ark (Ship in the Genesis flood narrative);s3e5_6;29906;
 3;5;Disco Didn't Die. It Was Murdered!;Theme From Shaft (Song by Isaac Hayes);s3e5_7;30033;https://youtu.be/Q429AOpL_ds?t=200
 3;5;Disco Didn't Die. It Was Murdered!;Lies (Song by Thompson Twins);s3e5_8;30061,30062;https://youtu.be/MNeVjVu9O6w?t=42
@@ -670,7 +670,7 @@
 3;8;Gus Walks into a Bank;Lhasa Apso (Dog breed);s3e8_4;31912;
 3;8;Gus Walks into a Bank;Oreo (Brand of cookies);s3e8_5;31985;
 3;8;Gus Walks into a Bank;Sidney Poitier (Actor);s3e8_6;32275;
-3;8;Gus Walks into a Bank;Virgil Tibbs (Character from the movie In the Heat of the Night);s3e8_7;32278;https://youtu.be/i6n8VyqaCQ4?feature=shared&t=51
+3;8;Gus Walks into a Bank;Virgil Tibbs (Character from In the Heat of the Night);s3e8_7;32278;https://youtu.be/i6n8VyqaCQ4?feature=shared&t=51
 3;8;Gus Walks into a Bank;Ball Park (Food brand);s3e8_8;32317;
 3;9;Christmas Joy;Woody Harrelson (Actor);s3e9_1;32915;
 3;9;Christmas Joy;Wildcats (Movie);s3e9_2;32915;
@@ -700,7 +700,7 @@
 3;11;Lassie Did a Bad, Bad Thing;Cop and a Half (Movie);s3e11_3;33914;
 3;11;Lassie Did a Bad, Bad Thing;Jarlsberg (Type of Cheese);s3e11_4;34092,34094;
 3;11;Lassie Did a Bad, Bad Thing;Water Lilies (Series of oil paintings by Claude Monet);s3e11_5;34093;
-3;11;Lassie Did a Bad, Bad Thing;Daisy Buchanan (Character in The Great Gatsby);s3e11_6;34102;
+3;11;Lassie Did a Bad, Bad Thing;Daisy Buchanan (Character from The Great Gatsby);s3e11_6;34102;
 3;11;Lassie Did a Bad, Bad Thing;The Great Gatsby (Novel);s3e11_7;34101;
 3;11;Lassie Did a Bad, Bad Thing;ThunderCats (TV Show);s3e11_8;34125;
 3;11;Lassie Did a Bad, Bad Thing;Howard Jones (Musician);s3e11_9;34214;
@@ -812,7 +812,7 @@
 3;15;Tuesday the 17th;Garrison Keillor (Author/Radio personality);s3e15_7;37111;
 3;15;Tuesday the 17th;What's Eating Gilbert Grape (Movie);s3e15_8;37120;
 3;15;Tuesday the 17th;Aladdin (Movie);s3e15_9;37283;
-3;15;Tuesday the 17th;Iago (Character from the movie Aladdin);s3e15_10;37282;
+3;15;Tuesday the 17th;Iago (Character from Aladdin);s3e15_10;37282;
 3;15;Tuesday the 17th;Deep Blue Sea (Movie);s3e15_11;37292;
 3;15;Tuesday the 17th;LL Cool J (Musician/Actor);s3e15_12;37292;
 3;15;Tuesday the 17th;Samuel L. Jackson (Actor);s3e15_13;37293;
@@ -823,15 +823,15 @@
 3;15;Tuesday the 17th;Cyndi Lauper (Musician/Actress);s3e15_18;37433;
 3;15;Tuesday the 17th;Vibes (Movie);s3e15_19;37432;
 3;15;Tuesday the 17th;Judas (Disciple of Jesus in the Bible);s3e15_20;37274;
-3;15;Tuesday the 17th;Iago (Character in the play Othello);s3e15_21;37282;
+3;15;Tuesday the 17th;Iago (Character from Othello);s3e15_21;37282;
 3;15;Tuesday the 17th;Annie? Are you OK? (Reference to the song Smooth Criminal);s3e15_22;37307,37308,37309;
 3;15;Tuesday the 17th;Hoth (Planet from Star Wors);s3e15_23;36992;
 3;15;Tuesday the 17th;Rollie Fingers (Baseball player);s3e15_24;37026;
 3;16;An Evening with Mr. Yang;Fuddruckers (Restaurant);s3e16_1;37599;
-3;16;An Evening with Mr. Yang;Hitch (Character from the movie Hitch);s3e16_2;37605;
-3;16;An Evening with Mr. Yang;Will Hunting (Character from the movie Good Will Hunting);s3e16_3;37606;
+3;16;An Evening with Mr. Yang;Hitch (Character from Hitch);s3e16_2;37605;
+3;16;An Evening with Mr. Yang;Will Hunting (Character from Good Will Hunting);s3e16_3;37606;
 3;16;An Evening with Mr. Yang;Judd Nelson (Actor);s3e16_4;37613;
-3;16;An Evening with Mr. Yang;How do you like them apples? (Quote from the Movie Good Will Hunting);s3e16_5;37632,38217;https://youtu.be/gcZPWkNY6x8?t=98
+3;16;An Evening with Mr. Yang;How do you like them apples? (Quote from Good Will Hunting);s3e16_5;37632,38217;https://youtu.be/gcZPWkNY6x8?t=98
 3;16;An Evening with Mr. Yang;General Mills (Cereal manufacturer);s3e16_6;37760;
 3;16;An Evening with Mr. Yang;Sterling Cooper (Actor);s3e16_7;37681;
 3;16;An Evening with Mr. Yang;Kramer vs. Kramer (Movie);s3e16_8;37701;
@@ -840,7 +840,7 @@
 3;16;An Evening with Mr. Yang;Doctor Dolittle (Movie);s3e16_11;37856,37857;
 3;16;An Evening with Mr. Yang;Men's Fitness (Magazine);s3e16_12;37943;
 3;16;An Evening with Mr. Yang;Ryan Reynolds (Actor);s3e16_13;37944;
-3;16;An Evening with Mr. Yang;King Kong (Character from the movie King Kong);s3e16_14;37974;
+3;16;An Evening with Mr. Yang;King Kong (Character from King Kong);s3e16_14;37974;
 3;16;An Evening with Mr. Yang;Ken Burns (Director/Producer);s3e16_15;37992;
 3;16;An Evening with Mr. Yang;The Last of the Famous International Playboys (Third single released by Morrissey);s3e16_16;38008;
 3;16;An Evening with Mr. Yang;Doubting Thomas (Reference to one of the Twelve Apostles of Jesus);s3e16_17;38024;
@@ -856,7 +856,7 @@
 4;1;Extradition: British Columbia;Julie Christie (Actress);s4e1_2;38699;
 4;1;Extradition: British Columbia;Doctor Zhivago (Movie);s4e1_3;38699;
 4;1;Extradition: British Columbia;Pocahontas (Movie);s4e1_4;38773;
-4;1;Extradition: British Columbia;Meeko (Character from the movie Pocahontas);s4e1_5;38773;
+4;1;Extradition: British Columbia;Meeko (Character from Pocahontas);s4e1_5;38773;
 4;1;Extradition: British Columbia;Rocky Raccoon (Song by The Beatles);s4e1_6;38774,38775;
 4;1;Extradition: British Columbia;Miller's Crossing (Movie);s4e1_7;38815,38829;
 4;1;Extradition: British Columbia;John Turturro (Actor);s4e1_8;38815;
@@ -866,11 +866,11 @@
 4;1;Extradition: British Columbia;Twister (Game);s4e1_12;38960;
 4;1;Extradition: British Columbia;American Idol (TV Show);s4e1_13;38994;
 4;1;Extradition: British Columbia;Mandocello (Instrument);s4e1_14;39037,39039;
-4;1;Extradition: British Columbia;Thomas Crown (Character from the movie The Thomas Crown Affair);s4e1_15;39055;
+4;1;Extradition: British Columbia;Thomas Crown (Character from The Thomas Crown Affair);s4e1_15;39055;
 4;1;Extradition: British Columbia;Remington Steele (Character from the TV show Remington Steele);s4e1_16;39056;
-4;1;Extradition: British Columbia;Laura Holt (Character from the TV show Remington Steele);s4e1_17;39056;
+4;1;Extradition: British Columbia;Laura Holt (Character from Remington Steele);s4e1_17;39056;
 4;1;Extradition: British Columbia;Stephanie Zimbalist (Actress);s4e1_18;39057;
-4;1;Extradition: British Columbia;Dudley (Character from the TV show The Dudley Do-Right Show);s4e1_20;38518,38827;
+4;1;Extradition: British Columbia;Dudley (Character from The Dudley Do-Right Show);s4e1_20;38518,38827;
 4;1;Extradition: British Columbia;Édouard Manet (Painter);s4e1_21;38643,38667,38676,38677,38679,38683,38687,38696,38730,38837,39070;
 4;1;Extradition: British Columbia;Vincent van Gogh (Painter);s4e1_22;38794;
 4;1;Extradition: British Columbia;Edgar Degas (Painter);s4e1_23;38800;
@@ -910,7 +910,7 @@
 4;3;High Noon-ish;Tim Robbins (Actor);s4e3_9;40580;
 4;3;High Noon-ish;Flowers in the Attic (Novel written by V. C. Andrews);s4e3_10;40307;
 4;3;High Noon-ish;Febreze (Brand of household odor eliminators);s4e3_11;40419;
-4;3;High Noon-ish;Winston Zeddemore (Character from the movie Ghostbusters);s4e3_12;40485;
+4;3;High Noon-ish;Winston Zeddemore (Character from Ghostbusters);s4e3_12;40485;
 4;4;The Devil's in the Details... and the Upstairs Bedroom;Grand Theft Auto (Video Game);s4e4_1;40713;
 4;4;The Devil's in the Details... and the Upstairs Bedroom;Brett Favre (Athlete);s4e4_2;40780;
 4;4;The Devil's in the Details... and the Upstairs Bedroom;Erin Brockovich (Movie);s4e4_3;40790;
@@ -938,7 +938,7 @@
 4;5;Shawn Gets the Yips;Chuck Knoblauch (Athlete);s4e5_2;41424;
 4;5;Shawn Gets the Yips;Keith Olbermann (Political commentator);s4e5_3;41428;
 4;5;Shawn Gets the Yips;Wes Craven (Director/Writer);s4e5_4;41493;
-4;5;Shawn Gets the Yips;Fred Flintstone (Character from the TV show The Flintstones);s4e5_5;41551;https://youtu.be/uq7noaMwLfg?t=52
+4;5;Shawn Gets the Yips;Fred Flintstone (Character from The Flintstones);s4e5_5;41551;https://youtu.be/uq7noaMwLfg?t=52
 4;5;Shawn Gets the Yips;A Streetcar Named Desire (Movie);s4e5_6;41554;
 4;5;Shawn Gets the Yips;Nordstrom (Department store);s4e5_7;41560;
 4;5;Shawn Gets the Yips;Meineke (Car Care Center);s4e5_8;41614;
@@ -967,7 +967,7 @@
 4;6;Bollywood Homicide;The Sixth Sense (Movie);s4e6_11;42549;https://youtu.be/QUYKSWQmkrg?t=25
 4;6;Bollywood Homicide;Zalman King (Director);s4e6_12;42669;
 4;6;Bollywood Homicide;Amish (American follower of the Mennonite religion);s4e6_13;42206;
-4;7;High Top Fade-Out;Joker (Character in the Batman comics);s4e7_1;42907;
+4;7;High Top Fade-Out;Joker (Character from Batman);s4e7_1;42907;
 4;7;High Top Fade-Out;Matthew McConaughey (Actor);s4e7_2;42907;
 4;7;High Top Fade-Out;Colonel Sanders (Founder of Kentucky Fried Chicken);s4e7_3;42907;
 4;7;High Top Fade-Out;New Edition (Musicians);s4e7_4;42946;
@@ -1015,15 +1015,15 @@
 4;8;Let's Get Hairy;Almost Famous (Movie);s4e8_17;43963,43964,44262,44263;
 4;8;Let's Get Hairy;Poltergeist (Movie);s4e8_18;44064;
 4;8;Let's Get Hairy;A Different World (TV Show);s4e8_19;44065;
-4;8;Let's Get Hairy;Dwayne Cleophus Wayne (Character from the TV show A Different World);s4e8_20;44065;
+4;8;Let's Get Hairy;Dwayne Cleophus Wayne (Character from A Different World);s4e8_20;44065;
 4;8;Let's Get Hairy;Hellboy (Movie);s4e8_21;44083;
 4;8;Let's Get Hairy;Sam Elliott (Actor);s4e8_22;44152;
 4;8;Let's Get Hairy;Pippi Longstocking (Character from a series of children's books, movies, and TV shows);s4e8_23;44376;
-4;8;Let's Get Hairy;R.P. McMurphy (Character in the movie One Flew Over The Cuckoo's Nest);s4e8_24;43873;
+4;8;Let's Get Hairy;R.P. McMurphy (Character from One Flew Over The Cuckoo's Nest);s4e8_24;43873;
 4;8;Let's Get Hairy;Rolo (Chocolate brand);s4e8_25;43637;
 4;8;Let's Get Hairy;Wolfen (Movie);s4e8_26;43750;
 4;8;Let's Get Hairy;Hot Cross Buns (Nursery rhyme);s4e8_27;43853;
-4;8;Let's Get Hairy;Charley Cheswick (Character in the movie One Flew Over The Cuckoo's Nest);s4e8_28;43874;
+4;8;Let's Get Hairy;Charley Cheswick (Character from One Flew Over The Cuckoo's Nest);s4e8_28;43874;
 4;8;Let's Get Hairy;Let's Hear It for the Boy (Song by Deniece Williams);s4e8_29;43925,43926;
 4;8;Let's Get Hairy;Harry Monroe (Character from Stir Crazy);s4e8_30;44011;
 4;8;Let's Get Hairy;Stir Crazy (Movie);s4e8_31;44012;
@@ -1045,7 +1045,7 @@
 4;9;Shawn Takes a Shot in the Dark;Reservoir Dogs (Movie);s4e9_13;44756;
 4;9;Shawn Takes a Shot in the Dark;Maureen O'Hara (Actress);s4e9_14;44990,44991;
 4;9;Shawn Takes a Shot in the Dark;The Fast and the Furious: Tokyo Drift (Movie);s4e9_15;45065;
-4;10;You Can't Handle This Episode;Gomer (Character from the TV show Gomer Pile USMC);s4e10_1;45256;
+4;10;You Can't Handle This Episode;Gomer (Character from Gomer Pile USMC);s4e10_1;45256;
 4;10;You Can't Handle This Episode;Yo-Yo Ma (Musician);s4e10_2;45326;
 4;10;You Can't Handle This Episode;Captain America (Comic book character);s4e10_3;45412;
 4;10;You Can't Handle This Episode;The Guardian (Movie);s4e10_4;45438;
@@ -1232,7 +1232,7 @@
 5;1;Romeo and Juliet and Juliet;Panda Express (Restaurant);s5e1_6;51259,51279,51872;
 5;1;Romeo and Juliet and Juliet;Jackie Chan (Actor);s5e1_7;51427;
 5;1;Romeo and Juliet and Juliet;Ten Tigers of Canton (Group of ten Chinese martial artists);s5e1_8;51484;
-5;1;Romeo and Juliet and Juliet;R2-D2 (Character from the Star Wars movies);s5e1_9;51567;
+5;1;Romeo and Juliet and Juliet;R2-D2 (Character from Star Wars);s5e1_9;51567;
 5;1;Romeo and Juliet and Juliet;Kenny Baker (Actor/Musician);s5e1_10;51568,51569;
 5;1;Romeo and Juliet and Juliet;Cassandra Peterson (Actress);s5e1_11;51571;
 5;1;Romeo and Juliet and Juliet;Elvira (Cassandra Peterson alter-ego);s5e1_12;51570;
@@ -1309,7 +1309,7 @@
 5;4;Chivalry Is Not Dead... But Someone Is;George Hamilton (Actor);s5e4_6;54303;
 5;4;Chivalry Is Not Dead... But Someone Is;Ashley Hamilton (Musician/Actor);s5e4_7;54304;
 5;4;Chivalry Is Not Dead... But Someone Is;Tears for Fears (Musicians);s5e4_8;54317;
-5;4;Chivalry Is Not Dead... But Someone Is;Chandler Bing (Character from the TV show Friends);s5e4_9;54588,54589;https://youtu.be/yS7lTUEHHE4?t=106
+5;4;Chivalry Is Not Dead... But Someone Is;Chandler Bing (Character from Friends);s5e4_9;54588,54589;https://youtu.be/yS7lTUEHHE4?t=106
 5;4;Chivalry Is Not Dead... But Someone Is;Emmanuelle (Movie series);s5e4_10;54554;
 5;4;Chivalry Is Not Dead... But Someone Is;Ken (Doll);s5e4_11;53928,53929;
 5;4;Chivalry Is Not Dead... But Someone Is;Super Troopers (Movie);s5e4_12;53986;
@@ -1368,7 +1368,7 @@
 5;7;Ferry Tale;Jamie Foxx (Actor);s5e7_6;57088;
 5;7;Ferry Tale;Tom Cruise (Actor);s5e7_7;57088,57089;
 5;7;Ferry Tale;Collateral (Movie);s5e7_8;57087;
-5;7;Ferry Tale;Percy Jackson (Character in Percy Jackson & The Olympians book series);s5e7_9;57282,57283;
+5;7;Ferry Tale;Percy Jackson (Character from Percy Jackson & The Olympians);s5e7_9;57282,57283;
 5;7;Ferry Tale;Scooby-Doo (TV Show);s5e7_10;57603;
 5;7;Ferry Tale;Joe Piscopo (Actor);s5e7_11;56720;
 5;7;Ferry Tale;Dog Day Afternoon (Movie);s5e7_12;57135;
@@ -2019,7 +2019,7 @@
 7;3;Lassie Jerky;Tony Randall (Actor);s7e3_17;84997;
 7;3;Lassie Jerky;Jeff Probst (Actor);s7e3_18;85010,85011;
 7;3;Lassie Jerky;Cannibal Holocaust (Movie);s7e3_19;85016;
-7;3;Lassie Jerky;Predator (Character from the movie Predator);s7e3_20;85187;
+7;3;Lassie Jerky;Predator (Character from Predator);s7e3_20;85187;
 7;3;Lassie Jerky;Love & Basketball (Movie);s7e3_21;85425;
 7;3;Lassie Jerky;Capturing the Friedmans (Movie);s7e3_22;84605;
 7;3;Lassie Jerky;The Munsters (TV Show);s7e3_23;84626;
