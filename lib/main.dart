@@ -14,7 +14,6 @@ import 'package:psychphinder/search.dart';
 import 'package:psychphinder/favorites.dart';
 import 'package:psychphinder/global/theme.dart';
 import 'package:check_app_version/show_dialog.dart';
-import 'package:url_strategy/url_strategy.dart';
 import 'classes/phrase_class.dart';
 import 'global/globals.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,11 +30,8 @@ Future<void> main() async {
   Hive.registerAdapter(PhraseAdapter());
   await Hive.openBox('favorites');
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   final csvData = CSVData();
   await csvData.loadDataFromCSV();
-  setPathUrlStrategy();
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider.value(value: csvData),
