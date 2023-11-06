@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list_view/flutter_list_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/classes/reference_class.dart';
 import 'package:psychphinder/main.dart';
 import 'package:psychphinder/global/globals.dart';
 import 'package:psychphinder/global/search_engine.dart';
-import 'package:psychphinder/widgets/create_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/services.dart';
@@ -20,12 +20,12 @@ class BottomSheetEpisode extends StatefulWidget {
     super.key,
     required this.indexLine,
     required this.fullEpisode,
-    required this.referencesList,
+    this.referenceId = "",
   });
 
   final int indexLine;
   final List fullEpisode;
-  final List referencesList;
+  final String referenceId;
 
   @override
   State<BottomSheetEpisode> createState() => _BottomSheetEpisodeState();
@@ -128,11 +128,38 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
     );
   }
 
+  List findReferences(List referenceData) {
+    Reference reference = Reference(
+      season: 0,
+      episode: 0,
+      name: "",
+      reference: "",
+      id: "",
+      idLine: "",
+      link: "",
+    );
+    for (var i = 0; i < referenceData.length; i++) {
+      if (referenceData[i].id == widget.referenceId) {
+        reference = referenceData[i];
+      }
+    }
+    final splitted = reference.idLine.replaceAll('\r', '').trim().split(',');
+    List<String> references = [];
+    for (var j = 0; j < splitted.length; j++) {
+      if (splitted.first != "") {
+        references.add(splitted[j]);
+      }
+    }
+    return references;
+  }
+
   @override
   Widget build(BuildContext context) {
     var csvData = Provider.of<CSVData>(context);
     final searchEngineProvider = Provider.of<SearchEngineProvider>(context);
     final List referenceData = csvData.referenceData;
+    final List referencesList =
+        widget.referenceId != "" ? findReferences(referenceData) : [];
     _calculationFuture ??= calculateReferenceList(referenceData);
     FlutterListViewController controller = FlutterListViewController();
     return FutureBuilder(
@@ -155,96 +182,104 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
               final isFavorite = box.get(widget.fullEpisode[newId].id) != null;
               return Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      widget.referencesList.length > 19
-                          ? Expanded(flex: 1, child: Container())
-                          : const SizedBox(width: 0),
-                      Expanded(
-                        flex: 8,
-                        child: Center(
-                          child: Column(
-                            children: [
-                              Text(
-                                widget.fullEpisode[newId].name,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'PsychFont',
-                                  color: Colors.green,
-                                ),
-                              ),
-                              if (widget.fullEpisode[newId].season != 0)
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        referencesList.length > 19
+                            ? Expanded(flex: 1, child: Container())
+                            : const SizedBox(width: 0),
+                        Expanded(
+                          flex: 8,
+                          child: Center(
+                            child: Column(
+                              children: [
                                 Text(
-                                  "Season ${widget.fullEpisode[newId].season}, Episode ${widget.fullEpisode[newId].episode}",
+                                  widget.fullEpisode[newId].name,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
-                                      fontSize: 15, fontFamily: 'PsychFont'),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'PsychFont',
+                                    color: Colors.green,
+                                  ),
                                 ),
-                            ],
+                                if (widget.fullEpisode[newId].season != 0)
+                                  Text(
+                                    "Season ${widget.fullEpisode[newId].season}, Episode ${widget.fullEpisode[newId].episode}",
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        fontSize: 15, fontFamily: 'PsychFont'),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      widget.referencesList.length > 1
-                          ? Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.arrow_circle_left,
-                                    size: 25,
-                                  ),
-                                  onPressed: () {
-                                    if (currentRef > 0) {
-                                      int referenceId = findIndex(
-                                          widget.fullEpisode,
-                                          int.parse(widget
-                                              .referencesList[currentRef - 1]));
-                                      if (referenceId >= 3) {
-                                        controller.sliverController
-                                            .animateToIndex(referenceId - 3,
-                                                duration: const Duration(
-                                                    milliseconds: 300),
-                                                curve: Curves.ease);
-                                      } else {
-                                        controller.sliverController
-                                            .animateToIndex(referenceId,
-                                                duration: const Duration(
-                                                    milliseconds: 300),
-                                                curve: Curves.ease);
+                        referencesList.length > 1
+                            ? Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_circle_left,
+                                      size: 25,
+                                    ),
+                                    onPressed: () {
+                                      if (currentRef > 0) {
+                                        int referenceId = findIndex(
+                                            widget.fullEpisode,
+                                            int.parse(referencesList[
+                                                currentRef - 1]));
+                                        if (referenceId >= 3) {
+                                          controller.sliverController
+                                              .animateToIndex(referenceId - 3,
+                                                  duration: const Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease);
+                                        } else {
+                                          controller.sliverController
+                                              .animateToIndex(referenceId,
+                                                  duration: const Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease);
+                                        }
+                                        currentRef--;
+                                        newId = referenceId;
+                                        context.go(
+                                          '/references/season${widget.fullEpisode[newId].season}/episode${widget.fullEpisode[newId].episode}/${widget.referenceId}/${widget.fullEpisode[newId].id}',
+                                        );
+                                        setState(
+                                          () {
+                                            currentRef;
+                                            newId;
+                                          },
+                                        );
                                       }
-                                      currentRef--;
-                                      newId = referenceId;
-                                      setState(() {
-                                        currentRef;
-                                        newId;
-                                      });
-                                    }
-                                  },
-                                ),
-                                Text(
-                                  "${currentRef + 1}/${widget.referencesList.length}",
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                                    },
                                   ),
-                                ),
-                                IconButton(
+                                  Text(
+                                    "${currentRef + 1}/${referencesList.length}",
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  IconButton(
                                     icon: const Icon(
                                       Icons.arrow_circle_right,
                                       size: 25,
                                     ),
                                     onPressed: () {
                                       if (currentRef <
-                                          widget.referencesList.length - 1) {
+                                          referencesList.length - 1) {
                                         int referenceId = findIndex(
-                                            widget.fullEpisode,
-                                            int.parse(widget.referencesList[
-                                                currentRef + 1]));
+                                          widget.fullEpisode,
+                                          int.parse(
+                                              referencesList[currentRef + 1]),
+                                        );
                                         if (referenceId >= 3) {
                                           controller.sliverController
                                               .animateToIndex(referenceId - 3,
@@ -260,16 +295,21 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                         }
                                         currentRef++;
                                         newId = referenceId;
+                                        context.go(
+                                          '/references/season${widget.fullEpisode[newId].season}/episode${widget.fullEpisode[newId].episode}/${widget.referenceId}/${widget.fullEpisode[newId].id}',
+                                        );
                                         setState(() {
                                           currentRef;
                                           newId;
                                         });
                                       }
-                                    })
-                              ],
-                            )
-                          : const SizedBox(),
-                    ],
+                                    },
+                                  )
+                                ],
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
                   ),
                   Expanded(
                     child: FlutterListView(
@@ -338,6 +378,14 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                             return ListTile(
                               onTap: () {
                                 newId = index;
+                                if (referencesList.isEmpty) {
+                                  context
+                                      .go('/${widget.fullEpisode[newId].id}');
+                                } else {
+                                  context.go(
+                                    '/references/season${widget.fullEpisode[newId].season}/episode${widget.fullEpisode[newId].episode}/${widget.referenceId}/${widget.fullEpisode[newId].id}',
+                                  );
+                                }
                                 setState(() {
                                   newId;
                                 });
@@ -492,22 +540,14 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => CreateImagePage(
-                                            episode: widget.fullEpisode,
-                                            id: newId,
-                                          ),
-                                        ),
-                                      ).then((value) => setState(() {
-                                            SystemChrome.setEnabledSystemUIMode(
-                                                SystemUiMode.manual,
-                                                overlays: [
-                                                  SystemUiOverlay.top,
-                                                  SystemUiOverlay.bottom
-                                                ]);
-                                          }));
+                                      if (referencesList.isEmpty) {
+                                        context.go(
+                                            '/${widget.fullEpisode[newId].id}/image');
+                                      } else {
+                                        context.go(
+                                          '/references/season${widget.fullEpisode[newId].season}/episode${widget.fullEpisode[newId].episode}/${widget.referenceId}/${widget.fullEpisode[newId].id}/image',
+                                        );
+                                      }
                                     },
                                     child: const Text(
                                       "Image",

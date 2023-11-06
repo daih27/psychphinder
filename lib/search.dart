@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:psychphinder/classes/full_episode.dart';
 import 'package:psychphinder/classes/phrase_class.dart';
-import 'package:psychphinder/widgets/bottomsheet.dart';
 import 'package:psychphinder/widgets/itemlist.dart';
 import 'package:diacritic/diacritic.dart';
 import 'global/globals.dart';
@@ -81,17 +80,8 @@ class _SearchPageState extends State<SearchPage>
                   foregroundColor:
                       Theme.of(context).colorScheme.onPrimaryContainer),
               onPressed: () {
-                EpisodeUtil.fullEpisode(data, data[randomSplittedLine]);
-                showModalBottomSheet(
-                  context: context,
-                  enableDrag: false,
-                  builder: (BuildContext context) {
-                    return BottomSheetEpisode(
-                      indexLine: EpisodeUtil.index,
-                      fullEpisode: EpisodeUtil.full,
-                      referencesList: const [],
-                    );
-                  },
+                context.go(
+                  '/$randomSplittedLine',
                 );
               },
               child: Text(line, textAlign: TextAlign.center),
@@ -139,11 +129,6 @@ class _SearchPageState extends State<SearchPage>
       padding: const EdgeInsets.all(10),
       child: Container(
         padding: const EdgeInsets.all(10),
-        // decoration: BoxDecoration(
-        //   color:
-        //       Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
-        //   borderRadius: BorderRadius.circular(10),
-        // ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

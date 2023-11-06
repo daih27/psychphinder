@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:psychphinder/classes/full_episode.dart';
 import 'package:psychphinder/global/globals.dart';
-import 'package:psychphinder/widgets/bottomsheet.dart';
 import 'package:highlight_text/highlight_text.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:diacritic/diacritic.dart';
@@ -239,17 +238,8 @@ class ItemList extends StatelessWidget {
                     ],
                   ),
                   onTap: () {
-                    EpisodeUtil.fullEpisode(data, lines[index]);
-                    showModalBottomSheet(
-                      context: context,
-                      enableDrag: false,
-                      builder: (BuildContext context) {
-                        return BottomSheetEpisode(
-                          indexLine: EpisodeUtil.index,
-                          fullEpisode: EpisodeUtil.full,
-                          referencesList: const [],
-                        );
-                      },
+                    context.go(
+                      '/${lines[index].id}',
                     );
                   },
                 ),

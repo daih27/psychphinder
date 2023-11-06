@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:psychphinder/classes/full_episode.dart';
 import 'package:psychphinder/global/globals.dart';
-import 'package:psychphinder/widgets/bottomsheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -27,8 +26,6 @@ class ReferencesPage extends StatelessWidget {
               ),
               itemCount: data.keys.length,
               itemBuilder: (context, index) {
-                Map<String, List<String>>? episodesData =
-                    data[data.keys.elementAt(index)];
                 return Padding(
                   padding: const EdgeInsets.all(5),
                   child: Material(
@@ -55,17 +52,8 @@ class ReferencesPage extends StatelessWidget {
                       tileColor: Colors.green,
                       contentPadding: const EdgeInsets.all(10),
                       onTap: () {
-                        if (episodesData != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EpisodesRoute(
-                                episodesData,
-                                data.keys.elementAt(index),
-                              ),
-                            ),
-                          );
-                        }
+                        context.go(
+                            '/references/season${int.parse(data.keys.elementAt(index))}');
                       },
                     ),
                   ),
@@ -95,6 +83,15 @@ class EpisodesRoute extends StatelessWidget {
   final Map<String, List<String>> data;
   final String season;
   const EpisodesRoute(this.data, this.season, {Key? key}) : super(key: key);
+
+  String extractNumberBeforeHyphen(String input) {
+    final pattern = RegExp(r'^\d{1,2}\s-\s');
+    final match = pattern.firstMatch(input);
+    if (match != null) {
+      return match.group(0)!.replaceAll(' - ', '');
+    }
+    return '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,14 +139,8 @@ class EpisodesRoute extends StatelessWidget {
                 ),
                 contentPadding: const EdgeInsets.all(10),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ReferencesRoute(
-                        season,
-                        data.keys.elementAt(index),
-                      ),
-                    ),
+                  context.go(
+                    '/references/season$season/episode${extractNumberBeforeHyphen(episodesKey)}',
                   );
                 },
               ),
@@ -163,8 +154,8 @@ class EpisodesRoute extends StatelessWidget {
 
 class ReferencesRoute extends StatefulWidget {
   final String season;
-  final String episode;
-  const ReferencesRoute(this.season, this.episode, {Key? key})
+  final String episodeNumber;
+  const ReferencesRoute(this.season, this.episodeNumber, {Key? key})
       : super(key: key);
 
   @override
@@ -175,23 +166,12 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
   late final Future sortByInit;
   late bool sortByAlphabetical;
   late bool firstLoad;
-  late final String episodeNumber;
 
   @override
   void initState() {
-    episodeNumber = extractNumberBeforeHyphen(widget.episode);
     sortByInit = loadSort();
     firstLoad = true;
     super.initState();
-  }
-
-  String extractNumberBeforeHyphen(String input) {
-    final pattern = RegExp(r'^\d{1,2}\s-\s');
-    final match = pattern.firstMatch(input);
-    if (match != null) {
-      return match.group(0)!.replaceAll(' - ', '');
-    }
-    return '';
   }
 
   Future<bool> loadSort() async {
@@ -208,30 +188,17 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
     List references = [];
     for (var i = 0; i < referenceData.length; i++) {
       if (referenceData[i].season == int.parse(widget.season) &&
-          referenceData[i].episode == int.parse(episodeNumber)) {
+          referenceData[i].episode == int.parse(widget.episodeNumber)) {
         references.add(referenceData[i]);
       }
     }
     return references;
   }
 
-  List currentReference(int index, List references) {
-    final splitted =
-        references[index].idLine.replaceAll('\r', '').trim().split(',');
-    List<String> referenceSelected = [];
-    for (var j = 0; j < splitted.length; j++) {
-      if (splitted.first != "") {
-        referenceSelected.add(splitted[j]);
-      }
-    }
-    return referenceSelected;
-  }
-
   @override
   Widget build(BuildContext context) {
     var csvData = Provider.of<CSVData>(context);
     final List referenceData = csvData.referenceData;
-    final List dataList = csvData.data;
     final references = referenceList(referenceData);
     return FutureBuilder<dynamic>(
       future: sortByInit,
@@ -265,7 +232,7 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
                       ),
                     ),
                     Text(
-                      "Season ${widget.season}, Episode $episodeNumber",
+                      "Season ${widget.season}, Episode ${widget.episodeNumber}",
                       style: const TextStyle(
                         fontFamily: 'PsychFont',
                         fontSize: 12,
@@ -282,12 +249,13 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
                           iconSize: 28,
                           icon: const Icon(Icons.sort_rounded),
                           onPressed: () {
-                            setState(() {
-                              sortByAlphabetical == true
-                                  ? sortByAlphabetical = false
-                                  : sortByAlphabetical = true;
-                            });
-                            // saveSort(sortBy);
+                            setState(
+                              () {
+                                sortByAlphabetical == true
+                                    ? sortByAlphabetical = false
+                                    : sortByAlphabetical = true;
+                              },
+                            );
                           },
                         ),
                         Positioned(
@@ -307,8 +275,6 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
                 padding: const EdgeInsets.all(10),
                 itemCount: references.length,
                 itemBuilder: (context, index) {
-                  final referenceSelected = currentReference(index, references);
-                  final hasReference = referenceSelected.isNotEmpty;
                   final String titleText =
                       references[index].reference.split("(").first.trim();
                   final String subtitleText = references[index]
@@ -326,11 +292,8 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
                         subtitle: Text(subtitleText),
                         trailing: Stack(
                           children: [
-                            if (hasReference)
-                              const Icon(Icons.question_mark_rounded,
-                                  color: Colors.green)
-                            else
-                              const SizedBox(),
+                            const Icon(Icons.question_mark_rounded,
+                                color: Colors.green),
                             if (hasVideo)
                               const Positioned(
                                 right: 0,
@@ -343,23 +306,9 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
                           ],
                         ),
                         onTap: () {
-                          if (hasReference) {
-                            EpisodeUtil.fullEpisode(
-                              dataList,
-                              dataList[int.parse(referenceSelected.first)],
-                            );
-                            showModalBottomSheet(
-                              context: context,
-                              enableDrag: false,
-                              builder: (BuildContext context) {
-                                return BottomSheetEpisode(
-                                  indexLine: EpisodeUtil.index,
-                                  fullEpisode: EpisodeUtil.full,
-                                  referencesList: referenceSelected,
-                                );
-                              },
-                            );
-                          }
+                          context.go(
+                            '/references/season${widget.season}/episode${widget.episodeNumber}/${references[index].id}/${references[index].idLine.split(',')[0]}',
+                          );
                         },
                         contentPadding: const EdgeInsets.all(10),
                       ),

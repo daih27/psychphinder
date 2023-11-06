@@ -59,9 +59,6 @@ class _CreateImageState extends State<CreateImagePage> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
-
     FToast fToast = FToast();
     fToast.init(navigatorKey.currentContext!);
     mainLine = widget.episode[widget.id].line;
@@ -320,7 +317,11 @@ class _CreateImageState extends State<CreateImagePage> {
         resolutionW = pref.getInt("ResolutionWidth") ??
             (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!).toInt();
         resolutionH = pref.getInt("ResolutionHeight") ??
-            (ScreenUtil().screenHeight * ScreenUtil().pixelRatio!).toInt();
+            ((ScreenUtil().screenHeight +
+                        ScreenUtil().bottomBarHeight +
+                        ScreenUtil().statusBarHeight) *
+                    ScreenUtil().pixelRatio!)
+                .toInt();
       },
     );
     pref.setInt("ResolutionWidth", resolutionW);

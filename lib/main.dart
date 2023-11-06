@@ -4,15 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:psychphinder/global/routes.dart';
 import 'package:psychphinder/global/search_engine.dart';
 import 'package:psychphinder/references.dart';
 import 'package:psychphinder/search.dart';
 import 'package:psychphinder/favorites.dart';
-import 'package:psychphinder/settings.dart';
 import 'package:psychphinder/global/theme.dart';
 import 'package:check_app_version/show_dialog.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'classes/phrase_class.dart';
 import 'global/globals.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,6 +35,7 @@ Future<void> main() async {
       overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   final csvData = CSVData();
   await csvData.loadDataFromCSV();
+  setPathUrlStrategy();
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider.value(value: csvData),
@@ -52,14 +55,13 @@ class MyApp extends StatelessWidget {
           1080 / ScreenUtil().pixelRatio!, 2400 / ScreenUtil().pixelRatio!),
       minTextAdapt: true,
       builder: (context, child) {
-        return MaterialApp(
+        return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           theme: Provider.of<ThemeProvider>(context).currentTheme,
-          home: child,
+          routerConfig: router,
           builder: FToastBuilder(),
         );
       },
-      child: const Home(),
     );
   }
 }
@@ -150,29 +152,25 @@ class _HomeState extends State<Home> {
     return Scaffold(
       key: navigatorKey,
       appBar: AppBar(
-          title: const Text(
-            'psychphinder',
-            style: TextStyle(
-              fontSize: 38,
-              color: Colors.green,
-              fontFamily: 'PsychFont',
-              fontWeight: FontWeight.bold,
-              letterSpacing: -2.2,
-            ),
+        title: const Text(
+          'psychphinder',
+          style: TextStyle(
+            fontSize: 38,
+            color: Colors.green,
+            fontFamily: 'PsychFont',
+            fontWeight: FontWeight.bold,
+            letterSpacing: -2.2,
           ),
-          actions: [
-            IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SettingsPage(),
-                      maintainState: false,
-                    ),
-                  );
-                })
-          ]),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              context.go('/settings');
+            },
+          )
+        ],
+      ),
       body: PageView(
         controller: _pageController,
         onPageChanged: (value) {
