@@ -160,256 +160,301 @@ class _SearchPageState extends State<SearchPage>
     final List<String> seasons = csvData.seasons;
     final List referenceData = csvData.referenceData;
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 15, 15, 7),
-            child: TextField(
-              controller: textEditingController,
-              style: const TextStyle(color: Colors.white),
-              onSubmitted: (text) async {
-                map = {
-                  "data": data,
-                  "text": text,
-                  "selectedSeason": selectedSeason.value,
-                  "selectedEpisode": selectedEpisode.value
-                };
-                input = text;
-                setState(() {
-                  isLoading = true;
-                  isSearching = true;
-                });
-                searched = await compute(_search, map);
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              cursorColor: Colors.white,
-              decoration: InputDecoration(
-                fillColor: Colors.green,
-                filled: true,
-                labelText: 'Search',
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () async {
-                    map = {
-                      "data": data,
-                      "text": textEditingController.text,
-                      "selectedSeason": selectedSeason.value,
-                      "selectedEpisode": selectedEpisode.value
-                    };
-                    setState(() {
-                      isLoading = true;
-                      isSearching = true;
-                    });
-                    searched = await compute(_search, map);
-                    setState(() {
-                      isLoading = false;
-                    });
-                  },
+      body: !isSearching
+          ? CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    children: [
+                      searchBar(data),
+                      searchOptions(seasons, episodesMap),
+                      isLoading
+                          ? const Expanded(
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            )
+                          : searched.isNotEmpty
+                              ? Expanded(
+                                  child: ItemList(
+                                      lines: searched,
+                                      data: data,
+                                      input: map["text"]))
+                              : isSearching
+                                  ? const Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          "No results found.",
+                                          style: TextStyle(
+                                            fontFamily: "PsychFont",
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                          textScaleFactor: 1.0,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    )
+                                  : welcomeWidgets(data, referenceData),
+                    ],
+                  ),
                 ),
-                suffixIconColor: Colors.white,
-                labelStyle: const TextStyle(color: Colors.white),
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.green),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.green),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.green),
+              ],
+            )
+          : Column(
+              children: [
+                searchBar(data),
+                searchOptions(seasons, episodesMap),
+                isLoading
+                    ? const Expanded(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : searched.isNotEmpty
+                        ? Expanded(
+                            child: ItemList(
+                                lines: searched,
+                                data: data,
+                                input: map["text"]))
+                        : const Expanded(
+                            child: Center(
+                              child: Text(
+                                "No results found.",
+                                style: TextStyle(
+                                  fontFamily: "PsychFont",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                                textScaleFactor: 1.0,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )
+              ],
+            ),
+    );
+  }
+
+  Expanded welcomeWidgets(List<dynamic> data, List<dynamic> referenceData) {
+    return Expanded(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Spacer(flex: 8),
+            const Text(
+              "Welcome to psychphinder!",
+              style: TextStyle(
+                fontFamily: "PsychFont",
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+              textScaleFactor: 1.0,
+              textAlign: TextAlign.center,
+            ),
+            const Spacer(),
+            didYouKnow(),
+            const Spacer(),
+            randomReference(data, referenceData),
+            const Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  ExpansionTile searchOptions(
+      List<String> seasons, Map<String, List<String>> episodesMap) {
+    return ExpansionTile(
+      title: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text("Search options"),
+      ),
+      children: [
+        Container(
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    const Text("Season"),
+                    ValueListenableBuilder<String>(
+                      valueListenable: selectedSeason,
+                      builder: (context, value, _) {
+                        return DropdownButtonFormField(
+                          icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                          iconSize: 30,
+                          iconEnabledColor: Colors.white,
+                          dropdownColor: Colors.green,
+                          decoration: InputDecoration(
+                            fillColor: Colors.green,
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 12),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: const BorderSide(color: Colors.green),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: const BorderSide(color: Colors.green),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: const BorderSide(color: Colors.green),
+                            ),
+                          ),
+                          value: value,
+                          items: seasons.map((season) {
+                            return DropdownMenuItem<String>(
+                              value: season,
+                              child: Text(season,
+                                  style: const TextStyle(color: Colors.white)),
+                            );
+                          }).toList(),
+                          onChanged: (season) {
+                            setState(() {
+                              selectedSeason.value = season!;
+                              selectedEpisode.value = "All";
+                            });
+                          },
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ),
-          ExpansionTile(
-            title: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text("Search options"),
-            ),
-            children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              const SizedBox(width: 20),
+              Expanded(
+                flex: 2,
+                child: Column(
                   children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        children: [
-                          const Text("Season"),
-                          ValueListenableBuilder<String>(
-                            valueListenable: selectedSeason,
-                            builder: (context, value, _) {
-                              return DropdownButtonFormField(
-                                icon: const Icon(
-                                    Icons.keyboard_arrow_down_rounded),
-                                iconSize: 30,
-                                iconEnabledColor: Colors.white,
-                                dropdownColor: Colors.green,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.green,
-                                  filled: true,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 0, horizontal: 12),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide:
-                                        const BorderSide(color: Colors.green),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide:
-                                        const BorderSide(color: Colors.green),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide:
-                                        const BorderSide(color: Colors.green),
-                                  ),
-                                ),
-                                value: value,
-                                items: seasons.map((season) {
-                                  return DropdownMenuItem<String>(
-                                    value: season,
-                                    child: Text(season,
-                                        style: const TextStyle(
-                                            color: Colors.white)),
-                                  );
-                                }).toList(),
-                                onChanged: (season) {
-                                  setState(() {
-                                    selectedSeason.value = season!;
-                                    selectedEpisode.value = "All";
-                                  });
-                                },
-                              );
-                            },
+                    selectedSeason.value == "Movies"
+                        ? const Text("Movie")
+                        : const Text("Episode"),
+                    ValueListenableBuilder<String>(
+                      valueListenable: selectedEpisode,
+                      builder: (context, value, _) {
+                        final selectedSeasonValue = selectedSeason.value;
+                        final episodes = episodesMap[selectedSeasonValue];
+                        return DropdownButtonFormField(
+                          icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                          iconSize: 30,
+                          iconEnabledColor: Colors.white,
+                          dropdownColor: Colors.green,
+                          isExpanded: true,
+                          decoration: InputDecoration(
+                            fillColor: Colors.green,
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 12),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: const BorderSide(color: Colors.green),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: const BorderSide(color: Colors.green),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: const BorderSide(color: Colors.green),
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          selectedSeason.value == "Movies"
-                              ? const Text("Movie")
-                              : const Text("Episode"),
-                          ValueListenableBuilder<String>(
-                            valueListenable: selectedEpisode,
-                            builder: (context, value, _) {
-                              final selectedSeasonValue = selectedSeason.value;
-                              final episodes = episodesMap[selectedSeasonValue];
-                              return DropdownButtonFormField(
-                                icon: const Icon(
-                                    Icons.keyboard_arrow_down_rounded),
-                                iconSize: 30,
-                                iconEnabledColor: Colors.white,
-                                dropdownColor: Colors.green,
-                                isExpanded: true,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.green,
-                                  filled: true,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 0, horizontal: 12),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide:
-                                        const BorderSide(color: Colors.green),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide:
-                                        const BorderSide(color: Colors.green),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide:
-                                        const BorderSide(color: Colors.green),
-                                  ),
-                                ),
-                                value: value,
-                                items: episodes!.map((episode) {
-                                  return DropdownMenuItem<String>(
-                                    value: episode,
-                                    child: Text(episode,
-                                        style: const TextStyle(
-                                            color: Colors.white)),
-                                  );
-                                }).toList(),
-                                onChanged: (episode) {
-                                  setState(() {
-                                    selectedEpisode.value = episode!;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                          value: value,
+                          items: episodes!.map((episode) {
+                            return DropdownMenuItem<String>(
+                              value: episode,
+                              child: Text(episode,
+                                  style: const TextStyle(color: Colors.white)),
+                            );
+                          }).toList(),
+                          onChanged: (episode) {
+                            setState(() {
+                              selectedEpisode.value = episode!;
+                            });
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
               ),
             ],
           ),
-          isLoading
-              ? const Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              : searched.isNotEmpty
-                  ? Expanded(
-                      child: ItemList(
-                          lines: searched, data: data, input: map["text"]))
-                  : isSearching
-                      ? const Expanded(
-                          child: Center(
-                            child: Text(
-                              "No results found.",
-                              style: TextStyle(
-                                fontFamily: "PsychFont",
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                              textScaleFactor: 1.0,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        )
-                      : Expanded(
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Spacer(flex: 8),
-                                const Text(
-                                  "Welcome to psychphinder!",
-                                  style: TextStyle(
-                                    fontFamily: "PsychFont",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                  textScaleFactor: 1.0,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const Spacer(),
-                                didYouKnow(),
-                                const Spacer(),
-                                randomReference(data, referenceData),
-                                const Spacer(),
-                              ],
-                            ),
-                          ),
-                        ),
-        ],
+        ),
+      ],
+    );
+  }
+
+  Padding searchBar(List<dynamic> data) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15, 15, 15, 7),
+      child: TextField(
+        controller: textEditingController,
+        style: const TextStyle(color: Colors.white),
+        onSubmitted: (text) async {
+          map = {
+            "data": data,
+            "text": text,
+            "selectedSeason": selectedSeason.value,
+            "selectedEpisode": selectedEpisode.value
+          };
+          input = text;
+          setState(() {
+            isLoading = true;
+            isSearching = true;
+          });
+          searched = await compute(_search, map);
+          setState(() {
+            isLoading = false;
+          });
+        },
+        cursorColor: Colors.white,
+        decoration: InputDecoration(
+          fillColor: Colors.green,
+          filled: true,
+          labelText: 'Search',
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () async {
+              map = {
+                "data": data,
+                "text": textEditingController.text,
+                "selectedSeason": selectedSeason.value,
+                "selectedEpisode": selectedEpisode.value
+              };
+              setState(() {
+                isLoading = true;
+                isSearching = true;
+              });
+              searched = await compute(_search, map);
+              setState(() {
+                isLoading = false;
+              });
+            },
+          ),
+          suffixIconColor: Colors.white,
+          labelStyle: const TextStyle(color: Colors.white),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: const BorderSide(color: Colors.green),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: const BorderSide(color: Colors.green),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: const BorderSide(color: Colors.green),
+          ),
+        ),
       ),
     );
   }
