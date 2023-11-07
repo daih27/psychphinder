@@ -48,12 +48,7 @@ class ItemList extends StatelessWidget {
         color: Colors.green,
       ),
     );
-    final inputClean = removeDiacritics(input)
-        .toLowerCase()
-        .replaceAll("'", '')
-        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-        .replaceAll(RegExp(r"\s+"), ' ')
-        .trim();
+    final inputClean = input;
     final linesClean = removeDiacritics(lines[index].line)
         .toLowerCase()
         .replaceAll("'", '')

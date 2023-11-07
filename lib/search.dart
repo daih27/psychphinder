@@ -399,9 +399,16 @@ class _SearchPageState extends State<SearchPage>
         controller: textEditingController,
         style: const TextStyle(color: Colors.white),
         onSubmitted: (text) async {
+          String inputClean = replaceContractions(
+                  replaceNumbersForWords(removeDiacritics(text)))
+              .toLowerCase()
+              .replaceAll("'", '')
+              .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+              .trim()
+              .replaceAll(RegExp(r'\s+'), ' ');
           map = {
             "data": data,
-            "text": text,
+            "text": inputClean,
             "selectedSeason": selectedSeason.value,
             "selectedEpisode": selectedEpisode.value
           };
@@ -423,9 +430,16 @@ class _SearchPageState extends State<SearchPage>
           suffixIcon: IconButton(
             icon: const Icon(Icons.search),
             onPressed: () async {
+              String inputClean = replaceContractions(replaceNumbersForWords(
+                      removeDiacritics(textEditingController.text)))
+                  .toLowerCase()
+                  .replaceAll("'", '')
+                  .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+                  .trim()
+                  .replaceAll(RegExp(r'\s+'), ' ');
               map = {
                 "data": data,
-                "text": textEditingController.text,
+                "text": inputClean,
                 "selectedSeason": selectedSeason.value,
                 "selectedEpisode": selectedEpisode.value
               };
@@ -484,26 +498,17 @@ String replaceContractions(String input) {
 
 Future<List<Phrase>> _search(map) async {
   List data = map["data"];
-  String input = map["text"];
+  String inputClean = map["text"];
   String season = map["selectedSeason"];
   String episode = map["selectedEpisode"];
   List<Phrase> searched = <Phrase>[];
   String searchedClean = "";
-  String inputClean =
-      replaceContractions(replaceNumbersForWords(removeDiacritics(input)))
-          .toLowerCase()
-          .replaceAll("'", '')
-          .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-          .replaceAll(RegExp(r"\s+"), ' ')
-          .trim();
   for (var i = 0; i < data.length; i++) {
     searchedClean = replaceContractions(
             replaceNumbersForWords(removeDiacritics(data[i].line)))
         .toLowerCase()
         .replaceAll("'", '')
-        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
-        .replaceAll(RegExp(r"\s+"), ' ')
-        .trim();
+        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ');
     if (partialRatio(inputClean, searchedClean) > 90 &&
         searchedClean.length >= inputClean.length - 2) {
       if (season == "All") {
