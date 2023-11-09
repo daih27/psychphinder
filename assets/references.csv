@@ -554,7 +554,7 @@
 3;1;Ghosts;Furby (Toy);s3e1_2;26447,26448;
 3;1;Ghosts;Dynamite (Magazine);s3e1_3;26460;
 3;1;Ghosts;Square Pegs (TV Show);s3e1_4;26461;
-3;1;Ghosts;Willy Wonka (Movie);s3e1_5;26803;
+3;1;Ghosts;Willy Wonka (Character from Charlie and the Chocolate Factory);s3e1_5;26803;
 3;1;Ghosts;Heartbreak Ridge (Movie);s3e1_6;26780,26851;
 3;1;Ghosts;Clint Eastwood (Actor);s3e1_7;26780;
 3;1;Ghosts;Augusto Pinochet (Chilean dictator);s3e1_8;26454;
@@ -766,7 +766,7 @@
 3;13;Any Given Friday Night at 10pm, 9pm Central;Harry Hamlin (Actor);s3e13_9;35496,35497;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Ralph Macchio (Actor);s3e13_10;35531;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Peyton Manning (Athlete);s3e13_11;35559;
-3;13;Any Given Friday Night at 10pm, 9pm Central;Emilio Estevez (Actor);s3e13_12;35655,35656,35726;
+3;13;Any Given Friday Night at 10pm, 9pm Central;Emilio Estevez (Actor/Filmmaker);s3e13_12;35655,35656,35726;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Thomas Dempsey (Athlete);s3e13_13;35665;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Charlie Sheen (Actor);s3e13_14;35728;
 3;13;Any Given Friday Night at 10pm, 9pm Central;The Russians Are Coming, The Russians Are Coming (Movie);s3e13_15;35739,35740,35741,35742;
@@ -1122,7 +1122,7 @@
 4;13;Death Is in the Air;Ted Bundy (American serial killer);s4e13_7;47462;
 4;13;Death Is in the Air;Elisabeth Shue (Actress);s4e13_8;47496;
 4;13;Death Is in the Air;Hippy Hippy Shake (Song originally by Chan Romero);s4e13_9;47495;
-4;13;Death Is in the Air;Ginger Rogers (Actress);s4e13_10;47515;
+4;13;Death Is in the Air;Ginger Rogers (Actress/Dancer);s4e13_10;47515;
 4;13;Death Is in the Air;Ginger (Character from Gilligan's Island);s4e13_11;47515;
 4;13;Death Is in the Air;Val Kilmer (Actor);s4e13_12;47571,47572;
 4;13;Death Is in the Air;Nicolas Cage (Actor);s4e13_13;47610;https://youtu.be/fi08aDzoQOw
@@ -2348,3 +2348,68 @@
 8;1;Lock, Stock, Some Smoking Barrels and Burton Guster's Goblet of Fire;Rutger Hauer (Actor);s8e1_23;99121;
 8;1;Lock, Stock, Some Smoking Barrels and Burton Guster's Goblet of Fire;Life of Pi (Movie);s8e1_24;99133,99134;
 8;1;Lock, Stock, Some Smoking Barrels and Burton Guster's Goblet of Fire;Richard Parker (Character from Life of Pi);s8e1_25;99135;
+8;2;S.E.I.Z.E. the Day;Millard Fillmore (13th president of the United States);s8e2_1;99278;
+8;2;S.E.I.Z.E. the Day;99 Luftballons (Song by Nena);s8e2_2;99302;
+8;2;S.E.I.Z.E. the Day;Bilbo Baggins (Character from Lord Of The Rings);s8e2_3;99346;
+8;2;S.E.I.Z.E. the Day;Spanx (Underwear company);s8e2_4;99363,99461;
+8;2;S.E.I.Z.E. the Day;King Candy (Character from Wreck-It Ralph);s8e2_5;99446;
+8;2;S.E.I.Z.E. the Day;Wreck-It Ralph (Movie);s8e2_6;99446;
+8;2;S.E.I.Z.E. the Day;Runaway Train (Movie);s8e2_7;99471;
+8;2;S.E.I.Z.E. the Day;Crash (TV Show);s8e2_8;99472;
+8;2;S.E.I.Z.E. the Day;Sachin Tendulkar (Cricketer);s8e2_9;99517;
+8;2;S.E.I.Z.E. the Day;Ginger Rogers (Actress/Dancer);s8e2_10;99634;
+8;2;S.E.I.Z.E. the Day;Jabba the Hutt (Character from Star Wars);s8e2_11;99636,99673,99975,99992;
+8;2;S.E.I.Z.E. the Day;King Kong (Fictional character);s8e2_12;99670;
+8;2;S.E.I.Z.E. the Day;Chewbacca (Character from Star Wars);s8e2_13;99673,99975,99995;
+8;2;S.E.I.Z.E. the Day;Grand Poobah (Satirical term);s8e2_14;99701;
+8;2;S.E.I.Z.E. the Day;Pac-Man Fever (Song by Buckner & Garcia);s8e2_15;99894;
+8;2;S.E.I.Z.E. the Day;Atari (Console game company);s8e2_16;99897;
+8;2;S.E.I.Z.E. the Day;Heckle and Jeckle (Cartoon character);s8e2_17;99922;
+8;2;S.E.I.Z.E. the Day;Apollonia (Actress/Singer);s8e2_18;99942;
+8;2;S.E.I.Z.E. the Day;Vanity (Singer/Model);s8e2_19;99942;
+8;2;S.E.I.Z.E. the Day;Michael Douglas (Actor/Producer);s8e2_20;100020;
+8;2;S.E.I.Z.E. the Day;Falling Down (Movie);s8e2_21;100021;
+8;2;S.E.I.Z.E. the Day;The Ghost and the Darkness (Movie);s8e2_22;100024;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Billy Bob Thornton (Actor/Writer);s8e3_1;100176,100177;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Walter Matthau (Actor/Comedian);s8e3_2;100180;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Coach Morris Buttermaker (Character from Bad News Bears);s8e3_3;100180;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Bad News Bears (Movie);s8e3_4;100181;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;The Dukes of Hazzard (Movie);s8e3_5;100185;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Willy Wonka (Character from Charlie and the Chocolate Factory);s8e3_6;100214,100215,100216,100217,100218;https://youtu.be/3pwvB4_Te8A?t=22
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Kelly Ripa (Actress);s8e3_7;100247;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Debra Winger (Actress);s8e3_8;100338;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Legal Eagles (Movie);s8e3_9;100338;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Glenn Close (Actress);s8e3_10;100339;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Jagged Edge (Movie);s8e3_11;100339;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Doogie Howser (Character from Doogie Howser, M.D.);s8e3_12;100479;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Aaron Eckhart (Actor);s8e3_13;100543,100544,101094,101095;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Jim Caviezel (Actor);s8e3_14;100545;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Jericho (TV Show);s8e3_15;100571;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Grimace (McDonaldland character);s8e3_16;100596;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Cameron Frye (Character from Ferris Bueller's Day Off);s8e3_17;100611;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Carlos Jacott (Actor);s8e3_18;100667;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;George Lazenby (Actor);s8e3_19;100670;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Rubin Carter (Boxer);s8e3_20;100673;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Leif Garrett (Actor/Singer);s8e3_21;100674;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Strange Case of Dr. Jekyll and Mr. Hyde (Novella written by Robert Louis Stevenson);s8e3_22;100678;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Suits (TV Show);s8e3_23;100726,100727;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Matthew McConaughey (Actor);s8e3_24;100957;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;A Time to Kill (Movie);s8e3_25;100958;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;My Cousin Vinny (Movie);s8e3_26;100999,101000,101001,101002;https://youtu.be/K6qGwmXZtsE?t=108
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;A Few Good Men (Movie);s8e3_27;101011,101012,101013,101014,101015;https://youtu.be/SKvQrmNiiXw?t=355
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;The Bonfire of the Vanities (Movie);s8e3_28;101029,101030,101031,101032;https://youtu.be/i7UW-MKthI0?t=50
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;The Verdict (Movie);s8e3_29;101035,101036,101037,101038,101039,101041;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Paul Newman (Actor/Director);s8e3_30;101041;
+8;3;Remake A.K.A. Cloudy... With a Chance of Improvement;Patrick Wilson (Actor/Director);s8e3_31;101096;
+8;4;Someone's Got a Woody;Dancing with the Stars (TV Show);s8e4_1;101385;
+8;4;Someone's Got a Woody;2 Broke Girls (TV Show);s8e4_2;101441;
+8;4;Someone's Got a Woody;Léon (Movie);s8e4_3;101452;https://youtu.be/74BzSTQCl_c?t=6
+8;4;Someone's Got a Woody;Gary Oldman (Actor/Filmmaker);s8e4_4;101453;
+8;4;Someone's Got a Woody;The Shawshank Redemption (Movie);s8e4_5;101507;https://youtu.be/YvPerZLPnm4?t=69
+8;4;Someone's Got a Woody;Brubaker (Movie);s8e4_6;101647;https://youtu.be/eLoSGl640qY?t=45
+8;4;Someone's Got a Woody;Emilio Estevez (Actor/Filmmaker);s8e4_7;101727;
+8;4;Someone's Got a Woody;Magic Mike (Movie);s8e4_8;101745;
+8;4;Someone's Got a Woody;Jamie Foxx (Actor/Comedian);s8e4_9;101764;
+8;4;Someone's Got a Woody;Charlie's Angels (Movie);s8e4_10;101852;
+8;4;Someone's Got a Woody;Encyclopedia Brown (Books);s8e4_11;102053;
+8;4;Someone's Got a Woody;Rebbie Jackson (Singer);s8e4_12;102067;
