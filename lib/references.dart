@@ -210,7 +210,8 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
           }
           sortByAlphabetical == true
               ? references.sort((a, b) => a.reference.compareTo(b.reference))
-              : references.sort((a, b) => a.idLine.compareTo(b.idLine));
+              : references.sort((a, b) => int.parse(a.idLine.split(',')[0])
+                  .compareTo(int.parse(b.idLine.split(',')[0])));
           return WillPopScope(
             onWillPop: () async {
               saveSort(sortByAlphabetical);
