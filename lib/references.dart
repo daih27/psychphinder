@@ -61,18 +61,6 @@ class ReferencesPage extends StatelessWidget {
               },
             ),
           ),
-          const Center(
-            child: Text(
-              "This section is still a work in progress.\nI'm updating it in every new version!",
-              style: TextStyle(
-                fontFamily: "PsychFont",
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-              textScaleFactor: 1.0,
-              textAlign: TextAlign.center,
-            ),
-          ),
         ],
       ),
     );
