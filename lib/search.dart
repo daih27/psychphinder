@@ -402,7 +402,7 @@ class _SearchPageState extends State<SearchPage>
           String inputClean = replaceContractions(
                   replaceNumbersForWords(removeDiacritics(text)))
               .toLowerCase()
-              .replaceAll("'", '')
+              .replaceAll("&", "and")
               .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
               .trim()
               .replaceAll(RegExp(r'\s+'), ' ');
@@ -433,7 +433,7 @@ class _SearchPageState extends State<SearchPage>
               String inputClean = replaceContractions(replaceNumbersForWords(
                       removeDiacritics(textEditingController.text)))
                   .toLowerCase()
-                  .replaceAll("'", '')
+                  .replaceAll("&", "and")
                   .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
                   .trim()
                   .replaceAll(RegExp(r'\s+'), ' ');
@@ -507,8 +507,10 @@ Future<List<Phrase>> _search(map) async {
     searchedClean = replaceContractions(
             replaceNumbersForWords(removeDiacritics(data[i].line)))
         .toLowerCase()
-        .replaceAll("'", '')
-        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ');
+        .replaceAll("&", "and")
+        .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
+        .trim()
+        .replaceAll(RegExp(r'\s+'), ' ');
     if (partialRatio(inputClean, searchedClean) > 90 &&
         searchedClean.length >= inputClean.length - 2) {
       if (season == "All") {

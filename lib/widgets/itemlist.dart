@@ -51,7 +51,6 @@ class ItemList extends StatelessWidget {
     final inputClean = input;
     final linesClean = removeDiacritics(lines[index].line)
         .toLowerCase()
-        .replaceAll("'", '')
         .replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ')
         .replaceAll(RegExp(r"\s+"), ' ')
         .trim();
@@ -65,6 +64,9 @@ class ItemList extends StatelessWidget {
         lines[index].line != replaceContractions(lines[index].line);
     final bool inputHasNumbers = inputClean.contains(RegExp(r'\d+'));
     final bool lineHasNumbers = linesClean.contains(RegExp(r'\d+'));
+    if (input.contains("and")) {
+      words["&"] = highlightedWord;
+    }
     if (inputHasNumbers && lineHasNumbers) {
       for (var i = 0; i < inputSplit.length; i++) {
         for (var j = 0; j < linesSplitNotClean.length; j++) {
