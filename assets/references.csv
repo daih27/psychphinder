@@ -51,6 +51,7 @@
 1;6;Weekend Warriors;William Quantrill (Confederate guerrilla leader);s1e6_9;4520;
 1;6;Weekend Warriors;Engelbert Humperdinck (Singer);s1e6_10;4797;
 1;6;Weekend Warriors;Mary Hart (Television personality/Actress);s1e6_11;4900;
+1;6;Weekend Warriors;M&M'S (chocolate confectionery);s1e6_12;4564;
 1;7;Who Ya Gonna Call?;Poltergeist (Movie);s1e7_2;5434;https://youtu.be/OHSsuX7VoQY?t=230
 1;7;Who Ya Gonna Call?;Poltergeist II: The Other Side (Movie);s1e7_3;5434;
 1;7;Who Ya Gonna Call?;Gremlins (Movie);s1e7_4;5435;
@@ -756,6 +757,7 @@
 3;12;Earth, Wind and... Wait for It;Sun Tzu (Chinese general);s3e12_27;34742;
 3;12;Earth, Wind and... Wait for It;Big (Movie);s3e12_28;34905,34906;https://youtu.be/Q6RK4479XD8
 3;12;Earth, Wind and... Wait for It;Lady Godiva (Anglo-Saxon noblewoman);s3e12_29;35331,35339;
+3;12;Earth, Wind and... Wait for It;M&M'S (chocolate confectionery);s3e12_30;34990;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Rae Dawn Chong (Actress);s3e13_1;35369;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Quest For Fire (Movie);s3e13_2;35370;
 3;13;Any Given Friday Night at 10pm, 9pm Central;Bat-Signal (Distress signal from Batman comics);s3e13_3;35375;
@@ -1061,6 +1063,7 @@
 4;10;You Can't Handle This Episode;Don't ask, don't tell (Official United States policy on military service of non-heterosexual people);s4e10_14;45299;
 4;10;You Can't Handle This Episode;Mike Sharpe (Wrestler);s4e10_15;45328,45329;
 4;10;You Can't Handle This Episode;Full Metal Jacket (Movie);s4e10_16;45442,45443;https://youtu.be/PPzY9EFhnmQ?t=63
+4;10;You Can't Handle This Episode;M&M'S (chocolate confectionery);s4e10_17;45764;
 4;11;Thrill Seekers and Hell-Raisers;Super Friends (TV Show);s4e11_1;45887,45889;https://youtu.be/CRQFbgIxFv4?t=35
 4;11;Thrill Seekers and Hell-Raisers;Magnum, P.I. (TV Show);s4e11_2;45919;
 4;11;Thrill Seekers and Hell-Raisers;Ashley Olsen (Actress);s4e11_3;45928;
@@ -1552,7 +1555,7 @@
 5;15;Dead Bear Walking;Klondike bar (Ice cream cookie);s5e15_1;64938;
 5;15;Dead Bear Walking;Bad News Bears (Movie);s5e15_2;65043,65044;
 5;15;Dead Bear Walking;Susan Sarandon (Actress);s5e15_3;65234;
-5;15;Dead Bear Walking;Sean Penn (Actor);s5e15_4;65236;
+5;15;Dead Bear Walking;Sean Penn (Actor/Director);s5e15_4;65236;
 5;15;Dead Bear Walking;Harvey Milk (Politician);s5e15_5;65237;
 5;15;Dead Bear Walking;Robert Prosky (Actor);s5e15_6;65235;
 5;15;Dead Bear Walking;Dead Man Walking (Movie);s5e15_7;65234,65235,65236;
@@ -1961,6 +1964,7 @@
 6;16;Santabarbaratown;"Francis ""Chainsaw"" Gremp (Character from Summer School)";s6e16_18;81884;
 6;16;Santabarbaratown;Winston Churchill (Former Prime Minister of the United Kingdom);s6e16_19;82254,82255;
 6;16;Santabarbaratown;Toblerone (Swiss chocolate brand);s6e16_20;82285;
+6;16;Santabarbaratown;M&M'S (chocolate confectionery);s6e16_21;82147,82151;
 7;1;Santabarbaratown 2;Taco Bell Doritos Locos Taco (Type of taco);s7e1_1;82605;
 7;1;Santabarbaratown 2;Mary Poppins (Movie);s7e1_2;82888;https://youtu.be/XHrRxQVUFN4
 7;1;Santabarbaratown 2;King's Guard/Queen's Guard (Guards at the Buckingham Palace);s7e1_3;82973;
@@ -2080,6 +2084,7 @@
 7;5;100 Clues;Colonel James Braddock (Character from Missing in Action);s7e5_37;86994;
 7;5;100 Clues;Billy Boy (Folk song);s7e5_38;87181;
 7;5;100 Clues;Clue (Movie);s7e5_39;87436,87437;https://youtu.be/tN0nLZvne5U?t=27
+7;5;100 Clues;M&M'S (chocolate confectionery);s7e5_40;87022;
 7;6;Cirque Du Soul;Eddie Murphy (Actor);s7e6_1;87480,88328;
 7;6;Cirque Du Soul;48 Hrs. (Movie);s7e6_2;87481;
 7;6;Cirque Du Soul;Jonathan Taylor Thomas (Actor);s7e6_3;87831,87832;
@@ -2413,3 +2418,189 @@
 8;4;Someone's Got a Woody;Charlie's Angels (Movie);s8e4_10;101852;
 8;4;Someone's Got a Woody;Encyclopedia Brown (Books);s8e4_11;102053;
 8;4;Someone's Got a Woody;Rebbie Jackson (Singer);s8e4_12;102067;
+8;5;COG Blocked;The Hardy Boys (Fictional characters);s8e5_1;102430;
+8;5;COG Blocked;Milli Vanilli (Musicians);s8e5_2;102446;
+8;5;COG Blocked;Denzel Washington (Actor);s8e5_3;102575,102918;
+8;5;COG Blocked;The Mighty Quinn (Movie);s8e5_4;102576;
+8;5;COG Blocked;Training Day (Movie);s8e5_5;102576;https://youtu.be/M_7-4kTng4w?t=52
+8;5;COG Blocked;Angela Bennett (Character from The Net);s8e5_6;102609,102631,102632;
+8;5;COG Blocked;Dr. Alan Champion (Character from The Net);s8e5_7;102608,102628,102629;
+8;5;COG Blocked;Sandra Bullock (Actress/Producer);s8e5_8;102610;
+8;5;COG Blocked;Dennis Miller (Actor/Comedian);s8e5_9;102610;
+8;5;COG Blocked;The Net (Movie);s8e5_10;102611,102612,102615,102634,102964;
+8;5;COG Blocked;Jack Devlin (Character from The Net);s8e5_11;102632;
+8;5;COG Blocked;Jeremy Northam (Actor);s8e5_12;102633;
+8;5;COG Blocked;Jason Bourne (Fictional character);s8e5_13;102637;
+8;5;COG Blocked;Jack Bauer (Character from 24);s8e5_14;102638;
+8;5;COG Blocked;Tony Stark (Fictional character);s8e5_15;102639;
+8;5;COG Blocked;Billy Elliot (Character from Billy Elliot);s8e5_16;102640;
+8;5;COG Blocked;Ferris Bueller (Character from Ferris Bueller's Day Off);s8e5_17;102640;
+8;5;COG Blocked;Edward Scissorhands (Character from Edward Scissorhands);s8e5_18;102641;
+8;5;COG Blocked;Han Solo (Character from Star Wars);s8e5_19;102641;
+8;5;COG Blocked;Hans Landa (Character from Inglourious Basterds);s8e5_20;102642;
+8;5;COG Blocked;Hannah Montana (Character from Hannah Montana);s8e5_21;102642;
+8;5;COG Blocked;Tom Popper (Character from Mr. Popper's Penguins);s8e5_22;102643;
+8;5;COG Blocked;Mr. Bean (Stage name of actor Rowan Atkinson);s8e5_23;102643;
+8;5;COG Blocked;Tom Ripley (Character from The Talented Mr. Ripley);s8e5_24;102644;
+8;5;COG Blocked;Jeeves (Fictional character);s8e5_25;102644;
+8;5;COG Blocked;Mr. Pink (Character from Reservoir Dogs);s8e5_26;102644;
+8;5;COG Blocked;Mr. White (Character from Reservoir Dogs);s8e5_27;102644;
+8;5;COG Blocked;Mr. Brown (Character from Reservoir Dogs);s8e5_28;102644;
+8;5;COG Blocked;Mr. Blonde (Character from Reservoir Dogs);s8e5_29;102645;
+8;5;COG Blocked;Mr. T (Actor);s8e5_30;102645;
+8;5;COG Blocked;Dr. T (Character from Dr. T & the Women);s8e5_31;102645;
+8;5;COG Blocked;Dr. Henry Jekyll (Character from Strange Case of Dr. Jekyll and Mr. Hyde);s8e5_32;102646;
+8;5;COG Blocked;Dr. Anton Phibes (Character from The Abominable Dr. Phibes);s8e5_33;102646;
+8;5;COG Blocked;Dr. Evil (Character from Austin Powers);s8e5_34;102646;
+8;5;COG Blocked;Dr. Horrible (Character from Dr. Horrible's Sing-Along Blog);s8e5_35;102647;
+8;5;COG Blocked;Dr. John Dolittle (Character from Dr. Dolittle);s8e5_36;102647;
+8;5;COG Blocked;Frodo Baggins (Character from Lord Of The Rings);s8e5_37;102648;
+8;5;COG Blocked;Gandalf (Character from Lord Of The Rings;s8e5_38;102648;
+8;5;COG Blocked;Bilbo Baggins (Character from Lord Of The Rings);s8e5_39;102648;
+8;5;COG Blocked;Neo (Character from The Matrix);s8e5_40;102649;
+8;5;COG Blocked;Morpheus (Character from The Matrix);s8e5_41;102649;
+8;5;COG Blocked;Trinity (Character from The Matrix);s8e5_42;102649;
+8;5;COG Blocked;Simba (Character from The Lion King);s8e5_43;102649;
+8;5;COG Blocked;Zazu (Character from The Lion King);s8e5_44;102649;
+8;5;COG Blocked;Ross Geller (Character from Friends);s8e5_45;102650;
+8;5;COG Blocked;Chandler Bing (Character from Friends);s8e5_46;102650;
+8;5;COG Blocked;Joey Tribbiani (Character from Friends);s8e5_47;102650;
+8;5;COG Blocked;Jerry Seinfeld (Character from Seinfeld);s8e5_48;102650;
+8;5;COG Blocked;George Costanza (Character from Seinfeld);s8e5_49;102650;
+8;5;COG Blocked;Elaine Benes (Character from Seinfeld);s8e5_50;102650;
+8;5;COG Blocked;Cosmo Kramer (Character from Seinfeld);s8e5_51;102650;
+8;5;COG Blocked;Admiral James T. Kirk (Character from Star Trek);s8e5_52;102651;
+8;5;COG Blocked;Spock (Character from Star Trek);s8e5_53;102651;
+8;5;COG Blocked;Jean-Luc Picard (Character from Star Trek);s8e5_54;102651;
+8;5;COG Blocked;Data (Character from Star Trek);s8e5_55;102651;
+8;5;COG Blocked;Jordan Cavanaugh (Character from Crossing Jordan);s8e5_56;102674,102677;
+8;5;COG Blocked;Crossing Jordan (TV Show);s8e5_57;102675,102678;
+8;5;COG Blocked;Jill Hennessy (Actress/Singer);s8e5_58;102676;
+8;5;COG Blocked;Vladimir Putin (President of Russia);s8e5_59;102696;
+8;5;COG Blocked;Puttin' On the Ritz (Song by Taco);s8e5_60;102696;
+8;5;COG Blocked;Laika (Soviet space dog);s8e5_61;102719;
+8;5;COG Blocked;Charles Darwin (Naturalist/Geologist);s8e5_62;102884;
+8;5;COG Blocked;Taye Diggs (Actor);s8e5_63;102918;
+8;5;COG Blocked;Blair Underwood (Actor);s8e5_64;102918;
+8;5;COG Blocked;Morris Chestnut (Actor);s8e5_65;102918;
+8;6;1967: A Psych Odyssey;Valley of the Dolls (Movie);s8e6_1;103271;
+8;6;1967: A Psych Odyssey;Light My Fire (Song by The Doors);s8e6_2;103272;
+8;6;1967: A Psych Odyssey;Richard Grieco (Actor);s8e6_3;103292;
+8;6;1967: A Psych Odyssey;Married to the Mob (Movie);s8e6_4;103294;
+8;6;1967: A Psych Odyssey;Rufus Sewell (Actor);s8e6_5;103343;
+8;6;1967: A Psych Odyssey;Sophie B. Hawkins (Musician);s8e6_6;103344,103346;
+8;6;1967: A Psych Odyssey;Damn I Wish I Was Your Lover (Song by Sophie B. Hawkins);s8e6_7;103347;
+8;6;1967: A Psych Odyssey;Cher (Singer/Actress);s8e6_8;103361;
+8;6;1967: A Psych Odyssey;Sounder (Novel by William H. Armstrong);s8e6_9;103435;
+8;6;1967: A Psych Odyssey;Bring in 'da Noise, Bring in 'da Funk (Musical by Reg E. Gaines);s8e6_10;103506,103507;
+8;6;1967: A Psych Odyssey;Howard Jones (Musician);s8e6_11;103650;
+8;6;1967: A Psych Odyssey;San Francisco 49ers (American football team);s8e6_12;103669;
+8;6;1967: A Psych Odyssey;Hamlet (Play by William Shakespeare);s8e6_13;103696,103697;
+8;6;1967: A Psych Odyssey;Tesla (Automotive company);s8e6_14;103870;
+8;7;Shawn and Gus Truck Things Up;Who's Who (Book series);s8e7_1;104045;
+8;7;Shawn and Gus Truck Things Up;India Arie Simpson (Musician);s8e7_2;104046;
+8;7;Shawn and Gus Truck Things Up;Me and Mrs Jones (Song by Billy Paul);s8e7_3;104046;
+8;7;Shawn and Gus Truck Things Up;It's Hard out Here for a Pimp (Song by DJay);s8e7_4;104047;
+8;7;Shawn and Gus Truck Things Up;Mystic River (Movie);s8e7_5;104051,104052,104053,104054,104055,104199,104200,104636,104638,104640,104852,104853;https://youtu.be/RYlKhpi--QQ?t=102
+8;7;Shawn and Gus Truck Things Up;Sean Penn (Actor/Director);s8e7_6;104053;
+8;7;Shawn and Gus Truck Things Up;Caligula (Movie);s8e7_7;104080;
+8;7;Shawn and Gus Truck Things Up;Holes (Movie);s8e7_8;104099;
+8;7;Shawn and Gus Truck Things Up;Amway (Multi-level marketing company);s8e7_9;104120,104122,104128,104131;
+8;7;Shawn and Gus Truck Things Up;Knocked Up (Movie);s8e7_10;104167;
+8;7;Shawn and Gus Truck Things Up;Baby Mama (Movie);s8e7_11;104167;
+8;7;Shawn and Gus Truck Things Up;Juno (Movie);s8e7_12;104167;
+8;7;Shawn and Gus Truck Things Up;What to Expect When You're Expecting (Movie);s8e7_13;104171;
+8;7;Shawn and Gus Truck Things Up;Rosemary's Baby (Movie);s8e7_14;104177;
+8;7;Shawn and Gus Truck Things Up;Beelzebub (Philistine god);s8e7_15;104178;
+8;7;Shawn and Gus Truck Things Up;Cowboys & Aliens (Movie);s8e7_16;104237;
+8;7;Shawn and Gus Truck Things Up;Abraham Lincoln (16th President of the United States);s8e7_17;104238;
+8;7;Shawn and Gus Truck Things Up;Abraham Lincoln: Vampire Hunter (Movie);s8e7_18;104238;
+8;7;Shawn and Gus Truck Things Up;Kanye West (Musician);s8e7_19;104239;
+8;7;Shawn and Gus Truck Things Up;Jesus Walks (Song by Kanye West);s8e7_20;104239;
+8;7;Shawn and Gus Truck Things Up;Froot Loops (Cereal);s8e7_21;104249,104251,104796;
+8;7;Shawn and Gus Truck Things Up;Skittles (Candy);s8e7_22;104256;
+8;7;Shawn and Gus Truck Things Up;Andes Chocolate Mints (Candy);s8e7_23;104346;
+8;7;Shawn and Gus Truck Things Up;Big Country (Musicians);s8e7_24;104361;
+8;7;Shawn and Gus Truck Things Up;Splenda (Artificial sweetener);s8e7_25;104365;
+8;7;Shawn and Gus Truck Things Up;Snickers (Chocolate bar);s8e7_26;104459;
+8;7;Shawn and Gus Truck Things Up;Smokey (Character from Friday);s8e7_27;104494;
+8;7;Shawn and Gus Truck Things Up;Friday (Movie);s8e7_28;104494;
+8;7;Shawn and Gus Truck Things Up;Smokey (Character from The PJs);s8e7_29;104494;
+8;7;Shawn and Gus Truck Things Up;The PJs (TV Show);s8e7_30;104494;
+8;7;Shawn and Gus Truck Things Up;Smokey Robinson (Musician);s8e7_31;104495;
+8;7;Shawn and Gus Truck Things Up;A Bug's Life (Musician);s8e7_32;104549;
+8;7;Shawn and Gus Truck Things Up;Benetton Group (Fashion company);s8e7_33;104570;
+8;7;Shawn and Gus Truck Things Up;Mr. Potato Head (Character from Toy Story);s8e7_34;104621;
+8;7;Shawn and Gus Truck Things Up;Teddy Ruxpin (Toy);s8e7_35;104636,104638,104640;
+8;7;Shawn and Gus Truck Things Up;Brad Dourif (Actor);s8e7_36;104699;
+8;7;Shawn and Gus Truck Things Up;Gone with the Wind (Movie);s8e7_37;104862;https://youtu.be/mclBvVXsA5s?t=31
+8;7;Shawn and Gus Truck Things Up;National Geographic (Television network);s8e7_38;104908;
+8;8;A Touch of Sweevil;Johnny Rockets (Restaurant);s8e8_1;105082;
+8;8;A Touch of Sweevil;Wienerschnitzel (Restaurant);s8e8_2;105085;
+8;8;A Touch of Sweevil;Spanx (Underwear company);s8e8_3;105163;
+8;8;A Touch of Sweevil;Evian (Mineral water);s8e8_4;105175;
+8;8;A Touch of Sweevil;Flintstones Chewable Vitamins (Supplemental multivitamin);s8e8_5;105176;
+8;8;A Touch of Sweevil;Barney Rubble (Character from The Flintstones);s8e8_6;105176;
+8;8;A Touch of Sweevil;Darth Vader (Character from Star Wars);s8e8_7;105183;
+8;8;A Touch of Sweevil;James Earl Jones (Actor);s8e8_8;105184;
+8;8;A Touch of Sweevil;Star Wars (Movie);s8e8_9;105185;https://youtu.be/ycCAHYvAUl4?t=3
+8;8;A Touch of Sweevil;Alec Guinness (Actor);s8e8_10;105186;
+8;8;A Touch of Sweevil;Superman II (Movie);s8e8_11;105205;https://youtu.be/2u3eQc_rx54?t=64
+8;8;A Touch of Sweevil;This Is Spinal Tap (Movie);s8e8_12;105386;https://youtu.be/uMSV4OteqBE?t=84
+8;8;A Touch of Sweevil;Jack Webb (Actor);s8e8_13;105406;
+8;8;A Touch of Sweevil;The Wizard of Oz (Movie);s8e8_14;105500;https://youtu.be/aopdD9Cu-So?t=30
+8;8;A Touch of Sweevil;Super Friends (TV Show);s8e8_15;105623;
+8;8;A Touch of Sweevil;Ghost Hunters (TV Show);s8e8_16;105720,105756,105757;
+8;8;A Touch of Sweevil;Webster's Dictionary (Dictionary);s8e8_17;105858;
+8;8;A Touch of Sweevil;Wilhemina W. Witchiepoo (Character from H.R. Pufnstuf);s8e8_18;105952;
+8;8;A Touch of Sweevil;The Avengers (Movie);s8e8_19;105983;
+8;8;A Touch of Sweevil;Reese's Pieces (Candy);s8e8_20;106031;
+8;8;A Touch of Sweevil;Fugees (Hip hop trio);s8e8_21;106054;
+8;8;A Touch of Sweevil;Rocky Balboa (Character from Rocky);s8e8_22;106104;https://youtu.be/ddymqt28uwo?t=133
+8;8;A Touch of Sweevil;Belle Starr (American outlaw);s8e8_23;106201;
+8;9;A Nightmare on State Street;R.E.M. (Musicians);s8e9_1;106239,106241;
+8;9;A Nightmare on State Street;Up (Album by R.E.M.);s8e9_2;106243;
+8;9;A Nightmare on State Street;New Adventures in Hi-Fi (Album by R.E.M.);s8e9_3;106244;
+8;9;A Nightmare on State Street;Wilt Chamberlain (Basketball player);s8e9_4;106265;
+8;9;A Nightmare on State Street;Conan the Destroyer (Movie);s8e9_5;106265;
+8;9;A Nightmare on State Street;Rob Thomas (Musician);s8e9_6;106282;
+8;9;A Nightmare on State Street;Roland Orzabal (Musician);s8e9_7;106291,107010;
+8;9;A Nightmare on State Street;Harry Blackstone Jr. (Author);s8e9_8;106358,106359;
+8;9;A Nightmare on State Street;Sanjaya Malakar (Singer);s8e9_9;106510;
+8;9;A Nightmare on State Street;In Dreams (Song by Roy Orbison);s8e9_10;106509;https://youtu.be/MVRunwyoTMA?t=58
+8;9;A Nightmare on State Street;Nelson Rockefeller (44st Vice President of the United States);s8e9_11;106534;
+8;9;A Nightmare on State Street;The Changeling (Movie);s8e9_12;106685;https://youtu.be/MOfMULSSgPs?t=35
+8;9;A Nightmare on State Street;The Fly (Movie);s8e9_13;106718,106719;https://youtu.be/Up6g0SDMJ7A?t=21
+8;9;A Nightmare on State Street;Kate Capshaw (Actress);s8e9_14;106745;
+8;9;A Nightmare on State Street;Nair (Hair removal product);s8e9_15;106870;
+8;9;A Nightmare on State Street;Almond Joy (Candy);s8e9_16;106931;
+8;9;A Nightmare on State Street;Mounds (Chocolate bar);s8e9_17;106931;
+8;9;A Nightmare on State Street;Girls Just Want To Have Fun (Song by Cyndi Lauper);s8e9_18;106932;
+8;9;A Nightmare on State Street;Lassie Come Home (Movie);s8e9_19;106955;
+8;10;The Break-Up;Pig-Pen (Character from Peanuts);s8e10_1;107337;
+8;10;The Break-Up;Atlantis (Fictional island);s8e10_2;107375;
+8;10;The Break-Up;Whatchamacallit Candy Bar (Chocolate bar);s8e10_3;107477;
+8;10;The Break-Up;Raiders of the Lost Ark (Movie);s8e10_4;107598;https://youtu.be/Pk-B0s0jOwE?t=141
+8;10;The Break-Up;M&M'S (chocolate confectionery);s8e10_5;107653;
+8;10;The Break-Up;Gael Garcia Bernal (Actor/Producer);s8e10_6;107663,107704;
+8;10;The Break-Up;Pixy Stix (Candy);s8e10_7;107699;
+8;10;The Break-Up;Wendy's (Restaurant);s8e10_8;107734;
+8;10;The Break-Up;Del Taco (Restaurant);s8e10_9;107739;
+8;10;The Break-Up;Jay Leno (Comedian/TV show host);s8e10_10;107745;
+8;10;The Break-Up;Matt Damon (Actor);s8e10_11;107885,108084;
+8;10;The Break-Up;Bruce Willis (Actor);s8e10_12;107887;
+8;10;The Break-Up;Cop Out (Movie);s8e10_13;107887;
+8;10;The Break-Up;Michael Chiklis (Actor);s8e10_14;107889;
+8;10;The Break-Up;Wired (Movie);s8e10_15;107889;
+8;10;The Break-Up;John Belushi (Actor);s8e10_16;107890;
+8;10;The Break-Up;Breaking Bad (TV Show);s8e10_17;107891;
+8;10;The Break-Up;The Wizard of Oz (Movie);s8e10_18;107926;https://youtu.be/CFJ0ijW--cY?t=47
+8;10;The Break-Up;The Outsiders (Movie);s8e10_19;107927,107928;https://youtu.be/SnZbKOc7EXA
+8;10;The Break-Up;The Lords of Flatbush (Movie);s8e10_20;107951;
+8;10;The Break-Up;We Bought a Zoo (Movie);s8e10_21;108084,108085,108086,108093;https://youtu.be/Ndp-_cWdxYU?t=27
+8;10;The Break-Up;Wesley Snipes (Actor);s8e10_22;108118;
+8;10;The Break-Up;To Wong Foo, Thanks for Everything! Julie Newmar (Movie);s8e10_23;108118;
+8;10;The Break-Up;Monk (TV Show);s8e10_24;108119,108123,108124;https://youtu.be/UAcgixIXZBA?t=43
+8;10;The Break-Up;Wienermobile (Automobile shaped like a hot dog on a bun);s8e10_25;108162;
+8;10;The Break-Up;Unbreakable (Movie);s8e10_26;108167;
+8;10;The Break-Up;Samuel L. Jackson (Actor);s8e10_27;108168,108169;
