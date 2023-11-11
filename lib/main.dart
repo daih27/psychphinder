@@ -86,7 +86,11 @@ class _HomeState extends State<Home> {
   void initState() {
     _pageController = PageController(initialPage: _selectedIndex);
     super.initState();
-    initDeepLinks();
+    if (!kIsWeb) {
+      if (Platform.isAndroid) {
+        initDeepLinks();
+      }
+    }
     showWhatsNew(context);
     if (!kIsWeb) {
       if (Platform.isWindows || Platform.isLinux) {
@@ -108,9 +112,22 @@ class _HomeState extends State<Home> {
   }
 
   void openAppLink(Uri uri) {
-    context.go(
-      uri.toString().replaceAll("https://daih27.github.io/psychphinder/#", ""),
-    );
+    if (uri.toString() == "https://daih27.github.io/psychphinder" ||
+        uri.toString() == "https://daih27.github.io/psychphinder/") {
+      context.go(
+        "/",
+      );
+    } else if (uri
+        .toString()
+        .startsWith("https://daih27.github.io/psychphinder/#")) {
+      context.go(
+        uri
+            .toString()
+            .replaceAll("https://daih27.github.io/psychphinder/#", ""),
+      );
+    } else {
+      context.go("/");
+    }
   }
 
   Future<void> showWhatsNew(BuildContext context) async {
