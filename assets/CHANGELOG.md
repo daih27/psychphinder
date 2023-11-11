@@ -1,3 +1,13 @@
+# 1.1.3 (11/11/2023)
+
+- Completed all the references from season 8.
+- Added a "link" button in the Share dialog. Now you can share a link to a specific quote form the show. Also, you can open the links inside the app (Android only). If the app doesn't open the link automatically, you can activate this manually by going to App info > Open by default > Add link.
+- Now when using the app in a web browser, each part of the app has a different link, so you can save it to favorites, share it, etc, and it'll mantain the position of wherever you were in that moment.
+- Now searching with the "&" symbol should show results containing both "&" and "and".
+- Fixed a huge bug where the app was crashing if the input text when searching contained some non-common symbols, contained two or more continuous whitespaces, or a whitespace at the beginning or at the end.
+- Fixed a possible overflow in the welcome page.
+- Removed the bottom text in the references page.
+
 # 1.1.2 (28/10/2023)
 
 - Completed all the references from season 7.
