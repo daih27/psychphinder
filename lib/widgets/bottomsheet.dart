@@ -486,105 +486,94 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ElevatedButton(
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                            Colors.white,
-                                          ),
-                                        ),
-                                        onPressed: () async {
-                                          final String link =
-                                              "https://daih27.github.io/psychphinder/#/${widget.fullEpisode[newId].id}";
-                                          if (!kIsWeb) {
-                                            if (Platform.isAndroid) {
-                                              final result =
-                                                  await Share.shareWithResult(
-                                                link,
-                                              );
-                                              if (result.status ==
-                                                  ShareResultStatus.success) {
-                                                _showToast("Shared link!");
-                                              }
-                                            } else {
-                                              await Clipboard.setData(
-                                                ClipboardData(text: link),
-                                              );
-                                              _showToast(
-                                                  "Copied link to clipboard!");
-                                            }
-                                          } else {
-                                            await Clipboard.setData(
-                                              ClipboardData(text: link),
-                                            );
-                                            _showToast(
-                                                "Copied link to clipboard!");
-                                          }
-                                        },
-                                        child: const Text(
-                                          "Link",
-                                          style: TextStyle(
-                                              color: Colors.green,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                  ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                        Colors.white,
                                       ),
-                                      const SizedBox(width: 10),
-                                      ElevatedButton(
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                            Colors.white,
-                                          ),
-                                        ),
-                                        onPressed: () async {
-                                          if (!kIsWeb) {
-                                            if (Platform.isAndroid) {
-                                              final result =
-                                                  await Share.shareWithResult(
-                                                widget.fullEpisode[newId].line,
-                                              );
-                                              if (result.status ==
-                                                  ShareResultStatus.success) {
-                                                _showToast("Shared text!");
-                                              }
-                                            } else {
-                                              await Clipboard.setData(
-                                                ClipboardData(
-                                                    text: widget
-                                                        .fullEpisode[newId]
-                                                        .line),
-                                              );
-                                              _showToast(
-                                                  "Copied text to clipboard!");
-                                            }
-                                          } else {
-                                            await Clipboard.setData(
-                                              ClipboardData(
-                                                  text: widget
-                                                      .fullEpisode[newId].line),
-                                            );
-                                            _showToast(
-                                                "Copied text to clipboard!");
+                                    ),
+                                    onPressed: () async {
+                                      final String link =
+                                          "https://daih27.github.io/psychphinder/#/${widget.fullEpisode[newId].id}";
+                                      if (!kIsWeb) {
+                                        if (Platform.isAndroid) {
+                                          final result =
+                                              await Share.shareWithResult(
+                                            link,
+                                          );
+                                          if (result.status ==
+                                              ShareResultStatus.success) {
+                                            _showToast("Shared link!");
                                           }
-                                        },
-                                        child: const Text(
-                                          "Text",
-                                          style: TextStyle(
-                                              color: Colors.green,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ],
+                                        } else {
+                                          await Clipboard.setData(
+                                            ClipboardData(text: link),
+                                          );
+                                          _showToast(
+                                              "Copied link to clipboard!");
+                                        }
+                                      } else {
+                                        await Clipboard.setData(
+                                          ClipboardData(text: link),
+                                        );
+                                        _showToast("Copied link to clipboard!");
+                                      }
+                                    },
+                                    child: const Text(
+                                      "Link",
+                                      style: TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                  const SizedBox(width: 10),
+                                  const SizedBox(height: 10),
+                                  ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                    onPressed: () async {
+                                      if (!kIsWeb) {
+                                        if (Platform.isAndroid) {
+                                          final result =
+                                              await Share.shareWithResult(
+                                            widget.fullEpisode[newId].line,
+                                          );
+                                          if (result.status ==
+                                              ShareResultStatus.success) {
+                                            _showToast("Shared text!");
+                                          }
+                                        } else {
+                                          await Clipboard.setData(
+                                            ClipboardData(
+                                                text: widget
+                                                    .fullEpisode[newId].line),
+                                          );
+                                          _showToast(
+                                              "Copied text to clipboard!");
+                                        }
+                                      } else {
+                                        await Clipboard.setData(
+                                          ClipboardData(
+                                              text: widget
+                                                  .fullEpisode[newId].line),
+                                        );
+                                        _showToast("Copied text to clipboard!");
+                                      }
+                                    },
+                                    child: const Text(
+                                      "Text",
+                                      style: TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
                                   ElevatedButton(
                                     style: ButtonStyle(
                                       backgroundColor:
