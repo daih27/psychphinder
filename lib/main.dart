@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:io';
+import 'package:app_links/app_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -69,6 +71,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late AppLinks _appLinks;
+  // ignore: unused_field
+  StreamSubscription<Uri>? _linkSubscription;
   int _selectedIndex = 1;
   PageController _pageController = PageController();
   final screens = [
@@ -81,12 +86,31 @@ class _HomeState extends State<Home> {
   void initState() {
     _pageController = PageController(initialPage: _selectedIndex);
     super.initState();
+    initDeepLinks();
     showWhatsNew(context);
     if (!kIsWeb) {
       if (Platform.isWindows || Platform.isLinux) {
         showUpdateLinuxWindows();
       }
     }
+  }
+
+  Future<void> initDeepLinks() async {
+    _appLinks = AppLinks();
+    final appLink = await _appLinks.getInitialAppLink();
+    if (appLink != null) {
+      openAppLink(appLink);
+    }
+
+    _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
+      openAppLink(uri);
+    });
+  }
+
+  void openAppLink(Uri uri) {
+    context.go(
+      uri.toString().replaceAll("https://daih27.github.io/psychphinder/#", ""),
+    );
   }
 
   Future<void> showWhatsNew(BuildContext context) async {

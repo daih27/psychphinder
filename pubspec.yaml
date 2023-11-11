@@ -23,7 +23,7 @@ dependencies:
   url_launcher: ^6.1.12
   widgets_to_image: ^0.0.2
   share_plus: ^7.1.0
-  fluttertoast: ^8.2.2
+  fluttertoast: 8.2.2
   flutter_wallpaper_manager: ^0.0.4
   gal: ^1.7.0
   flutter_screenutil: 5.8.4
@@ -37,7 +37,7 @@ dependencies:
   file_saver: ^0.2.8
   universal_html: ^2.2.4
   go_router: ^12.0.1
-  url_strategy: ^0.2.0
+  app_links: ^3.4.5
 
 dev_dependencies:
   hive_generator: ^1.1.2
