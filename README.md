@@ -3,7 +3,7 @@
 Psychphinder is an app made in Flutter to search for your favorite quotes from the TV show Psych 🍍
 
 <div>
-    <a href="https://daih27.github.io/psychphinder"><img align=center src="https://raw.githubusercontent.com/daih27/psychphinder/c13b27d64957a738bed2ce9e749f260b925956d6/github_assets/browser.png" height=55px /></a>
+    <a href="https://daih27.github.io/psychphinder"><img align=center src="https://raw.githubusercontent.com/daih27/psychphinder/master/github_assets/browser.png" height=80px /></a>
     <a href="https://play.google.com/store/apps/details?id=com.daih.psychphinder"><img align=center src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=80px/></a>
     <a href="https://f-droid.org/packages/com.daih.psychphinder"><img align=center src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">
 </a>
