@@ -3,7 +3,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gal/gal.dart';
@@ -293,7 +292,7 @@ class _CreateImageState extends State<CreateImagePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Icon(Icons.check, color: Colors.white),
-          12.horizontalSpace,
+          const SizedBox(width: 12.0),
           Text(
             text,
             style: const TextStyle(color: Colors.white),
@@ -315,12 +314,14 @@ class _CreateImageState extends State<CreateImagePage> {
     setState(
       () {
         resolutionW = pref.getInt("ResolutionWidth") ??
-            (ScreenUtil().screenWidth * ScreenUtil().pixelRatio!).toInt();
+            (MediaQuery.of(context).size.width *
+                    MediaQuery.of(context).devicePixelRatio)
+                .toInt();
         resolutionH = pref.getInt("ResolutionHeight") ??
-            ((ScreenUtil().screenHeight +
-                        ScreenUtil().bottomBarHeight +
-                        ScreenUtil().statusBarHeight) *
-                    ScreenUtil().pixelRatio!)
+            ((MediaQuery.of(context).size.height +
+                        MediaQuery.of(context).padding.bottom +
+                        MediaQuery.of(context).padding.top) *
+                    MediaQuery.of(context).devicePixelRatio)
                 .toInt();
       },
     );
@@ -392,11 +393,6 @@ class _CreateImageState extends State<CreateImagePage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-      context,
-      designSize: Size(
-          1080 / ScreenUtil().pixelRatio!, 2400 / ScreenUtil().pixelRatio!),
-    );
     reduceSizeBelow1080();
     return WillPopScope(
       onWillPop: () async {
@@ -422,12 +418,12 @@ class _CreateImageState extends State<CreateImagePage> {
               SizedBox(
                 width: imageType == 'Wallpaper'
                     ? (resolutionW >= resolutionH
-                        ? ScreenUtil().screenWidth * 0.7
+                        ? MediaQuery.of(context).size.width * 0.7
                         : null)
-                    : ScreenUtil().screenHeight * 0.5,
+                    : MediaQuery.of(context).size.height * 0.5,
                 height: imageType == 'Wallpaper'
                     ? (resolutionH > resolutionW
-                        ? ScreenUtil().screenHeight * 0.5
+                        ? MediaQuery.of(context).size.height * 0.5
                         : null)
                     : null,
                 child: FittedBox(
@@ -604,7 +600,7 @@ class _CreateImageState extends State<CreateImagePage> {
               ),
               typeSelection(),
               customization(context),
-              20.verticalSpace,
+              const SizedBox(height: 20),
               Column(
                 children: [
                   Row(
@@ -613,7 +609,7 @@ class _CreateImageState extends State<CreateImagePage> {
                       shareImage(),
                       !kIsWeb
                           ? (Platform.isAndroid
-                              ? 15.horizontalSpace
+                              ? const SizedBox(width: 15)
                               : const SizedBox())
                           : const SizedBox(),
                       !kIsWeb
@@ -625,7 +621,7 @@ class _CreateImageState extends State<CreateImagePage> {
                   ),
                   !kIsWeb
                       ? (Platform.isAndroid
-                          ? 15.verticalSpace
+                          ? const SizedBox(height: 15)
                           : const SizedBox())
                       : const SizedBox(),
                   !kIsWeb
@@ -730,7 +726,7 @@ class _CreateImageState extends State<CreateImagePage> {
             ),
             textScaleFactor: 1.0,
           ),
-          5.horizontalSpace,
+          const SizedBox(width: 5),
           Icon(
             !kIsWeb
                 ? (Platform.isAndroid
@@ -784,10 +780,10 @@ class _CreateImageState extends State<CreateImagePage> {
           Colors.green,
         ),
       ),
-      child: Row(
+      child: const Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
+          Text(
             "Save to gallery",
             style: TextStyle(
               color: Colors.white,
@@ -795,8 +791,8 @@ class _CreateImageState extends State<CreateImagePage> {
             ),
             textScaleFactor: 1.0,
           ),
-          5.horizontalSpace,
-          const Icon(
+          SizedBox(width: 5),
+          Icon(
             Icons.save_rounded,
             color: Colors.white,
           ),
@@ -828,10 +824,10 @@ class _CreateImageState extends State<CreateImagePage> {
           Colors.green,
         ),
       ),
-      child: Row(
+      child: const Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
+          Text(
             "Set as wallpaper",
             style: TextStyle(
               color: Colors.white,
@@ -839,8 +835,8 @@ class _CreateImageState extends State<CreateImagePage> {
             ),
             textScaleFactor: 1.0,
           ),
-          5.horizontalSpace,
-          const Icon(
+          SizedBox(width: 5),
+          Icon(
             Icons.wallpaper,
             color: Colors.white,
           ),
@@ -900,7 +896,7 @@ class _CreateImageState extends State<CreateImagePage> {
                     textScaleFactor: 1.0,
                   ),
                 ),
-                10.horizontalSpace,
+                const SizedBox(width: 10),
                 ElevatedButton(
                   style: ButtonStyle(
                     fixedSize: MaterialStateProperty.all(
