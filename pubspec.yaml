@@ -9,24 +9,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
   csv: ^5.0.2
   fuzzywuzzy: ^1.1.6
   flutter_list_view: ^1.1.21
   hive_flutter: ^1.1.0
   provider: ^6.0.5
   file_picker: ^6.0.0
-  permission_handler: ^10.4.3
   shared_preferences: ^2.2.0
   flutter_donation_buttons: ^0.3.7
   check_app_version: ^1.0.1
   url_launcher: ^6.1.12
   widgets_to_image: ^0.0.2
   share_plus: ^7.1.0
-  fluttertoast: 8.2.2
+  fluttertoast: ^8.2.4
   flutter_wallpaper_manager: ^0.0.4
   gal: ^1.7.0
-  flutter_screenutil: 5.8.4
   google_nav_bar: ^5.0.6
   diacritic: ^0.1.4
   highlight_text: ^1.7.0
@@ -51,7 +48,7 @@ dependency_overrides:
   sheet:
     git:
       url: https://github.com/jamesblasco/modal_bottom_sheet.git
-      ref: d89711deb8f5e5c976ec23585551125700e4a80a
+      ref: d5c9ceb4e2263f63f449ed9b1c212a34c6dcaa5d
       path: sheet
 
 flutter_launcher_icons:
