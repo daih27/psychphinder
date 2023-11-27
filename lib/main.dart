@@ -51,7 +51,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).currentTheme,
       routerConfig: router,
-      builder: FToastBuilder(),
+      builder: (BuildContext context, Widget? child) {
+        return Builder(
+          builder: (BuildContext context) {
+            return MediaQuery(
+              data: MediaQuery.of(context)
+                  .copyWith(textScaler: TextScaler.noScaling),
+              child: FToastBuilder()(context, child),
+            );
+          },
+        );
+      },
     );
   }
 }

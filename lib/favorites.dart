@@ -50,7 +50,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
-                          textScaleFactor: 1.0,
                           textAlign: TextAlign.center,
                         ),
                       );
