@@ -200,11 +200,10 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
               ? references.sort((a, b) => a.reference.compareTo(b.reference))
               : references.sort((a, b) => int.parse(a.idLine.split(',')[0])
                   .compareTo(int.parse(b.idLine.split(',')[0])));
-          return WillPopScope(
-            onWillPop: () async {
+          return PopScope(
+            onPopInvoked: (didPop) {
               saveSort(sortByAlphabetical);
-              Navigator.pop(context);
-              return false;
+              return;
             },
             child: Scaffold(
               appBar: AppBar(
