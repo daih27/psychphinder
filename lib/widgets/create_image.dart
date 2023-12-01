@@ -3,9 +3,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gal/gal.dart';
+import 'package:provider/provider.dart';
+import 'package:psychphinder/global/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
 import 'dart:io';
@@ -36,6 +39,7 @@ class _CreateImageState extends State<CreateImagePage> {
   bool afterLineCheck = false;
   bool showPsychphinder = true;
   bool applyOffset = true;
+  bool applyGradient = true;
   int resolutionW = 0;
   int resolutionH = 0;
   String widgetTopRight = 'Episode name';
@@ -52,7 +56,14 @@ class _CreateImageState extends State<CreateImagePage> {
   double boxSize = 110;
   double madeWithPsychphidnerSize = 3.5;
   Color bgColor = Colors.green;
-  Color textColor = Colors.white;
+  Color lineColor = Colors.white;
+  Color beforeLineColor = Colors.white;
+  Color afterLineColor = Colors.white;
+  Color topLeftColor = Colors.white;
+  Color topRightColor = Colors.white;
+  Color bottomLeftColor = Colors.white;
+  Color bottomRightColor = Colors.white;
+  Color psychphinderColor = Colors.white;
   FToast fToast = FToast();
 
   @override
@@ -81,6 +92,7 @@ class _CreateImageState extends State<CreateImagePage> {
     }
 
     getResolution().whenComplete(() => changeOffset());
+    getColors();
   }
 
   void update(String value, int selectedIndex) {
@@ -103,19 +115,69 @@ class _CreateImageState extends State<CreateImagePage> {
     }
   }
 
+  void updateColor(Color color, int selectedIndex) {
+    switch (selectedIndex) {
+      case 0:
+        setState(() {
+          topLeftColor = color;
+        });
+        break;
+      case 1:
+        setState(() {
+          topRightColor = color;
+        });
+        break;
+      case 2:
+        setState(() {
+          bottomLeftColor = color;
+        });
+        break;
+      case 3:
+        setState(() {
+          bottomRightColor = color;
+        });
+        break;
+      case 4:
+        setState(() {
+          beforeLineColor = color;
+        });
+        break;
+      case 5:
+        setState(() {
+          lineColor = color;
+        });
+        break;
+      case 6:
+        setState(() {
+          afterLineColor = color;
+        });
+        break;
+      case 7:
+        setState(() {
+          bgColor = color;
+        });
+        break;
+      case 8:
+        setState(() {
+          psychphinderColor = color;
+        });
+        break;
+    }
+  }
+
   Widget topLeftWidget() {
     switch (widgetTopLeft) {
       case "Psych Logo":
         return PsychLogoWidget(
           size: psychLogoSize,
-          textColor: textColor,
+          textColor: topLeftColor,
           imageType: imageType,
         );
       case "Episode name" || "Movie name":
         return EpisodeNameWidget(
           name: widget.episode[widget.id].name,
           size: infoSize,
-          textColor: textColor,
+          textColor: topLeftColor,
           applyOffset: applyOffset,
           imageType: imageType,
           box: boxSize,
@@ -125,14 +187,14 @@ class _CreateImageState extends State<CreateImagePage> {
           season: widget.episode[widget.id].season.toString(),
           episode: widget.episode[widget.id].episode.toString(),
           size: infoSize,
-          textColor: textColor,
+          textColor: topLeftColor,
           imageType: imageType,
         );
       case "Time":
         return TimeWidget(
           time: widget.episode[widget.id].time,
           size: infoSize,
-          textColor: textColor,
+          textColor: topLeftColor,
           imageType: imageType,
         );
       case "None":
@@ -140,7 +202,7 @@ class _CreateImageState extends State<CreateImagePage> {
       default:
         return PsychLogoWidget(
           size: psychLogoSize,
-          textColor: textColor,
+          textColor: topLeftColor,
           imageType: imageType,
         );
     }
@@ -151,14 +213,14 @@ class _CreateImageState extends State<CreateImagePage> {
       case "Psych logo":
         return PsychLogoWidget(
           size: psychLogoSize,
-          textColor: textColor,
+          textColor: topRightColor,
           imageType: imageType,
         );
       case "Episode name" || "Movie name":
         return EpisodeNameWidget(
           name: widget.episode[widget.id].name,
           size: infoSize,
-          textColor: textColor,
+          textColor: topRightColor,
           applyOffset: applyOffset,
           imageType: imageType,
           box: boxSize,
@@ -168,14 +230,14 @@ class _CreateImageState extends State<CreateImagePage> {
           season: widget.episode[widget.id].season.toString(),
           episode: widget.episode[widget.id].episode.toString(),
           size: infoSize,
-          textColor: textColor,
+          textColor: topRightColor,
           imageType: imageType,
         );
       case "Time":
         return TimeWidget(
           time: widget.episode[widget.id].time,
           size: infoSize,
-          textColor: textColor,
+          textColor: topRightColor,
           imageType: imageType,
         );
       case "None":
@@ -184,7 +246,7 @@ class _CreateImageState extends State<CreateImagePage> {
         return EpisodeNameWidget(
           name: widget.episode[widget.id].name,
           size: infoSize,
-          textColor: textColor,
+          textColor: topRightColor,
           applyOffset: applyOffset,
           imageType: imageType,
           box: boxSize,
@@ -197,14 +259,14 @@ class _CreateImageState extends State<CreateImagePage> {
       case "Psych logo":
         return PsychLogoWidget(
           size: psychLogoSize,
-          textColor: textColor,
+          textColor: bottomRightColor,
           imageType: imageType,
         );
       case "Episode name" || "Movie name":
         return EpisodeNameWidget(
           name: widget.episode[widget.id].name,
           size: infoSize,
-          textColor: textColor,
+          textColor: bottomRightColor,
           applyOffset: applyOffset,
           imageType: imageType,
           box: boxSize,
@@ -214,14 +276,14 @@ class _CreateImageState extends State<CreateImagePage> {
           season: widget.episode[widget.id].season.toString(),
           episode: widget.episode[widget.id].episode.toString(),
           size: infoSize,
-          textColor: textColor,
+          textColor: bottomRightColor,
           imageType: imageType,
         );
       case "Time":
         return TimeWidget(
           time: widget.episode[widget.id].time,
           size: infoSize,
-          textColor: textColor,
+          textColor: bottomRightColor,
           imageType: imageType,
         );
       case "None":
@@ -230,7 +292,7 @@ class _CreateImageState extends State<CreateImagePage> {
         return TimeWidget(
           time: widget.episode[widget.id].time,
           size: infoSize,
-          textColor: textColor,
+          textColor: bottomRightColor,
           imageType: imageType,
         );
     }
@@ -241,14 +303,14 @@ class _CreateImageState extends State<CreateImagePage> {
       case "Psych logo":
         return PsychLogoWidget(
           size: psychLogoSize,
-          textColor: textColor,
+          textColor: bottomLeftColor,
           imageType: imageType,
         );
       case "Episode name" || "Movie name":
         return EpisodeNameWidget(
           name: widget.episode[widget.id].name,
           size: infoSize,
-          textColor: textColor,
+          textColor: bottomLeftColor,
           applyOffset: applyOffset,
           imageType: imageType,
           box: boxSize,
@@ -258,14 +320,14 @@ class _CreateImageState extends State<CreateImagePage> {
           season: widget.episode[widget.id].season.toString(),
           episode: widget.episode[widget.id].episode.toString(),
           size: infoSize,
-          textColor: textColor,
+          textColor: bottomLeftColor,
           imageType: imageType,
         );
       case "Time":
         return TimeWidget(
           time: widget.episode[widget.id].time,
           size: infoSize,
-          textColor: textColor,
+          textColor: bottomLeftColor,
           imageType: imageType,
         );
       case "None":
@@ -275,7 +337,7 @@ class _CreateImageState extends State<CreateImagePage> {
           season: widget.episode[widget.id].season.toString(),
           episode: widget.episode[widget.id].episode.toString(),
           size: infoSize,
-          textColor: textColor,
+          textColor: bottomLeftColor,
           imageType: imageType,
         );
     }
@@ -338,6 +400,46 @@ class _CreateImageState extends State<CreateImagePage> {
     pref.setInt("ResolutionWidth", resolutionWidth);
   }
 
+  Future<void> getColors() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(
+      () {
+        bottomRightColor = pref.getInt("bottomRightColor") == null
+            ? Colors.white
+            : Color(pref.getInt("bottomRightColor")!);
+        bottomLeftColor = pref.getInt("bottomLeftColor") == null
+            ? Colors.white
+            : Color(pref.getInt("bottomLeftColor")!);
+        topRightColor = pref.getInt("topRightColor") == null
+            ? Colors.white
+            : Color(pref.getInt("topRightColor")!);
+        topLeftColor = pref.getInt("topLeftColor") == null
+            ? Colors.white
+            : Color(pref.getInt("topLeftColor")!);
+        lineColor = pref.getInt("lineColor") == null
+            ? Colors.white
+            : Color(pref.getInt("lineColor")!);
+        beforeLineColor = pref.getInt("beforeLineColor") == null
+            ? Colors.white
+            : Color(pref.getInt("beforeLineColor")!);
+        afterLineColor = pref.getInt("afterLineColor") == null
+            ? Colors.white
+            : Color(pref.getInt("afterLineColor")!);
+        bgColor = pref.getInt("bgColor") == null
+            ? Colors.green
+            : Color(pref.getInt("bgColor")!);
+        psychphinderColor = pref.getInt("psychphinderColor") == null
+            ? Colors.white
+            : Color(pref.getInt("psychphinderColor")!);
+      },
+    );
+  }
+
+  Future<void> setColors(String key, int value) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt(key, value);
+  }
+
   void reduceSizeBelow1080() {
     if (imageType == 'Wallpaper') {
       if (resolutionW < 1080) {
@@ -390,6 +492,25 @@ class _CreateImageState extends State<CreateImagePage> {
     });
   }
 
+  Color darkenColor(Color color, [double amount = .1]) {
+    assert(amount >= 0 && amount <= 1);
+
+    final hsl = HSLColor.fromColor(color);
+    final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+
+    return hslDark.toColor();
+  }
+
+  Color lightenColor(Color color, [double amount = .1]) {
+    assert(amount >= 0 && amount <= 1);
+
+    final hsl = HSLColor.fromColor(color);
+    final hslLight =
+        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+
+    return hslLight.toColor();
+  }
+
   @override
   Widget build(BuildContext context) {
     reduceSizeBelow1080();
@@ -407,179 +528,186 @@ class _CreateImageState extends State<CreateImagePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              width: imageType == 'Wallpaper'
-                  ? (resolutionW >= resolutionH
-                      ? MediaQuery.of(context).size.width * 0.7
-                      : null)
-                  : MediaQuery.of(context).size.height * 0.5,
-              height: imageType == 'Wallpaper'
-                  ? (resolutionH > resolutionW
-                      ? MediaQuery.of(context).size.height * 0.5
-                      : null)
-                  : null,
-              child: FittedBox(
-                child: Center(
-                  child: UnconstrainedBox(
-                    child: SizedBox(
-                      height: imageType == 'Post'
-                          ? 1080 / 6
-                          : (resolutionH) * wallpaperScale / 6,
-                      width: imageType == 'Post'
-                          ? 1080 / 6
-                          : (resolutionW) * wallpaperScale / 6,
-                      child: WidgetsToImage(
-                        controller: controller,
-                        child: Container(
+      body: Column(
+        children: [
+          SizedBox(
+            width: imageType == 'Wallpaper'
+                ? (resolutionW >= resolutionH
+                    ? MediaQuery.of(context).size.width * 0.7
+                    : null)
+                : MediaQuery.of(context).size.height * 0.5,
+            height: imageType == 'Wallpaper'
+                ? (resolutionH > resolutionW
+                    ? MediaQuery.of(context).size.height * 0.5
+                    : null)
+                : null,
+            child: FittedBox(
+              child: Center(
+                child: UnconstrainedBox(
+                  child: SizedBox(
+                    height: imageType == 'Post'
+                        ? 1080 / 6
+                        : (resolutionH) * wallpaperScale / 6,
+                    width: imageType == 'Post'
+                        ? 1080 / 6
+                        : (resolutionW) * wallpaperScale / 6,
+                    child: WidgetsToImage(
+                      controller: controller,
+                      child: Container(
+                        decoration: BoxDecoration(
                           color: bgColor,
-                          child: Stack(
-                            children: [
-                              Positioned(
+                          gradient: applyGradient
+                              ? LinearGradient(
+                                  colors: [
+                                    lightenColor(bgColor, 0.1),
+                                    bgColor,
+                                    darkenColor(bgColor, 0.1),
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                )
+                              : null,
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: imageType == 'Post'
+                                  ? (widgetTopLeft == 'Psych logo' ? -2 : 5)
+                                  : (widgetTopLeft == 'Psych logo'
+                                      ? (9 + wallpaperOffset)
+                                      : (17 + wallpaperOffset)),
+                              left: imageType == 'Post'
+                                  ? 5
+                                  : (5 + wallpaperOffset),
+                              child: topLeftWidget(),
+                            ),
+                            Positioned(
                                 top: imageType == 'Post'
-                                    ? (widgetTopLeft == 'Psych logo' ? -2 : 5)
-                                    : (widgetTopLeft == 'Psych logo'
+                                    ? (widgetTopRight == 'Psych logo' ? -2 : 5)
+                                    : (widgetTopRight == 'Psych logo'
                                         ? (9 + wallpaperOffset)
                                         : (17 + wallpaperOffset)),
-                                left: imageType == 'Post'
-                                    ? 5
-                                    : (5 + wallpaperOffset),
-                                child: topLeftWidget(),
-                              ),
-                              Positioned(
-                                  top: imageType == 'Post'
-                                      ? (widgetTopRight == 'Psych logo'
-                                          ? -2
-                                          : 5)
-                                      : (widgetTopRight == 'Psych logo'
-                                          ? (9 + wallpaperOffset)
-                                          : (17 + wallpaperOffset)),
-                                  right: imageType == 'Post'
-                                      ? 5
-                                      : (5 + wallpaperOffset),
-                                  child: topRightWidget()),
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    beforeLineCheck
-                                        ? Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                8, 2, 8, 2),
-                                            child: ConstrainedBox(
-                                              constraints: imageType ==
-                                                      'Wallpaper'
-                                                  ? applyOffset
-                                                      ? const BoxConstraints(
-                                                          maxWidth: 155)
-                                                      : const BoxConstraints()
-                                                  : const BoxConstraints(),
-                                              child: TextWidget(
-                                                text: beforeLine,
-                                                size: imageType == 'Wallpaper'
-                                                    ? secondarylineSize /
-                                                        wallpaperScale
-                                                    : secondarylineSize,
-                                                textColor: textColor,
-                                                imageType: imageType,
-                                              ),
-                                            ))
-                                        : Container(),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(8, 2, 8, 2),
-                                      child: ConstrainedBox(
-                                        constraints: imageType == 'Wallpaper'
-                                            ? applyOffset
-                                                ? const BoxConstraints(
-                                                    maxWidth: 155)
-                                                : const BoxConstraints()
-                                            : const BoxConstraints(),
-                                        child: TextWidget(
-                                          text: mainLine,
-                                          size: imageType == 'Wallpaper'
-                                              ? lineSize
-                                              : lineSize,
-                                          textColor: textColor,
-                                          imageType: imageType,
-                                        ),
-                                      ),
-                                    ),
-                                    afterLineCheck
-                                        ? Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                8, 2, 8, 2),
-                                            child: ConstrainedBox(
-                                              constraints: imageType ==
-                                                      'Wallpaper'
-                                                  ? applyOffset
-                                                      ? const BoxConstraints(
-                                                          maxWidth: 155)
-                                                      : const BoxConstraints()
-                                                  : const BoxConstraints(),
-                                              child: TextWidget(
-                                                text: afterLine,
-                                                size: imageType == 'Wallpaper'
-                                                    ? secondarylineSize /
-                                                        wallpaperScale
-                                                    : secondarylineSize,
-                                                textColor: textColor,
-                                                imageType: imageType,
-                                              ),
-                                            ))
-                                        : const SizedBox(),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                bottom: imageType == 'Post'
-                                    ? (widgetBottomLeft == 'Psych logo' ? 0 : 5)
-                                    : (widgetBottomLeft == 'Psych logo'
-                                        ? (5 + wallpaperOffset)
-                                        : (10 + wallpaperOffset)),
-                                left: imageType == 'Post'
-                                    ? 5
-                                    : (5 + wallpaperOffset),
-                                child: bottomLeftWidget(),
-                              ),
-                              Positioned(
-                                bottom: imageType == 'Post'
-                                    ? (widgetBottomRight == 'Psych logo'
-                                        ? 2
-                                        : 5)
-                                    : (widgetBottomRight == 'Psych logo'
-                                        ? (7 + wallpaperOffset)
-                                        : (10 + wallpaperOffset)),
                                 right: imageType == 'Post'
                                     ? 5
                                     : (5 + wallpaperOffset),
-                                child: bottomRightWidget(),
-                              ),
-                              showPsychphinder
-                                  ? Positioned(
-                                      bottom: imageType == 'Post'
-                                          ? 1
-                                          : (6 + wallpaperOffset),
-                                      right: imageType == 'Post'
-                                          ? 1
-                                          : (1 + wallpaperOffset),
-                                      child: Text(
-                                        "Made with psychphinder",
-                                        style: TextStyle(
-                                          fontSize: madeWithPsychphidnerSize,
-                                          fontFamily: 'PsychFont',
-                                          color: textColor,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: -0.2,
-                                        ),
+                                child: topRightWidget()),
+                            Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  beforeLineCheck
+                                      ? Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              8, 2, 8, 2),
+                                          child: ConstrainedBox(
+                                            constraints:
+                                                imageType == 'Wallpaper'
+                                                    ? applyOffset
+                                                        ? const BoxConstraints(
+                                                            maxWidth: 155)
+                                                        : const BoxConstraints()
+                                                    : const BoxConstraints(),
+                                            child: TextWidget(
+                                              text: beforeLine,
+                                              size: imageType == 'Wallpaper'
+                                                  ? secondarylineSize /
+                                                      wallpaperScale
+                                                  : secondarylineSize,
+                                              textColor: beforeLineColor,
+                                              imageType: imageType,
+                                            ),
+                                          ))
+                                      : Container(),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 2, 8, 2),
+                                    child: ConstrainedBox(
+                                      constraints: imageType == 'Wallpaper'
+                                          ? applyOffset
+                                              ? const BoxConstraints(
+                                                  maxWidth: 155)
+                                              : const BoxConstraints()
+                                          : const BoxConstraints(),
+                                      child: TextWidget(
+                                        text: mainLine,
+                                        size: imageType == 'Wallpaper'
+                                            ? lineSize
+                                            : lineSize,
+                                        textColor: lineColor,
+                                        imageType: imageType,
                                       ),
-                                    )
-                                  : const SizedBox(),
-                            ],
-                          ),
+                                    ),
+                                  ),
+                                  afterLineCheck
+                                      ? Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              8, 2, 8, 2),
+                                          child: ConstrainedBox(
+                                            constraints:
+                                                imageType == 'Wallpaper'
+                                                    ? applyOffset
+                                                        ? const BoxConstraints(
+                                                            maxWidth: 155)
+                                                        : const BoxConstraints()
+                                                    : const BoxConstraints(),
+                                            child: TextWidget(
+                                              text: afterLine,
+                                              size: imageType == 'Wallpaper'
+                                                  ? secondarylineSize /
+                                                      wallpaperScale
+                                                  : secondarylineSize,
+                                              textColor: afterLineColor,
+                                              imageType: imageType,
+                                            ),
+                                          ))
+                                      : const SizedBox(),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              bottom: imageType == 'Post'
+                                  ? (widgetBottomLeft == 'Psych logo' ? 0 : 5)
+                                  : (widgetBottomLeft == 'Psych logo'
+                                      ? (5 + wallpaperOffset)
+                                      : (10 + wallpaperOffset)),
+                              left: imageType == 'Post'
+                                  ? 5
+                                  : (5 + wallpaperOffset),
+                              child: bottomLeftWidget(),
+                            ),
+                            Positioned(
+                              bottom: imageType == 'Post'
+                                  ? (widgetBottomRight == 'Psych logo' ? 2 : 5)
+                                  : (widgetBottomRight == 'Psych logo'
+                                      ? (7 + wallpaperOffset)
+                                      : (10 + wallpaperOffset)),
+                              right: imageType == 'Post'
+                                  ? 5
+                                  : (5 + wallpaperOffset),
+                              child: bottomRightWidget(),
+                            ),
+                            showPsychphinder
+                                ? Positioned(
+                                    bottom: imageType == 'Post'
+                                        ? 1
+                                        : (6 + wallpaperOffset),
+                                    right: imageType == 'Post'
+                                        ? 1
+                                        : (1 + wallpaperOffset),
+                                    child: Text(
+                                      "Made with psychphinder",
+                                      style: TextStyle(
+                                        fontSize: madeWithPsychphidnerSize,
+                                        fontFamily: 'PsychFont',
+                                        color: psychphinderColor,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: -0.2,
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox(),
+                          ],
                         ),
                       ),
                     ),
@@ -587,41 +715,53 @@ class _CreateImageState extends State<CreateImagePage> {
                 ),
               ),
             ),
-            typeSelection(),
-            customization(context),
-            const SizedBox(height: 20),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Material(
+                color: Colors.transparent,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    shareImage(),
-                    !kIsWeb
-                        ? (Platform.isAndroid
-                            ? const SizedBox(width: 15)
-                            : const SizedBox())
-                        : const SizedBox(),
-                    !kIsWeb
-                        ? (Platform.isAndroid
-                            ? saveToGallery()
-                            : const SizedBox())
-                        : const SizedBox(),
+                    typeSelection(),
+                    customization(context),
+                    const SizedBox(height: 20),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            shareImage(),
+                            !kIsWeb
+                                ? (Platform.isAndroid
+                                    ? const SizedBox(width: 15)
+                                    : const SizedBox())
+                                : const SizedBox(),
+                            !kIsWeb
+                                ? (Platform.isAndroid
+                                    ? saveToGallery()
+                                    : const SizedBox())
+                                : const SizedBox(),
+                          ],
+                        ),
+                        !kIsWeb
+                            ? (Platform.isAndroid
+                                ? const SizedBox(height: 15)
+                                : const SizedBox())
+                            : const SizedBox(),
+                        !kIsWeb
+                            ? (imageType == 'Wallpaper' && Platform.isAndroid
+                                ? saveAsWallpaper(context)
+                                : const SizedBox())
+                            : const SizedBox(),
+                      ],
+                    ),
                   ],
                 ),
-                !kIsWeb
-                    ? (Platform.isAndroid
-                        ? const SizedBox(height: 15)
-                        : const SizedBox())
-                    : const SizedBox(),
-                !kIsWeb
-                    ? (imageType == 'Wallpaper' && Platform.isAndroid
-                        ? saveAsWallpaper(context)
-                        : const SizedBox())
-                    : const SizedBox(),
-              ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -1030,24 +1170,28 @@ class _CreateImageState extends State<CreateImagePage> {
             : const SizedBox(),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
+          child: Column(
             children: [
-              Column(
+              Row(
                 children: [
                   const Text(
-                    'Top Left',
+                    'Top left text',
                     style: TextStyle(fontSize: 16),
                   ),
+                  const Spacer(),
+                  colorPickerWidget(context, topLeftColor, 0, "topLeftColor"),
                   dropdownButton(context, widgetTopLeft, 0),
                 ],
               ),
-              const Spacer(),
-              Column(
+              const SizedBox(height: 10),
+              Row(
                 children: [
                   const Text(
-                    'Top Right',
+                    'Top right text',
                     style: TextStyle(fontSize: 16),
                   ),
+                  const Spacer(),
+                  colorPickerWidget(context, topRightColor, 1, "topRightColor"),
                   dropdownButton(context, widgetTopRight, 1),
                 ],
               ),
@@ -1080,22 +1224,44 @@ class _CreateImageState extends State<CreateImagePage> {
                   });
                 },
               ),
+              beforeLineCheck
+                  ? colorPickerWidget(
+                      context,
+                      beforeLineColor,
+                      4,
+                      "beforeLineColor",
+                      size: 12,
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TextFormField(
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Line',
-            ),
-            initialValue: mainLine,
-            onChanged: (value) {
-              setState(() {
-                mainLine = value;
-              });
-            },
+          child: Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Line',
+                  ),
+                  initialValue: mainLine,
+                  onChanged: (value) {
+                    setState(() {
+                      mainLine = value;
+                    });
+                  },
+                ),
+              ),
+              colorPickerWidget(
+                context,
+                lineColor,
+                5,
+                "lineColor",
+                size: 12,
+              )
+            ],
           ),
         ),
         Padding(
@@ -1124,29 +1290,44 @@ class _CreateImageState extends State<CreateImagePage> {
                   });
                 },
               ),
+              afterLineCheck
+                  ? colorPickerWidget(
+                      context,
+                      afterLineColor,
+                      6,
+                      "afterLineColor",
+                      size: 12,
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
+          child: Column(
             children: [
-              Column(
+              Row(
                 children: [
                   const Text(
-                    'Bottom Left',
+                    'Bottom left text',
                     style: TextStyle(fontSize: 16),
                   ),
+                  const Spacer(),
+                  colorPickerWidget(
+                      context, bottomLeftColor, 2, "bottomLeftColor"),
                   dropdownButton(context, widgetBottomLeft, 2),
                 ],
               ),
-              const Spacer(),
-              Column(
+              const SizedBox(height: 10),
+              Row(
                 children: [
                   const Text(
-                    'Bottom Right',
+                    'Bottom right text',
                     style: TextStyle(fontSize: 16),
                   ),
+                  const Spacer(),
+                  colorPickerWidget(
+                      context, bottomRightColor, 3, "bottomRightColor"),
                   dropdownButton(context, widgetBottomRight, 3),
                 ],
               ),
@@ -1162,66 +1343,7 @@ class _CreateImageState extends State<CreateImagePage> {
                 style: TextStyle(fontSize: 16),
               ),
               const Spacer(),
-              SizedBox(
-                width: 180,
-                child: DropdownButtonFormField<Color>(
-                  isExpanded: true,
-                  icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                  iconSize: 30,
-                  iconEnabledColor: Colors.white,
-                  dropdownColor: Colors.green,
-                  decoration: InputDecoration(
-                    fillColor: Colors.green,
-                    filled: true,
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Colors.green),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Colors.green),
-                    ),
-                  ),
-                  value: bgColor,
-                  items: const [
-                    DropdownMenuItem(
-                      value: Colors.green,
-                      child: Text(
-                        'Green',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: Colors.black,
-                      child: Text(
-                        'Black',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: Colors.white,
-                      child: Text(
-                        'White',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      bgColor = value!;
-                    });
-                  },
-                ),
-              )
+              colorPickerWidget(context, bgColor, 7, "bgColor"),
             ],
           ),
         ),
@@ -1230,70 +1352,19 @@ class _CreateImageState extends State<CreateImagePage> {
           child: Row(
             children: [
               const Text(
-                "Text color",
+                "Apply gradient to background",
                 style: TextStyle(fontSize: 16),
               ),
               const Spacer(),
-              SizedBox(
-                width: 180,
-                child: DropdownButtonFormField<Color>(
-                  isExpanded: true,
-                  icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                  iconSize: 30,
-                  iconEnabledColor: Colors.white,
-                  dropdownColor: Colors.green,
-                  decoration: InputDecoration(
-                    fillColor: Colors.green,
-                    filled: true,
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Colors.green),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(color: Colors.green),
-                    ),
-                  ),
-                  value: textColor,
-                  items: const [
-                    DropdownMenuItem(
-                      value: Colors.green,
-                      child: Text(
-                        'Green',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: Colors.black,
-                      child: Text(
-                        'Black',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: Colors.white,
-                      child: Text(
-                        'White',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      textColor = value!;
-                    });
-                  },
-                ),
-              )
+              Switch(
+                value: applyGradient,
+                activeColor: Colors.green,
+                onChanged: (bool value) {
+                  setState(() {
+                    applyGradient = value;
+                  });
+                },
+              ),
             ],
           ),
         ),
@@ -1306,6 +1377,10 @@ class _CreateImageState extends State<CreateImagePage> {
                 style: TextStyle(fontSize: 16),
               ),
               const Spacer(),
+              showPsychphinder
+                  ? colorPickerWidget(
+                      context, psychphinderColor, 8, "psychphinderColor")
+                  : const SizedBox(),
               Switch(
                 value: showPsychphinder,
                 activeColor: Colors.green,
@@ -1314,7 +1389,7 @@ class _CreateImageState extends State<CreateImagePage> {
                     showPsychphinder = value;
                   });
                 },
-              )
+              ),
             ],
           ),
         ),
@@ -1349,6 +1424,108 @@ class _CreateImageState extends State<CreateImagePage> {
               )
             : const SizedBox(),
       ],
+    );
+  }
+
+  Padding colorPickerWidget(
+      BuildContext context, Color currentColor, int index, String key,
+      {double size = 16}) {
+    Color newColor = currentColor;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        onPressed: () async {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text(
+                "Pick a color",
+              ),
+              content: SizedBox(
+                width: double.maxFinite,
+                child: SingleChildScrollView(
+                  child: PopScope(
+                      onPopInvoked: (didPop) {
+                        setColors(key, newColor.value);
+                        return;
+                      },
+                      child: HueRingPicker(
+                        portraitOnly: true,
+                        pickerColor: newColor,
+                        displayThumbColor: true,
+                        enableAlpha: false,
+                        onColorChanged: (value) {
+                          setState(() {
+                            newColor = value;
+                            updateColor(newColor, index);
+                          });
+                        },
+                      )),
+                ),
+              ),
+              actions: [
+                ElevatedButton(
+                  child: const Text('Apply'),
+                  onPressed: () {
+                    setColors(key, newColor.value);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                key != "bgColor"
+                    ? key == "beforeLineColor" ||
+                            key == "lineColor" ||
+                            key == "afterLineColor"
+                        ? ElevatedButton(
+                            child: const Text('Apply to all center text'),
+                            onPressed: () {
+                              updateColor(newColor, 4);
+                              updateColor(newColor, 5);
+                              updateColor(newColor, 6);
+                              setColors("beforeLineColor", newColor.value);
+                              setColors("lineColor", newColor.value);
+                              setColors("afterLineColor", newColor.value);
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        : ElevatedButton(
+                            child: const Text('Apply to all border text'),
+                            onPressed: () {
+                              updateColor(newColor, 0);
+                              updateColor(newColor, 1);
+                              updateColor(newColor, 2);
+                              updateColor(newColor, 3);
+                              updateColor(newColor, 8);
+                              setColors("topLeftColor", newColor.value);
+                              setColors("topRightColor", newColor.value);
+                              setColors("bottomLeftColor", newColor.value);
+                              setColors("bottomRightColor", newColor.value);
+                              setColors("psychphinderColor", newColor.value);
+                              Navigator.of(context).pop();
+                            },
+                          )
+                    : const SizedBox(),
+              ],
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+            elevation: 0,
+            minimumSize: Size.fromRadius(size),
+            maximumSize: Size.fromRadius(size),
+            backgroundColor: newColor,
+            shape: CircleBorder(
+              side: BorderSide(
+                  color: Provider.of<ThemeProvider>(context).currentThemeType ==
+                          ThemeType.light
+                      ? Colors.black
+                      : Colors.white,
+                  width: 2),
+            )),
+        child: CircleAvatar(
+          backgroundColor: newColor,
+          radius: size,
+        ),
+      ),
     );
   }
 
