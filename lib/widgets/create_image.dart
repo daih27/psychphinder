@@ -40,6 +40,7 @@ class _CreateImageState extends State<CreateImagePage> {
   bool showPsychphinder = true;
   bool applyOffset = true;
   bool applyGradient = true;
+  bool showBackgroundImage = true;
   int resolutionW = 0;
   int resolutionH = 0;
   String widgetTopRight = 'Episode name';
@@ -55,6 +56,7 @@ class _CreateImageState extends State<CreateImagePage> {
   double secondarylineSize = 8;
   double boxSize = 110;
   double madeWithPsychphidnerSize = 3.5;
+  double backgroundSize = 30.0;
   Color bgColor = Colors.green;
   Color lineColor = Colors.white;
   Color beforeLineColor = Colors.white;
@@ -64,6 +66,7 @@ class _CreateImageState extends State<CreateImagePage> {
   Color bottomLeftColor = Colors.white;
   Color bottomRightColor = Colors.white;
   Color psychphinderColor = Colors.white;
+  Color backgroundImageColor = Colors.black.withOpacity(0.1);
   FToast fToast = FToast();
 
   @override
@@ -93,6 +96,8 @@ class _CreateImageState extends State<CreateImagePage> {
 
     getResolution().whenComplete(() => changeOffset());
     getColors();
+    getBackgroundProperties();
+    getShowMadeWithPsychphinder();
   }
 
   void update(String value, int selectedIndex) {
@@ -160,6 +165,11 @@ class _CreateImageState extends State<CreateImagePage> {
       case 8:
         setState(() {
           psychphinderColor = color;
+        });
+        break;
+      case 9:
+        setState(() {
+          backgroundImageColor = color;
         });
         break;
     }
@@ -400,6 +410,47 @@ class _CreateImageState extends State<CreateImagePage> {
     pref.setInt("ResolutionWidth", resolutionWidth);
   }
 
+  Future<void> setShowBackgoundImage(bool showBackgroundImage) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool("showBackgroundImage", showBackgroundImage);
+  }
+
+  Future<void> setBackgroundImageSize(double size) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setDouble("backgroundSize", backgroundSize);
+  }
+
+  Future<void> setApplyGradient(bool applyGradient) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool("applyGradient", applyGradient);
+  }
+
+  Future<void> setShowMadeWithPsychphinder(
+      bool showMadeWithPsychphinder) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool("showMadeWithPsychphinder", showMadeWithPsychphinder);
+  }
+
+  Future<void> getShowMadeWithPsychphinder() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(
+      () {
+        showPsychphinder = pref.getBool("showMadeWithPsychphinder") ?? true;
+      },
+    );
+  }
+
+  Future<void> getBackgroundProperties() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(
+      () {
+        showBackgroundImage = pref.getBool("showBackgroundImage") ?? true;
+        backgroundSize = pref.getDouble("backgroundSize") ?? 30.0;
+        applyGradient = pref.getBool("applyGradient") ?? true;
+      },
+    );
+  }
+
   Future<void> getColors() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(
@@ -431,6 +482,9 @@ class _CreateImageState extends State<CreateImagePage> {
         psychphinderColor = pref.getInt("psychphinderColor") == null
             ? Colors.white
             : Color(pref.getInt("psychphinderColor")!);
+        backgroundImageColor = pref.getInt("backgroundImageColor") == null
+            ? Colors.black.withOpacity(0.1)
+            : Color(pref.getInt("backgroundImageColor")!);
       },
     );
   }
@@ -570,6 +624,23 @@ class _CreateImageState extends State<CreateImagePage> {
                         ),
                         child: Stack(
                           children: [
+                            showBackgroundImage
+                                ? GridView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: backgroundSize,
+                                      mainAxisExtent: backgroundSize,
+                                    ),
+                                    itemBuilder: (context, index) {
+                                      return Image.asset(
+                                        'assets/background/pineapple.png',
+                                        color: backgroundImageColor,
+                                      );
+                                    },
+                                  )
+                                : Container(),
                             Positioned(
                               top: imageType == 'Post'
                                   ? (widgetTopLeft == 'Psych logo' ? -2 : 5)
@@ -1362,12 +1433,79 @@ class _CreateImageState extends State<CreateImagePage> {
                 onChanged: (bool value) {
                   setState(() {
                     applyGradient = value;
+                    setApplyGradient(applyGradient);
                   });
                 },
               ),
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              const Text(
+                "Show background image",
+                style: TextStyle(fontSize: 16),
+              ),
+              const Spacer(),
+              Switch(
+                value: showBackgroundImage,
+                activeColor: Colors.green,
+                onChanged: (bool value) {
+                  setState(() {
+                    showBackgroundImage = value;
+                    setShowBackgoundImage(showBackgroundImage);
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+        showBackgroundImage
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          "Background image color/size",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        const Spacer(),
+                        colorPickerWidget(context, backgroundImageColor, 9,
+                            "backgroundImageColor",
+                            showAlpha: true),
+                      ],
+                    ),
+                    SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        activeTickMarkColor: Colors.transparent,
+                        inactiveTickMarkColor: Colors.transparent,
+                        trackHeight: 20,
+                      ),
+                      child: Slider(
+                        value: backgroundSize,
+                        max: imageType == 'Post'
+                            ? 1080 / 6
+                            : resolutionW.toDouble() / 6,
+                        min: 10,
+                        divisions: 20,
+                        onChanged: (double value) {
+                          setState(() {
+                            backgroundSize = value;
+                          });
+                        },
+                        onChangeEnd: (double value) {
+                          setBackgroundImageSize(value);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : const SizedBox(),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -1387,6 +1525,7 @@ class _CreateImageState extends State<CreateImagePage> {
                 onChanged: (bool value) {
                   setState(() {
                     showPsychphinder = value;
+                    setShowMadeWithPsychphinder(showPsychphinder);
                   });
                 },
               ),
@@ -1429,7 +1568,7 @@ class _CreateImageState extends State<CreateImagePage> {
 
   Padding colorPickerWidget(
       BuildContext context, Color currentColor, int index, String key,
-      {double size = 16}) {
+      {double size = 16, bool showAlpha = false}) {
     Color newColor = currentColor;
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -1453,7 +1592,7 @@ class _CreateImageState extends State<CreateImagePage> {
                         portraitOnly: true,
                         pickerColor: newColor,
                         displayThumbColor: true,
-                        enableAlpha: false,
+                        enableAlpha: showAlpha,
                         onColorChanged: (value) {
                           setState(() {
                             newColor = value;
@@ -1471,7 +1610,7 @@ class _CreateImageState extends State<CreateImagePage> {
                     Navigator.of(context).pop();
                   },
                 ),
-                key != "bgColor"
+                key != "bgColor" && key != "backgroundImageColor"
                     ? key == "beforeLineColor" ||
                             key == "lineColor" ||
                             key == "afterLineColor"
