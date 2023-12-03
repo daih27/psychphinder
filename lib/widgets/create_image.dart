@@ -102,22 +102,28 @@ class _CreateImageState extends State<CreateImagePage> {
     getColors();
     getBackgroundProperties();
     getShowMadeWithPsychphinder();
+    getPositions();
   }
 
-  void update(String value, int selectedIndex) {
+  void update(String value, int selectedIndex) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     if (selectedIndex == 0) {
+      pref.setString("widgetTopLeft", value);
       setState(() {
         widgetTopLeft = value;
       });
     } else if (selectedIndex == 1) {
+      pref.setString("widgetTopRight", value);
       setState(() {
         widgetTopRight = value;
       });
     } else if (selectedIndex == 2) {
+      pref.setString("widgetBottomLeft", value);
       setState(() {
         widgetBottomLeft = value;
       });
     } else if (selectedIndex == 3) {
+      pref.setString("widgetBottomRight", value);
       setState(() {
         widgetBottomRight = value;
       });
@@ -418,6 +424,19 @@ class _CreateImageState extends State<CreateImagePage> {
       bool showMadeWithPsychphinder) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setBool("showMadeWithPsychphinder", showMadeWithPsychphinder);
+  }
+
+  Future<void> getPositions() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(
+      () {
+        widgetTopRight = pref.getString("widgetTopRight") ?? "Episode name";
+        widgetTopLeft = pref.getString("widgetTopLeft") ?? "Psych logo";
+        widgetBottomRight = pref.getString("widgetBottomRight") ?? "Time";
+        widgetBottomLeft =
+            pref.getString("widgetBottomLeft") ?? "Season and episode";
+      },
+    );
   }
 
   Future<void> getShowMadeWithPsychphinder() async {
