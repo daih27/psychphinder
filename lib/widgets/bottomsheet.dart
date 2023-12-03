@@ -434,6 +434,19 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                   ),
                   Row(
                     children: [
+                      IconButton(
+                        icon: const Icon(Icons.image_rounded),
+                        onPressed: () {
+                          if (referencesList.isEmpty) {
+                            context.go(
+                                '/${widget.fullEpisode[newId].id}/wallpaper');
+                          } else {
+                            context.go(
+                              '/references/season${widget.fullEpisode[newId].season}/episode${widget.fullEpisode[newId].episode}/${widget.referenceId}/${widget.fullEpisode[newId].id}/wallpaper',
+                            );
+                          }
+                        },
+                      ),
                       const Spacer(),
                       ElevatedButton(
                         onPressed: () async {
@@ -584,10 +597,10 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                     onPressed: () {
                                       if (referencesList.isEmpty) {
                                         context.go(
-                                            '/${widget.fullEpisode[newId].id}/image');
+                                            '/${widget.fullEpisode[newId].id}/shareimage');
                                       } else {
                                         context.go(
-                                          '/references/season${widget.fullEpisode[newId].season}/episode${widget.fullEpisode[newId].episode}/${widget.referenceId}/${widget.fullEpisode[newId].id}/image',
+                                          '/references/season${widget.fullEpisode[newId].season}/episode${widget.fullEpisode[newId].episode}/${widget.referenceId}/${widget.fullEpisode[newId].id}/shareimage',
                                         );
                                       }
                                     },

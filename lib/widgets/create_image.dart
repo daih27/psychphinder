@@ -21,8 +21,13 @@ import 'package:file_saver/file_saver.dart';
 class CreateImagePage extends StatefulWidget {
   final List episode;
   final int id;
+  final bool isShare;
 
-  const CreateImagePage({Key? key, required this.episode, required this.id})
+  const CreateImagePage(
+      {Key? key,
+      required this.episode,
+      required this.id,
+      required this.isShare})
       : super(key: key);
 
   @override
@@ -47,7 +52,6 @@ class _CreateImageState extends State<CreateImagePage> {
   String widgetTopLeft = 'Psych logo';
   String widgetBottomLeft = 'Season and episode';
   String widgetBottomRight = 'Time';
-  String imageType = 'Post';
   double wallpaperOffset = 16;
   double wallpaperScale = 1.07;
   double psychLogoSize = 18;
@@ -94,7 +98,7 @@ class _CreateImageState extends State<CreateImagePage> {
       widgetBottomLeft = "Movie";
     }
 
-    getResolution().whenComplete(() => changeOffset());
+    !widget.isShare ? getResolution().whenComplete(() => changeOffset()) : null;
     getColors();
     getBackgroundProperties();
     getShowMadeWithPsychphinder();
@@ -181,7 +185,6 @@ class _CreateImageState extends State<CreateImagePage> {
         return PsychLogoWidget(
           size: psychLogoSize,
           textColor: topLeftColor,
-          imageType: imageType,
         );
       case "Episode name" || "Movie name":
         return EpisodeNameWidget(
@@ -189,7 +192,7 @@ class _CreateImageState extends State<CreateImagePage> {
           size: infoSize,
           textColor: topLeftColor,
           applyOffset: applyOffset,
-          imageType: imageType,
+          isShare: widget.isShare,
           box: boxSize,
         );
       case "Season and episode" || "Movie":
@@ -198,14 +201,12 @@ class _CreateImageState extends State<CreateImagePage> {
           episode: widget.episode[widget.id].episode.toString(),
           size: infoSize,
           textColor: topLeftColor,
-          imageType: imageType,
         );
       case "Time":
         return TimeWidget(
           time: widget.episode[widget.id].time,
           size: infoSize,
           textColor: topLeftColor,
-          imageType: imageType,
         );
       case "None":
         return const SizedBox();
@@ -213,7 +214,6 @@ class _CreateImageState extends State<CreateImagePage> {
         return PsychLogoWidget(
           size: psychLogoSize,
           textColor: topLeftColor,
-          imageType: imageType,
         );
     }
   }
@@ -224,7 +224,6 @@ class _CreateImageState extends State<CreateImagePage> {
         return PsychLogoWidget(
           size: psychLogoSize,
           textColor: topRightColor,
-          imageType: imageType,
         );
       case "Episode name" || "Movie name":
         return EpisodeNameWidget(
@@ -232,7 +231,7 @@ class _CreateImageState extends State<CreateImagePage> {
           size: infoSize,
           textColor: topRightColor,
           applyOffset: applyOffset,
-          imageType: imageType,
+          isShare: widget.isShare,
           box: boxSize,
         );
       case "Season and episode" || "Movie":
@@ -241,14 +240,12 @@ class _CreateImageState extends State<CreateImagePage> {
           episode: widget.episode[widget.id].episode.toString(),
           size: infoSize,
           textColor: topRightColor,
-          imageType: imageType,
         );
       case "Time":
         return TimeWidget(
           time: widget.episode[widget.id].time,
           size: infoSize,
           textColor: topRightColor,
-          imageType: imageType,
         );
       case "None":
         return const SizedBox();
@@ -258,7 +255,7 @@ class _CreateImageState extends State<CreateImagePage> {
           size: infoSize,
           textColor: topRightColor,
           applyOffset: applyOffset,
-          imageType: imageType,
+          isShare: widget.isShare,
           box: boxSize,
         );
     }
@@ -270,7 +267,6 @@ class _CreateImageState extends State<CreateImagePage> {
         return PsychLogoWidget(
           size: psychLogoSize,
           textColor: bottomRightColor,
-          imageType: imageType,
         );
       case "Episode name" || "Movie name":
         return EpisodeNameWidget(
@@ -278,7 +274,7 @@ class _CreateImageState extends State<CreateImagePage> {
           size: infoSize,
           textColor: bottomRightColor,
           applyOffset: applyOffset,
-          imageType: imageType,
+          isShare: widget.isShare,
           box: boxSize,
         );
       case "Season and episode" || "Movie":
@@ -287,14 +283,12 @@ class _CreateImageState extends State<CreateImagePage> {
           episode: widget.episode[widget.id].episode.toString(),
           size: infoSize,
           textColor: bottomRightColor,
-          imageType: imageType,
         );
       case "Time":
         return TimeWidget(
           time: widget.episode[widget.id].time,
           size: infoSize,
           textColor: bottomRightColor,
-          imageType: imageType,
         );
       case "None":
         return const SizedBox();
@@ -303,7 +297,6 @@ class _CreateImageState extends State<CreateImagePage> {
           time: widget.episode[widget.id].time,
           size: infoSize,
           textColor: bottomRightColor,
-          imageType: imageType,
         );
     }
   }
@@ -314,7 +307,6 @@ class _CreateImageState extends State<CreateImagePage> {
         return PsychLogoWidget(
           size: psychLogoSize,
           textColor: bottomLeftColor,
-          imageType: imageType,
         );
       case "Episode name" || "Movie name":
         return EpisodeNameWidget(
@@ -322,7 +314,7 @@ class _CreateImageState extends State<CreateImagePage> {
           size: infoSize,
           textColor: bottomLeftColor,
           applyOffset: applyOffset,
-          imageType: imageType,
+          isShare: widget.isShare,
           box: boxSize,
         );
       case "Season and episode" || "Movie":
@@ -331,14 +323,12 @@ class _CreateImageState extends State<CreateImagePage> {
           episode: widget.episode[widget.id].episode.toString(),
           size: infoSize,
           textColor: bottomLeftColor,
-          imageType: imageType,
         );
       case "Time":
         return TimeWidget(
           time: widget.episode[widget.id].time,
           size: infoSize,
           textColor: bottomLeftColor,
-          imageType: imageType,
         );
       case "None":
         return const SizedBox();
@@ -348,7 +338,6 @@ class _CreateImageState extends State<CreateImagePage> {
           episode: widget.episode[widget.id].episode.toString(),
           size: infoSize,
           textColor: bottomLeftColor,
-          imageType: imageType,
         );
     }
   }
@@ -495,7 +484,7 @@ class _CreateImageState extends State<CreateImagePage> {
   }
 
   void reduceSizeBelow1080() {
-    if (imageType == 'Wallpaper') {
+    if (widget.isShare == false) {
       if (resolutionW < 1080) {
         double ratio = resolutionW / 1080;
         setState(() {
@@ -568,12 +557,22 @@ class _CreateImageState extends State<CreateImagePage> {
   @override
   Widget build(BuildContext context) {
     reduceSizeBelow1080();
+    !widget.isShare
+        ? resolutionW == 0
+            ? resolutionW = 1080
+            : null
+        : null;
+    !widget.isShare
+        ? resolutionH == 0
+            ? resolutionH = 1920
+            : null
+        : null;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text(
-          'Share',
-          style: TextStyle(
+        title: Text(
+          widget.isShare ? 'Share' : 'Create image',
+          style: const TextStyle(
             fontSize: 25,
             color: Colors.green,
             fontFamily: 'PsychFont',
@@ -585,12 +584,12 @@ class _CreateImageState extends State<CreateImagePage> {
       body: Column(
         children: [
           SizedBox(
-            width: imageType == 'Wallpaper'
+            width: widget.isShare == false
                 ? (resolutionW >= resolutionH
                     ? MediaQuery.of(context).size.width * 0.7
                     : null)
                 : MediaQuery.of(context).size.height * 0.5,
-            height: imageType == 'Wallpaper'
+            height: widget.isShare == false
                 ? (resolutionH > resolutionW
                     ? MediaQuery.of(context).size.height * 0.5
                     : null)
@@ -599,10 +598,10 @@ class _CreateImageState extends State<CreateImagePage> {
               child: Center(
                 child: UnconstrainedBox(
                   child: SizedBox(
-                    height: imageType == 'Post'
+                    height: widget.isShare == true
                         ? 1080 / 6
                         : (resolutionH) * wallpaperScale / 6,
-                    width: imageType == 'Post'
+                    width: widget.isShare == true
                         ? 1080 / 6
                         : (resolutionW) * wallpaperScale / 6,
                     child: WidgetsToImage(
@@ -642,23 +641,23 @@ class _CreateImageState extends State<CreateImagePage> {
                                   )
                                 : Container(),
                             Positioned(
-                              top: imageType == 'Post'
+                              top: widget.isShare == true
                                   ? (widgetTopLeft == 'Psych logo' ? -2 : 5)
                                   : (widgetTopLeft == 'Psych logo'
                                       ? (9 + wallpaperOffset)
                                       : (17 + wallpaperOffset)),
-                              left: imageType == 'Post'
+                              left: widget.isShare == true
                                   ? 5
                                   : (5 + wallpaperOffset),
                               child: topLeftWidget(),
                             ),
                             Positioned(
-                                top: imageType == 'Post'
+                                top: widget.isShare == true
                                     ? (widgetTopRight == 'Psych logo' ? -2 : 5)
                                     : (widgetTopRight == 'Psych logo'
                                         ? (9 + wallpaperOffset)
                                         : (17 + wallpaperOffset)),
-                                right: imageType == 'Post'
+                                right: widget.isShare == true
                                     ? 5
                                     : (5 + wallpaperOffset),
                                 child: topRightWidget()),
@@ -672,21 +671,19 @@ class _CreateImageState extends State<CreateImagePage> {
                                           padding: const EdgeInsets.fromLTRB(
                                               8, 2, 8, 2),
                                           child: ConstrainedBox(
-                                            constraints:
-                                                imageType == 'Wallpaper'
-                                                    ? applyOffset
-                                                        ? const BoxConstraints(
-                                                            maxWidth: 155)
-                                                        : const BoxConstraints()
-                                                    : const BoxConstraints(),
+                                            constraints: widget.isShare == false
+                                                ? applyOffset
+                                                    ? const BoxConstraints(
+                                                        maxWidth: 155)
+                                                    : const BoxConstraints()
+                                                : const BoxConstraints(),
                                             child: TextWidget(
                                               text: beforeLine,
-                                              size: imageType == 'Wallpaper'
+                                              size: widget.isShare == false
                                                   ? secondarylineSize /
                                                       wallpaperScale
                                                   : secondarylineSize,
                                               textColor: beforeLineColor,
-                                              imageType: imageType,
                                             ),
                                           ))
                                       : Container(),
@@ -694,7 +691,7 @@ class _CreateImageState extends State<CreateImagePage> {
                                     padding:
                                         const EdgeInsets.fromLTRB(8, 2, 8, 2),
                                     child: ConstrainedBox(
-                                      constraints: imageType == 'Wallpaper'
+                                      constraints: widget.isShare == false
                                           ? applyOffset
                                               ? const BoxConstraints(
                                                   maxWidth: 155)
@@ -702,11 +699,10 @@ class _CreateImageState extends State<CreateImagePage> {
                                           : const BoxConstraints(),
                                       child: TextWidget(
                                         text: mainLine,
-                                        size: imageType == 'Wallpaper'
-                                            ? lineSize
+                                        size: widget.isShare == false
+                                            ? lineSize / wallpaperScale
                                             : lineSize,
                                         textColor: lineColor,
-                                        imageType: imageType,
                                       ),
                                     ),
                                   ),
@@ -715,21 +711,19 @@ class _CreateImageState extends State<CreateImagePage> {
                                           padding: const EdgeInsets.fromLTRB(
                                               8, 2, 8, 2),
                                           child: ConstrainedBox(
-                                            constraints:
-                                                imageType == 'Wallpaper'
-                                                    ? applyOffset
-                                                        ? const BoxConstraints(
-                                                            maxWidth: 155)
-                                                        : const BoxConstraints()
-                                                    : const BoxConstraints(),
+                                            constraints: widget.isShare == false
+                                                ? applyOffset
+                                                    ? const BoxConstraints(
+                                                        maxWidth: 155)
+                                                    : const BoxConstraints()
+                                                : const BoxConstraints(),
                                             child: TextWidget(
                                               text: afterLine,
-                                              size: imageType == 'Wallpaper'
+                                              size: widget.isShare == false
                                                   ? secondarylineSize /
                                                       wallpaperScale
                                                   : secondarylineSize,
                                               textColor: afterLineColor,
-                                              imageType: imageType,
                                             ),
                                           ))
                                       : const SizedBox(),
@@ -737,33 +731,33 @@ class _CreateImageState extends State<CreateImagePage> {
                               ),
                             ),
                             Positioned(
-                              bottom: imageType == 'Post'
+                              bottom: widget.isShare == true
                                   ? (widgetBottomLeft == 'Psych logo' ? 0 : 5)
                                   : (widgetBottomLeft == 'Psych logo'
                                       ? (5 + wallpaperOffset)
                                       : (10 + wallpaperOffset)),
-                              left: imageType == 'Post'
+                              left: widget.isShare == true
                                   ? 5
                                   : (5 + wallpaperOffset),
                               child: bottomLeftWidget(),
                             ),
                             Positioned(
-                              bottom: imageType == 'Post'
+                              bottom: widget.isShare == true
                                   ? (widgetBottomRight == 'Psych logo' ? 2 : 5)
                                   : (widgetBottomRight == 'Psych logo'
                                       ? (7 + wallpaperOffset)
                                       : (10 + wallpaperOffset)),
-                              right: imageType == 'Post'
+                              right: widget.isShare == true
                                   ? 5
                                   : (5 + wallpaperOffset),
                               child: bottomRightWidget(),
                             ),
                             showPsychphinder
                                 ? Positioned(
-                                    bottom: imageType == 'Post'
+                                    bottom: widget.isShare == true
                                         ? 1
                                         : (6 + wallpaperOffset),
-                                    right: imageType == 'Post'
+                                    right: widget.isShare == true
                                         ? 1
                                         : (1 + wallpaperOffset),
                                     child: Text(
@@ -794,7 +788,6 @@ class _CreateImageState extends State<CreateImagePage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    typeSelection(),
                     customization(context),
                     const SizedBox(height: 20),
                     Column(
@@ -821,7 +814,7 @@ class _CreateImageState extends State<CreateImagePage> {
                                 : const SizedBox())
                             : const SizedBox(),
                         !kIsWeb
-                            ? (imageType == 'Wallpaper' && Platform.isAndroid
+                            ? (widget.isShare == false && Platform.isAndroid
                                 ? saveAsWallpaper(context)
                                 : const SizedBox())
                             : const SizedBox(),
@@ -832,73 +825,6 @@ class _CreateImageState extends State<CreateImagePage> {
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Padding typeSelection() {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          const Text(
-            "Type",
-            style: TextStyle(fontSize: 16),
-          ),
-          const Spacer(),
-          SizedBox(
-            width: 180,
-            child: DropdownButtonFormField<String>(
-              isExpanded: true,
-              icon: const Icon(Icons.keyboard_arrow_down_rounded),
-              iconSize: 30,
-              iconEnabledColor: Colors.white,
-              dropdownColor: Colors.green,
-              decoration: InputDecoration(
-                fillColor: Colors.green,
-                filled: true,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.green),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.green),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.green),
-                ),
-              ),
-              value: imageType,
-              items: const [
-                DropdownMenuItem(
-                  value: 'Post',
-                  child: Text(
-                    'Post',
-                    style: TextStyle(color: Colors.white),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                DropdownMenuItem(
-                  value: 'Wallpaper',
-                  child: Text(
-                    'Wallpaper',
-                    style: TextStyle(color: Colors.white),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  imageType = value!;
-                });
-              },
-            ),
-          )
         ],
       ),
     );
@@ -1172,7 +1098,7 @@ class _CreateImageState extends State<CreateImagePage> {
         'Customization',
       ),
       children: [
-        imageType == 'Wallpaper'
+        widget.isShare == false
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -1487,7 +1413,7 @@ class _CreateImageState extends State<CreateImagePage> {
                       ),
                       child: Slider(
                         value: backgroundSize,
-                        max: imageType == 'Post'
+                        max: widget.isShare == true
                             ? 1080 / 6
                             : resolutionW.toDouble() / 6,
                         min: 10,
@@ -1532,7 +1458,7 @@ class _CreateImageState extends State<CreateImagePage> {
             ],
           ),
         ),
-        imageType == 'Wallpaper'
+        widget.isShare == false
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -1762,13 +1688,11 @@ class TextWidget extends StatelessWidget {
     required this.text,
     required this.size,
     required this.textColor,
-    required this.imageType,
   });
 
   final String text;
   final double size;
   final Color textColor;
-  final String imageType;
 
   @override
   Widget build(BuildContext context) {
@@ -1792,12 +1716,10 @@ class TimeWidget extends StatelessWidget {
     required this.time,
     required this.size,
     required this.textColor,
-    required this.imageType,
   });
   final String time;
   final double size;
   final Color textColor;
-  final String imageType;
 
   @override
   Widget build(BuildContext context) {
@@ -1807,7 +1729,6 @@ class TimeWidget extends StatelessWidget {
         text: time[0] == '0' ? time.substring(2) : time,
         size: size,
         textColor: textColor,
-        imageType: imageType,
       ),
     );
   }
@@ -1820,13 +1741,11 @@ class SeasonAndEpisodeWidget extends StatelessWidget {
     required this.episode,
     required this.size,
     required this.textColor,
-    required this.imageType,
   });
   final String season;
   final String episode;
   final double size;
   final Color textColor;
-  final String imageType;
 
   @override
   Widget build(BuildContext context) {
@@ -1836,7 +1755,6 @@ class SeasonAndEpisodeWidget extends StatelessWidget {
         text: season != "0" ? "Season $season, Episode $episode" : "Movie",
         size: size,
         textColor: textColor,
-        imageType: imageType,
       ),
     );
   }
@@ -1849,14 +1767,14 @@ class EpisodeNameWidget extends StatelessWidget {
     required this.size,
     required this.textColor,
     required this.applyOffset,
-    required this.imageType,
+    required this.isShare,
     required this.box,
   });
   final String name;
   final double size;
   final Color textColor;
   final bool applyOffset;
-  final String imageType;
+  final bool isShare;
   final double box;
 
   @override
@@ -1864,7 +1782,7 @@ class EpisodeNameWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.topLeft,
       child: ConstrainedBox(
-          constraints: imageType == 'Wallpaper'
+          constraints: isShare == false
               ? (applyOffset
                   ? BoxConstraints(maxWidth: box - 20)
                   : BoxConstraints(maxWidth: box))
@@ -1873,7 +1791,6 @@ class EpisodeNameWidget extends StatelessWidget {
             text: name,
             size: size,
             textColor: textColor,
-            imageType: imageType,
           )),
     );
   }
@@ -1884,11 +1801,9 @@ class PsychLogoWidget extends StatelessWidget {
     super.key,
     required this.size,
     required this.textColor,
-    required this.imageType,
   });
   final double size;
   final Color textColor;
-  final String imageType;
 
   @override
   Widget build(BuildContext context) {

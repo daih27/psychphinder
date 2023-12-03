@@ -54,8 +54,16 @@ final router = GoRouter(
                   },
                   routes: [
                     GoRoute(
-                      path: 'image',
-                      builder: imageRoute,
+                      path: 'shareimage',
+                      builder: (context, state) {
+                        return imageRoute(context, state, isShare: true);
+                      },
+                    ),
+                    GoRoute(
+                      path: 'wallpaper',
+                      builder: (context, state) {
+                        return imageRoute(context, state, isShare: false);
+                      },
                     )
                   ],
                 ),
@@ -74,8 +82,16 @@ final router = GoRouter(
           },
           routes: [
             GoRoute(
-              path: 'image',
-              builder: imageRoute,
+              path: 'shareimage',
+              builder: (context, state) {
+                return imageRoute(context, state, isShare: true);
+              },
+            ),
+            GoRoute(
+              path: 'wallpaper',
+              builder: (context, state) {
+                return imageRoute(context, state, isShare: false);
+              },
             )
           ],
         ),
@@ -84,14 +100,12 @@ final router = GoRouter(
   ],
 );
 
-Widget imageRoute(context, state) {
+Widget imageRoute(context, state, {bool isShare = false}) {
   var csvData = Provider.of<CSVData>(context);
   final List data = csvData.data;
   EpisodeUtil.fullEpisode(data, data[int.parse(state.pathParameters['id']!)]);
   return CreateImagePage(
-    episode: EpisodeUtil.full,
-    id: EpisodeUtil.index,
-  );
+      episode: EpisodeUtil.full, id: EpisodeUtil.index, isShare: isShare);
 }
 
 SheetPage<dynamic> customBottomSheet(BuildContext context,
