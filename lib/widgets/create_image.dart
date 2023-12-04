@@ -17,6 +17,8 @@ import 'package:psychphinder/main.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:file_saver/file_saver.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:psychphinder/classes/profile_class.dart';
 
 class CreateImagePage extends StatefulWidget {
   final List episode;
@@ -52,6 +54,7 @@ class _CreateImageState extends State<CreateImagePage> {
   String widgetTopLeft = 'Psych logo';
   String widgetBottomLeft = 'Season and episode';
   String widgetBottomRight = 'Time';
+  String backgroundImage = 'pineapple.png';
   double wallpaperOffset = 16;
   double wallpaperScale = 1.07;
   double psychLogoSize = 18;
@@ -105,7 +108,7 @@ class _CreateImageState extends State<CreateImagePage> {
     getPositions();
   }
 
-  void update(String value, int selectedIndex) async {
+  void updatePositions(String value, int selectedIndex) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     if (selectedIndex == 0) {
       pref.setString("widgetTopLeft", value);
@@ -573,6 +576,76 @@ class _CreateImageState extends State<CreateImagePage> {
     return hslLight.toColor();
   }
 
+  Future<void> addProfile(Box box, String name) async {
+    box.add(
+      Profile(
+        name: name,
+        widgetTopLeft: widgetTopLeft,
+        widgetTopRight: widgetTopRight,
+        widgetBottomLeft: widgetBottomLeft,
+        widgetBottomRight: widgetBottomRight,
+        bgColor: bgColor.value,
+        topLeftColor: topLeftColor.value,
+        topRightColor: topRightColor.value,
+        bottomLeftColor: bottomLeftColor.value,
+        bottomRightColor: bottomRightColor.value,
+        lineColor: lineColor.value,
+        beforeLineColor: beforeLineColor.value,
+        afterLineColor: afterLineColor.value,
+        psychphinderColor: psychphinderColor.value,
+        backgroundImageColor: backgroundImageColor.value,
+        showMadeWithPsychphinder: showPsychphinder,
+        applyGradient: applyGradient,
+        showBackgroundImage: showBackgroundImage,
+        backgroundSize: backgroundSize,
+        backgroundImage: backgroundImage,
+      ),
+    );
+  }
+
+  Future<void> loadProfile(Profile profile) async {
+    setState(
+      () {
+        widgetTopLeft = profile.widgetTopLeft;
+        widgetTopRight = profile.widgetTopRight;
+        widgetBottomLeft = profile.widgetBottomLeft;
+        widgetBottomRight = profile.widgetBottomRight;
+        bgColor = Color(profile.bgColor);
+        topLeftColor = Color(profile.topLeftColor);
+        topRightColor = Color(profile.topRightColor);
+        bottomLeftColor = Color(profile.bottomLeftColor);
+        bottomRightColor = Color(profile.bottomRightColor);
+        lineColor = Color(profile.lineColor);
+        beforeLineColor = Color(profile.beforeLineColor);
+        afterLineColor = Color(profile.afterLineColor);
+        backgroundImageColor = Color(profile.backgroundImageColor);
+        showPsychphinder = profile.showMadeWithPsychphinder;
+        applyGradient = profile.applyGradient;
+        showBackgroundImage = profile.showBackgroundImage;
+        backgroundSize = profile.backgroundSize;
+        backgroundImage = profile.backgroundImage;
+      },
+    );
+    setColors("bgColor", profile.bgColor);
+    setColors("topLeftColor", profile.topLeftColor);
+    setColors("topRightColor", profile.topRightColor);
+    setColors("bottomLeftColor", profile.bottomLeftColor);
+    setColors("bottomRightColor", profile.bottomRightColor);
+    setColors("lineColor", profile.lineColor);
+    setColors("beforeLineColor", profile.beforeLineColor);
+    setColors("afterLineColor", profile.afterLineColor);
+    setColors("psychphinderColor", profile.psychphinderColor);
+    setColors("backgroundImageColor", profile.backgroundImageColor);
+    setShowBackgoundImage(profile.showBackgroundImage);
+    setApplyGradient(profile.applyGradient);
+    setShowMadeWithPsychphinder(profile.showMadeWithPsychphinder);
+    setBackgroundImageSize(profile.backgroundSize);
+    updatePositions(profile.widgetTopLeft, 0);
+    updatePositions(profile.widgetTopRight, 1);
+    updatePositions(profile.widgetBottomLeft, 2);
+    updatePositions(profile.widgetBottomRight, 3);
+  }
+
   @override
   Widget build(BuildContext context) {
     reduceSizeBelow1080();
@@ -653,7 +726,7 @@ class _CreateImageState extends State<CreateImagePage> {
                                     ),
                                     itemBuilder: (context, index) {
                                       return Image.asset(
-                                        'assets/background/pineapple.png',
+                                        'assets/background/$backgroundImage',
                                         color: backgroundImageColor,
                                       );
                                     },
@@ -807,38 +880,12 @@ class _CreateImageState extends State<CreateImagePage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    const SizedBox(height: 20),
                     customization(context),
                     const SizedBox(height: 20),
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            shareImage(),
-                            !kIsWeb
-                                ? (Platform.isAndroid
-                                    ? const SizedBox(width: 15)
-                                    : const SizedBox())
-                                : const SizedBox(),
-                            !kIsWeb
-                                ? (Platform.isAndroid
-                                    ? saveToGallery()
-                                    : const SizedBox())
-                                : const SizedBox(),
-                          ],
-                        ),
-                        !kIsWeb
-                            ? (Platform.isAndroid
-                                ? const SizedBox(height: 15)
-                                : const SizedBox())
-                            : const SizedBox(),
-                        !kIsWeb
-                            ? (widget.isShare == false && Platform.isAndroid
-                                ? saveAsWallpaper(context)
-                                : const SizedBox())
-                            : const SizedBox(),
-                      ],
-                    ),
+                    profiles(context),
+                    const SizedBox(height: 20),
+                    buttonOptions(context),
                   ],
                 ),
               ),
@@ -846,6 +893,160 @@ class _CreateImageState extends State<CreateImagePage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget profiles(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: Hive.box("profiles").listenable(),
+      builder: (BuildContext context, dynamic box, Widget? child) {
+        final profilesList = box.values.toList();
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.grey),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ExpansionTile(
+              title: const Text(
+                'Profiles',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+              children: [
+                profilesList.isEmpty
+                    ? const Text("No profiles found")
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(profilesList[index].name),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.delete, color: Colors.red),
+                              onPressed: () async {
+                                await box.deleteAt(index);
+                              },
+                            ),
+                            onTap: () async {
+                              await loadProfile(profilesList[index]);
+                            },
+                          );
+                        },
+                        itemCount: profilesList.length,
+                      ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                      Colors.green,
+                    ),
+                  ),
+                  onPressed: () async {
+                    String name = '';
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        backgroundColor: Colors.green,
+                        title: const Center(
+                          child: Text(
+                            'Choose name',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'PsychFont',
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Material(
+                              child: TextField(
+                                style: const TextStyle(color: Colors.green),
+                                decoration: const InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 12),
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Profile name',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never),
+                                onChanged: (value) async {
+                                  name = value;
+                                },
+                                onSubmitted: (value) async {
+                                  addProfile(box, name);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  Colors.white,
+                                ),
+                              ),
+                              onPressed: () {
+                                addProfile(box, name);
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                'Save',
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Add Profile',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Column buttonOptions(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            shareImage(),
+            !kIsWeb
+                ? (Platform.isAndroid
+                    ? const SizedBox(width: 15)
+                    : const SizedBox())
+                : const SizedBox(),
+            !kIsWeb
+                ? (Platform.isAndroid ? saveToGallery() : const SizedBox())
+                : const SizedBox(),
+          ],
+        ),
+        !kIsWeb
+            ? (Platform.isAndroid
+                ? const SizedBox(height: 15)
+                : const SizedBox())
+            : const SizedBox(),
+        !kIsWeb
+            ? (widget.isShare == false && Platform.isAndroid
+                ? saveAsWallpaper(context)
+                : const SizedBox())
+            : const SizedBox(),
+      ],
     );
   }
 
@@ -1111,403 +1312,416 @@ class _CreateImageState extends State<CreateImagePage> {
     );
   }
 
-  ExpansionTile customization(BuildContext context) {
-    return ExpansionTile(
-      title: const Text(
-        'Customization',
+  Widget customization(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.grey),
       ),
-      children: [
-        widget.isShare == false
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    const Text(
-                      'Resolution',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    const Spacer(),
-                    SizedBox(
-                      width: 100,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Width',
-                          counterText: "",
-                        ),
-                        maxLength: 4,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        onFieldSubmitted: (value) {
-                          setState(() {
-                            resolutionW = int.parse(value);
-                            setResolutionWidth(resolutionW);
-                            changeOffset();
-                          });
-                        },
-                        initialValue: resolutionW.toString(),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    const Text(
-                      'x',
-                    ),
-                    const SizedBox(width: 10),
-                    SizedBox(
-                      width: 100,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Height',
-                          counterText: "",
-                        ),
-                        maxLength: 4,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        onFieldSubmitted: (value) {
-                          setState(() {
-                            resolutionH = int.parse(value);
-                            setResolutionHeight(resolutionH);
-                            changeOffset();
-                          });
-                        },
-                        initialValue: resolutionH.toString(),
-                      ),
-                    )
-                  ],
-                ),
-              )
-            : const SizedBox(),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  const Text(
-                    'Top left text',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const Spacer(),
-                  colorPickerWidget(context, topLeftColor, 0, "topLeftColor"),
-                  dropdownButton(context, widgetTopLeft, 0),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  const Text(
-                    'Top right text',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const Spacer(),
-                  colorPickerWidget(context, topRightColor, 1, "topRightColor"),
-                  dropdownButton(context, widgetTopRight, 1),
-                ],
-              ),
-            ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ExpansionTile(
+          title: const Text(
+            'Customization',
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Line before',
-                  ),
-                  initialValue: beforeLine,
-                  onChanged: (value) {
-                    setState(() {
-                      beforeLine = value;
-                    });
-                  },
-                ),
-              ),
-              Checkbox(
-                value: beforeLineCheck,
-                onChanged: (value) {
-                  setState(() {
-                    beforeLineCheck = value!;
-                  });
-                },
-              ),
-              beforeLineCheck
-                  ? colorPickerWidget(
-                      context,
-                      beforeLineColor,
-                      4,
-                      "beforeLineColor",
-                      size: 12,
-                    )
-                  : const SizedBox(),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Line',
-                  ),
-                  initialValue: mainLine,
-                  onChanged: (value) {
-                    setState(() {
-                      mainLine = value;
-                    });
-                  },
-                ),
-              ),
-              colorPickerWidget(
-                context,
-                lineColor,
-                5,
-                "lineColor",
-                size: 12,
-              )
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Line after',
-                  ),
-                  initialValue: afterLine,
-                  onChanged: (value) {
-                    setState(() {
-                      afterLine = value;
-                    });
-                  },
-                ),
-              ),
-              Checkbox(
-                value: afterLineCheck,
-                onChanged: (value) {
-                  setState(() {
-                    afterLineCheck = value!;
-                  });
-                },
-              ),
-              afterLineCheck
-                  ? colorPickerWidget(
-                      context,
-                      afterLineColor,
-                      6,
-                      "afterLineColor",
-                      size: 12,
-                    )
-                  : const SizedBox(),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  const Text(
-                    'Bottom left text',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const Spacer(),
-                  colorPickerWidget(
-                      context, bottomLeftColor, 2, "bottomLeftColor"),
-                  dropdownButton(context, widgetBottomLeft, 2),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  const Text(
-                    'Bottom right text',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const Spacer(),
-                  colorPickerWidget(
-                      context, bottomRightColor, 3, "bottomRightColor"),
-                  dropdownButton(context, widgetBottomRight, 3),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const Text(
-                "Background color",
-                style: TextStyle(fontSize: 16),
-              ),
-              const Spacer(),
-              colorPickerWidget(context, bgColor, 7, "bgColor"),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const Text(
-                "Apply gradient to background",
-                style: TextStyle(fontSize: 16),
-              ),
-              const Spacer(),
-              Switch(
-                value: applyGradient,
-                activeColor: Colors.green,
-                onChanged: (bool value) {
-                  setState(() {
-                    applyGradient = value;
-                    setApplyGradient(applyGradient);
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const Text(
-                "Show background image",
-                style: TextStyle(fontSize: 16),
-              ),
-              const Spacer(),
-              Switch(
-                value: showBackgroundImage,
-                activeColor: Colors.green,
-                onChanged: (bool value) {
-                  setState(() {
-                    showBackgroundImage = value;
-                    setShowBackgoundImage(showBackgroundImage);
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
-        showBackgroundImage
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Row(
+          children: [
+            widget.isShare == false
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
                       children: [
                         const Text(
-                          "Background image color/size",
+                          'Resolution',
                           style: TextStyle(fontSize: 16),
                         ),
                         const Spacer(),
-                        colorPickerWidget(context, backgroundImageColor, 9,
-                            "backgroundImageColor",
-                            showAlpha: true),
+                        SizedBox(
+                          width: 100,
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Width',
+                              counterText: "",
+                            ),
+                            maxLength: 4,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[0-9]')),
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            onFieldSubmitted: (value) {
+                              setState(() {
+                                resolutionW = int.parse(value);
+                                setResolutionWidth(resolutionW);
+                                changeOffset();
+                              });
+                            },
+                            initialValue: resolutionW.toString(),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'x',
+                        ),
+                        const SizedBox(width: 10),
+                        SizedBox(
+                          width: 100,
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Height',
+                              counterText: "",
+                            ),
+                            maxLength: 4,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[0-9]')),
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            onFieldSubmitted: (value) {
+                              setState(() {
+                                resolutionH = int.parse(value);
+                                setResolutionHeight(resolutionH);
+                                changeOffset();
+                              });
+                            },
+                            initialValue: resolutionH.toString(),
+                          ),
+                        )
                       ],
                     ),
-                    SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        activeTickMarkColor: Colors.transparent,
-                        inactiveTickMarkColor: Colors.transparent,
-                        trackHeight: 20,
+                  )
+                : const SizedBox(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const Text(
+                        'Top left text',
+                        style: TextStyle(fontSize: 16),
                       ),
-                      child: Slider(
-                        value: backgroundSize,
-                        max: widget.isShare == true
-                            ? 1080 / 6
-                            : resolutionW.toDouble() / 6,
-                        min: 10,
-                        divisions: 20,
-                        onChanged: (double value) {
-                          setState(() {
-                            backgroundSize = value;
-                          });
-                        },
-                        onChangeEnd: (double value) {
-                          setBackgroundImageSize(value);
-                        },
+                      const Spacer(),
+                      colorPickerWidget(
+                          context, topLeftColor, 0, "topLeftColor"),
+                      dropdownButton(context, widgetTopLeft, 0),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Text(
+                        'Top right text',
+                        style: TextStyle(fontSize: 16),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            : const SizedBox(),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const Text(
-                "Show \"Made with psychphinder\"",
-                style: TextStyle(fontSize: 16),
+                      const Spacer(),
+                      colorPickerWidget(
+                          context, topRightColor, 1, "topRightColor"),
+                      dropdownButton(context, widgetTopRight, 1),
+                    ],
+                  ),
+                ],
               ),
-              const Spacer(),
-              showPsychphinder
-                  ? colorPickerWidget(
-                      context, psychphinderColor, 8, "psychphinderColor")
-                  : const SizedBox(),
-              Switch(
-                value: showPsychphinder,
-                activeColor: Colors.green,
-                onChanged: (bool value) {
-                  setState(() {
-                    showPsychphinder = value;
-                    setShowMadeWithPsychphinder(showPsychphinder);
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
-        widget.isShare == false
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    const Text(
-                      "Apply offset fix",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    const Spacer(),
-                    Switch(
-                      value: applyOffset,
-                      activeColor: Colors.green,
-                      onChanged: (bool value) {
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Line before',
+                      ),
+                      initialValue: beforeLine,
+                      onChanged: (value) {
                         setState(() {
-                          applyOffset = value;
-                          if (applyOffset) {
-                            wallpaperOffset = 16;
-                            wallpaperScale = 1.07;
-                          } else {
-                            wallpaperOffset = 0;
-                            wallpaperScale = 1;
-                          }
+                          beforeLine = value;
                         });
                       },
-                    )
-                  ],
-                ),
-              )
-            : const SizedBox(),
-      ],
+                    ),
+                  ),
+                  Checkbox(
+                    value: beforeLineCheck,
+                    onChanged: (value) {
+                      setState(() {
+                        beforeLineCheck = value!;
+                      });
+                    },
+                  ),
+                  beforeLineCheck
+                      ? colorPickerWidget(
+                          context,
+                          beforeLineColor,
+                          4,
+                          "beforeLineColor",
+                          size: 12,
+                        )
+                      : const SizedBox(),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Line',
+                      ),
+                      initialValue: mainLine,
+                      onChanged: (value) {
+                        setState(() {
+                          mainLine = value;
+                        });
+                      },
+                    ),
+                  ),
+                  colorPickerWidget(
+                    context,
+                    lineColor,
+                    5,
+                    "lineColor",
+                    size: 12,
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Line after',
+                      ),
+                      initialValue: afterLine,
+                      onChanged: (value) {
+                        setState(() {
+                          afterLine = value;
+                        });
+                      },
+                    ),
+                  ),
+                  Checkbox(
+                    value: afterLineCheck,
+                    onChanged: (value) {
+                      setState(() {
+                        afterLineCheck = value!;
+                      });
+                    },
+                  ),
+                  afterLineCheck
+                      ? colorPickerWidget(
+                          context,
+                          afterLineColor,
+                          6,
+                          "afterLineColor",
+                          size: 12,
+                        )
+                      : const SizedBox(),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const Text(
+                        'Bottom left text',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      const Spacer(),
+                      colorPickerWidget(
+                          context, bottomLeftColor, 2, "bottomLeftColor"),
+                      dropdownButton(context, widgetBottomLeft, 2),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Text(
+                        'Bottom right text',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      const Spacer(),
+                      colorPickerWidget(
+                          context, bottomRightColor, 3, "bottomRightColor"),
+                      dropdownButton(context, widgetBottomRight, 3),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  const Text(
+                    "Background color",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  const Spacer(),
+                  colorPickerWidget(context, bgColor, 7, "bgColor"),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  const Text(
+                    "Apply gradient to background",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  const Spacer(),
+                  Switch(
+                    value: applyGradient,
+                    activeColor: Colors.green,
+                    onChanged: (bool value) {
+                      setState(() {
+                        applyGradient = value;
+                        setApplyGradient(applyGradient);
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  const Text(
+                    "Show background image",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  const Spacer(),
+                  Switch(
+                    value: showBackgroundImage,
+                    activeColor: Colors.green,
+                    onChanged: (bool value) {
+                      setState(() {
+                        showBackgroundImage = value;
+                        setShowBackgoundImage(showBackgroundImage);
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+            showBackgroundImage
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Text(
+                              "Background image color/size",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const Spacer(),
+                            colorPickerWidget(context, backgroundImageColor, 9,
+                                "backgroundImageColor",
+                                showAlpha: true),
+                          ],
+                        ),
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            activeTickMarkColor: Colors.transparent,
+                            inactiveTickMarkColor: Colors.transparent,
+                            trackHeight: 20,
+                          ),
+                          child: Slider(
+                            value: backgroundSize,
+                            max: widget.isShare == true
+                                ? 1080 / 6
+                                : resolutionW.toDouble() / 6,
+                            min: 10,
+                            divisions: 20,
+                            onChanged: (double value) {
+                              setState(() {
+                                backgroundSize = value;
+                              });
+                            },
+                            onChangeEnd: (double value) {
+                              setBackgroundImageSize(value);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  const Text(
+                    "Show \"Made with psychphinder\"",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  const Spacer(),
+                  showPsychphinder
+                      ? colorPickerWidget(
+                          context, psychphinderColor, 8, "psychphinderColor")
+                      : const SizedBox(),
+                  Switch(
+                    value: showPsychphinder,
+                    activeColor: Colors.green,
+                    onChanged: (bool value) {
+                      setState(() {
+                        showPsychphinder = value;
+                        setShowMadeWithPsychphinder(showPsychphinder);
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+            widget.isShare == false
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        const Text(
+                          "Apply offset fix",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        const Spacer(),
+                        Switch(
+                          value: applyOffset,
+                          activeColor: Colors.green,
+                          onChanged: (bool value) {
+                            setState(() {
+                              applyOffset = value;
+                              if (applyOffset) {
+                                wallpaperOffset = 16;
+                                wallpaperScale = 1.07;
+                              } else {
+                                wallpaperOffset = 0;
+                                wallpaperScale = 1;
+                              }
+                            });
+                          },
+                        )
+                      ],
+                    ),
+                  )
+                : const SizedBox(),
+          ],
+        ),
+      ),
     );
   }
 
@@ -1693,7 +1907,7 @@ class _CreateImageState extends State<CreateImagePage> {
         ],
         onChanged: (value) {
           setState(() {
-            update(value!, index);
+            updatePositions(value!, index);
           });
         },
       ),

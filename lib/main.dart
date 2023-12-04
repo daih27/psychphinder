@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:psychphinder/classes/profile_class.dart';
 import 'package:psychphinder/global/routes.dart';
 import 'package:psychphinder/global/search_engine.dart';
 import 'package:psychphinder/references.dart';
@@ -29,7 +30,9 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(PhraseAdapter());
+  Hive.registerAdapter(ProfileAdapter());
   await Hive.openBox('favorites');
+  await Hive.openBox('profiles');
   WidgetsFlutterBinding.ensureInitialized();
   final csvData = CSVData();
   await csvData.loadDataFromCSV();
