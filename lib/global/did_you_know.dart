@@ -11,7 +11,7 @@ class DYK {
     Can you find them all?
     """,
     """
-    You can create a wallpaper with your favorite quotes right inside the app! Just press the share button when opening a quote and select "Image".
+    You can create a wallpaper with your favorite quotes right inside the app! Just tap the image icon on the bottom left side of the screen when viewing a quote.
     """,
     """
     Psych was filmed in White Rock, British Columbia, Canada.
@@ -21,6 +21,9 @@ class DYK {
     """,
     """
     If a quote is referencing something, you'll see a question mark icon and you can tap it to see what's being referenced. If you see a video icon along the question mark, it's because there's a video associated with the quote. Tap the video icon to watch it! 
+    """,
+    """
+    There are over four hundred stars in our galaxy, maybe more. No one knows for sure.
     """,
   ];
 }
