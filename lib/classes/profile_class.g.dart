@@ -36,7 +36,7 @@ class ProfileAdapter extends TypeAdapter<Profile> {
       applyGradient: fields[16] as bool,
       showBackgroundImage: fields[17] as bool,
       backgroundSize: fields[18] as double,
-      backgroundImage: fields[19] as String,
+      selectedImgs: (fields[19] as List).cast<bool>(),
     );
   }
 
@@ -83,7 +83,7 @@ class ProfileAdapter extends TypeAdapter<Profile> {
       ..writeByte(18)
       ..write(obj.backgroundSize)
       ..writeByte(19)
-      ..write(obj.backgroundImage);
+      ..write(obj.selectedImgs);
   }
 
   @override

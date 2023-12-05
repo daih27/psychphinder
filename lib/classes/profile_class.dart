@@ -43,27 +43,28 @@ class Profile extends HiveObject {
   @HiveField(18)
   double backgroundSize;
   @HiveField(19)
-  String backgroundImage;
+  List<bool> selectedImgs;
 
-  Profile(
-      {required this.name,
-      required this.widgetTopLeft,
-      required this.widgetTopRight,
-      required this.widgetBottomLeft,
-      required this.widgetBottomRight,
-      required this.bgColor,
-      required this.topLeftColor,
-      required this.topRightColor,
-      required this.bottomLeftColor,
-      required this.bottomRightColor,
-      required this.lineColor,
-      required this.beforeLineColor,
-      required this.afterLineColor,
-      required this.psychphinderColor,
-      required this.backgroundImageColor,
-      required this.showMadeWithPsychphinder,
-      required this.applyGradient,
-      required this.showBackgroundImage,
-      required this.backgroundSize,
-      required this.backgroundImage});
+  Profile({
+    required this.name,
+    required this.widgetTopLeft,
+    required this.widgetTopRight,
+    required this.widgetBottomLeft,
+    required this.widgetBottomRight,
+    required this.bgColor,
+    required this.topLeftColor,
+    required this.topRightColor,
+    required this.bottomLeftColor,
+    required this.bottomRightColor,
+    required this.lineColor,
+    required this.beforeLineColor,
+    required this.afterLineColor,
+    required this.psychphinderColor,
+    required this.backgroundImageColor,
+    required this.showMadeWithPsychphinder,
+    required this.applyGradient,
+    required this.showBackgroundImage,
+    required this.backgroundSize,
+    required this.selectedImgs,
+  });
 }

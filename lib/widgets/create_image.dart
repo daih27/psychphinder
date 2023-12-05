@@ -54,7 +54,6 @@ class _CreateImageState extends State<CreateImagePage> {
   String widgetTopLeft = 'Psych logo';
   String widgetBottomLeft = 'Season and episode';
   String widgetBottomRight = 'Time';
-  String backgroundImage = 'pineapple.png';
   double wallpaperOffset = 16;
   double wallpaperScale = 1.07;
   double psychLogoSize = 18;
@@ -74,6 +73,13 @@ class _CreateImageState extends State<CreateImagePage> {
   Color bottomRightColor = Colors.white;
   Color psychphinderColor = Colors.white;
   Color backgroundImageColor = Colors.black.withOpacity(0.1);
+  List<String> images = [
+    'pineapple',
+    'psych',
+    'fistbump',
+    'xmas_tree',
+  ];
+  List<bool> imagesSelected = [];
   FToast fToast = FToast();
 
   @override
@@ -82,6 +88,8 @@ class _CreateImageState extends State<CreateImagePage> {
     FToast fToast = FToast();
     fToast.init(navigatorKey.currentContext!);
     mainLine = widget.episode[widget.id].line;
+    imagesSelected = [for (var i = 0; i < images.length; i++) false];
+
     if (widget.id != 0) {
       beforeLine = widget.episode[widget.id - 1].line;
     } else {
@@ -100,12 +108,17 @@ class _CreateImageState extends State<CreateImagePage> {
     if (widget.episode[widget.id].season == 0) {
       widgetBottomLeft = "Movie";
     }
-
+    if (!Hive.box('profiles').isOpen) {
+      Hive.openBox('profiles').then((value) {
+        addFirstTimeProfile();
+      });
+    }
     !widget.isShare ? getResolution().whenComplete(() => changeOffset()) : null;
     getColors();
     getBackgroundProperties();
     getShowMadeWithPsychphinder();
     getPositions();
+    getSelectedImages();
   }
 
   void updatePositions(String value, int selectedIndex) async {
@@ -467,16 +480,16 @@ class _CreateImageState extends State<CreateImagePage> {
     setState(
       () {
         bottomRightColor = pref.getInt("bottomRightColor") == null
-            ? Colors.white
+            ? const Color(0xFFFFEA00)
             : Color(pref.getInt("bottomRightColor")!);
         bottomLeftColor = pref.getInt("bottomLeftColor") == null
-            ? Colors.white
+            ? const Color(0xFFFFEA00)
             : Color(pref.getInt("bottomLeftColor")!);
         topRightColor = pref.getInt("topRightColor") == null
-            ? Colors.white
+            ? const Color(0xFFFFEA00)
             : Color(pref.getInt("topRightColor")!);
         topLeftColor = pref.getInt("topLeftColor") == null
-            ? Colors.white
+            ? const Color(0xFFFFEA00)
             : Color(pref.getInt("topLeftColor")!);
         lineColor = pref.getInt("lineColor") == null
             ? Colors.white
@@ -488,10 +501,10 @@ class _CreateImageState extends State<CreateImagePage> {
             ? Colors.white
             : Color(pref.getInt("afterLineColor")!);
         bgColor = pref.getInt("bgColor") == null
-            ? Colors.green
+            ? const Color(0xFF39A43D)
             : Color(pref.getInt("bgColor")!);
         psychphinderColor = pref.getInt("psychphinderColor") == null
-            ? Colors.white
+            ? const Color(0xFFFFEA00)
             : Color(pref.getInt("psychphinderColor")!);
         backgroundImageColor = pref.getInt("backgroundImageColor") == null
             ? Colors.black.withOpacity(0.1)
@@ -576,7 +589,8 @@ class _CreateImageState extends State<CreateImagePage> {
     return hslLight.toColor();
   }
 
-  Future<void> addProfile(Box box, String name) async {
+  Future<void> addProfile(String name) async {
+    final box = Hive.box("profiles");
     box.add(
       Profile(
         name: name,
@@ -598,12 +612,24 @@ class _CreateImageState extends State<CreateImagePage> {
         applyGradient: applyGradient,
         showBackgroundImage: showBackgroundImage,
         backgroundSize: backgroundSize,
-        backgroundImage: backgroundImage,
+        selectedImgs: List.from(imagesSelected),
       ),
     );
   }
 
   Future<void> loadProfile(Profile profile) async {
+    List<bool> newSelectedImages = [];
+    if (images.length != profile.selectedImgs.length) {
+      for (int i = 0; i < images.length; i++) {
+        if (i < profile.selectedImgs.length) {
+          newSelectedImages.add(profile.selectedImgs[i]);
+        } else {
+          newSelectedImages.add(false);
+        }
+      }
+    } else {
+      newSelectedImages = List.from(profile.selectedImgs);
+    }
     setState(
       () {
         widgetTopLeft = profile.widgetTopLeft;
@@ -623,7 +649,8 @@ class _CreateImageState extends State<CreateImagePage> {
         applyGradient = profile.applyGradient;
         showBackgroundImage = profile.showBackgroundImage;
         backgroundSize = profile.backgroundSize;
-        backgroundImage = profile.backgroundImage;
+        psychphinderColor = Color(profile.psychphinderColor);
+        imagesSelected = newSelectedImages;
       },
     );
     setColors("bgColor", profile.bgColor);
@@ -644,11 +671,98 @@ class _CreateImageState extends State<CreateImagePage> {
     updatePositions(profile.widgetTopRight, 1);
     updatePositions(profile.widgetBottomLeft, 2);
     updatePositions(profile.widgetBottomRight, 3);
+    setSelectedImages(newSelectedImages);
+  }
+
+  Future<void> setSelectedImages(List<bool> imagesSelected) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    for (int i = 0; i < imagesSelected.length; i++) {
+      pref.setBool(images[i], imagesSelected[i]);
+    }
+  }
+
+  Future<void> getSelectedImages() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    for (int i = 0; i < imagesSelected.length; i++) {
+      if (i == 3) {
+        imagesSelected[i] = pref.getBool(images[i]) ?? false;
+      } else {
+        imagesSelected[i] = pref.getBool(images[i]) ?? true;
+      }
+    }
+  }
+
+  List<String> getTrueList() {
+    List<String> list = [];
+    for (int i = 0; i < imagesSelected.length; i++) {
+      if (imagesSelected[i] == true) {
+        list.add(images[i]);
+      }
+    }
+    return list;
+  }
+
+  void addFirstTimeProfile() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final box = Hive.box("profiles");
+    if (pref.getBool("firstTimeImage") == null) {
+      pref.setBool("firstTimeImage", true);
+      box.add(
+        Profile(
+          name: "Christmas",
+          widgetTopLeft: "Psych logo",
+          widgetTopRight: "Episode name",
+          widgetBottomLeft: "Season and episode",
+          widgetBottomRight: "Time",
+          bgColor: const Color(0xFF146B3A).value,
+          topLeftColor: const Color(0xFFF8B229).value,
+          topRightColor: const Color(0xFFF8B229).value,
+          bottomLeftColor: const Color(0xFFF8B229).value,
+          bottomRightColor: const Color(0xFFF8B229).value,
+          lineColor: const Color(0xFFEA4630).value,
+          beforeLineColor: const Color(0xFFFFFFFF).value,
+          afterLineColor: const Color(0xFFFFFFFF).value,
+          psychphinderColor: const Color(0xFFF8B229).value,
+          backgroundImageColor: const Color(0x3B000000).value,
+          showMadeWithPsychphinder: true,
+          applyGradient: true,
+          showBackgroundImage: true,
+          backgroundSize: 44.0,
+          selectedImgs: [true, true, false, true],
+        ),
+      );
+      box.add(
+        Profile(
+          name: "Christmas 2",
+          widgetTopLeft: "Psych logo",
+          widgetTopRight: "Episode name",
+          widgetBottomLeft: "Season and episode",
+          widgetBottomRight: "Time",
+          bgColor: const Color(0xFFA22C2B).value,
+          topLeftColor: const Color(0xFF209954).value,
+          topRightColor: const Color(0xFF209954).value,
+          bottomLeftColor: const Color(0xFF209954).value,
+          bottomRightColor: const Color(0xFF209954).value,
+          lineColor: const Color(0xFFF8B229).value,
+          beforeLineColor: const Color(0xFFFFFFFF).value,
+          afterLineColor: const Color(0xFFFFFFFF).value,
+          psychphinderColor: const Color(0xFF209954).value,
+          backgroundImageColor: const Color(0x2C000000).value,
+          showMadeWithPsychphinder: true,
+          applyGradient: true,
+          showBackgroundImage: true,
+          backgroundSize: 35.5,
+          selectedImgs: [true, true, true, true],
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     reduceSizeBelow1080();
+    List<String> selectedBackgroundImage = getTrueList();
+    int counter = 0;
     !widget.isShare
         ? resolutionW == 0
             ? resolutionW = 1080
@@ -725,10 +839,22 @@ class _CreateImageState extends State<CreateImagePage> {
                                       mainAxisExtent: backgroundSize,
                                     ),
                                     itemBuilder: (context, index) {
-                                      return Image.asset(
-                                        'assets/background/$backgroundImage',
-                                        color: backgroundImageColor,
-                                      );
+                                      if (selectedBackgroundImage.isNotEmpty) {
+                                        counter++;
+                                        if (counter ==
+                                            selectedBackgroundImage.length) {
+                                          counter = 0;
+                                        }
+                                        return Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Image.asset(
+                                            "assets/background/${selectedBackgroundImage[counter]}.png",
+                                            color: backgroundImageColor,
+                                          ),
+                                        );
+                                      } else {
+                                        return Container();
+                                      }
                                     },
                                   )
                                 : Container(),
@@ -920,6 +1046,7 @@ class _CreateImageState extends State<CreateImagePage> {
                     ? const Text("No profiles found")
                     : ListView.builder(
                         shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return ListTile(
                             title: Text(profilesList[index].name),
@@ -971,13 +1098,14 @@ class _CreateImageState extends State<CreateImagePage> {
                                         vertical: 0, horizontal: 12),
                                     border: OutlineInputBorder(),
                                     labelText: 'Profile name',
+                                    labelStyle: TextStyle(color: Colors.green),
                                     floatingLabelBehavior:
                                         FloatingLabelBehavior.never),
                                 onChanged: (value) async {
                                   name = value;
                                 },
                                 onSubmitted: (value) async {
-                                  addProfile(box, name);
+                                  addProfile(name);
                                   Navigator.pop(context);
                                 },
                               ),
@@ -990,7 +1118,7 @@ class _CreateImageState extends State<CreateImagePage> {
                                 ),
                               ),
                               onPressed: () {
-                                addProfile(box, name);
+                                addProfile(name);
                                 Navigator.pop(context);
                               },
                               child: const Text(
@@ -1007,7 +1135,7 @@ class _CreateImageState extends State<CreateImagePage> {
                     );
                   },
                   child: const Text(
-                    'Add Profile',
+                    'Save profile',
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 )
@@ -1658,6 +1786,53 @@ class _CreateImageState extends State<CreateImagePage> {
                               setBackgroundImageSize(value);
                             },
                           ),
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Row(
+                              children: [
+                                Text(
+                                  "Background image",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  for (int index = 0;
+                                      index < images.length;
+                                      index++)
+                                    SizedBox(
+                                      height: 100,
+                                      width: 100,
+                                      child: Center(
+                                        child: ListTile(
+                                          title: Image.asset(
+                                            "assets/background/${images[index]}.png",
+                                            color: imagesSelected[index]
+                                                ? Colors.green
+                                                : Colors.grey,
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              setSelectedImages(imagesSelected);
+                                              imagesSelected[index] =
+                                                  !imagesSelected[index];
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
