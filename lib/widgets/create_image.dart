@@ -108,11 +108,8 @@ class _CreateImageState extends State<CreateImagePage> {
     if (widget.episode[widget.id].season == 0) {
       widgetBottomLeft = "Movie";
     }
-    if (!Hive.box('profiles').isOpen) {
-      Hive.openBox('profiles').then((value) {
-        addFirstTimeProfile();
-      });
-    }
+
+    addFirstTimeProfile();
     !widget.isShare ? getResolution().whenComplete(() => changeOffset()) : null;
     getColors();
     getBackgroundProperties();
@@ -706,7 +703,7 @@ class _CreateImageState extends State<CreateImagePage> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final box = Hive.box("profiles");
     if (pref.getBool("firstTimeImage") == null) {
-      pref.setBool("firstTimeImage", true);
+      await pref.setBool("firstTimeImage", true);
       box.add(
         Profile(
           name: "Christmas",
