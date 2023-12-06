@@ -1,11 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/classes/phrase_class.dart';
 import 'package:psychphinder/widgets/itemlist.dart';
 import 'package:diacritic/diacritic.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'global/globals.dart';
 import 'package:number_to_words_english/number_to_words_english.dart';
 import 'dart:math';
@@ -26,6 +31,7 @@ class _SearchPageState extends State<SearchPage>
   Map map = {};
   bool isLoading = false;
   bool isSearching = false;
+  bool showUpdate = false;
   String input = "";
   late int randomIndex;
   late int randomIndexDYK;
@@ -39,6 +45,7 @@ class _SearchPageState extends State<SearchPage>
     super.initState();
     randomIndex = rng.nextInt(2606);
     randomIndexDYK = rng.nextInt(DYK.didYouKnowOptions.length);
+    checkUpdate();
   }
 
   Widget randomReference(List data, List referenceData) {
@@ -151,6 +158,98 @@ class _SearchPageState extends State<SearchPage>
     );
   }
 
+  Future<void> checkUpdate() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    int buildNumber = int.parse(packageInfo.buildNumber);
+    if (pref.getInt("latestAppVersion") == null) {
+      pref.setInt("latestAppVersion", 16);
+    }
+    int latestAppVersion = pref.getInt("latestAppVersion") ?? buildNumber;
+    if (buildNumber > latestAppVersion) {
+      setState(() {
+        showUpdate = true;
+      });
+    }
+  }
+
+  Widget showUpdateWidget() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "psychphinder just got updated!",
+              style: TextStyle(
+                fontFamily: 'PsychFont',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  showUpdate = false;
+                });
+                whatsNewDialog(context);
+              },
+              child: Text(
+                "See what's new",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontFamily: 'PsychFont',
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> whatsNewDialog(BuildContext context) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    int buildNumber = int.parse(packageInfo.buildNumber);
+    String dialogContent = await rootBundle.loadString('assets/CHANGELOG.md');
+    pref.setInt("latestAppVersion", buildNumber);
+    if (!context.mounted) return;
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('What\'s new?'),
+          content: SizedBox(
+            width: double.maxFinite,
+            height: 500,
+            child: Center(
+              child: Markdown(
+                data: dialogContent,
+                onTapLink: (text, url, title) {
+                  launchUrl(Uri.parse(url!));
+                },
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -251,6 +350,8 @@ class _SearchPageState extends State<SearchPage>
               ),
               textAlign: TextAlign.center,
             ),
+            showUpdate ? const Spacer() : const SizedBox(),
+            showUpdate ? showUpdateWidget() : const SizedBox(),
             const Spacer(),
             didYouKnow(),
             const Spacer(),

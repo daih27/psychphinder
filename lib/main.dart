@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -20,9 +19,6 @@ import 'classes/phrase_class.dart';
 import 'global/globals.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final Uri _url = Uri.parse('https://github.com/daih27/psychphinder');
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -96,7 +92,6 @@ class _HomeState extends State<Home> {
         initDeepLinks();
       }
     }
-    showWhatsNew(context);
     if (!kIsWeb) {
       if (Platform.isWindows || Platform.isLinux) {
         showUpdateLinuxWindows();
@@ -110,7 +105,6 @@ class _HomeState extends State<Home> {
     if (appLink != null) {
       openAppLink(appLink);
     }
-
     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
       openAppLink(uri);
     });
@@ -132,47 +126,6 @@ class _HomeState extends State<Home> {
       );
     } else {
       context.go("/");
-    }
-  }
-
-  Future<void> showWhatsNew(BuildContext context) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    int buildNumber = int.parse(packageInfo.buildNumber);
-    int latestAppVersion = pref.getInt("latestAppVersion") ?? buildNumber;
-    if (buildNumber > latestAppVersion) {
-      pref.setInt("latestAppVersion", buildNumber);
-      String dialogContent = await rootBundle.loadString('assets/CHANGELOG.md');
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('What\'s new?'),
-                content: SizedBox(
-                    width: double.maxFinite,
-                    height: 500,
-                    child: Center(
-                        child: Markdown(
-                      data: dialogContent,
-                      onTapLink: (text, url, title) {
-                        launchUrl(Uri.parse(url!));
-                      },
-                    ))),
-                actions: <Widget>[
-                  ElevatedButton(
-                    child: const Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        },
-      );
     }
   }
 
