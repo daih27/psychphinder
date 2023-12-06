@@ -1,3 +1,17 @@
+# 1.1.4 (05/13/2023)
+
+- Added tons of customization to the image creator. This are the new options:
+    - Choose the colors for all the elements on the wallpaper.
+    - Use an optional gradient in the background
+    - Choose between 4 (for now) images to put on the background. You can select more than one.
+    - Create profiles to save your favorite customizations.
+    - Added two predefined Christmas profiles. Share the Christmas love with Psych!
+- The image creator is now accesible at the bottom left of the screen when viewing a quote.
+- Show the "What's new" screen as an optional button on the main screen. It'll disappear once you tap on "See what's new".
+- Fixed the "What's new" screen not showing on the web browser.
+
+Note: The fist bump image was retrieved from [here](https://fineartamerica.com/featured/psych-fist-bump-brand-a.html). All credits are to them.
+
 # 1.1.3 (11/11/2023)
 
 - Completed all the references from season 8.
