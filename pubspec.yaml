@@ -49,7 +49,7 @@ dependency_overrides:
   sheet:
     git:
       url: https://github.com/jamesblasco/modal_bottom_sheet.git
-      ref: d5c9ceb4e2263f63f449ed9b1c212a34c6dcaa5d
+      ref: 8ee20bd36acaeb36996a09ba9d0f9e7059bb49df
       path: sheet
 
 flutter_launcher_icons:
