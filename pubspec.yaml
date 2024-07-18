@@ -36,6 +36,7 @@ dependencies:
   go_router: ^12.0.1
   app_links: ^3.4.5
   flutter_colorpicker: ^1.0.3
+  sheet: ^1.0.0
 
 dev_dependencies:
   hive_generator: ^1.1.2
@@ -45,12 +46,12 @@ dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
 
-dependency_overrides:
-  sheet:
-    git:
-      url: https://github.com/jamesblasco/modal_bottom_sheet.git
-      ref: 8ee20bd36acaeb36996a09ba9d0f9e7059bb49df
-      path: sheet
+# dependency_overrides:
+#   sheet:
+#     git:
+#       url: https://github.com/jamesblasco/modal_bottom_sheet.git
+#       ref: 8ee20bd36acaeb36996a09ba9d0f9e7059bb49df
+#       path: sheet
 
 flutter_launcher_icons:
   android: false

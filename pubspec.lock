@@ -452,10 +452,10 @@ packages:
     dependency: transitive
     description:
       name: graphs
-      sha256: aedc5a15e78fc65a6e23bcd927f24c64dd995062bcd1ca6eda65a3cff92a4d19
+      sha256: "741bbf84165310a68ff28fe9e727332eef1407342fca52759cb21ad8177bb8d0"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   gtk:
     dependency: transitive
     description:
@@ -865,14 +865,13 @@ packages:
     source: hosted
     version: "2.3.2"
   sheet:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
-      path: sheet
-      ref: "8ee20bd36acaeb36996a09ba9d0f9e7059bb49df"
-      resolved-ref: "8ee20bd36acaeb36996a09ba9d0f9e7059bb49df"
-      url: "https://github.com/jamesblasco/modal_bottom_sheet.git"
-    source: git
-    version: "1.0.0-pre"
+      name: sheet
+      sha256: f7619b2bd5e031f206d8c22228ef2b12794192dea25b5af0862fa5e37fe6e36d
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   shelf:
     dependency: transitive
     description:
