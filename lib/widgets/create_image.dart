@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
+import 'package:wallpaper_handler/wallpaper_handler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gal/gal.dart';
 import 'package:provider/provider.dart';
@@ -1340,9 +1340,9 @@ class _CreateImageState extends State<CreateImagePage> {
                     final cacheDir = await getTemporaryDirectory();
                     final fileName = path.join(cacheDir.path, 'wallpaper.png');
                     await File(fileName).writeAsBytes(bytes!);
-                    int location = WallpaperManager.HOME_SCREEN;
-                    bool result = await WallpaperManager.setWallpaperFromFile(
-                        fileName, location);
+                    WallpaperLocation location = WallpaperLocation.homeScreen;
+                    bool result = await WallpaperHandler.instance
+                        .setWallpaperFromFile(fileName, location);
                     if (result) {
                       _showToast("Set as wallpaper!");
                       if (cacheDir.existsSync()) {
@@ -1376,9 +1376,9 @@ class _CreateImageState extends State<CreateImagePage> {
                     final cacheDir = await getTemporaryDirectory();
                     final fileName = path.join(cacheDir.path, 'wallpaper.png');
                     await File(fileName).writeAsBytes(bytes!);
-                    int location = WallpaperManager.LOCK_SCREEN;
-                    bool result = await WallpaperManager.setWallpaperFromFile(
-                        fileName, location);
+                    WallpaperLocation location = WallpaperLocation.lockScreen;
+                    bool result = await WallpaperHandler.instance
+                        .setWallpaperFromFile(fileName, location);
                     if (result) {
                       _showToast("Set as wallpaper!");
                       if (cacheDir.existsSync()) {
@@ -1411,9 +1411,9 @@ class _CreateImageState extends State<CreateImagePage> {
                     final cacheDir = await getTemporaryDirectory();
                     final fileName = path.join(cacheDir.path, 'wallpaper.png');
                     await File(fileName).writeAsBytes(bytes!);
-                    int location = WallpaperManager.BOTH_SCREEN;
-                    bool result = await WallpaperManager.setWallpaperFromFile(
-                        fileName, location);
+                    WallpaperLocation location = WallpaperLocation.bothScreens;
+                    bool result = await WallpaperHandler.instance
+                        .setWallpaperFromFile(fileName, location);
                     if (result) {
                       _showToast("Set as wallpaper!");
                       if (cacheDir.existsSync()) {

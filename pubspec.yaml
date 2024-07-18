@@ -22,14 +22,14 @@ dependencies:
   widgets_to_image: ^0.0.2
   share_plus: ^7.1.0
   fluttertoast: ^8.2.4
-  flutter_wallpaper_manager: ^0.0.4
+  wallpaper_handler: ^0.0.2
   gal: ^1.7.0
   google_nav_bar: ^5.0.6
   diacritic: ^0.1.4
   highlight_text: ^1.7.0
   number_to_words_english: ^2.0.2
   font_awesome_flutter: ^10.5.0
-  flutter_markdown: ^0.6.17+3
+  flutter_markdown: ^0.7.3
   package_info_plus: ^4.1.0
   file_saver: ^0.2.8
   universal_html: ^2.2.4
@@ -45,13 +45,6 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
-
-# dependency_overrides:
-#   sheet:
-#     git:
-#       url: https://github.com/jamesblasco/modal_bottom_sheet.git
-#       ref: 8ee20bd36acaeb36996a09ba9d0f9e7059bb49df
-#       path: sheet
 
 flutter_launcher_icons:
   android: false
