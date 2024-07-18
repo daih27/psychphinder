@@ -458,7 +458,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                           }
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
+                          backgroundColor: WidgetStateProperty.all(
                             Colors.green,
                           ),
                         ),
@@ -501,8 +501,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                 children: [
                                   ElevatedButton(
                                     style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
+                                      backgroundColor: WidgetStateProperty.all(
                                         Colors.white,
                                       ),
                                     ),
@@ -544,8 +543,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                   const SizedBox(height: 10),
                                   ElevatedButton(
                                     style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
+                                      backgroundColor: WidgetStateProperty.all(
                                         Colors.white,
                                       ),
                                     ),
@@ -589,8 +587,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                   const SizedBox(height: 10),
                                   ElevatedButton(
                                     style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
+                                      backgroundColor: WidgetStateProperty.all(
                                         Colors.white,
                                       ),
                                     ),

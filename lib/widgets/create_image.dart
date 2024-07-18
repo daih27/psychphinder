@@ -1063,7 +1063,7 @@ class _CreateImageState extends State<CreateImagePage> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
+                    backgroundColor: WidgetStateProperty.all(
                       Colors.green,
                     ),
                   ),
@@ -1110,7 +1110,7 @@ class _CreateImageState extends State<CreateImagePage> {
                             const SizedBox(height: 20),
                             ElevatedButton(
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
+                                backgroundColor: WidgetStateProperty.all(
                                   Colors.white,
                                 ),
                               ),
@@ -1178,7 +1178,7 @@ class _CreateImageState extends State<CreateImagePage> {
   ElevatedButton shareImage() {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(
           Colors.green,
         ),
       ),
@@ -1242,7 +1242,7 @@ class _CreateImageState extends State<CreateImagePage> {
   ElevatedButton saveToGallery() {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(
           Colors.green,
         ),
       ),
@@ -1285,7 +1285,7 @@ class _CreateImageState extends State<CreateImagePage> {
   ElevatedButton saveAsWallpaper(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(
           Colors.green,
         ),
       ),
@@ -1325,10 +1325,10 @@ class _CreateImageState extends State<CreateImagePage> {
               children: [
                 ElevatedButton(
                   style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(
+                    fixedSize: WidgetStateProperty.all(
                       const Size(160, 30),
                     ),
-                    backgroundColor: MaterialStateProperty.all(
+                    backgroundColor: WidgetStateProperty.all(
                       Colors.white,
                     ),
                   ),
@@ -1361,10 +1361,10 @@ class _CreateImageState extends State<CreateImagePage> {
                 const SizedBox(width: 10),
                 ElevatedButton(
                   style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(
+                    fixedSize: WidgetStateProperty.all(
                       const Size(160, 30),
                     ),
-                    backgroundColor: MaterialStateProperty.all(
+                    backgroundColor: WidgetStateProperty.all(
                       Colors.white,
                     ),
                   ),
@@ -1396,10 +1396,10 @@ class _CreateImageState extends State<CreateImagePage> {
                 ),
                 ElevatedButton(
                   style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(
+                    fixedSize: WidgetStateProperty.all(
                       const Size(160, 30),
                     ),
-                    backgroundColor: MaterialStateProperty.all(
+                    backgroundColor: WidgetStateProperty.all(
                       Colors.white,
                     ),
                   ),

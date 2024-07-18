@@ -179,7 +179,7 @@ class _SettingsPageState extends State<SettingsPage> {
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         color: themeProvider.currentThemeType == ThemeType.black
-            ? Theme.of(context).colorScheme.background
+            ? Theme.of(context).colorScheme.surface
             : Theme.of(context).colorScheme.secondaryContainer,
       ),
       child: Column(
@@ -299,7 +299,7 @@ class _SettingsPageState extends State<SettingsPage> {
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         color: themeProvider.currentThemeType == ThemeType.black
-            ? Theme.of(context).colorScheme.background
+            ? Theme.of(context).colorScheme.surface
             : Theme.of(context).colorScheme.secondaryContainer,
       ),
       child: Column(
@@ -324,8 +324,8 @@ class _SettingsPageState extends State<SettingsPage> {
             kofiName: "daih27",
             kofiColor: KofiColor.Red,
             style: ButtonStyle(
-              iconColor: MaterialStatePropertyAll(Colors.white),
-              foregroundColor: MaterialStatePropertyAll(Colors.white),
+              iconColor: WidgetStatePropertyAll(Colors.white),
+              foregroundColor: WidgetStatePropertyAll(Colors.white),
             ),
           ),
           const SizedBox(height: 10),
@@ -369,7 +369,7 @@ class _SettingsPageState extends State<SettingsPage> {
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         color: themeProvider.currentThemeType == ThemeType.black
-            ? Theme.of(context).colorScheme.background
+            ? Theme.of(context).colorScheme.surface
             : Theme.of(context).colorScheme.secondaryContainer,
       ),
       child: Column(
@@ -455,7 +455,7 @@ class _SettingsPageState extends State<SettingsPage> {
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         color: themeProvider.currentThemeType == ThemeType.black
-            ? Theme.of(context).colorScheme.background
+            ? Theme.of(context).colorScheme.surface
             : Theme.of(context).colorScheme.secondaryContainer,
       ),
       child: Column(
@@ -489,10 +489,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     );
                   },
                   style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(
+                      fixedSize: WidgetStateProperty.all(
                         const Size(120, 50),
                       ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                         Colors.green,
                       )),
                   child: const Text(
@@ -517,10 +517,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     );
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor: WidgetStateProperty.all<Color>(
                       Colors.green,
                     ),
-                    fixedSize: MaterialStateProperty.all(
+                    fixedSize: WidgetStateProperty.all(
                       const Size(120, 50),
                     ),
                   ),
