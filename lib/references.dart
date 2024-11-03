@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ReferencesPage extends StatelessWidget {
-  const ReferencesPage({Key? key}) : super(key: key);
+  const ReferencesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class ReferencesPage extends StatelessWidget {
 class EpisodesRoute extends StatelessWidget {
   final Map<String, List<String>> data;
   final String season;
-  const EpisodesRoute(this.data, this.season, {Key? key}) : super(key: key);
+  const EpisodesRoute(this.data, this.season, {super.key});
 
   String extractNumberBeforeHyphen(String input) {
     final pattern = RegExp(r'^\d{1,2}\s-\s');
@@ -143,8 +143,7 @@ class EpisodesRoute extends StatelessWidget {
 class ReferencesRoute extends StatefulWidget {
   final String season;
   final String episodeNumber;
-  const ReferencesRoute(this.season, this.episodeNumber, {Key? key})
-      : super(key: key);
+  const ReferencesRoute(this.season, this.episodeNumber, {super.key});
 
   @override
   State<ReferencesRoute> createState() => _ReferencesRouteState();
@@ -201,9 +200,11 @@ class _ReferencesRouteState extends State<ReferencesRoute> {
               : references.sort((a, b) => int.parse(a.idLine.split(',')[0])
                   .compareTo(int.parse(b.idLine.split(',')[0])));
           return PopScope(
-            onPopInvoked: (didPop) {
+            onPopInvokedWithResult: (bool didPop, Object? result) {
               saveSort(sortByAlphabetical);
-              return;
+              if (didPop) {
+                return;
+              }
             },
             child: Scaffold(
               appBar: AppBar(

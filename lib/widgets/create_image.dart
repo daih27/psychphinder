@@ -26,11 +26,10 @@ class CreateImagePage extends StatefulWidget {
   final bool isShare;
 
   const CreateImagePage(
-      {Key? key,
+      {super.key,
       required this.episode,
       required this.id,
-      required this.isShare})
-      : super(key: key);
+      required this.isShare});
 
   @override
   State<CreateImagePage> createState() => _CreateImageState();
@@ -1915,9 +1914,11 @@ class _CreateImageState extends State<CreateImagePage> {
                 width: double.maxFinite,
                 child: SingleChildScrollView(
                   child: PopScope(
-                      onPopInvoked: (didPop) {
+                      onPopInvokedWithResult: (bool didPop, Object? result) {
                         setColors(key, newColor.value);
-                        return;
+                        if (didPop) {
+                          return;
+                        }
                       },
                       child: HueRingPicker(
                         portraitOnly: true,

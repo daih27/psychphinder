@@ -14,7 +14,7 @@ import 'package:psychphinder/references.dart';
 import 'package:psychphinder/search.dart';
 import 'package:psychphinder/favorites.dart';
 import 'package:psychphinder/global/theme.dart';
-import 'package:check_app_version/show_dialog.dart';
+import 'package:check_app_version/check_app_version.dart';
 import 'classes/phrase_class.dart';
 import 'global/globals.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -91,8 +91,6 @@ class _HomeState extends State<Home> {
       if (Platform.isAndroid) {
         initDeepLinks();
       }
-    }
-    if (!kIsWeb) {
       if (Platform.isWindows || Platform.isLinux) {
         showUpdateLinuxWindows();
       }
@@ -101,7 +99,7 @@ class _HomeState extends State<Home> {
 
   Future<void> initDeepLinks() async {
     _appLinks = AppLinks();
-    final appLink = await _appLinks.getInitialAppLink();
+    final appLink = await _appLinks.getInitialLink();
     if (appLink != null) {
       openAppLink(appLink);
     }
@@ -130,7 +128,7 @@ class _HomeState extends State<Home> {
   }
 
   showUpdateLinuxWindows() async {
-    ShowDialog(
+    AppVersionDialog(
       context: context,
       jsonUrl:
           'https://raw.githubusercontent.com/daih27/psychphinder/master/app_version.json',
@@ -139,7 +137,7 @@ class _HomeState extends State<Home> {
       onPressConfirm: () => launchUrl(_url),
       updateButtonText: 'Go to GitHub',
       laterButtonText: 'Later',
-    ).checkVersion();
+    ).show();
   }
 
   @override

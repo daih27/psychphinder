@@ -6,7 +6,7 @@ import 'package:psychphinder/widgets/itemlist.dart';
 import 'global/globals.dart';
 
 class FavoritesPage extends StatefulWidget {
-  const FavoritesPage({Key? key}) : super(key: key);
+  const FavoritesPage({super.key});
 
   @override
   State<FavoritesPage> createState() => _FavoritesPageState();

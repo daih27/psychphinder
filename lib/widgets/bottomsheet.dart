@@ -510,8 +510,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                           "https://daih27.github.io/psychphinder/#/${widget.fullEpisode[newId].id}";
                                       if (!kIsWeb) {
                                         if (Platform.isAndroid) {
-                                          final result =
-                                              await Share.shareWithResult(
+                                          final result = await Share.share(
                                             link,
                                           );
                                           if (result.status ==
@@ -550,8 +549,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                     onPressed: () async {
                                       if (!kIsWeb) {
                                         if (Platform.isAndroid) {
-                                          final result =
-                                              await Share.shareWithResult(
+                                          final result = await Share.share(
                                             widget.fullEpisode[newId].line,
                                           );
                                           if (result.status ==
