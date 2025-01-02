@@ -4,7 +4,7 @@ import 'package:file_saver/file_saver.dart';
 import 'package:flutter/foundation.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:psychphinder/global/search_engine.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;

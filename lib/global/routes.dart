@@ -137,7 +137,7 @@ SheetPage<dynamic> customBottomSheet(BuildContext context,
     child: Material(
       child: Scaffold(
         backgroundColor:
-            Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.15),
+            Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.15),
         body: BottomSheetEpisode(
           indexLine: EpisodeUtil.index,
           fullEpisode: EpisodeUtil.full,

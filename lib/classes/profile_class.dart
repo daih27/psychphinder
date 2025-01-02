@@ -1,5 +1,5 @@
 // ignore: depend_on_referenced_packages
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 part 'profile_class.g.dart';
 
 @HiveType(typeId: 2)

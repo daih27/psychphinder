@@ -16,9 +16,7 @@ extension ThemeTypeExtension on ThemeType {
         return 'Dark';
       case ThemeType.black:
         return 'Black';
-      default:
-        return '';
-    }
+      }
   }
 }
 
@@ -96,9 +94,7 @@ class ThemeProvider with ChangeNotifier {
         return darkTheme;
       case ThemeType.black:
         return blackTheme;
-      default:
-        return darkTheme;
-    }
+      }
   }
 
   Future<void> _saveTheme(ThemeType themeType) async {

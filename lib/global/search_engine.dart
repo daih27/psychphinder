@@ -62,9 +62,7 @@ class SearchEngineProvider with ChangeNotifier {
         return startpageSearch;
       case SearchEngineType.brave:
         return braveSearch;
-      default:
-        return googleSearch;
-    }
+      }
   }
 
   Future<void> _saveSearchEngine(SearchEngineType searchEngineType) async {

@@ -17,7 +17,7 @@ import 'package:psychphinder/main.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:file_saver/file_saver.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:psychphinder/classes/profile_class.dart';
 
 class CreateImagePage extends StatefulWidget {
@@ -71,7 +71,7 @@ class _CreateImageState extends State<CreateImagePage> {
   Color bottomLeftColor = Colors.white;
   Color bottomRightColor = Colors.white;
   Color psychphinderColor = Colors.white;
-  Color backgroundImageColor = Colors.black.withOpacity(0.1);
+  Color backgroundImageColor = Colors.black.withValues(alpha: 0.1);
   List<String> images = [
     'pineapple',
     'psych',
@@ -503,7 +503,7 @@ class _CreateImageState extends State<CreateImagePage> {
             ? const Color(0xFFFFEA00)
             : Color(pref.getInt("psychphinderColor")!);
         backgroundImageColor = pref.getInt("backgroundImageColor") == null
-            ? Colors.black.withOpacity(0.1)
+            ? Colors.black.withValues(alpha: 0.1)
             : Color(pref.getInt("backgroundImageColor")!);
       },
     );

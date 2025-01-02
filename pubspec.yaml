@@ -12,7 +12,8 @@ dependencies:
   csv: ^6.0.0
   fuzzywuzzy: ^1.1.6
   flutter_list_view: ^1.1.21
-  hive_flutter: ^1.1.0
+  hive_ce: ^2.8.0+3
+  hive_ce_flutter: ^2.2.0
   provider: ^6.0.5
   file_picker: ^8.0.7
   shared_preferences: ^2.2.0
@@ -39,7 +40,7 @@ dependencies:
   sheet: ^1.0.0
 
 dev_dependencies:
-  hive_generator: ^2.0.1
+  hive_ce_generator: ^1.8.1
   build_runner: ^2.1.10
   flutter_test:
     sdk: flutter
