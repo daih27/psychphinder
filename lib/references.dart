@@ -8,12 +8,27 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class ReferencesPage extends StatelessWidget {
   const ReferencesPage({super.key});
 
+  Future<List<int>> _getSeasonsWithReferences(
+      DatabaseService databaseService) async {
+    final allSeasons = await databaseService.getSeasons();
+    final allReferences = await databaseService.getReferences();
+
+    final hasMovieReferences = allReferences.any((ref) => ref.season == 999);
+
+    return allSeasons.where((season) {
+      if (season == 999) {
+        return hasMovieReferences;
+      }
+      return true;
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     var databaseService = Provider.of<DatabaseService>(context);
 
     return FutureBuilder<List<int>>(
-      future: databaseService.getSeasons(),
+      future: _getSeasonsWithReferences(databaseService),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
@@ -284,7 +299,8 @@ class _ReferencesRouteState extends State<ReferencesRoute>
 
     // Find phrases that contain this reference ID
     final phrasesWithReference = episodePhrases
-        .where((phrase) => phrase.reference?.split(',').contains(referenceId) ?? false)
+        .where((phrase) =>
+            phrase.reference?.split(',').contains(referenceId) ?? false)
         .toList();
 
     if (phrasesWithReference.isEmpty) return 0;
@@ -353,7 +369,7 @@ class _ReferencesRouteState extends State<ReferencesRoute>
                       ),
                     ),
                     Text(
-                      widget.season == "999" 
+                      widget.season == "999"
                           ? "Movie"
                           : "Season ${widget.season}, Episode ${widget.episodeNumber}",
                       style: const TextStyle(
