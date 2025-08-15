@@ -10,42 +10,45 @@ dependencies:
   flutter:
     sdk: flutter
   csv: ^6.0.0
-  fuzzywuzzy: ^1.1.6
+  drift: ^2.22.0
+  path_provider: ^2.1.5
+  path: ^1.9.1
   flutter_list_view: ^1.1.21
   hive_ce: ^2.8.0+3
   hive_ce_flutter: ^2.2.0
   provider: ^6.0.5
-  file_picker: ^8.0.7
+  file_picker: ^10.2.4
   shared_preferences: ^2.2.0
   flutter_donation_buttons: ^0.4.10
   check_app_version: ^2.0.0
   url_launcher: ^6.1.12
-  widgets_to_image: ^1.0.0
-  share_plus: ^10.0.0
+  widgets_to_image: ^2.0.1
+  share_plus: ^11.0.0
   fluttertoast: ^8.2.4
   wallpaper_handler: ^0.0.2
   gal: ^2.3.0
   google_nav_bar: ^5.0.6
   diacritic: ^0.1.4
   highlight_text: ^1.7.0
-  number_to_words_english: ^2.0.2
+  number_to_words_english: ^3.0.4
   font_awesome_flutter: ^10.5.0
-  flutter_markdown: ^0.7.3
+  flutter_md: ^0.0.5
   package_info_plus: ^8.0.2
-  file_saver: ^0.2.8
+  file_saver: ^0.3.1
   universal_html: ^2.2.4
-  go_router: ^14.2.3
+  go_router: ^16.1.0
   app_links: ^6.2.0
   flutter_colorpicker: ^1.0.3
-  sheet: ^1.0.0
+  
 
 dev_dependencies:
   hive_ce_generator: ^1.8.1
   build_runner: ^2.1.10
+  drift_dev: ^2.22.0
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.14.1
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 flutter_launcher_icons:
   android: false
@@ -79,8 +82,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/data.csv
-    - assets/episodes.csv
-    - assets/references.csv
     - assets/CHANGELOG.md
     - assets/background/
+    - assets/psychphinder.db

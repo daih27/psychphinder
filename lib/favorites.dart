@@ -3,7 +3,7 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/classes/phrase_class.dart';
 import 'package:psychphinder/widgets/itemlist.dart';
-import 'global/globals.dart';
+import 'database/database_service.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -13,15 +13,21 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  List convertFavorite(List favorites, List data) {
+  Future<List> convertFavorite(List favorites, DatabaseService databaseService) async {
     List newFavorites = [];
     for (var i = 0; i < favorites.length; i++) {
       if (favorites[i].runtimeType == Phrase) {
-        newFavorites.add(data[favorites[i].id]);
+        final phrase = await databaseService.getPhraseById(favorites[i].id);
+        if (phrase != null) {
+          newFavorites.add(phrase);
+        }
         Hive.box("favorites").delete(favorites[i].id);
         Hive.box("favorites").put(favorites[i].id, favorites[i].id);
       } else {
-        newFavorites.add(data[favorites[i]]);
+        final phrase = await databaseService.getPhraseById(favorites[i]);
+        if (phrase != null) {
+          newFavorites.add(phrase);
+        }
       }
     }
     return newFavorites;
@@ -29,8 +35,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   @override
   Widget build(BuildContext context) {
-    var csvData = Provider.of<CSVData>(context);
-    final List data = csvData.data;
+    var databaseService = Provider.of<DatabaseService>(context);
     return Scaffold(
       body: Row(
         children: [
@@ -39,20 +44,35 @@ class _FavoritesPageState extends State<FavoritesPage> {
               valueListenable: Hive.box("favorites").listenable(),
               builder: (BuildContext context, dynamic box, Widget? child) {
                 final favorites = box.values.toList();
-                final favoritesList = convertFavorite(favorites, data);
-                return favoritesList.isNotEmpty
-                    ? ItemList(lines: favoritesList, data: data)
-                    : const Center(
-                        child: Text(
-                          "You have no favorites yet.\nTry adding some!",
-                          style: TextStyle(
-                            fontFamily: "PsychFont",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                return FutureBuilder<List>(
+                  future: convertFavorite(favorites, databaseService),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
                       );
+                    }
+                    
+                    final favoritesList = snapshot.data ?? [];
+                    return favoritesList.isNotEmpty
+                        ? ItemList(lines: favoritesList)
+                        : const Center(
+                            child: Text(
+                              "You have no favorites yet.\nTry adding some!",
+                              style: TextStyle(
+                                fontFamily: "PsychFont",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                  },
+                );
               },
             ),
           ),

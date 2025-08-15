@@ -16,7 +16,7 @@ import 'package:psychphinder/favorites.dart';
 import 'package:psychphinder/global/theme.dart';
 import 'package:check_app_version/check_app_version.dart';
 import 'classes/phrase_class.dart';
-import 'global/globals.dart';
+import 'database/database_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -30,11 +30,12 @@ Future<void> main() async {
   await Hive.openBox('favorites');
   await Hive.openBox('profiles');
   WidgetsFlutterBinding.ensureInitialized();
-  final csvData = CSVData();
-  await csvData.loadDataFromCSV();
+
+  final databaseService = DatabaseService();
+
   runApp(
     MultiProvider(providers: [
-      ChangeNotifierProvider.value(value: csvData),
+      Provider.value(value: databaseService),
       ChangeNotifierProvider.value(value: ThemeProvider()),
       ChangeNotifierProvider.value(value: SearchEngineProvider()),
     ], child: const MyApp()),
@@ -127,7 +128,7 @@ class _HomeState extends State<Home> {
     }
   }
 
-  showUpdateLinuxWindows() async {
+  void showUpdateLinuxWindows() async {
     AppVersionDialog(
       context: context,
       jsonUrl:

@@ -8,7 +8,7 @@ part of 'profile_class.dart';
 
 class ProfileAdapter extends TypeAdapter<Profile> {
   @override
-  final int typeId = 2;
+  final typeId = 2;
 
   @override
   Profile read(BinaryReader reader) {
@@ -22,20 +22,20 @@ class ProfileAdapter extends TypeAdapter<Profile> {
       widgetTopRight: fields[2] as String,
       widgetBottomLeft: fields[3] as String,
       widgetBottomRight: fields[4] as String,
-      bgColor: fields[5] as int,
-      topLeftColor: fields[6] as int,
-      topRightColor: fields[7] as int,
-      bottomLeftColor: fields[8] as int,
-      bottomRightColor: fields[9] as int,
-      lineColor: fields[10] as int,
-      beforeLineColor: fields[11] as int,
-      afterLineColor: fields[12] as int,
-      psychphinderColor: fields[13] as int,
-      backgroundImageColor: fields[14] as int,
+      bgColor: (fields[5] as num).toInt(),
+      topLeftColor: (fields[6] as num).toInt(),
+      topRightColor: (fields[7] as num).toInt(),
+      bottomLeftColor: (fields[8] as num).toInt(),
+      bottomRightColor: (fields[9] as num).toInt(),
+      lineColor: (fields[10] as num).toInt(),
+      beforeLineColor: (fields[11] as num).toInt(),
+      afterLineColor: (fields[12] as num).toInt(),
+      psychphinderColor: (fields[13] as num).toInt(),
+      backgroundImageColor: (fields[14] as num).toInt(),
       showMadeWithPsychphinder: fields[15] as bool,
       applyGradient: fields[16] as bool,
       showBackgroundImage: fields[17] as bool,
-      backgroundSize: fields[18] as double,
+      backgroundSize: (fields[18] as num).toDouble(),
       selectedImgs: (fields[19] as List).cast<bool>(),
     );
   }

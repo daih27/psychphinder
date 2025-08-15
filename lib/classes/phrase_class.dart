@@ -9,6 +9,8 @@ class Phrase extends HiveObject{
   int season;
   @HiveField(2)
   int episode;
+  @HiveField(7)
+  int sequenceInEpisode;
   @HiveField(3)
   String name;
   @HiveField(4)
@@ -16,14 +18,15 @@ class Phrase extends HiveObject{
   @HiveField(5)
   String line;
   @HiveField(6)
-  String reference;
+  String? reference;
 
   Phrase(
       {required this.id,
       required this.season,
       required this.episode,
+      required this.sequenceInEpisode,
       required this.name,
       required this.time,
       required this.line,
-      required this.reference});
+      this.reference});
 }
