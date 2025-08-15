@@ -13,7 +13,6 @@
 1;13;Game, Set... Muuurder?
 1;14;Poker? I Barely Know Her
 1;15;Scary Sherry: Bianca's Toast
-1;All;
 2;1;American Duos
 2;2;65 Million Years Off
 2;3;Psy vs. Psy
@@ -30,7 +29,6 @@
 2;14;Dis-Lodged
 2;15;Black and Tan: A Crime of Fashion
 2;16;Shawn (and Gus) of the Dead
-2;All;
 3;1;Ghosts
 3;2;Murder? ... Anyone? ... Anyone? ... Bueller?
 3;3;Daredevils!
@@ -47,7 +45,6 @@
 3;14;Truer Lies
 3;15;Tuesday the 17th
 3;16;An Evening with Mr. Yang
-3;All;
 4;1;Extradition: British Columbia
 4;2;He Dead
 4;3;High Noon-ish
@@ -64,7 +61,6 @@
 4;14;Think Tank
 4;15;The Head, the Tail, the Whole Damn Episode
 4;16;Mr. Yin Presents...
-4;All;
 5;1;Romeo and Juliet and Juliet
 5;2;Feet Don't Kill Me Now
 5;3;Not Even Close... Encounters
@@ -81,7 +77,6 @@
 5;14;The Polarizing Express
 5;15;Dead Bear Walking
 5;16;Yang 3 in 2D
-5;All;
 6;1;Shawn Rescues Darth Vader
 6;2;Last Night Gus
 6;3;This Episode Sucks
@@ -98,7 +93,6 @@
 6;14;Autopsy Turvy
 6;15;True Grits
 6;16;Santabarbaratown
-6;All;
 7;1;Santabarbaratown 2
 7;2;Juliet Takes a Luvvah
 7;3;Lassie Jerky
@@ -114,7 +108,6 @@
 7;13;Nip and Suck It!
 7;14;No Trout About It
 7;15;Psych: The Musical
-7;All;
 8;1;Lock, Stock, Some Smoking Barrels and Burton Guster's Goblet of Fire
 8;2;S.E.I.Z.E. the Day
 8;3;Remake A.K.A. Cloudy... With a Chance of Improvement
@@ -125,9 +118,6 @@
 8;8;A Touch of Sweevil
 8;9;A Nightmare on State Street
 8;10;The Break-Up
-8;All;
 Movies;1;Psych: The Movie
 Movies;2;Psych 2: Lassie Come Home
 Movies;3;Psych 3: This Is Gus
-Movies;All;
-All;All;

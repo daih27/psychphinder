@@ -32,9 +32,10 @@ class _SearchPageState extends State<SearchPage>
   late int randomIndex;
   late int randomIndexDYK;
   Random rng = Random();
-  ValueNotifier<String> selectedSeason = ValueNotifier<String>('All');
-  ValueNotifier<String> selectedEpisode = ValueNotifier<String>('All');
+  String selectedSeason = 'All';
+  String selectedEpisode = 'All';
   final TextEditingController textEditingController = TextEditingController();
+  final ExpansibleController expansionController = ExpansibleController();
   final DatabaseService _databaseService = DatabaseService();
 
   @override
@@ -59,7 +60,7 @@ class _SearchPageState extends State<SearchPage>
 
       final episodes = await databaseService.getEpisodesForSeason(seasonNum);
 
-      List<String> episodeList = ['All'];
+      List<String> episodeList = [];
       for (var episode in episodes) {
         episodeList.add("${episode['episode']} - ${episode['name']}");
       }
@@ -225,6 +226,26 @@ class _SearchPageState extends State<SearchPage>
         ),
       ),
     );
+  }
+
+  List<DropdownMenuItem<String>> _buildEpisodeItems(
+      String season, Map<String, List<String>> episodesMap) {
+    final episodeList = episodesMap[season] ?? [];
+    final items = <DropdownMenuItem<String>>[
+      const DropdownMenuItem<String>(
+        value: 'All',
+        child: Text('All', style: TextStyle(color: Colors.white)),
+      ),
+    ];
+
+    for (final episode in episodeList) {
+      items.add(DropdownMenuItem<String>(
+        value: episode,
+        child: Text(episode, style: TextStyle(color: Colors.white)),
+      ));
+    }
+
+    return items;
   }
 
   Future<void> checkUpdate() async {
@@ -480,6 +501,7 @@ class _SearchPageState extends State<SearchPage>
   ExpansionTile searchOptions(
       List<String> seasons, Map<String, List<String>> episodesMap) {
     return ExpansionTile(
+      controller: expansionController,
       title: const Padding(
         padding: EdgeInsets.all(8.0),
         child: Text("Search options"),
@@ -487,18 +509,17 @@ class _SearchPageState extends State<SearchPage>
       children: [
         Container(
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    const Text("Season"),
-                    ValueListenableBuilder<String>(
-                      valueListenable: selectedSeason,
-                      builder: (context, value, _) {
-                        return DropdownButtonFormField(
+          child: StatefulBuilder(
+            builder: (context, setDropdownState) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        const Text("Season"),
+                        DropdownButtonFormField<String>(
                           icon: const Icon(Icons.keyboard_arrow_down_rounded),
                           iconSize: 30,
                           iconEnabledColor: Colors.white,
@@ -521,8 +542,8 @@ class _SearchPageState extends State<SearchPage>
                               borderSide: const BorderSide(color: Colors.green),
                             ),
                           ),
-                          value: value,
-                          items: seasons.map((season) {
+                          value: selectedSeason,
+                          items: ['All', ...seasons].map((season) {
                             return DropdownMenuItem<String>(
                               value: season,
                               child: Text(season,
@@ -530,31 +551,26 @@ class _SearchPageState extends State<SearchPage>
                             );
                           }).toList(),
                           onChanged: (season) {
-                            setState(() {
-                              selectedSeason.value = season!;
-                              selectedEpisode.value = "All";
-                            });
+                            if (season != null) {
+                              setDropdownState(() {
+                                selectedSeason = season;
+                                selectedEpisode = "All";
+                              });
+                            }
                           },
-                        );
-                      },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                flex: 2,
-                child: Column(
-                  children: [
-                    selectedSeason.value == "Movies"
-                        ? const Text("Movie")
-                        : const Text("Episode"),
-                    ValueListenableBuilder<String>(
-                      valueListenable: selectedEpisode,
-                      builder: (context, value, _) {
-                        final selectedSeasonValue = selectedSeason.value;
-                        final episodes = episodesMap[selectedSeasonValue];
-                        return DropdownButtonFormField(
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        selectedSeason == "Movies"
+                            ? const Text("Movie")
+                            : const Text("Episode"),
+                        DropdownButtonFormField<String>(
                           icon: const Icon(Icons.keyboard_arrow_down_rounded),
                           iconSize: 30,
                           iconEnabledColor: Colors.white,
@@ -578,26 +594,23 @@ class _SearchPageState extends State<SearchPage>
                               borderSide: const BorderSide(color: Colors.green),
                             ),
                           ),
-                          value: value,
-                          items: episodes!.map((episode) {
-                            return DropdownMenuItem<String>(
-                              value: episode,
-                              child: Text(episode,
-                                  style: const TextStyle(color: Colors.white)),
-                            );
-                          }).toList(),
+                          value: selectedEpisode,
+                          items:
+                              _buildEpisodeItems(selectedSeason, episodesMap),
                           onChanged: (episode) {
-                            setState(() {
-                              selectedEpisode.value = episode!;
-                            });
+                            if (episode != null) {
+                              setDropdownState(() {
+                                selectedEpisode = episode;
+                              });
+                            }
                           },
-                        );
-                      },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ],
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ],
@@ -620,9 +633,8 @@ class _SearchPageState extends State<SearchPage>
               Provider.of<DatabaseService>(context, listen: false);
           searched = await databaseService.searchQuotes(
             text,
-            season: selectedSeason.value == "All" ? null : selectedSeason.value,
-            episode:
-                selectedEpisode.value == "All" ? null : selectedEpisode.value,
+            season: selectedSeason == "All" ? null : selectedSeason,
+            episode: selectedEpisode == "All" ? null : selectedEpisode,
           );
           setState(() {
             isLoading = false;
@@ -645,11 +657,8 @@ class _SearchPageState extends State<SearchPage>
                   Provider.of<DatabaseService>(context, listen: false);
               searched = await databaseService.searchQuotes(
                 textEditingController.text,
-                season:
-                    selectedSeason.value == "All" ? null : selectedSeason.value,
-                episode: selectedEpisode.value == "All"
-                    ? null
-                    : selectedEpisode.value,
+                season: selectedSeason == "All" ? null : selectedSeason,
+                episode: selectedEpisode == "All" ? null : selectedEpisode,
               );
               setState(() {
                 isLoading = false;

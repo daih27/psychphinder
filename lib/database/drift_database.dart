@@ -25,6 +25,15 @@ class PsychDatabase extends _$PsychDatabase implements DatabaseInterface {
       ''');
           await customStatement('PRAGMA foreign_keys = ON');
         },
+        onUpgrade: (Migrator m, int from, int to) async {
+          await customStatement('''
+            CREATE VIRTUAL TABLE IF NOT EXISTS quotes_fts USING fts5(
+              searchable_text,
+              content='quotes',
+              content_rowid='id'
+            )
+          ''');
+        },
         beforeOpen: (details) async {
           await customStatement('PRAGMA foreign_keys = ON');
         },
@@ -281,7 +290,7 @@ class PsychDatabase extends _$PsychDatabase implements DatabaseInterface {
     if (season != null && season != "All") {
       if (season == "Movies") {
         whereClause += ' AND q.season = ?';
-        variables.add(Variable<int>(0));
+        variables.add(Variable<int>(999));
       } else {
         whereClause += ' AND q.season = ?';
         variables.add(Variable<int>(int.parse(season)));
@@ -290,20 +299,14 @@ class PsychDatabase extends _$PsychDatabase implements DatabaseInterface {
 
     if (episode != null && episode != "All" && season != null) {
       if (season == "Movies") {
-        if (episode.startsWith("1")) {
-          whereClause += ' AND e.name = ?';
-          variables.add(Variable<String>("Psych: The Movie"));
-        } else if (episode.startsWith("2")) {
-          whereClause += ' AND e.name = ?';
-          variables.add(Variable<String>("Psych 2: Lassie Come Home"));
-        } else if (episode.startsWith("3")) {
-          whereClause += ' AND e.name = ?';
-          variables.add(Variable<String>("Psych 3: This Is Gus"));
-        }
+        final movieName =
+            episode.contains(' - ') ? episode.split(' - ')[1] : episode;
+        whereClause += ' AND e.name = ?';
+        variables.add(Variable<String>(movieName));
       } else {
+        final episodeNumber = episode.split(' - ')[0];
         whereClause += ' AND q.episode = ?';
-        variables.add(Variable<int>(
-            int.parse(episode.replaceAll(RegExp(r'[^0-9]'), ''))));
+        variables.add(Variable<int>(int.parse(episodeNumber)));
       }
     }
 
