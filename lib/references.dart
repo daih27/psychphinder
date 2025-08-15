@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/database/database_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ReferencesPage extends StatelessWidget {
   const ReferencesPage({super.key});
@@ -64,32 +63,55 @@ class ReferencesPage extends StatelessWidget {
 
                     return Padding(
                       padding: const EdgeInsets.all(5),
-                      child: Material(
-                        child: ListTile(
-                          title: Center(
-                            child: Text(
-                              seasonNum == 999 ? 'Movies' : "Season $seasonNum",
-                              style: const TextStyle(
-                                fontFamily: 'PsychFont',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                letterSpacing: -0.5,
-                                color: Colors.white,
+                      child: Card(
+                        elevation: 8,
+                        shadowColor: Colors.green.withValues(alpha: 0.3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Colors.green.shade400,
+                                Colors.green.shade600,
+                              ],
+                            ),
+                          ),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(16),
+                              onTap: () {
+                                context.go('/references/season$seasonNum');
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      seasonNum == 999
+                                          ? 'Movies'
+                                          : "Season $seasonNum",
+                                      style: const TextStyle(
+                                        fontFamily: 'PsychFont',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        letterSpacing: -0.5,
+                                        color: Colors.white,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(height: 4),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: const BorderSide(
-                              width: 2,
-                              color: Colors.green,
-                            ),
-                          ),
-                          tileColor: Colors.green,
-                          contentPadding: const EdgeInsets.all(10),
-                          onTap: () {
-                            context.go('/references/season$seasonNum');
-                          },
                         ),
                       ),
                     );
@@ -170,11 +192,10 @@ class EpisodesRoute extends StatelessWidget {
             itemCount: episodes.length,
             itemBuilder: (context, index) {
               final episode = episodes[index];
-              final episodesKey = "${episode['episode']} - ${episode['name']}";
+              final episodesKey = episode['name'];
 
               return FutureBuilder<int>(
                 future: databaseService.getReferences().then((refs) {
-                  // Get unique reference IDs for this episode
                   Set<String> uniqueRefIds = refs
                       .where((ref) =>
                           ref.season == int.parse(season) &&
@@ -188,22 +209,75 @@ class EpisodesRoute extends StatelessWidget {
 
                   return Padding(
                     padding: const EdgeInsets.all(5),
-                    child: Material(
-                      child: ListTile(
-                        title: Text(episodesKey,
-                            style: const TextStyle(
-                              fontFamily: '',
-                            )),
-                        subtitle: Text(
-                          "References: $referencesCount",
-                          style: const TextStyle(fontStyle: FontStyle.italic),
+                    child: Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(12),
+                          onTap: () {
+                            context.go(
+                              '/references/season$season/episode${episode['episode']}',
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green.withValues(alpha: 0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    episode['episode'].toString(),
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        episodesKey,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    referencesCount.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        contentPadding: const EdgeInsets.all(10),
-                        onTap: () {
-                          context.go(
-                            '/references/season$season/episode${episode['episode']}',
-                          );
-                        },
                       ),
                     ),
                   );
@@ -230,6 +304,53 @@ class _ReferencesRouteState extends State<ReferencesRoute>
     with AutomaticKeepAliveClientMixin<ReferencesRoute> {
   @override
   bool get wantKeepAlive => true;
+
+  Map<String, dynamic> _getReferenceTypeInfo(String referenceText) {
+    final lowerText = referenceText.toLowerCase();
+
+    if (lowerText.contains('movie') || lowerText.contains('film')) {
+      return {'type': 'Movie', 'color': Colors.red, 'icon': Icons.movie};
+    } else if (lowerText.contains('actor') || lowerText.contains('actress')) {
+      return {'type': 'Actor', 'color': Colors.purple, 'icon': Icons.person};
+    } else if (lowerText.contains('musician') ||
+        lowerText.contains('singer') ||
+        lowerText.contains('band')) {
+      return {
+        'type': 'Music',
+        'color': Colors.orange,
+        'icon': Icons.music_note
+      };
+    } else if (lowerText.contains('tv show') ||
+        lowerText.contains('television')) {
+      return {'type': 'TV Show', 'color': Colors.blue, 'icon': Icons.tv};
+    } else if (lowerText.contains('book') ||
+        lowerText.contains('novel') ||
+        lowerText.contains('writer') ||
+        lowerText.contains('author')) {
+      return {'type': 'Literature', 'color': Colors.brown, 'icon': Icons.book};
+    } else if (lowerText.contains('game') || lowerText.contains('sport')) {
+      return {
+        'type': 'Game/Sport',
+        'color': Colors.green,
+        'icon': Icons.sports
+      };
+    } else if (lowerText.contains('company') ||
+        lowerText.contains('brand') ||
+        lowerText.contains('store')) {
+      return {'type': 'Brand', 'color': Colors.indigo, 'icon': Icons.business};
+    } else if (lowerText.contains('song') || lowerText.contains('album')) {
+      return {'type': 'Song', 'color': Colors.pink, 'icon': Icons.queue_music};
+    } else if (lowerText.contains('character') ||
+        lowerText.contains('fictional')) {
+      return {'type': 'Character', 'color': Colors.teal, 'icon': Icons.face};
+    } else {
+      return {
+        'type': 'Other',
+        'color': Colors.grey,
+        'icon': Icons.help_outline
+      };
+    }
+  }
 
   late final Future sortByInit;
   late bool sortByAlphabetical;
@@ -263,7 +384,6 @@ class _ReferencesRouteState extends State<ReferencesRoute>
     final sortInit = await loadSort();
     final allReferences = await databaseService.getReferences();
 
-    // Use a Map to deduplicate references by ID
     Map<String, dynamic> uniqueReferences = {};
     for (var ref in allReferences) {
       if (ref.season == int.parse(widget.season) &&
@@ -293,11 +413,9 @@ class _ReferencesRouteState extends State<ReferencesRoute>
 
   Future<int> getFirstChronologicalOccurrence(
       String referenceId, DatabaseService databaseService) async {
-    // Get all phrases for this episode
     final episodePhrases = await databaseService.getEpisodePhrases(
         int.parse(widget.season), int.parse(widget.episodeNumber));
 
-    // Find phrases that contain this reference ID
     final phrasesWithReference = episodePhrases
         .where((phrase) =>
             phrase.reference?.split(',').contains(referenceId) ?? false)
@@ -305,7 +423,6 @@ class _ReferencesRouteState extends State<ReferencesRoute>
 
     if (phrasesWithReference.isEmpty) return 0;
 
-    // Sort by sequence in episode and return the first one's phrase ID
     phrasesWithReference
         .sort((a, b) => a.sequenceInEpisode.compareTo(b.sequenceInEpisode));
     return phrasesWithReference.first.id;
@@ -423,47 +540,125 @@ class _ReferencesRouteState extends State<ReferencesRoute>
                       .replaceAll(')', '')
                       .trim();
                   final hasVideo = references[index].link != "";
+                  final referenceTypeInfo = _getReferenceTypeInfo(subtitleText);
+
                   return Padding(
                     padding: const EdgeInsets.all(5),
-                    child: Material(
-                      child: ListTile(
-                        title: Text(titleText),
-                        subtitle: Text(subtitleText),
-                        trailing: Stack(
-                          children: [
-                            const Icon(Icons.question_mark_rounded,
-                                color: Colors.green),
-                            if (hasVideo)
-                              const Positioned(
-                                right: 0,
-                                bottom: 0,
-                                child: Icon(FontAwesomeIcons.youtube,
-                                    color: Colors.green, size: 9),
-                              )
-                            else
-                              const SizedBox(),
-                          ],
+                    child: Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(12),
+                          onTap: () async {
+                            final firstPhraseId =
+                                await getFirstChronologicalOccurrence(
+                                    references[index].id, databaseService);
+                            if (!context.mounted) return;
+
+                            final episodePhrases =
+                                await databaseService.getEpisodePhrases(
+                                    int.parse(widget.season),
+                                    int.parse(widget.episodeNumber));
+                            if (!context.mounted) return;
+
+                            final targetPhrase = episodePhrases.firstWhere(
+                                (phrase) => phrase.id == firstPhraseId);
+
+                            final route =
+                                '/s${targetPhrase.season}/e${targetPhrase.episode}/p${targetPhrase.sequenceInEpisode}/r${references[index].id}';
+                            context.push(route);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: referenceTypeInfo['color']
+                                        .withValues(alpha: 0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Icon(
+                                    referenceTypeInfo['icon'],
+                                    color: referenceTypeInfo['color'],
+                                    size: 20,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              titleText,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 6, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: referenceTypeInfo['color'],
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: Text(
+                                              referenceTypeInfo['type'],
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              subtitleText,
+                                              style: TextStyle(
+                                                color: Colors.grey[600],
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ),
+                                          if (hasVideo)
+                                            Container(
+                                              padding: const EdgeInsets.all(3),
+                                              decoration: const BoxDecoration(
+                                                color: Colors.red,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: const Icon(
+                                                Icons.play_arrow,
+                                                color: Colors.white,
+                                                size: 12,
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        onTap: () async {
-                          final firstPhraseId =
-                              await getFirstChronologicalOccurrence(
-                                  references[index].id, databaseService);
-                          if (!context.mounted) return;
-
-                          final episodePhrases =
-                              await databaseService.getEpisodePhrases(
-                                  int.parse(widget.season),
-                                  int.parse(widget.episodeNumber));
-                          if (!context.mounted) return;
-
-                          final targetPhrase = episodePhrases.firstWhere(
-                              (phrase) => phrase.id == firstPhraseId);
-
-                          final route =
-                              '/s${targetPhrase.season}/e${targetPhrase.episode}/p${targetPhrase.sequenceInEpisode}/r${references[index].id}';
-                          context.push(route);
-                        },
-                        contentPadding: const EdgeInsets.all(10),
                       ),
                     ),
                   );
