@@ -353,7 +353,9 @@ class _ReferencesRouteState extends State<ReferencesRoute>
                       ),
                     ),
                     Text(
-                      "Season ${widget.season}, Episode ${widget.episodeNumber}",
+                      widget.season == "999" 
+                          ? "Movie"
+                          : "Season ${widget.season}, Episode ${widget.episodeNumber}",
                       style: const TextStyle(
                         fontFamily: 'PsychFont',
                         fontSize: 12,

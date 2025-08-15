@@ -245,7 +245,9 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                 ),
                                 if (widget.fullEpisode[newId].season != 0)
                                   Text(
-                                    "Season ${widget.fullEpisode[newId].season}, Episode ${widget.fullEpisode[newId].episode}",
+                                    widget.fullEpisode[newId].season == 999 
+                                        ? "Movie"
+                                        : "Season ${widget.fullEpisode[newId].season}, Episode ${widget.fullEpisode[newId].episode}",
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                         fontSize: 15, fontFamily: 'PsychFont'),

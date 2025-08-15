@@ -2158,7 +2158,9 @@ class SeasonAndEpisodeWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomLeft,
       child: TextWidget(
-        text: season != "0" ? "Season $season, Episode $episode" : "Movie",
+        text: season == "999" || season == "0"
+            ? "Movie"
+            : "Season $season, Episode $episode",
         size: size,
         textColor: textColor,
       ),
