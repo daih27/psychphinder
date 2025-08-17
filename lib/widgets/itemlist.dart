@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -13,12 +12,16 @@ class ItemList extends StatelessWidget {
   final List lines;
   final String? input;
 
-  Map<String, HighlightedWord> highlightedWords(String input) {
+  Map<String, HighlightedWord> highlightedWords(
+      String input, BuildContext context) {
     Map<String, HighlightedWord> words = {};
     HighlightedWord highlightedWord = HighlightedWord(
       textStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
+        fontSize: 17,
+        fontWeight: FontWeight.w700,
+        height: 1.5,
         color: Colors.green,
+        letterSpacing: 0.1,
       ),
     );
 
@@ -65,7 +68,8 @@ class ItemList extends StatelessWidget {
         seasonReference = referenceData[j].season;
         episodeReference = referenceData[j].episode;
         if (seasonReference == season && episodeReference == episode) {
-          final idPhrase = lines[i].reference?.replaceAll('\r', '').trim() ?? '';
+          final idPhrase =
+              lines[i].reference?.replaceAll('\r', '').trim() ?? '';
           final splitted = idPhrase.split(',');
           for (var k = 0; k < splitted.length; k++) {
             if (splitted[k] == referenceData[j].id &&
@@ -93,9 +97,9 @@ class ItemList extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
-        
+
         final referenceData = snapshot.data ?? [];
-        
+
         return ValueListenableBuilder(
           valueListenable: Hive.box("favorites").listenable(),
           builder: (BuildContext context, dynamic box, Widget? child) {
@@ -104,64 +108,144 @@ class ItemList extends StatelessWidget {
               itemCount: lines.length,
               itemBuilder: (context, index) {
                 final isFavorite = box.get(lines[index].id) != null;
-                final hasReference = lines[index].reference?.contains("s") ?? false;
+                final hasReference =
+                    lines[index].reference?.contains("s") ?? false;
                 final hasVideo = checkVideo(referenceData, lines);
-            return Padding(
-              padding: const EdgeInsets.all(5),
-              child: Material(
-                child: ListTile(
-                  title: TextHighlight(
-                    text: lines[index].line,
-                    words: input != null ? highlightedWords(input!) : {},
-                  ),
-                  subtitle: Text(
-                    lines[index].season == 999
-                        ? lines[index].name
-                        : "Season ${lines[index].season}, Episode ${lines[index].episode}: ${lines[index].name}",
-                    style: const TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                  contentPadding: const EdgeInsets.all(10),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (isFavorite)
-                        const Icon(
-                          Icons.favorite,
-                          color: Colors.green,
-                        ),
-                      if (hasReference)
-                        Stack(
+                return Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  child: Card(
+                    elevation: 2,
+                    shadowColor: Theme.of(context)
+                        .colorScheme
+                        .shadow
+                        .withValues(alpha: 0.08),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        context.go(
+                          '/s${lines[index].season}/e${lines[index].episode}/p${lines[index].sequenceInEpisode}',
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (hasReference)
-                              const Icon(Icons.question_mark_rounded,
-                                  color: Colors.green)
-                            else
-                              const SizedBox(),
-                            if (hasVideo.isNotEmpty && hasVideo[index])
-                              const Positioned(
-                                right: 0,
-                                bottom: 0,
-                                child: Icon(FontAwesomeIcons.youtube,
-                                    color: Colors.green, size: 9),
-                              )
-                            else
-                              const SizedBox(),
+                            TextHighlight(
+                              text: lines[index].line,
+                              words: input != null
+                                  ? highlightedWords(input!, context)
+                                  : {},
+                              textStyle: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                color: Theme.of(context).colorScheme.onSurface,
+                                letterSpacing: 0.1,
+                              ),
+                            ),
+                            const SizedBox(height: 14),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        lines[index].season == 999
+                                            ? lines[index].name
+                                            : "${lines[index].name} • S${lines[index].season}E${lines[index].episode}",
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withValues(alpha: 0.65),
+                                          fontWeight: FontWeight.w500,
+                                          letterSpacing: 0.2,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        lines[index].time[0] == '0'
+                                            ? lines[index].time.substring(2)
+                                            : lines[index].time,
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withValues(alpha: 0.45),
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'monospace',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    if (hasReference)
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 12),
+                                        child: Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            Icon(
+                                              Icons.help_outline,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                                  .withValues(alpha: 0.7),
+                                              size: 18,
+                                            ),
+                                            if (hasVideo.isNotEmpty &&
+                                                hasVideo[index])
+                                              Positioned(
+                                                right: -6,
+                                                top: -4,
+                                                child: Container(
+                                                  width: 8,
+                                                  height: 8,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    color: Colors.red,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                    if (isFavorite)
+                                      Icon(
+                                        Icons.favorite,
+                                        color: Colors.red.shade400,
+                                        size: 18,
+                                      ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                    ],
+                      ),
+                    ),
                   ),
-                  onTap: () {
-                    context.go(
-                      '/s${lines[index].season}/e${lines[index].episode}/p${lines[index].sequenceInEpisode}',
-                    );
-                  },
-                ),
-              ),
+                );
+              },
             );
           },
         );
-      },
-    );
       },
     );
   }

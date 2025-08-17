@@ -96,82 +96,135 @@ class _SearchPageState extends State<SearchPage>
         }
 
         final data = snapshot.data as Map<String, dynamic>;
-        final String referenceName = data['referenceName'];
         final String line = data['line'];
         final Phrase phrase = data['phrase'];
 
-        Widget randomReference = Padding(
-          padding: const EdgeInsets.all(10),
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Theme.of(context)
-                  .colorScheme
-                  .primaryContainer
-                  .withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(10),
+        Widget randomReference = Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Card(
+            elevation: 8,
+            shadowColor:
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  referenceName,
-                  style: const TextStyle(
-                    fontFamily: 'PsychFont',
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  phrase.season == 999
-                      ? phrase.name
-                      : "Season ${phrase.season}, Episode ${phrase.episode}",
-                  style: const TextStyle(
-                    fontFamily: 'PsychFont',
-                  ),
-                ),
-                const SizedBox(height: 10),
-                TextButton(
-                  style: TextButton.styleFrom(
-                      foregroundColor:
-                          Theme.of(context).colorScheme.onPrimaryContainer),
-                  onPressed: () {
-                    context.go(
-                      '/s${phrase.season}/e${phrase.episode}/p${phrase.sequenceInEpisode}',
-                    );
-                  },
-                  child: Text(line, textAlign: TextAlign.center),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: Text(
-                        phrase.time[0] == '0'
-                            ? phrase.time.substring(2)
-                            : phrase.time,
-                        style: const TextStyle(
-                          fontFamily: 'PsychFont',
-                        ),
-                      ),
-                    ),
-                    const Expanded(
-                        flex: 2, child: Center(child: Text("Random quote"))),
-                    Flexible(
-                      flex: 1,
-                      child: IconButton(
-                          onPressed: () {
-                            setState(() {});
-                          },
-                          icon: const Icon(Icons.refresh_rounded)),
-                    ),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Theme.of(context).colorScheme.primaryContainer,
+                    Theme.of(context)
+                        .colorScheme
+                        .primaryContainer
+                        .withValues(alpha: 0.8),
                   ],
                 ),
-              ],
+              ),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withValues(alpha: 0.2),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          Icons.format_quote_rounded,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Random Reference",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                              ),
+                            ),
+                            Text(
+                              phrase.season == 999
+                                  ? phrase.time[0] == '0' ? phrase.time.substring(2) : phrase.time
+                                  : "S${phrase.season}E${phrase.episode} • ${phrase.time[0] == '0' ? phrase.time.substring(2) : phrase.time}",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer
+                                    .withValues(alpha: 0.7),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        icon: Icon(
+                          Icons.refresh_rounded,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    phrase.name,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'PsychFont',
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        context.go(
+                          '/s${phrase.season}/e${phrase.episode}/p${phrase.sequenceInEpisode}',
+                        );
+                      },
+                      child: Text(
+                        line,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.onSurface,
+                          height: 1.4,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -191,7 +244,7 @@ class _SearchPageState extends State<SearchPage>
           quotesWithReferences[Random().nextInt(quotesWithReferences.length)];
 
       return {
-        'referenceName': randomQuote.name,
+        'referenceName': randomQuote.reference ?? 'Unknown Reference',
         'line': randomQuote.line,
         'phrase': randomQuote,
         'referenceId': randomQuote.reference ?? '',
@@ -202,27 +255,86 @@ class _SearchPageState extends State<SearchPage>
   }
 
   Widget didYouKnow() {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Text(
-              "Did you know?",
-              style: TextStyle(
-                fontFamily: 'PsychFont',
-                fontWeight: FontWeight.bold,
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Card(
+        elevation: 6,
+        shadowColor:
+            Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Theme.of(context).colorScheme.secondaryContainer,
+                Theme.of(context)
+                    .colorScheme
+                    .secondaryContainer
+                    .withValues(alpha: 0.8),
+              ],
+            ),
+          ),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      Icons.lightbulb_rounded,
+                      color: Theme.of(context).colorScheme.secondary,
+                      size: 20,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      "Did you know?",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'PsychFont',
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              DYK.didYouKnowOptions[randomIndexDYK],
-              textAlign: TextAlign.center,
-            ),
-          ],
+              const SizedBox(height: 16),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  DYK.didYouKnowOptions[randomIndexDYK],
+                  style: TextStyle(
+                    fontSize: 15,
+                    height: 1.4,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -232,16 +344,28 @@ class _SearchPageState extends State<SearchPage>
       String season, Map<String, List<String>> episodesMap) {
     final episodeList = episodesMap[season] ?? [];
     final items = <DropdownMenuItem<String>>[
-      const DropdownMenuItem<String>(
+      DropdownMenuItem<String>(
         value: 'All',
-        child: Text('All', style: TextStyle(color: Colors.white)),
+        child: Text(
+          'All',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: 14,
+          ),
+        ),
       ),
     ];
 
     for (final episode in episodeList) {
       items.add(DropdownMenuItem<String>(
         value: episode,
-        child: Text(episode, style: TextStyle(color: Colors.white)),
+        child: Text(
+          episode,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: 14,
+          ),
+        ),
       ));
     }
 
@@ -471,139 +595,254 @@ class _SearchPageState extends State<SearchPage>
 
   Expanded welcomeWidgets() {
     return Expanded(
-      child: Center(
+      child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Spacer(flex: 8),
-            const Text(
-              "Welcome to psychphinder!",
-              style: TextStyle(
-                fontFamily: "PsychFont",
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+            const SizedBox(height: 20),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Card(
+                elevation: 4,
+                shadowColor: Theme.of(context)
+                    .colorScheme
+                    .primary
+                    .withValues(alpha: 0.1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Theme.of(context).colorScheme.surface,
+                        Theme.of(context)
+                            .colorScheme
+                            .surface
+                            .withValues(alpha: 0.9),
+                      ],
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Icon(
+                          Icons.search_rounded,
+                          size: 32,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        "Welcome to psychphinder!",
+                        style: TextStyle(
+                          fontFamily: "PsychFont",
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        "Search through thousands of quotes from the TV show Psych",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.7),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              textAlign: TextAlign.center,
             ),
-            showUpdate ? const Spacer() : const SizedBox(),
-            showUpdate ? showUpdateWidget() : const SizedBox(),
-            const Spacer(),
+            if (showUpdate) ...[
+              const SizedBox(height: 8),
+              showUpdateWidget(),
+            ],
+            const SizedBox(height: 16),
             didYouKnow(),
-            const Spacer(),
+            const SizedBox(height: 16),
             randomReference(),
-            const Spacer(),
+            const SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
 
-  ExpansionTile searchOptions(
+  Widget searchOptions(
       List<String> seasons, Map<String, List<String>> episodesMap) {
-    return ExpansionTile(
-      controller: expansionController,
-      title: const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Text("Search options"),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color:
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-          child: StatefulBuilder(
+      child: ExpansionTile(
+        controller: expansionController,
+        shape: const RoundedRectangleBorder(),
+        collapsedShape: const RoundedRectangleBorder(),
+        tilePadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        childrenPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+        title: Row(
+          children: [
+            Icon(
+              Icons.tune_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              "Search filters",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+          ],
+        ),
+        children: [
+          StatefulBuilder(
             builder: (context, setDropdownState) {
               return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     flex: 1,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Season"),
-                        DropdownButtonFormField<String>(
-                          icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                          iconSize: 30,
-                          iconEnabledColor: Colors.white,
-                          dropdownColor: Colors.green,
-                          decoration: InputDecoration(
-                            fillColor: Colors.green,
-                            filled: true,
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 12),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(color: Colors.green),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(color: Colors.green),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(color: Colors.green),
+                        Text(
+                          "Season",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .outline
+                                  .withValues(alpha: 0.3),
                             ),
                           ),
-                          value: selectedSeason,
-                          items: ['All', ...seasons].map((season) {
-                            return DropdownMenuItem<String>(
-                              value: season,
-                              child: Text(season,
-                                  style: const TextStyle(color: Colors.white)),
-                            );
-                          }).toList(),
-                          onChanged: (season) {
-                            if (season != null) {
-                              setDropdownState(() {
-                                selectedSeason = season;
-                                selectedEpisode = "All";
-                              });
-                            }
-                          },
+                          child: DropdownButtonFormField<String>(
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 16),
+                              border: InputBorder.none,
+                              filled: true,
+                              fillColor: Colors.transparent,
+                            ),
+                            value: selectedSeason,
+                            items: ['All', ...seasons].map((season) {
+                              return DropdownMenuItem<String>(
+                                value: season,
+                                child: Text(
+                                  season,
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (season) {
+                              if (season != null) {
+                                setDropdownState(() {
+                                  selectedSeason = season;
+                                  selectedEpisode = "All";
+                                });
+                              }
+                            },
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 20),
+                  const SizedBox(width: 16),
                   Expanded(
                     flex: 2,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        selectedSeason == "Movies"
-                            ? const Text("Movie")
-                            : const Text("Episode"),
-                        DropdownButtonFormField<String>(
-                          icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                          iconSize: 30,
-                          iconEnabledColor: Colors.white,
-                          dropdownColor: Colors.green,
-                          isExpanded: true,
-                          decoration: InputDecoration(
-                            fillColor: Colors.green,
-                            filled: true,
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 12),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(color: Colors.green),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(color: Colors.green),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(color: Colors.green),
+                        Text(
+                          selectedSeason == "Movies" ? "Movie" : "Episode",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .outline
+                                  .withValues(alpha: 0.3),
                             ),
                           ),
-                          value: selectedEpisode,
-                          items:
-                              _buildEpisodeItems(selectedSeason, episodesMap),
-                          onChanged: (episode) {
-                            if (episode != null) {
-                              setDropdownState(() {
-                                selectedEpisode = episode;
-                              });
-                            }
-                          },
+                          child: DropdownButtonFormField<String>(
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            isExpanded: true,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 16),
+                              border: InputBorder.none,
+                              filled: true,
+                              fillColor: Colors.transparent,
+                            ),
+                            value: selectedEpisode,
+                            items:
+                                _buildEpisodeItems(selectedSeason, episodesMap),
+                            onChanged: (episode) {
+                              if (episode != null) {
+                                setDropdownState(() {
+                                  selectedEpisode = episode;
+                                });
+                              }
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -612,73 +851,138 @@ class _SearchPageState extends State<SearchPage>
               );
             },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Padding searchBar(List<dynamic> data) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(15, 15, 15, 7),
-      child: TextField(
-        controller: textEditingController,
-        style: const TextStyle(color: Colors.white),
-        onSubmitted: (text) async {
-          input = text;
-          setState(() {
-            isLoading = true;
-            isSearching = true;
-          });
-          var databaseService =
-              Provider.of<DatabaseService>(context, listen: false);
-          searched = await databaseService.searchQuotes(
-            text,
-            season: selectedSeason == "All" ? null : selectedSeason,
-            episode: selectedEpisode == "All" ? null : selectedEpisode,
-          );
-          setState(() {
-            isLoading = false;
-          });
-        },
-        cursorColor: Colors.white,
-        decoration: InputDecoration(
-          fillColor: Colors.green,
-          filled: true,
-          labelText: 'Search',
-          suffixIcon: IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () async {
-              input = textEditingController.text;
-              setState(() {
-                isLoading = true;
-                isSearching = true;
-              });
-              var databaseService =
-                  Provider.of<DatabaseService>(context, listen: false);
-              searched = await databaseService.searchQuotes(
-                textEditingController.text,
-                season: selectedSeason == "All" ? null : selectedSeason,
-                episode: selectedEpisode == "All" ? null : selectedEpisode,
-              );
-              setState(() {
-                isLoading = false;
-              });
-            },
+  Widget searchBar(List<dynamic> data) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(15, 15, 15, 7),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: TextField(
+          controller: textEditingController,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
           ),
-          suffixIconColor: Colors.white,
-          labelStyle: const TextStyle(color: Colors.white),
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: const BorderSide(color: Colors.green),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: const BorderSide(color: Colors.green),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: const BorderSide(color: Colors.green),
+          onSubmitted: (text) async {
+            input = text;
+            setState(() {
+              isLoading = true;
+              isSearching = true;
+            });
+            var databaseService =
+                Provider.of<DatabaseService>(context, listen: false);
+            searched = await databaseService.searchQuotes(
+              text,
+              season: selectedSeason == "All" ? null : selectedSeason,
+              episode: selectedEpisode == "All" ? null : selectedEpisode,
+            );
+            setState(() {
+              isLoading = false;
+            });
+          },
+          cursorColor: Theme.of(context).colorScheme.primary,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Theme.of(context).colorScheme.surface,
+            hintText: 'Search for quotes...',
+            hintStyle: TextStyle(
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.6),
+              fontSize: 16,
+            ),
+            prefixIcon: Icon(
+              Icons.search_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 24,
+            ),
+            suffixIcon: textEditingController.text.isNotEmpty
+                ? IconButton(
+                    icon: Icon(
+                      Icons.clear_rounded,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.6),
+                    ),
+                    onPressed: () {
+                      textEditingController.clear();
+                      setState(() {
+                        searched.clear();
+                        isSearching = false;
+                        input = "";
+                      });
+                    },
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    margin: const EdgeInsets.all(8),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.search_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () async {
+                        input = textEditingController.text;
+                        setState(() {
+                          isLoading = true;
+                          isSearching = true;
+                        });
+                        var databaseService = Provider.of<DatabaseService>(
+                            context,
+                            listen: false);
+                        searched = await databaseService.searchQuotes(
+                          textEditingController.text,
+                          season:
+                              selectedSeason == "All" ? null : selectedSeason,
+                          episode:
+                              selectedEpisode == "All" ? null : selectedEpisode,
+                        );
+                        setState(() {
+                          isLoading = false;
+                        });
+                      },
+                    ),
+                  ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 2,
+              ),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 16,
+            ),
           ),
         ),
       ),

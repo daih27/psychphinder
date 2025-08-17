@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list_view/flutter_list_view.dart';
@@ -11,7 +10,6 @@ import 'package:psychphinder/main.dart';
 import 'package:psychphinder/database/database_service.dart';
 import 'package:psychphinder/global/search_engine.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -49,7 +47,8 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
       referencePhrases = widget.fullEpisode
           .cast<Phrase>()
           .where((phrase) =>
-              phrase.reference?.contains(widget.referenceId) ?? false)
+              phrase.reference?.split(',').contains(widget.referenceId) ??
+              false)
           .toList();
 
       currentRefIndex = referencePhrases
@@ -218,417 +217,610 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
             valueListenable: Hive.box("favorites").listenable(),
             builder: (BuildContext context, dynamic box, Widget? child) {
               final isFavorite = box.get(widget.fullEpisode[newId].id) != null;
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        referencesList.length > 19
-                            ? Expanded(flex: 1, child: Container())
-                            : const SizedBox(width: 0),
-                        Expanded(
-                          flex: 8,
-                          child: Center(
-                            child: Column(
-                              children: [
-                                Text(
-                                  widget.fullEpisode[newId].name,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'PsychFont',
-                                    color: Colors.green,
-                                  ),
-                                ),
-                                if (widget.fullEpisode[newId].season != 0)
-                                  Text(
-                                    widget.fullEpisode[newId].season == 999 
-                                        ? "Movie"
-                                        : "Season ${widget.fullEpisode[newId].season}, Episode ${widget.fullEpisode[newId].episode}",
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontSize: 15, fontFamily: 'PsychFont'),
-                                  ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        referencePhrases.length > 1
-                            ? Row(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(
-                                      Icons.arrow_circle_left,
-                                      size: 25,
-                                    ),
-                                    onPressed: () {
-                                      if (currentRefIndex > 0) {
-                                        currentRefIndex--;
-                                        var phrase =
-                                            referencePhrases[currentRefIndex];
-                                        setState(() {
-                                          newId = phrase.sequenceInEpisode;
-                                        });
-                                        if (mounted) {
-                                          _controller.sliverController
-                                              .jumpToIndex(newId);
-                                        }
-                                      }
-                                    },
-                                  ),
-                                  Text(
-                                    "${currentRefIndex + 1}/${referencePhrases.length}",
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(
-                                      Icons.arrow_circle_right,
-                                      size: 25,
-                                    ),
-                                    onPressed: () {
-                                      if (currentRefIndex <
-                                          referencePhrases.length - 1) {
-                                        currentRefIndex++;
-                                        var phrase =
-                                            referencePhrases[currentRefIndex];
-                                        setState(() {
-                                          newId = phrase.sequenceInEpisode;
-                                        });
-                                        if (mounted) {
-                                          _controller.sliverController
-                                              .jumpToIndex(newId);
-                                        }
-                                      }
-                                    },
-                                  )
-                                ],
-                              )
-                            : const SizedBox(),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: FlutterListView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      controller: _controller,
-                      delegate: FlutterListViewDelegate(
-                        (BuildContext context, int index) {
-                          bool isFavorite =
-                              box.get(widget.fullEpisode[index].id) != null;
-                          bool hasReference = widget
-                                  .fullEpisode[index].reference
-                                  ?.contains("s") ??
-                              false;
-                          if (newId == index) {
-                            bool hasVideo = searchHasVideo(
-                                findIndex2(index, episodeReferenceId),
-                                episodeReferenceHasVideo);
-                            return ListTile(
-                              title: Text(
-                                "${widget.fullEpisode[index].time[0] == '0' ? widget.fullEpisode[index].time.substring(2) : widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
-                                style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),
-                              ),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  isFavorite
-                                      ? const Icon(Icons.favorite_rounded,
-                                          color: Colors.green)
-                                      : const SizedBox(),
-                                  hasReference
-                                      ? Stack(children: [
-                                          referenceButton(
-                                            referenceData,
-                                            context,
-                                            true,
-                                            searchEngineProvider,
-                                            selectReference(
-                                                index,
-                                                referenceSelected,
-                                                episodeReferenceId),
-                                          ),
-                                          hasVideo
-                                              ? const Positioned(
-                                                  right: 6,
-                                                  bottom: 6,
-                                                  child: Icon(
-                                                      FontAwesomeIcons.youtube,
-                                                      color: Colors.green,
-                                                      size: 10),
-                                                )
-                                              : const SizedBox(),
-                                        ])
-                                      : const SizedBox(),
-                                ],
-                              ),
-                            );
-                          } else {
-                            hasReference = widget.fullEpisode[index].reference
-                                    ?.contains("s") ??
-                                false;
-                            isFavorite =
-                                box.get(widget.fullEpisode[index].id) != null;
-                            bool hasVideo = searchHasVideo(
-                                findIndex2(index, episodeReferenceId),
-                                episodeReferenceHasVideo);
-                            return ListTile(
-                              onTap: () {
-                                setState(() {
-                                  newId = index;
-                                });
-                                final targetPhrase = widget.fullEpisode[index];
-                                if (widget.referenceId.isNotEmpty &&
-                                    targetPhrase.reference
-                                            ?.contains(widget.referenceId) ==
-                                        true) {
-                                  context.pushReplacement(
-                                    '/s${targetPhrase.season}/e${targetPhrase.episode}/p${targetPhrase.sequenceInEpisode}/r${widget.referenceId}',
-                                  );
-                                } else {
-                                  context.pushReplacement(
-                                    '/s${targetPhrase.season}/e${targetPhrase.episode}/p${targetPhrase.sequenceInEpisode}',
-                                  );
-                                }
-                              },
-                              title: Text(
-                                "${widget.fullEpisode[index].time[0] == '0' ? widget.fullEpisode[index].time.substring(2) : widget.fullEpisode[index].time}   ${widget.fullEpisode[index].line}",
-                              ),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  isFavorite
-                                      ? const Icon(Icons.favorite_rounded)
-                                      : const SizedBox(),
-                                  hasReference
-                                      ? Stack(children: [
-                                          referenceButton(
-                                            referenceData,
-                                            context,
-                                            false,
-                                            searchEngineProvider,
-                                            selectReference(
-                                                index,
-                                                referenceSelected,
-                                                episodeReferenceId),
-                                          ),
-                                          hasVideo
-                                              ? const Positioned(
-                                                  right: 6,
-                                                  bottom: 6,
-                                                  child: Icon(
-                                                      FontAwesomeIcons.youtube,
-                                                      size: 10),
-                                                )
-                                              : const SizedBox(),
-                                        ])
-                                      : const SizedBox(),
-                                ],
-                              ),
-                            );
-                          }
-                        },
-                        childCount: widget.fullEpisode.length,
-                        initIndex: widget.indexLine - 3,
+              return SizedBox(
+                height: MediaQuery.of(context).size.height * 0.85,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 8, bottom: 16),
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(2),
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.image_rounded),
-                        onPressed: () {
-                          if (referencesList.isEmpty) {
-                            context.go(
-                                '/${widget.fullEpisode[newId].id}/wallpaper');
-                          } else {
-                            context.go(
-                              '/s${widget.fullEpisode[newId].season}/e${widget.fullEpisode[newId].episode}/p${widget.fullEpisode[newId].sequenceInEpisode}/r${widget.referenceId}/wallpaper',
-                            );
-                          }
-                        },
-                      ),
-                      const Spacer(),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (!isFavorite) {
-                            await box.put(widget.fullEpisode[newId].id,
-                                widget.fullEpisode[newId].id);
-                          } else {
-                            await box.delete(widget.fullEpisode[newId].id);
-                          }
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(
-                            Colors.green,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                                isFavorite
-                                    ? 'Remove from favorites'
-                                    : 'Add to favorites',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                )),
-                            const SizedBox(width: 5),
-                            const Icon(
-                              Icons.favorite,
-                              color: Colors.white,
-                            ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Theme.of(context).colorScheme.primaryContainer,
+                            Theme.of(context)
+                                .colorScheme
+                                .primaryContainer
+                                .withValues(alpha: 0.8),
                           ],
                         ),
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withValues(alpha: 0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: () async {
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              backgroundColor: Colors.green,
-                              title: const Center(
-                                child: Text(
-                                  'Share',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'PsychFont',
-                                      fontWeight: FontWeight.bold),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.fullEpisode[newId].name,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'PsychFont',
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimaryContainer,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    if (widget.fullEpisode[newId].season != 0)
+                                      Text(
+                                        widget.fullEpisode[newId].season == 999
+                                            ? "Movie"
+                                            : "Season ${widget.fullEpisode[newId].season}, Episode ${widget.fullEpisode[newId].episode}",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer
+                                              .withValues(alpha: 0.7),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor: WidgetStateProperty.all(
-                                        Colors.white,
+                              if (referencePhrases.length > 1)
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 8),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.chevron_left_rounded,
+                                          color: currentRefIndex > 0
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface
+                                                  .withValues(alpha: 0.3),
+                                        ),
+                                        onPressed: currentRefIndex > 0
+                                            ? () {
+                                                currentRefIndex--;
+                                                var phrase = referencePhrases[
+                                                    currentRefIndex];
+                                                setState(() {
+                                                  newId =
+                                                      phrase.sequenceInEpisode;
+                                                });
+                                                if (mounted) {
+                                                  _controller.sliverController
+                                                      .jumpToIndex(newId);
+                                                }
+                                              }
+                                            : null,
                                       ),
-                                    ),
-                                    onPressed: () async {
-                                      final String link =
-                                          "https://daih27.github.io/psychphinder/#/${widget.fullEpisode[newId].id}";
-                                      if (!kIsWeb) {
-                                        if (Platform.isAndroid) {
-                                          final result = await Share.share(
-                                            link,
-                                          );
-                                          if (result.status ==
-                                              ShareResultStatus.success) {
-                                            _showToast("Shared link!");
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        child: Text(
+                                          "${currentRefIndex + 1}/${referencePhrases.length}",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                          ),
+                                        ),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.chevron_right_rounded,
+                                          color: currentRefIndex <
+                                                  referencePhrases.length - 1
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface
+                                                  .withValues(alpha: 0.3),
+                                        ),
+                                        onPressed: currentRefIndex <
+                                                referencePhrases.length - 1
+                                            ? () {
+                                                currentRefIndex++;
+                                                var phrase = referencePhrases[
+                                                    currentRefIndex];
+                                                setState(() {
+                                                  newId =
+                                                      phrase.sequenceInEpisode;
+                                                });
+                                                if (mounted) {
+                                                  _controller.sliverController
+                                                      .jumpToIndex(newId);
+                                                }
+                                              }
+                                            : null,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: FlutterListView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        controller: _controller,
+                        delegate: FlutterListViewDelegate(
+                          (BuildContext context, int index) {
+                            bool isFavorite =
+                                box.get(widget.fullEpisode[index].id) != null;
+                            bool hasReference = widget
+                                    .fullEpisode[index].reference
+                                    ?.contains("s") ??
+                                false;
+                            if (newId == index) {
+                              bool hasVideo = searchHasVideo(
+                                  findIndex2(index, episodeReferenceId),
+                                  episodeReferenceHasVideo);
+                              return Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 4),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .withValues(alpha: 0.1),
+                                      Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .withValues(alpha: 0.05),
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary
+                                        .withValues(alpha: 0.3),
+                                    width: 1.5,
+                                  ),
+                                ),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(10),
+                                    onTap: hasReference
+                                        ? () {
+                                            referenceButton(
+                                              referenceData,
+                                              context,
+                                              true,
+                                              searchEngineProvider,
+                                              selectReference(
+                                                  index,
+                                                  referenceSelected,
+                                                  episodeReferenceId),
+                                            ).onPressed!();
                                           }
-                                        } else {
-                                          await Clipboard.setData(
-                                            ClipboardData(text: link),
-                                          );
-                                          _showToast(
-                                              "Copied link to clipboard!");
-                                        }
-                                      } else {
-                                        await Clipboard.setData(
-                                          ClipboardData(text: link),
-                                        );
-                                        _showToast("Copied link to clipboard!");
-                                      }
-                                    },
-                                    child: const Text(
-                                      "Link",
-                                      style: TextStyle(
-                                          color: Colors.green,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                                        : null,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 4, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              widget.fullEpisode[index]
+                                                          .time[0] ==
+                                                      '0'
+                                                  ? widget
+                                                      .fullEpisode[index].time
+                                                      .substring(2)
+                                                  : widget
+                                                      .fullEpisode[index].time,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w600,
+                                                fontFamily: 'monospace',
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: Text(
+                                              widget.fullEpisode[index].line,
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
+                                                height: 1.2,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              if (isFavorite)
+                                                Icon(
+                                                  Icons.favorite,
+                                                  color: Colors.red.shade400,
+                                                  size: 14,
+                                                ),
+                                              if (hasReference) ...[
+                                                if (isFavorite)
+                                                  const SizedBox(width: 6),
+                                                Stack(
+                                                  clipBehavior: Clip.none,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.help_outline,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
+                                                      size: 14,
+                                                    ),
+                                                    if (hasVideo)
+                                                      Positioned(
+                                                        right: -3,
+                                                        top: -2,
+                                                        child: Container(
+                                                          width: 5,
+                                                          height: 5,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            color: Colors.red,
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
-                                  ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor: WidgetStateProperty.all(
-                                        Colors.white,
-                                      ),
-                                    ),
-                                    onPressed: () async {
-                                      if (!kIsWeb) {
-                                        if (Platform.isAndroid) {
-                                          final result = await Share.share(
-                                            widget.fullEpisode[newId].line,
-                                          );
-                                          if (result.status ==
-                                              ShareResultStatus.success) {
-                                            _showToast("Shared text!");
-                                          }
-                                        } else {
-                                          await Clipboard.setData(
-                                            ClipboardData(
-                                                text: widget
-                                                    .fullEpisode[newId].line),
-                                          );
-                                          _showToast(
-                                              "Copied text to clipboard!");
-                                        }
-                                      } else {
-                                        await Clipboard.setData(
-                                          ClipboardData(
-                                              text: widget
-                                                  .fullEpisode[newId].line),
+                                ),
+                              );
+                            } else {
+                              hasReference = widget.fullEpisode[index].reference
+                                      ?.contains("s") ??
+                                  false;
+                              isFavorite =
+                                  box.get(widget.fullEpisode[index].id) != null;
+                              bool hasVideo = searchHasVideo(
+                                  findIndex2(index, episodeReferenceId),
+                                  episodeReferenceHasVideo);
+                              return Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.surface,
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .outline
+                                        .withValues(alpha: 0.1),
+                                  ),
+                                ),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(8),
+                                    onTap: () {
+                                      setState(() {
+                                        newId = index;
+                                      });
+                                      final targetPhrase =
+                                          widget.fullEpisode[index];
+                                      if (widget.referenceId.isNotEmpty &&
+                                          targetPhrase.reference?.contains(
+                                                  widget.referenceId) ==
+                                              true) {
+                                        context.pushReplacement(
+                                          '/s${targetPhrase.season}/e${targetPhrase.episode}/p${targetPhrase.sequenceInEpisode}/r${widget.referenceId}',
                                         );
-                                        _showToast("Copied text to clipboard!");
+                                      } else {
+                                        context.pushReplacement(
+                                          '/s${targetPhrase.season}/e${targetPhrase.episode}/p${targetPhrase.sequenceInEpisode}',
+                                        );
                                       }
                                     },
-                                    child: const Text(
-                                      "Text",
-                                      style: TextStyle(
-                                          color: Colors.green,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 8),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 4, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface
+                                                  .withValues(alpha: 0.1),
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              widget.fullEpisode[index]
+                                                          .time[0] ==
+                                                      '0'
+                                                  ? widget
+                                                      .fullEpisode[index].time
+                                                      .substring(2)
+                                                  : widget
+                                                      .fullEpisode[index].time,
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSurface
+                                                    .withValues(alpha: 0.7),
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: 'monospace',
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: Text(
+                                              widget.fullEpisode[index].line,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSurface
+                                                    .withValues(alpha: 0.8),
+                                                height: 1.2,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              if (isFavorite)
+                                                Icon(
+                                                  Icons.favorite,
+                                                  color: Colors.red.shade400,
+                                                  size: 12,
+                                                ),
+                                              if (hasReference) ...[
+                                                if (isFavorite)
+                                                  const SizedBox(width: 6),
+                                                Stack(
+                                                  clipBehavior: Clip.none,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.help_outline,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onSurface
+                                                          .withValues(
+                                                              alpha: 0.5),
+                                                      size: 12,
+                                                    ),
+                                                    if (hasVideo)
+                                                      Positioned(
+                                                        right: -2,
+                                                        top: -1,
+                                                        child: Container(
+                                                          width: 4,
+                                                          height: 4,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            color: Colors.red,
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
-                                  ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor: WidgetStateProperty.all(
-                                        Colors.white,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (referencesList.isEmpty) {
-                                        context.go(
-                                            '/${widget.fullEpisode[newId].id}/shareimage');
-                                      } else {
-                                        context.go(
-                                          '/s${widget.fullEpisode[newId].season}/e${widget.fullEpisode[newId].episode}/p${widget.fullEpisode[newId].sequenceInEpisode}/r${widget.referenceId}/shareimage',
-                                        );
-                                      }
-                                    },
-                                    child: const Text(
-                                      "Image",
-                                      style: TextStyle(
-                                          color: Colors.green,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                ),
+                              );
+                            }
+                          },
+                          childCount: widget.fullEpisode.length,
+                          initIndex: widget.indexLine - 3,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .shadow
+                                .withValues(alpha: 0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, -2),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          _ActionButton(
+                            icon: Icons.wallpaper_rounded,
+                            label: 'Wallpaper',
+                            onPressed: () {
+                              if (referencesList.isEmpty) {
+                                context.go(
+                                    '/${widget.fullEpisode[newId].id}/wallpaper');
+                              } else {
+                                context.go(
+                                  '/s${widget.fullEpisode[newId].season}/e${widget.fullEpisode[newId].episode}/p${widget.fullEpisode[newId].sequenceInEpisode}/r${widget.referenceId}/wallpaper',
+                                );
+                              }
+                            },
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: isFavorite
+                                      ? [
+                                          Colors.red.shade400,
+                                          Colors.red.shade600
+                                        ]
+                                      : [
+                                          Theme.of(context).colorScheme.primary,
+                                          Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                              .withValues(alpha: 0.8)
+                                        ],
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: (isFavorite
+                                            ? Colors.red
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .primary)
+                                        .withValues(alpha: 0.3),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 4),
                                   ),
                                 ],
                               ),
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(12),
+                                  onTap: () async {
+                                    if (!isFavorite) {
+                                      await box.put(
+                                          widget.fullEpisode[newId].id,
+                                          widget.fullEpisode[newId].id);
+                                    } else {
+                                      await box
+                                          .delete(widget.fullEpisode[newId].id);
+                                    }
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 8),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          isFavorite
+                                              ? Icons.favorite
+                                              : Icons.favorite_outline,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          isFavorite
+                                              ? 'Remove'
+                                              : 'Add to favorites',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          );
-                        },
-                        icon: const Icon(Icons.share),
+                          ),
+                          const SizedBox(width: 8),
+                          _ActionButton(
+                            icon: Icons.share_rounded,
+                            label: 'Share',
+                            onPressed: () =>
+                                _showModernShareDialog(context, referencesList),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               );
             },
           );
@@ -785,6 +977,190 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
       },
       icon: const Icon(Icons.question_mark_rounded),
       color: isSelected ? Colors.green : null,
+    );
+  }
+
+  Widget _ActionButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onPressed,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  icon,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 20,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showModernShareDialog(BuildContext context, List referencesList) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.3),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'Share Quote',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(
+                  child: _ShareOption(
+                    icon: Icons.link_rounded,
+                    label: 'Link',
+                    color: Theme.of(context).colorScheme.primary,
+                    onTap: () async {
+                      Navigator.pop(context);
+                      final String link =
+                          "https://daih27.github.io/psychphinder/#/${widget.fullEpisode[newId].id}";
+                      await Clipboard.setData(ClipboardData(text: link));
+                      _showToast("Copied link to clipboard!");
+                    },
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: _ShareOption(
+                    icon: Icons.text_fields_rounded,
+                    label: 'Text',
+                    color: Theme.of(context).colorScheme.secondary,
+                    onTap: () async {
+                      Navigator.pop(context);
+                      await Clipboard.setData(
+                          ClipboardData(text: widget.fullEpisode[newId].line));
+                      _showToast("Copied text to clipboard!");
+                    },
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: _ShareOption(
+                    icon: Icons.image_rounded,
+                    label: 'Image',
+                    color: Theme.of(context).colorScheme.tertiary,
+                    onTap: () {
+                      Navigator.pop(context);
+                      if (referencesList.isEmpty) {
+                        context
+                            .go('/${widget.fullEpisode[newId].id}/shareimage');
+                      } else {
+                        context.go(
+                          '/s${widget.fullEpisode[newId].season}/e${widget.fullEpisode[newId].episode}/p${widget.fullEpisode[newId].sequenceInEpisode}/r${widget.referenceId}/shareimage',
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _ShareOption({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    icon,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

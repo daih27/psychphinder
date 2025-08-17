@@ -146,22 +146,53 @@ class _HomeState extends State<Home> {
     return Scaffold(
       key: navigatorKey,
       appBar: AppBar(
-        title: const Text(
-          'psychphinder',
-          style: TextStyle(
-            fontSize: 38,
-            color: Colors.green,
-            fontFamily: 'PsychFont',
-            fontWeight: FontWeight.bold,
-            letterSpacing: -2.2,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Theme.of(context).colorScheme.surface,
+                Theme.of(context).colorScheme.surface.withValues(alpha: 0.8),
+              ],
+            ),
+          ),
+        ),
+        title: ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ).createShader(bounds),
+          child: const Text(
+            'psychphinder',
+            style: TextStyle(
+              fontSize: 32,
+              fontFamily: 'PsychFont',
+              fontWeight: FontWeight.bold,
+              letterSpacing: -1.5,
+              color: Colors.white,
+            ),
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              context.go('/settings');
-            },
+          Container(
+            margin: const EdgeInsets.only(right: 8),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: IconButton(
+              icon: Icon(
+                Icons.settings_rounded,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              onPressed: () {
+                context.go('/settings');
+              },
+            ),
           )
         ],
       ),
@@ -175,10 +206,19 @@ class _HomeState extends State<Home> {
         children: screens,
       ),
       bottomNavigationBar: Container(
-        color: Provider.of<ThemeProvider>(context).currentThemeType ==
-                ThemeType.black
-            ? Colors.black
-            : Theme.of(context).colorScheme.surface,
+        decoration: BoxDecoration(
+          color: Provider.of<ThemeProvider>(context).currentThemeType ==
+                  ThemeType.black
+              ? Colors.black
+              : Theme.of(context).colorScheme.surface,
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              blurRadius: 10,
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
           child: GNav(
@@ -191,20 +231,20 @@ class _HomeState extends State<Home> {
             onTabChange: (index) {
               _pageController.animateToPage(index,
                   duration: const Duration(milliseconds: 300),
-                  curve: Curves.ease);
+                  curve: Curves.easeInOut);
             },
-            tabBorderRadius: 15,
-            tabBackgroundColor: Colors.green,
-            curve: Curves.ease,
+            tabBorderRadius: 20,
+            tabBackgroundColor: Theme.of(context).colorScheme.primary,
+            curve: Curves.easeInOut,
             duration: const Duration(milliseconds: 300),
-            gap: 8,
+            gap: 10,
             activeColor: Colors.white,
-            color: Colors.green,
-            iconSize: 24,
-            padding: const EdgeInsets.all(16),
+            color: Theme.of(context).colorScheme.primary,
+            iconSize: 26,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
             tabs: const [
               GButton(
-                icon: Icons.help_rounded,
+                icon: Icons.movie_rounded,
                 text: 'References',
               ),
               GButton(
