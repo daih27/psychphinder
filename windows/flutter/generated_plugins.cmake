@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   file_saver
   gal
   share_plus
+  sqlite3_flutter_libs
   url_launcher_windows
 )
 
