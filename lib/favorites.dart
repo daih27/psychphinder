@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:psychphinder/classes/phrase_class.dart';
 import 'package:psychphinder/widgets/itemlist.dart';
 import 'database/database_service.dart';
+import 'package:psychphinder/utils/responsive.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -63,19 +64,22 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         ? ItemList(lines: favoritesList)
                         : Center(
                             child: Container(
-                              margin: const EdgeInsets.all(32),
+                              margin: ResponsiveUtils.getScreenPadding(context) * 2,
+                              constraints: BoxConstraints(
+                                maxWidth: ResponsiveUtils.isDesktop(context) ? 600 : double.infinity,
+                              ),
                               child: Card(
-                                elevation: 6,
+                                elevation: ResponsiveUtils.getCardElevation(context) * 1.5,
                                 shadowColor: Theme.of(context)
                                     .colorScheme
                                     .primary
                                     .withValues(alpha: 0.2),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(ResponsiveUtils.isDesktop(context) ? 24 : 20),
                                 ),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(ResponsiveUtils.isDesktop(context) ? 24 : 20),
                                     gradient: LinearGradient(
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
@@ -88,42 +92,42 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                       ],
                                     ),
                                   ),
-                                  padding: const EdgeInsets.all(32),
+                                  padding: ResponsiveUtils.getCardPadding(context) * 1.5,
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Container(
-                                        padding: const EdgeInsets.all(20),
+                                        padding: EdgeInsets.all(ResponsiveUtils.isDesktop(context) ? 24 : 20),
                                         decoration: BoxDecoration(
                                           color:
                                               Colors.red.withValues(alpha: 0.1),
                                           borderRadius:
-                                              BorderRadius.circular(20),
+                                              BorderRadius.circular(ResponsiveUtils.isDesktop(context) ? 24 : 20),
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.favorite_outline_rounded,
-                                          size: 48,
+                                          size: ResponsiveUtils.isDesktop(context) ? 56 : 48,
                                           color: Colors.red,
                                         ),
                                       ),
-                                      const SizedBox(height: 24),
+                                      SizedBox(height: ResponsiveUtils.getVerticalPadding(context) * 3),
                                       Text(
                                         "No favorites yet!",
                                         style: TextStyle(
                                           fontFamily: "PsychFont",
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 24,
+                                          fontSize: ResponsiveUtils.getTitleFontSize(context) + 2,
                                           color: Theme.of(context)
                                               .colorScheme
                                               .onSurface,
                                         ),
                                         textAlign: TextAlign.center,
                                       ),
-                                      const SizedBox(height: 12),
+                                      SizedBox(height: ResponsiveUtils.getVerticalPadding(context) * 1.5),
                                       Text(
                                         "Search for quotes and tap the heart icon to save your favorites here.",
                                         style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: ResponsiveUtils.getBodyFontSize(context),
                                           color: Theme.of(context)
                                               .colorScheme
                                               .onSurface
@@ -132,7 +136,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                         ),
                                         textAlign: TextAlign.center,
                                       ),
-                                      const SizedBox(height: 24),
+                                      SizedBox(height: ResponsiveUtils.getVerticalPadding(context) * 3),
                                       Container(
                                         decoration: BoxDecoration(
                                           gradient: LinearGradient(
@@ -147,7 +151,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                             ],
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(12),
+                                              BorderRadius.circular(ResponsiveUtils.isDesktop(context) ? 16 : 12),
                                           boxShadow: [
                                             BoxShadow(
                                               color: Theme.of(context)
@@ -163,27 +167,29 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                           color: Colors.transparent,
                                           child: InkWell(
                                             borderRadius:
-                                                BorderRadius.circular(12),
+                                                BorderRadius.circular(ResponsiveUtils.isDesktop(context) ? 16 : 12),
                                             onTap: () {},
-                                            child: const Padding(
+                                            child: Padding(
                                               padding: EdgeInsets.symmetric(
-                                                  horizontal: 24, vertical: 12),
+                                                horizontal: ResponsiveUtils.getHorizontalPadding(context) + 8,
+                                                vertical: ResponsiveUtils.getVerticalPadding(context) + 4,
+                                              ),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
                                                   Icon(
                                                     Icons.search_rounded,
                                                     color: Colors.white,
-                                                    size: 20,
+                                                    size: ResponsiveUtils.getIconSize(context),
                                                   ),
-                                                  SizedBox(width: 8),
+                                                  SizedBox(width: ResponsiveUtils.getHorizontalPadding(context) * 0.5),
                                                   Text(
                                                     "Start searching",
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 16,
+                                                      fontSize: ResponsiveUtils.getBodyFontSize(context),
                                                     ),
                                                   ),
                                                 ],

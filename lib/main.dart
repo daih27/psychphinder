@@ -19,6 +19,7 @@ import 'classes/phrase_class.dart';
 import 'database/database_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:psychphinder/utils/responsive.dart';
 
 final Uri _url = Uri.parse('https://github.com/daih27/psychphinder');
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -143,6 +144,108 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final isLargeScreen = ResponsiveUtils.isLargeScreen(context);
+
+    if (isLargeScreen) {
+      return Scaffold(
+        key: navigatorKey,
+        body: Row(
+          children: [
+            NavigationRail(
+              backgroundColor:
+                  Provider.of<ThemeProvider>(context).currentThemeType ==
+                          ThemeType.black
+                      ? Colors.black
+                      : Theme.of(context).colorScheme.surface,
+              elevation: 4,
+              extended: ResponsiveUtils.isDesktop(context),
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: (index) {
+                _pageController.animateToPage(index,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut);
+              },
+              labelType: ResponsiveUtils.isDesktop(context)
+                  ? NavigationRailLabelType.none
+                  : NavigationRailLabelType.selected,
+              destinations: const [
+                NavigationRailDestination(
+                  icon: Icon(Icons.movie_rounded),
+                  selectedIcon: Icon(Icons.movie),
+                  label: Text('References'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.search_rounded),
+                  selectedIcon: Icon(Icons.search),
+                  label: Text('Search'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.favorite_rounded),
+                  selectedIcon: Icon(Icons.favorite),
+                  label: Text('Favorites'),
+                ),
+              ],
+              leading: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Text(
+                    ResponsiveUtils.isDesktop(context)
+                        ? 'psychphinder'
+                        : 'psych',
+                    style: TextStyle(
+                      fontSize: ResponsiveUtils.isDesktop(context) ? 24 : 16,
+                      fontFamily: 'PsychFont',
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: -1.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+              trailing: Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.settings_rounded,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        onPressed: () {
+                          context.go('/settings');
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: PageView(
+                controller: _pageController,
+                onPageChanged: (value) {
+                  setState(() {
+                    _selectedIndex = value;
+                  });
+                },
+                children: screens,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       key: navigatorKey,
       appBar: AppBar(
@@ -160,34 +263,29 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        title: ShaderMask(
-          shaderCallback: (bounds) => const LinearGradient(
-            colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ).createShader(bounds),
-          child: const Text(
-            'psychphinder',
-            style: TextStyle(
-              fontSize: 32,
-              fontFamily: 'PsychFont',
-              fontWeight: FontWeight.bold,
-              letterSpacing: -1.5,
-              color: Colors.white,
-            ),
+        title: Text(
+          'psychphinder',
+          style: TextStyle(
+            fontSize: ResponsiveUtils.getTitleFontSize(context),
+            fontFamily: 'PsychFont',
+            fontWeight: FontWeight.bold,
+            letterSpacing: -1.5,
+            color: Colors.green,
           ),
         ),
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: IconButton(
               icon: Icon(
                 Icons.settings_rounded,
                 color: Theme.of(context).colorScheme.primary,
+                size: ResponsiveUtils.getIconSize(context),
               ),
               onPressed: () {
                 context.go('/settings');
@@ -213,14 +311,18 @@ class _HomeState extends State<Home> {
               : Theme.of(context).colorScheme.surface,
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, -2),
             ),
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+          padding: EdgeInsets.symmetric(
+            vertical: ResponsiveUtils.getVerticalPadding(context) + 7,
+            horizontal: ResponsiveUtils.getHorizontalPadding(context) - 1,
+          ),
           child: GNav(
             backgroundColor:
                 Provider.of<ThemeProvider>(context).currentThemeType ==
@@ -240,8 +342,11 @@ class _HomeState extends State<Home> {
             gap: 10,
             activeColor: Colors.white,
             color: Theme.of(context).colorScheme.primary,
-            iconSize: 26,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+            iconSize: ResponsiveUtils.getIconSize(context) + 2,
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: ResponsiveUtils.getVerticalPadding(context) + 6,
+            ),
             tabs: const [
               GButton(
                 icon: Icons.movie_rounded,

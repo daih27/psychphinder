@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:math';
 import 'global/did_you_know.dart';
+import 'package:psychphinder/utils/responsive.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -161,7 +162,9 @@ class _SearchPageState extends State<SearchPage>
                             ),
                             Text(
                               phrase.season == 999
-                                  ? phrase.time[0] == '0' ? phrase.time.substring(2) : phrase.time
+                                  ? phrase.time[0] == '0'
+                                      ? phrase.time.substring(2)
+                                      : phrase.time
                                   : "S${phrase.season}E${phrase.episode} • ${phrase.time[0] == '0' ? phrase.time.substring(2) : phrase.time}",
                               style: TextStyle(
                                 fontSize: 12,
@@ -520,6 +523,9 @@ class _SearchPageState extends State<SearchPage>
         final List<String> seasons = data['seasons'];
         final Map<String, List<String>> episodesMap = data['episodesMap'];
 
+        final isLargeScreen = ResponsiveUtils.isLargeScreen(context);
+        final isTablet = ResponsiveUtils.isTablet(context);
+
         return Scaffold(
           body: !isSearching
               ? CustomScrollView(
@@ -528,8 +534,6 @@ class _SearchPageState extends State<SearchPage>
                       hasScrollBody: false,
                       child: Column(
                         children: [
-                          searchBar([]),
-                          searchOptions(seasons, episodesMap),
                           isLoading
                               ? const Expanded(
                                   child: Center(
@@ -560,127 +564,816 @@ class _SearchPageState extends State<SearchPage>
                     ),
                   ],
                 )
-              : Column(
-                  children: [
-                    searchBar([]),
-                    searchOptions(seasons, episodesMap),
-                    isLoading
-                        ? const Expanded(
-                            child: Center(
-                              child: CircularProgressIndicator(),
+              : isLargeScreen
+                  ? Row(
+                      children: [
+                        Container(
+                          width: isTablet ? 280 : 320,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            border: Border(
+                              right: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .outline
+                                    .withValues(alpha: 0.2),
+                              ),
                             ),
-                          )
-                        : searched.isNotEmpty
-                            ? Expanded(
-                                child: ItemList(lines: searched, input: input))
-                            : const Expanded(
-                                child: Center(
-                                  child: Text(
-                                    "No results found.",
-                                    style: TextStyle(
-                                      fontFamily: "PsychFont",
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                          ),
+                          child: Column(
+                            children: [
+                              _buildCompactSearchBar(),
+                              _buildCompactFilters(seasons, episodesMap),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: isLoading
+                              ? const Center(child: CircularProgressIndicator())
+                              : searched.isNotEmpty
+                                  ? ItemList(lines: searched, input: input)
+                                  : const Center(
+                                      child: Text(
+                                        "No results found.",
+                                        style: TextStyle(
+                                          fontFamily: "PsychFont",
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              )
-                  ],
-                ),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(
+                              ResponsiveUtils.getHorizontalPadding(context)),
+                          child: _buildHeroSearchBarWithFilters(
+                              seasons, episodesMap),
+                        ),
+                        Expanded(
+                          child: isLoading
+                              ? const Center(child: CircularProgressIndicator())
+                              : searched.isNotEmpty
+                                  ? ItemList(lines: searched, input: input)
+                                  : const Center(
+                                      child: Text(
+                                        "No results found.",
+                                        style: TextStyle(
+                                          fontFamily: "PsychFont",
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                        )
+                      ],
+                    ),
         );
       },
     );
   }
 
   Expanded welcomeWidgets() {
+    final isLargeScreen = ResponsiveUtils.isLargeScreen(context);
+
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Card(
-                elevation: 4,
-                shadowColor: Theme.of(context)
+            _buildHeroSection(),
+            if (showUpdate) ...[
+              SizedBox(height: ResponsiveUtils.getVerticalPadding(context)),
+              showUpdateWidget(),
+            ],
+            SizedBox(height: ResponsiveUtils.getVerticalPadding(context) * 2),
+            if (isLargeScreen)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: didYouKnow()),
+                  SizedBox(
+                      width: ResponsiveUtils.getHorizontalPadding(context)),
+                  Expanded(child: randomReference()),
+                ],
+              )
+            else
+              Column(
+                children: [
+                  didYouKnow(),
+                  SizedBox(
+                      height: ResponsiveUtils.getVerticalPadding(context) * 2),
+                  randomReference(),
+                ],
+              ),
+            SizedBox(height: ResponsiveUtils.getVerticalPadding(context) * 3),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeroSection() {
+    final isLargeScreen = ResponsiveUtils.isLargeScreen(context);
+    final padding = ResponsiveUtils.getScreenPadding(context);
+
+    return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: padding.horizontal * 0.5,
+        vertical: ResponsiveUtils.getVerticalPadding(context),
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: ResponsiveUtils.getVerticalPadding(context) * 2),
+          ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ).createShader(bounds),
+            child: Text(
+              "🍍 Find your favorite Psych quotes",
+              style: TextStyle(
+                fontFamily: "PsychFont",
+                fontWeight: FontWeight.bold,
+                fontSize: isLargeScreen ? 32 : 24,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          SizedBox(height: ResponsiveUtils.getVerticalPadding(context)),
+          Text(
+            "Search through thousands of quotes from 8 seasons and 3 movies",
+            style: TextStyle(
+              fontSize: ResponsiveUtils.getBodyFontSize(context),
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.7),
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: ResponsiveUtils.getVerticalPadding(context) * 3),
+          FutureBuilder<Map<String, dynamic>>(
+            future: _loadSeasonEpisodeData(_databaseService),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return _buildHeroSearchBar();
+              }
+              if (snapshot.hasError || !snapshot.hasData) {
+                return _buildHeroSearchBar();
+              }
+              final data = snapshot.data!;
+              final List<String> seasons = data['seasons'];
+              final Map<String, List<String>> episodesMap = data['episodesMap'];
+              return _buildHeroSearchBarWithFilters(seasons, episodesMap);
+            },
+          ),
+          SizedBox(height: ResponsiveUtils.getVerticalPadding(context) * 2),
+          _buildSearchSuggestions(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeroSearchBar() {
+    return Container(
+      constraints: BoxConstraints(
+        maxWidth: ResponsiveUtils.isDesktop(context) ? 600 : double.infinity,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+              ResponsiveUtils.isDesktop(context) ? 28 : 24),
+          boxShadow: [
+            BoxShadow(
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: TextField(
+          controller: textEditingController,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
+            fontWeight: FontWeight.w500,
+          ),
+          onSubmitted: (text) async {
+            input = text;
+            setState(() {
+              isLoading = true;
+              isSearching = true;
+            });
+            var databaseService =
+                Provider.of<DatabaseService>(context, listen: false);
+            searched = await databaseService.searchQuotes(
+              text,
+              season: selectedSeason == "All" ? null : selectedSeason,
+              episode: selectedEpisode == "All" ? null : selectedEpisode,
+            );
+            setState(() {
+              isLoading = false;
+            });
+          },
+          cursorColor: Theme.of(context).colorScheme.primary,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Theme.of(context).colorScheme.surface,
+            hintText: 'Search for "pineapple", "psychic", or any quote...',
+            hintStyle: TextStyle(
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.5),
+              fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
+            ),
+            prefixIcon: Container(
+              margin:
+                  EdgeInsets.all(ResponsiveUtils.isDesktop(context) ? 12 : 8),
+              decoration: BoxDecoration(
+                color: Theme.of(context)
                     .colorScheme
                     .primary
                     .withValues(alpha: 0.1),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Theme.of(context).colorScheme.surface,
-                        Theme.of(context)
-                            .colorScheme
-                            .surface
-                            .withValues(alpha: 0.9),
-                      ],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                Icons.search_rounded,
+                color: Theme.of(context).colorScheme.primary,
+                size: ResponsiveUtils.getIconSize(context) + 4,
+              ),
+            ),
+            suffixIcon: textEditingController.text.isNotEmpty
+                ? IconButton(
+                    icon: Icon(
+                      Icons.clear_rounded,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.6),
                     ),
-                  ),
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context)
+                    onPressed: () {
+                      textEditingController.clear();
+                      setState(() {
+                        searched.clear();
+                        isSearching = false;
+                        input = "";
+                      });
+                    },
+                  )
+                : Container(
+                    margin: EdgeInsets.all(
+                        ResponsiveUtils.isDesktop(context) ? 8 : 6),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Theme.of(context).colorScheme.primary,
+                          Theme.of(context)
                               .colorScheme
                               .primary
-                              .withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Icon(
-                          Icons.search_rounded,
-                          size: 32,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                              .withValues(alpha: 0.8),
+                        ],
                       ),
-                      const SizedBox(height: 16),
-                      Text(
-                        "Welcome to psychphinder!",
-                        style: TextStyle(
-                          fontFamily: "PsychFont",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        textAlign: TextAlign.center,
+                      borderRadius: BorderRadius.circular(
+                          ResponsiveUtils.isDesktop(context) ? 16 : 12),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_forward_rounded,
+                        color: Colors.white,
+                        size: ResponsiveUtils.getIconSize(context),
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        "Search through thousands of quotes from the TV show Psych",
-                        style: TextStyle(
-                          fontSize: 14,
+                      onPressed: () async {
+                        input = textEditingController.text;
+                        setState(() {
+                          isLoading = true;
+                          isSearching = true;
+                        });
+                        var databaseService = Provider.of<DatabaseService>(
+                            context,
+                            listen: false);
+                        searched = await databaseService.searchQuotes(
+                          textEditingController.text,
+                          season:
+                              selectedSeason == "All" ? null : selectedSeason,
+                          episode:
+                              selectedEpisode == "All" ? null : selectedEpisode,
+                        );
+                        setState(() {
+                          isLoading = false;
+                        });
+                      },
+                    ),
+                  ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  ResponsiveUtils.isDesktop(context) ? 28 : 24),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  ResponsiveUtils.isDesktop(context) ? 28 : 24),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  ResponsiveUtils.isDesktop(context) ? 28 : 24),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 2,
+              ),
+            ),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: ResponsiveUtils.getHorizontalPadding(context) + 8,
+              vertical: ResponsiveUtils.getVerticalPadding(context) + 8,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeroSearchBarWithFilters(
+      List<String> seasons, Map<String, List<String>> episodesMap) {
+    final isDesktop = ResponsiveUtils.isDesktop(context);
+
+    return Container(
+      constraints: BoxConstraints(
+        maxWidth: isDesktop ? 700 : double.infinity,
+      ),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withValues(alpha: 0.15),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: TextField(
+              controller: textEditingController,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
+                fontWeight: FontWeight.w500,
+              ),
+              onSubmitted: (text) async {
+                input = text;
+                setState(() {
+                  isLoading = true;
+                  isSearching = true;
+                });
+                var databaseService =
+                    Provider.of<DatabaseService>(context, listen: false);
+                searched = await databaseService.searchQuotes(
+                  text,
+                  season: selectedSeason == "All" ? null : selectedSeason,
+                  episode: selectedEpisode == "All" ? null : selectedEpisode,
+                );
+                setState(() {
+                  isLoading = false;
+                });
+              },
+              cursorColor: Theme.of(context).colorScheme.primary,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Theme.of(context).colorScheme.surface,
+                hintText: 'Search for "pineapple", "psychic", or any quote...',
+                hintStyle: TextStyle(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.5),
+                  fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
+                ),
+                prefixIcon: Container(
+                  margin: EdgeInsets.all(isDesktop ? 12 : 8),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    Icons.search_rounded,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: ResponsiveUtils.getIconSize(context) + 4,
+                  ),
+                ),
+                suffixIcon: textEditingController.text.isNotEmpty
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.clear_rounded,
                           color: Theme.of(context)
                               .colorScheme
                               .onSurface
-                              .withValues(alpha: 0.7),
+                              .withValues(alpha: 0.6),
                         ),
-                        textAlign: TextAlign.center,
+                        onPressed: () {
+                          textEditingController.clear();
+                          setState(() {
+                            searched.clear();
+                            isSearching = false;
+                            input = "";
+                          });
+                        },
+                      )
+                    : Container(
+                        margin: EdgeInsets.all(isDesktop ? 8 : 6),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Theme.of(context).colorScheme.primary,
+                              Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withValues(alpha: 0.8),
+                            ],
+                          ),
+                          borderRadius:
+                              BorderRadius.circular(isDesktop ? 16 : 12),
+                        ),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_rounded,
+                            color: Colors.white,
+                            size: ResponsiveUtils.getIconSize(context),
+                          ),
+                          onPressed: () async {
+                            input = textEditingController.text;
+                            setState(() {
+                              isLoading = true;
+                              isSearching = true;
+                            });
+                            var databaseService = Provider.of<DatabaseService>(
+                                context,
+                                listen: false);
+                            searched = await databaseService.searchQuotes(
+                              textEditingController.text,
+                              season: selectedSeason == "All"
+                                  ? null
+                                  : selectedSeason,
+                              episode: selectedEpisode == "All"
+                                  ? null
+                                  : selectedEpisode,
+                            );
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
+                        ),
                       ),
-                    ],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
+                  borderSide: BorderSide.none,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
                   ),
+                ),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: ResponsiveUtils.getHorizontalPadding(context) + 8,
+                  vertical: ResponsiveUtils.getVerticalPadding(context) + 8,
                 ),
               ),
             ),
-            if (showUpdate) ...[
-              const SizedBox(height: 8),
-              showUpdateWidget(),
-            ],
-            const SizedBox(height: 16),
-            didYouKnow(),
-            const SizedBox(height: 16),
-            randomReference(),
-            const SizedBox(height: 20),
+          ),
+          SizedBox(height: ResponsiveUtils.getVerticalPadding(context) * 1.5),
+          _buildHeroFilters(seasons, episodesMap),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeroFilters(
+      List<String> seasons, Map<String, List<String>> episodesMap) {
+    final isLargeScreen = ResponsiveUtils.isLargeScreen(context);
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color:
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ExpansionTile(
+        controller: expansionController,
+        shape: const RoundedRectangleBorder(),
+        collapsedShape: const RoundedRectangleBorder(),
+        tilePadding: EdgeInsets.symmetric(
+          horizontal: ResponsiveUtils.getHorizontalPadding(context),
+          vertical: ResponsiveUtils.getVerticalPadding(context) * 0.8,
+        ),
+        childrenPadding: EdgeInsets.fromLTRB(
+          ResponsiveUtils.getHorizontalPadding(context),
+          0,
+          ResponsiveUtils.getHorizontalPadding(context),
+          ResponsiveUtils.getVerticalPadding(context),
+        ),
+        title: Row(
+          children: [
+            Icon(
+              Icons.tune_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              "Search filters",
+              style: TextStyle(
+                fontSize: ResponsiveUtils.getSmallFontSize(context) + 2,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+            const Spacer(),
+            if (selectedSeason != 'All' || selectedEpisode != 'All')
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  'Active',
+                  style: TextStyle(
+                    fontSize: ResponsiveUtils.getSmallFontSize(context) - 1,
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
           ],
+        ),
+        children: [
+          StatefulBuilder(
+            builder: (context, setFilterState) {
+              return Column(
+                children: [
+                  if (isLargeScreen)
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: _buildFilterDropdown(
+                              "Season", selectedSeason, ['All', ...seasons],
+                              (value) {
+                            setFilterState(() {
+                              selectedSeason = value!;
+                              selectedEpisode = "All";
+                            });
+                            setState(() {});
+                          }),
+                        ),
+                        SizedBox(
+                            width:
+                                ResponsiveUtils.getHorizontalPadding(context)),
+                        Expanded(
+                          flex: 2,
+                          child: _buildFilterDropdown(
+                              selectedSeason == "Movies" ? "Movie" : "Episode",
+                              selectedEpisode,
+                              _buildEpisodeItems(selectedSeason, episodesMap)
+                                  .map((item) => item.value!)
+                                  .toList(), (value) {
+                            setFilterState(() {
+                              selectedEpisode = value!;
+                            });
+                            setState(() {});
+                          }),
+                        ),
+                      ],
+                    )
+                  else
+                    Column(
+                      children: [
+                        _buildFilterDropdown(
+                            "Season", selectedSeason, ['All', ...seasons],
+                            (value) {
+                          setFilterState(() {
+                            selectedSeason = value!;
+                            selectedEpisode = "All";
+                          });
+                          setState(() {});
+                        }),
+                        SizedBox(
+                            height:
+                                ResponsiveUtils.getVerticalPadding(context)),
+                        _buildFilterDropdown(
+                            selectedSeason == "Movies" ? "Movie" : "Episode",
+                            selectedEpisode,
+                            _buildEpisodeItems(selectedSeason, episodesMap)
+                                .map((item) => item.value!)
+                                .toList(), (value) {
+                          setFilterState(() {
+                            selectedEpisode = value!;
+                          });
+                          setState(() {});
+                        }),
+                      ],
+                    ),
+                  if (selectedSeason != 'All' || selectedEpisode != 'All') ...[
+                    SizedBox(
+                        height: ResponsiveUtils.getVerticalPadding(context)),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton.icon(
+                        onPressed: () {
+                          setFilterState(() {
+                            selectedSeason = 'All';
+                            selectedEpisode = 'All';
+                          });
+                          setState(() {});
+                        },
+                        icon: Icon(
+                          Icons.clear_rounded,
+                          size: 16,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        label: Text(
+                          'Clear filters',
+                          style: TextStyle(
+                            fontSize: ResponsiveUtils.getSmallFontSize(context),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterDropdown(String label, String value, List<String> items,
+      ValueChanged<String?> onChanged) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: ResponsiveUtils.getSmallFontSize(context),
+            fontWeight: FontWeight.w500,
+            color:
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color:
+                  Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+            ),
+          ),
+          child: DropdownButtonFormField<String>(
+            icon: Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
+            decoration: InputDecoration(
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+              border: InputBorder.none,
+              filled: true,
+              fillColor: Colors.transparent,
+            ),
+            value: value,
+            items: items.map((item) {
+              return DropdownMenuItem<String>(
+                value: item,
+                child: Text(
+                  item,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: ResponsiveUtils.getSmallFontSize(context),
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: onChanged,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSearchSuggestions() {
+    final suggestions = [
+      "suck it",
+      "c'mon son",
+      "pluto",
+      "company car",
+      "boneless",
+      "this is my partner"
+    ];
+
+    return Column(
+      children: [
+        Text(
+          "💡 Try searching for:",
+          style: TextStyle(
+            fontSize: ResponsiveUtils.getSmallFontSize(context) + 1,
+            color:
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        SizedBox(height: ResponsiveUtils.getVerticalPadding(context)),
+        Wrap(
+          spacing: ResponsiveUtils.getHorizontalPadding(context) * 0.5,
+          runSpacing: ResponsiveUtils.getVerticalPadding(context) * 0.5,
+          children: suggestions
+              .map((suggestion) => _buildSuggestionChip(suggestion))
+              .toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSuggestionChip(String text) {
+    return InkWell(
+      onTap: () {
+        textEditingController.text = text;
+        setState(() {
+          input = text;
+          isLoading = true;
+          isSearching = true;
+        });
+        Provider.of<DatabaseService>(context, listen: false)
+            .searchQuotes(
+          text,
+          season: selectedSeason == "All" ? null : selectedSeason,
+          episode: selectedEpisode == "All" ? null : selectedEpisode,
+        )
+            .then((results) {
+          setState(() {
+            searched = results;
+            isLoading = false;
+          });
+        });
+      },
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: ResponsiveUtils.getHorizontalPadding(context),
+          vertical: ResponsiveUtils.getVerticalPadding(context) * 0.5,
+        ),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+          ),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: ResponsiveUtils.getSmallFontSize(context),
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
@@ -847,6 +1540,231 @@ class _SearchPageState extends State<SearchPage>
                       ],
                     ),
                   ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCompactSearchBar() {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(15, 15, 15, 7),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: TextField(
+          controller: textEditingController,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+          onSubmitted: (text) async {
+            input = text;
+            setState(() {
+              isLoading = true;
+              isSearching = true;
+            });
+            var databaseService =
+                Provider.of<DatabaseService>(context, listen: false);
+            searched = await databaseService.searchQuotes(
+              text,
+              season: selectedSeason == "All" ? null : selectedSeason,
+              episode: selectedEpisode == "All" ? null : selectedEpisode,
+            );
+            setState(() {
+              isLoading = false;
+            });
+          },
+          cursorColor: Theme.of(context).colorScheme.primary,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Theme.of(context).colorScheme.surface,
+            hintText: 'Search for quotes...',
+            hintStyle: TextStyle(
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.6),
+              fontSize: 16,
+            ),
+            prefixIcon: Icon(
+              Icons.search_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 24,
+            ),
+            suffixIcon: textEditingController.text.isNotEmpty
+                ? IconButton(
+                    icon: Icon(
+                      Icons.clear_rounded,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.6),
+                    ),
+                    onPressed: () {
+                      textEditingController.clear();
+                      setState(() {
+                        searched.clear();
+                        isSearching = false;
+                        input = "";
+                      });
+                    },
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    margin: const EdgeInsets.all(8),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.search_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () async {
+                        input = textEditingController.text;
+                        setState(() {
+                          isLoading = true;
+                          isSearching = true;
+                        });
+                        var databaseService = Provider.of<DatabaseService>(
+                            context,
+                            listen: false);
+                        searched = await databaseService.searchQuotes(
+                          textEditingController.text,
+                          season:
+                              selectedSeason == "All" ? null : selectedSeason,
+                          episode:
+                              selectedEpisode == "All" ? null : selectedEpisode,
+                        );
+                        setState(() {
+                          isLoading = false;
+                        });
+                      },
+                    ),
+                  ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 2,
+              ),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCompactFilters(
+      List<String> seasons, Map<String, List<String>> episodesMap) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color:
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: ExpansionTile(
+        controller: expansionController,
+        shape: const RoundedRectangleBorder(),
+        collapsedShape: const RoundedRectangleBorder(),
+        tilePadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        childrenPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+        title: Row(
+          children: [
+            Icon(
+              Icons.tune_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              "Search filters",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+          ],
+        ),
+        children: [
+          StatefulBuilder(
+            builder: (context, setDropdownState) {
+              return Column(
+                children: [
+                  _buildFilterDropdown(
+                      "Season", selectedSeason, ['All', ...seasons], (value) {
+                    setDropdownState(() {
+                      selectedSeason = value!;
+                      selectedEpisode = "All";
+                    });
+                    setState(() {});
+                  }),
+                  const SizedBox(height: 16),
+                  _buildFilterDropdown(
+                      selectedSeason == "Movies" ? "Movie" : "Episode",
+                      selectedEpisode,
+                      _buildEpisodeItems(selectedSeason, episodesMap)
+                          .map((item) => item.value!)
+                          .toList(), (value) {
+                    setDropdownState(() {
+                      selectedEpisode = value!;
+                    });
+                    setState(() {});
+                  }),
+                  if (selectedSeason != 'All' || selectedEpisode != 'All') ...[
+                    const SizedBox(height: 16),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton.icon(
+                        onPressed: () {
+                          setDropdownState(() {
+                            selectedSeason = 'All';
+                            selectedEpisode = 'All';
+                          });
+                          setState(() {});
+                        },
+                        icon: const Icon(Icons.clear_rounded, size: 16),
+                        label: const Text('Clear filters',
+                            style: TextStyle(fontSize: 12)),
+                      ),
+                    ),
+                  ],
                 ],
               );
             },
