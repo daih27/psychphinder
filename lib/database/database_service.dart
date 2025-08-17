@@ -64,6 +64,20 @@ class DatabaseService {
     return await _db.getPhraseWithReferences(phraseId);
   }
 
+  Future<List<Reference>> searchReferences(String query,
+      {String? category, String? season, String? episode}) async {
+    return await _db.searchReferences(query,
+        category: category, season: season, episode: episode);
+  }
+
+  Future<List<String>> getReferenceSuggestions(String partial) async {
+    return await _db.getReferenceSuggestions(partial);
+  }
+
+  Future<List<String>> getReferenceCategories() async {
+    return await _db.getReferenceCategories();
+  }
+
   Future<void> close() async {
     await _db.close();
   }

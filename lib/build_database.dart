@@ -27,6 +27,13 @@ class BuildDatabase extends _$BuildDatabase {
           content_rowid='id'
         )
       ''');
+          await customStatement('''
+        CREATE VIRTUAL TABLE references_fts USING fts5(
+          name, reference,
+          content='quote_references',
+          content_rowid='id'
+        )
+      ''');
           await customStatement('PRAGMA foreign_keys = ON');
         },
       );
@@ -234,6 +241,8 @@ class BuildDatabase extends _$BuildDatabase {
   Future<void> _rebuildFts() async {
     await customStatement(
         'INSERT INTO quotes_fts(quotes_fts) VALUES(\'rebuild\')');
+    await customStatement(
+        'INSERT INTO references_fts(references_fts) VALUES(\'rebuild\')');
   }
 }
 

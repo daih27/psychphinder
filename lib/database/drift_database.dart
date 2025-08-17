@@ -23,6 +23,13 @@ class PsychDatabase extends _$PsychDatabase implements DatabaseInterface {
           content_rowid='id'
         )
       ''');
+          await customStatement('''
+        CREATE VIRTUAL TABLE references_fts USING fts5(
+          name, reference,
+          content='quote_references',
+          content_rowid='id'
+        )
+      ''');
           await customStatement('PRAGMA foreign_keys = ON');
         },
         onUpgrade: (Migrator m, int from, int to) async {
@@ -30,6 +37,13 @@ class PsychDatabase extends _$PsychDatabase implements DatabaseInterface {
             CREATE VIRTUAL TABLE IF NOT EXISTS quotes_fts USING fts5(
               searchable_text,
               content='quotes',
+              content_rowid='id'
+            )
+          ''');
+          await customStatement('''
+            CREATE VIRTUAL TABLE IF NOT EXISTS references_fts USING fts5(
+              name, reference,
+              content='quote_references',
               content_rowid='id'
             )
           ''');
@@ -361,5 +375,125 @@ class PsychDatabase extends _$PsychDatabase implements DatabaseInterface {
               'name': ep.name,
             })
         .toList();
+  }
+
+  Future<List<Reference>> searchReferences(String query,
+      {String? category, String? season, String? episode}) async {
+    if (query.trim().isEmpty) return [];
+
+    final searchQuery = query.toLowerCase().trim();
+
+    String whereClause = 'references_fts MATCH ?';
+    List<Variable> variables = [Variable<String>(searchQuery)];
+
+    // Add category filter if provided
+    if (category != null && category != "All") {
+      whereClause += ''' AND (
+        CASE 
+          WHEN LOWER(r.reference) LIKE '%movie%' OR LOWER(r.reference) LIKE '%film%' THEN 'Movies'
+          WHEN LOWER(r.reference) LIKE '%actor%' OR LOWER(r.reference) LIKE '%actress%' THEN 'Actors'
+          WHEN LOWER(r.reference) LIKE '%musician%' OR LOWER(r.reference) LIKE '%singer%' OR LOWER(r.reference) LIKE '%band%' THEN 'Music'
+          WHEN LOWER(r.reference) LIKE '%tv show%' OR LOWER(r.reference) LIKE '%television%' THEN 'TV Shows'
+          WHEN LOWER(r.reference) LIKE '%book%' OR LOWER(r.reference) LIKE '%novel%' OR LOWER(r.reference) LIKE '%writer%' OR LOWER(r.reference) LIKE '%author%' THEN 'Books'
+          WHEN LOWER(r.reference) LIKE '%game%' OR LOWER(r.reference) LIKE '%sport%' THEN 'Games'
+          WHEN LOWER(r.reference) LIKE '%company%' OR LOWER(r.reference) LIKE '%brand%' OR LOWER(r.reference) LIKE '%store%' THEN 'Brands'
+          WHEN LOWER(r.reference) LIKE '%song%' OR LOWER(r.reference) LIKE '%album%' THEN 'Songs'
+          WHEN LOWER(r.reference) LIKE '%character%' OR LOWER(r.reference) LIKE '%fictional%' THEN 'Characters'
+          ELSE 'Other'
+        END
+      ) = ?''';
+      variables.add(Variable<String>(category));
+    }
+
+    // Add season filter if provided
+    if (season != null && season != "All") {
+      if (season == "Movies") {
+        whereClause += ' AND r.season = ?';
+        variables.add(Variable<int>(999));
+      } else {
+        whereClause += ' AND r.season = ?';
+        variables.add(Variable<int>(int.parse(season)));
+      }
+    }
+
+    // Add episode filter if provided
+    if (episode != null &&
+        episode != "All" &&
+        season != null &&
+        season != "Movies") {
+      final episodeNumber = episode.split(' - ')[0];
+      whereClause += ' AND r.episode = ?';
+      variables.add(Variable<int>(int.parse(episodeNumber)));
+    }
+
+    final results = await customSelect(
+      '''
+      SELECT DISTINCT r.reference_id, r.season, r.episode, r.name, r.reference, r.link, e.name as episode_name,
+             (SELECT phrase_id FROM quote_references WHERE reference_id = r.reference_id AND season = r.season AND episode = r.episode LIMIT 1) as first_phrase_id
+      FROM quote_references r
+      JOIN episodes e ON r.season = e.season AND r.episode = e.episode
+      JOIN references_fts ON r.id = references_fts.rowid
+      WHERE $whereClause
+      GROUP BY r.reference_id, r.season, r.episode
+      ORDER BY r.season, r.episode, r.name
+      LIMIT 500
+      ''',
+      variables: variables,
+      readsFrom: {references, episodes},
+    ).get();
+
+    return results
+        .map((row) => Reference(
+              season: row.read<int>('season'),
+              episode: row.read<int>('episode'),
+              name: row.read<String>('episode_name'),
+              reference: row.read<String>('reference'),
+              id: row.read<String>('reference_id'),
+              idLine: row.read<int?>('first_phrase_id')?.toString() ?? '0',
+              link: row.read<String>('link'),
+            ))
+        .toList();
+  }
+
+  Future<List<String>> getReferenceSuggestions(String partial) async {
+    if (partial.length < 2) return [];
+
+    final results = await customSelect(
+      '''
+      SELECT DISTINCT name FROM quote_references
+      WHERE LOWER(name) LIKE ?
+      ORDER BY name
+      LIMIT 10
+      ''',
+      variables: [Variable<String>('%${partial.toLowerCase()}%')],
+      readsFrom: {references},
+    ).get();
+
+    return results.map((row) => row.read<String>('name')).toList();
+  }
+
+  Future<List<String>> getReferenceCategories() async {
+    final results = await customSelect(
+      '''
+      SELECT DISTINCT 
+        CASE 
+          WHEN LOWER(reference) LIKE '%movie%' OR LOWER(reference) LIKE '%film%' THEN 'Movies'
+          WHEN LOWER(reference) LIKE '%actor%' OR LOWER(reference) LIKE '%actress%' THEN 'Actors'
+          WHEN LOWER(reference) LIKE '%musician%' OR LOWER(reference) LIKE '%singer%' OR LOWER(reference) LIKE '%band%' THEN 'Music'
+          WHEN LOWER(reference) LIKE '%tv show%' OR LOWER(reference) LIKE '%television%' THEN 'TV Shows'
+          WHEN LOWER(reference) LIKE '%book%' OR LOWER(reference) LIKE '%novel%' OR LOWER(reference) LIKE '%writer%' OR LOWER(reference) LIKE '%author%' THEN 'Books'
+          WHEN LOWER(reference) LIKE '%game%' OR LOWER(reference) LIKE '%sport%' THEN 'Games'
+          WHEN LOWER(reference) LIKE '%company%' OR LOWER(reference) LIKE '%brand%' OR LOWER(reference) LIKE '%store%' THEN 'Brands'
+          WHEN LOWER(reference) LIKE '%song%' OR LOWER(reference) LIKE '%album%' THEN 'Songs'
+          WHEN LOWER(reference) LIKE '%character%' OR LOWER(reference) LIKE '%fictional%' THEN 'Characters'
+          ELSE 'Other'
+        END as category
+      FROM quote_references
+      ORDER BY category
+      ''',
+      readsFrom: {references},
+    ).get();
+
+    return results.map((row) => row.read<String>('category')).toList();
   }
 }

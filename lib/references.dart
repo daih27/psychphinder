@@ -2,10 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/database/database_service.dart';
+import 'package:psychphinder/classes/reference_class.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ReferencesPage extends StatelessWidget {
+class ReferencesPage extends StatefulWidget {
   const ReferencesPage({super.key});
+
+  @override
+  State<ReferencesPage> createState() => _ReferencesPageState();
+}
+
+class _ReferencesPageState extends State<ReferencesPage>
+    with AutomaticKeepAliveClientMixin<ReferencesPage> {
+  @override
+  bool get wantKeepAlive => true;
+
+  bool isSearching = false;
+  bool isLoading = false;
+  String searchInput = "";
+  List<Reference> searchResults = <Reference>[];
+  String selectedCategory = 'All';
+  String selectedSeason = 'All';
+  String selectedEpisode = 'All';
+  final TextEditingController textEditingController = TextEditingController();
+  final ExpansibleController expansionController = ExpansibleController();
 
   Future<List<int>> _getSeasonsWithReferences(
       DatabaseService databaseService) async {
@@ -24,10 +44,11 @@ class ReferencesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     var databaseService = Provider.of<DatabaseService>(context);
 
-    return FutureBuilder<List<int>>(
-      future: _getSeasonsWithReferences(databaseService),
+    return FutureBuilder<Map<String, dynamic>>(
+      future: _loadSeasonAndCategoryData(databaseService),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
@@ -43,86 +64,772 @@ class ReferencesPage extends StatelessWidget {
           );
         }
 
-        final seasons = snapshot.data ?? [];
+        final data = snapshot.data!;
+        final seasons = data['seasons'] as List<int>;
+        final categories = data['categories'] as List<String>;
+        final episodesMap = data['episodesMap'] as Map<String, List<String>>;
 
         return Scaffold(
           body: Column(
             children: [
+              _buildSearchBar(databaseService),
+              _buildSearchFilters(categories, seasons, episodesMap),
               Expanded(
-                child: GridView.builder(
-                  padding: const EdgeInsets.all(10),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    mainAxisExtent: 120,
-                  ),
-                  itemCount: seasons.length,
-                  itemBuilder: (context, index) {
-                    final seasonNum = seasons[index];
-
-                    return Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Card(
-                        elevation: 8,
-                        shadowColor: Colors.green.withValues(alpha: 0.3),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Colors.green.shade400,
-                                Colors.green.shade600,
-                              ],
-                            ),
-                          ),
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(16),
-                              onTap: () {
-                                context.go('/references/season$seasonNum');
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      seasonNum == 999
-                                          ? 'Movies'
-                                          : "Season $seasonNum",
-                                      style: const TextStyle(
-                                        fontFamily: 'PsychFont',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                        letterSpacing: -0.5,
-                                        color: Colors.white,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(height: 4),
-                                  ],
+                child: isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : isSearching
+                        ? searchResults.isNotEmpty
+                            ? _buildSearchResults()
+                            : const Center(
+                                child: Text(
+                                  "No references found.",
+                                  style: TextStyle(
+                                    fontFamily: "PsychFont",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                              )
+                        : _buildSeasonGrid(seasons),
               ),
             ],
           ),
         );
       },
     );
+  }
+
+  Future<Map<String, dynamic>> _loadSeasonAndCategoryData(
+      DatabaseService databaseService) async {
+    final allSeasons = await _getSeasonsWithReferences(databaseService);
+    final categories = await databaseService.getReferenceCategories();
+
+    Map<String, List<String>> episodesMap = {};
+    for (var seasonNum in allSeasons) {
+      String seasonStr = seasonNum == 999 ? 'Movies' : seasonNum.toString();
+      final episodes = await databaseService.getEpisodesForSeason(seasonNum);
+      List<String> episodeList = [];
+      for (var episode in episodes) {
+        episodeList.add("${episode['episode']} - ${episode['name']}");
+      }
+      episodesMap[seasonStr] = episodeList;
+    }
+
+    return {
+      'seasons': allSeasons,
+      'categories': categories,
+      'episodesMap': episodesMap,
+    };
+  }
+
+  Widget _buildSearchBar(DatabaseService databaseService) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(15, 15, 15, 7),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: TextField(
+          controller: textEditingController,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+          onSubmitted: (text) async {
+            await _performSearch(text, databaseService);
+          },
+          cursorColor: Theme.of(context).colorScheme.primary,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Theme.of(context).colorScheme.surface,
+            hintText: 'Search references...',
+            hintStyle: TextStyle(
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.6),
+              fontSize: 16,
+            ),
+            prefixIcon: Icon(
+              Icons.search_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 24,
+            ),
+            suffixIcon: textEditingController.text.isNotEmpty
+                ? IconButton(
+                    icon: Icon(
+                      Icons.clear_rounded,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.6),
+                    ),
+                    onPressed: () {
+                      textEditingController.clear();
+                      setState(() {
+                        searchResults.clear();
+                        isSearching = false;
+                        searchInput = "";
+                      });
+                    },
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    margin: const EdgeInsets.all(8),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.search_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () async {
+                        await _performSearch(
+                            textEditingController.text, databaseService);
+                      },
+                    ),
+                  ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 2,
+              ),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 16,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchFilters(List<String> categories, List<int> seasons,
+      Map<String, List<String>> episodesMap) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color:
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: ExpansionTile(
+        controller: expansionController,
+        shape: const RoundedRectangleBorder(),
+        collapsedShape: const RoundedRectangleBorder(),
+        tilePadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        childrenPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+        title: Row(
+          children: [
+            Icon(
+              Icons.tune_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              "Search filters",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+          ],
+        ),
+        children: [
+          StatefulBuilder(
+            builder: (context, setFilterState) {
+              return Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(bottom: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Category",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: ['All', ...categories].map((category) {
+                            final isSelected = selectedCategory == category;
+                            return FilterChip(
+                              selected: isSelected,
+                              label: Text(
+                                category,
+                                style: TextStyle(
+                                  color: isSelected
+                                      ? Colors.white
+                                      : Theme.of(context).colorScheme.onSurface,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.surface,
+                              selectedColor:
+                                  Theme.of(context).colorScheme.primary,
+                              checkmarkColor: Colors.white,
+                              onSelected: (selected) {
+                                setFilterState(() {
+                                  selectedCategory = category;
+                                });
+                                setState(() {
+                                  selectedCategory = category;
+                                });
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Season",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .outline
+                                      .withValues(alpha: 0.3),
+                                ),
+                              ),
+                              child: DropdownButtonFormField<String>(
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 16),
+                                  border: InputBorder.none,
+                                ),
+                                value: selectedSeason,
+                                items: [
+                                  'All',
+                                  ...seasons.map(
+                                      (s) => s == 999 ? 'Movies' : s.toString())
+                                ].map((season) {
+                                  return DropdownMenuItem<String>(
+                                    value: season,
+                                    child: Text(
+                                      season,
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (season) {
+                                  if (season != null) {
+                                    setFilterState(() {
+                                      selectedSeason = season;
+                                      selectedEpisode = "All";
+                                    });
+                                    setState(() {
+                                      selectedSeason = season;
+                                      selectedEpisode = "All";
+                                    });
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              selectedSeason == "Movies" ? "Movie" : "Episode",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .outline
+                                      .withValues(alpha: 0.3),
+                                ),
+                              ),
+                              child: DropdownButtonFormField<String>(
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                isExpanded: true,
+                                decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 16),
+                                  border: InputBorder.none,
+                                ),
+                                value: selectedEpisode,
+                                items: _buildEpisodeItems(
+                                    selectedSeason, episodesMap),
+                                onChanged: (episode) {
+                                  if (episode != null) {
+                                    setFilterState(() {
+                                      selectedEpisode = episode;
+                                    });
+                                    setState(() {
+                                      selectedEpisode = episode;
+                                    });
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<DropdownMenuItem<String>> _buildEpisodeItems(
+      String season, Map<String, List<String>> episodesMap) {
+    final episodeList = episodesMap[season] ?? [];
+    final items = <DropdownMenuItem<String>>[
+      DropdownMenuItem<String>(
+        value: 'All',
+        child: Text(
+          'All',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: 14,
+          ),
+        ),
+      ),
+    ];
+
+    for (final episode in episodeList) {
+      items.add(DropdownMenuItem<String>(
+        value: episode,
+        child: Text(
+          episode,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: 14,
+          ),
+        ),
+      ));
+    }
+
+    return items;
+  }
+
+  Widget _buildSearchResults() {
+    return ListView.builder(
+      padding: const EdgeInsets.all(10),
+      itemCount: searchResults.length,
+      itemBuilder: (context, index) {
+        final reference = searchResults[index];
+        final titleText = reference.reference.split("(").first.trim();
+        final subtitleText =
+            reference.reference.split("(").last.replaceAll(')', '').trim();
+        final hasVideo = reference.link.isNotEmpty;
+        final referenceTypeInfo = _getReferenceTypeInfo(subtitleText);
+
+        return FutureBuilder<int>(
+          future: _getReferencesCount(reference),
+          builder: (context, countSnapshot) {
+            final referencesCount = countSnapshot.data ?? 1;
+
+            return Padding(
+              padding: const EdgeInsets.all(5),
+              child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () async {
+                      final databaseService =
+                          Provider.of<DatabaseService>(context, listen: false);
+                      final goRouter = GoRouter.of(context);
+
+                      final episodePhrases =
+                          await databaseService.getEpisodePhrases(
+                              reference.season, reference.episode);
+
+                      final phrasesWithReference = episodePhrases
+                          .where((phrase) =>
+                              phrase.reference
+                                  ?.split(',')
+                                  .contains(reference.id) ??
+                              false)
+                          .toList();
+
+                      if (!mounted) return;
+
+                      if (phrasesWithReference.isNotEmpty) {
+                        phrasesWithReference.sort((a, b) =>
+                            a.sequenceInEpisode.compareTo(b.sequenceInEpisode));
+                        final targetPhrase = phrasesWithReference.first;
+
+                        final route =
+                            '/s${targetPhrase.season}/e${targetPhrase.episode}/p${targetPhrase.sequenceInEpisode}/r${reference.id}';
+                        goRouter.push(route);
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: referenceTypeInfo['color']
+                                  .withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              referenceTypeInfo['icon'],
+                              color: referenceTypeInfo['color'],
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        titleText,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6, vertical: 2),
+                                      decoration: BoxDecoration(
+                                        color: referenceTypeInfo['color'],
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        referenceTypeInfo['type'],
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            subtitleText,
+                                            style: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 2),
+                                          Text(
+                                            reference.season == 999
+                                                ? reference.name
+                                                : "S${reference.season}E${reference.episode} • ${reference.name}",
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    if (hasVideo)
+                                      Container(
+                                        padding: const EdgeInsets.all(3),
+                                        decoration: const BoxDecoration(
+                                          color: Colors.red,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: const Icon(
+                                          Icons.play_arrow,
+                                          color: Colors.white,
+                                          size: 12,
+                                        ),
+                                      ),
+                                    const SizedBox(width: 8),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Text(
+                                        referencesCount.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildSeasonGrid(List<int> seasons) {
+    return GridView.builder(
+      padding: const EdgeInsets.all(10),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 15,
+        mainAxisSpacing: 15,
+        mainAxisExtent: 120,
+      ),
+      itemCount: seasons.length,
+      itemBuilder: (context, index) {
+        final seasonNum = seasons[index];
+
+        return Padding(
+          padding: const EdgeInsets.all(5),
+          child: Card(
+            elevation: 8,
+            shadowColor: Colors.green.withValues(alpha: 0.3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.green.shade400,
+                    Colors.green.shade600,
+                  ],
+                ),
+              ),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () {
+                    context.go('/references/season$seasonNum');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          seasonNum == 999 ? 'Movies' : "Season $seasonNum",
+                          style: const TextStyle(
+                            fontFamily: 'PsychFont',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            letterSpacing: -0.5,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 4),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _performSearch(
+      String query, DatabaseService databaseService) async {
+    searchInput = query;
+    setState(() {
+      isLoading = true;
+      isSearching = true;
+    });
+
+    try {
+      searchResults = await databaseService.searchReferences(
+        query,
+        category: selectedCategory == "All" ? null : selectedCategory,
+        season: selectedSeason == "All" ? null : selectedSeason,
+        episode: selectedEpisode == "All" ? null : selectedEpisode,
+      );
+    } catch (e) {
+      searchResults = [];
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  Future<int> _getReferencesCount(Reference reference) async {
+    final databaseService =
+        Provider.of<DatabaseService>(context, listen: false);
+    final episodePhrases = await databaseService.getEpisodePhrases(
+        reference.season, reference.episode);
+
+    final phrasesWithReference = episodePhrases
+        .where((phrase) =>
+            phrase.reference?.split(',').contains(reference.id) ?? false)
+        .toList();
+
+    return phrasesWithReference.length;
+  }
+
+  Map<String, dynamic> _getReferenceTypeInfo(String referenceText) {
+    final lowerText = referenceText.toLowerCase();
+
+    if (lowerText.contains('movie') || lowerText.contains('film')) {
+      return {'type': 'Movie', 'color': Colors.red, 'icon': Icons.movie};
+    } else if (lowerText.contains('actor') || lowerText.contains('actress')) {
+      return {'type': 'Actor', 'color': Colors.purple, 'icon': Icons.person};
+    } else if (lowerText.contains('musician') ||
+        lowerText.contains('singer') ||
+        lowerText.contains('band')) {
+      return {
+        'type': 'Music',
+        'color': Colors.orange,
+        'icon': Icons.music_note
+      };
+    } else if (lowerText.contains('tv show') ||
+        lowerText.contains('television')) {
+      return {'type': 'TV Show', 'color': Colors.blue, 'icon': Icons.tv};
+    } else if (lowerText.contains('book') ||
+        lowerText.contains('novel') ||
+        lowerText.contains('writer') ||
+        lowerText.contains('author')) {
+      return {'type': 'Literature', 'color': Colors.brown, 'icon': Icons.book};
+    } else if (lowerText.contains('game') || lowerText.contains('sport')) {
+      return {
+        'type': 'Game/Sport',
+        'color': Colors.green,
+        'icon': Icons.sports
+      };
+    } else if (lowerText.contains('company') ||
+        lowerText.contains('brand') ||
+        lowerText.contains('store')) {
+      return {'type': 'Brand', 'color': Colors.indigo, 'icon': Icons.business};
+    } else if (lowerText.contains('song') || lowerText.contains('album')) {
+      return {'type': 'Song', 'color': Colors.pink, 'icon': Icons.queue_music};
+    } else if (lowerText.contains('character') ||
+        lowerText.contains('fictional')) {
+      return {'type': 'Character', 'color': Colors.teal, 'icon': Icons.face};
+    } else {
+      return {
+        'type': 'Other',
+        'color': Colors.grey,
+        'icon': Icons.help_outline
+      };
+    }
   }
 }
 
