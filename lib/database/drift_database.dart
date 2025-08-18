@@ -3,6 +3,7 @@ import 'package:psychphinder/classes/phrase_class.dart';
 import 'package:psychphinder/classes/reference_class.dart';
 import 'shared.dart';
 import 'connection/connection.dart' as connections;
+import 'text_preprocessing.dart';
 part 'drift_database.g.dart';
 
 @DriftDatabase(tables: [Quotes, Episodes, References])
@@ -291,15 +292,20 @@ class PsychDatabase extends _$PsychDatabase implements DatabaseInterface {
     );
   }
 
+  String _processSearchQuery(String query) {
+    return TextPreprocessing.preprocessForSearch(query);
+  }
+
   @override
   Future<List<Phrase>> searchQuotes(String query,
       {String? season, String? episode}) async {
     if (query.trim().isEmpty) return [];
 
-    final searchQuery = query.toLowerCase().trim();
+    final preprocessed = _processSearchQuery(query);
+    final processedQuery = TextPreprocessing.escapeFts5Query(preprocessed);
 
     String whereClause = 'quotes_fts MATCH ?';
-    List<Variable> variables = [Variable<String>(searchQuery)];
+    List<Variable> variables = [Variable<String>(processedQuery)];
 
     if (season != null && season != "All") {
       if (season == "Movies") {
@@ -324,15 +330,17 @@ class PsychDatabase extends _$PsychDatabase implements DatabaseInterface {
       }
     }
 
-    final results = await customSelect(
-      '''
+    final sqlQuery = '''
       SELECT q.*, e.name as episode_name FROM quotes q
       JOIN episodes e ON q.season = e.season AND q.episode = e.episode
       JOIN quotes_fts ON q.id = quotes_fts.rowid
       WHERE $whereClause
       ORDER BY q.season, q.episode, q.sequence_in_episode
       LIMIT 1000
-      ''',
+      ''';
+
+    final results = await customSelect(
+      sqlQuery,
       variables: variables,
       readsFrom: {quotes, episodes},
     ).get();
@@ -381,10 +389,11 @@ class PsychDatabase extends _$PsychDatabase implements DatabaseInterface {
       {String? category, String? season, String? episode}) async {
     if (query.trim().isEmpty) return [];
 
-    final searchQuery = query.toLowerCase().trim();
+    final processedQuery =
+        TextPreprocessing.escapeFts5Query(_processSearchQuery(query));
 
     String whereClause = 'references_fts MATCH ?';
-    List<Variable> variables = [Variable<String>(searchQuery)];
+    List<Variable> variables = [Variable<String>(processedQuery)];
 
     // Add category filter if provided
     if (category != null && category != "All") {

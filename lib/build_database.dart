@@ -4,9 +4,8 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:csv/csv.dart';
-import 'package:diacritic/diacritic.dart';
-import 'package:number_to_words_english/number_to_words_english.dart';
 import 'database/shared.dart';
+import 'database/text_preprocessing.dart';
 part 'build_database.g.dart';
 
 @DriftDatabase(tables: [Quotes, Episodes, References])
@@ -38,37 +37,6 @@ class BuildDatabase extends _$BuildDatabase {
         },
       );
 
-  String _preprocessText(String text) {
-    String processed = removeDiacritics(text).toLowerCase();
-    processed = _replaceContractions(processed);
-    processed = _replaceNumbersWithWords(processed);
-    processed = processed.replaceAll("&", "and");
-    processed = processed.replaceAll(RegExp('[^A-Za-z0-9 ]'), ' ');
-    processed = processed.replaceAll(RegExp(r'\s+'), ' ').trim();
-    return processed;
-  }
-
-  String _replaceContractions(String input) {
-    input = input.replaceAll('\'s', ' is');
-    input = input.replaceAll('\'m', ' am');
-    input = input.replaceAll('\'re', ' are');
-    input = input.replaceAll('\'ll', ' will');
-    input = input.replaceAll('n\'t', ' not');
-    input = input.replaceAll('\'d', ' would');
-    input = input.replaceAll('\'ve', ' have');
-    return input;
-  }
-
-  String _replaceNumbersWithWords(String input) {
-    RegExp regExp = RegExp(r'\d+');
-    Iterable<Match> matches = regExp.allMatches(input);
-    for (Match match in matches) {
-      input = input.replaceAll(match.group(0)!,
-          NumberToWordsEnglish.convert(int.parse(match.group(0)!)));
-      input = "$input ${match.group(0)!}";
-    }
-    return input;
-  }
 
   Future<void> populateFromCSVFiles() async {
     await transaction(() async {
@@ -126,7 +94,7 @@ class BuildDatabase extends _$BuildDatabase {
       for (int i = 0; i < episodeGroup.length; i++) {
         final row = episodeGroup[i];
         final line = row['line'];
-        final searchableText = _preprocessText(line);
+        final searchableText = TextPreprocessing.preprocessForSearch(line);
 
         String? reference = row['reference'].toString();
         if (reference == '' || reference == 's') {
