@@ -39,7 +39,7 @@ class SearchEngineProvider with ChangeNotifier {
     _loadSwitchState();
   }
 
-  get currentSearchEngine => _currentSearchEngine;
+  String get currentSearchEngine => _currentSearchEngine;
 
   Future<void> _loadSearchEngine() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

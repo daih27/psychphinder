@@ -717,7 +717,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                       ),
                       child: Row(
                         children: [
-                          _ActionButton(
+                          _actionButton(
                             icon: Icons.wallpaper_rounded,
                             label: 'Wallpaper',
                             onPressed: () {
@@ -810,7 +810,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                             ),
                           ),
                           const SizedBox(width: 8),
-                          _ActionButton(
+                          _actionButton(
                             icon: Icons.share_rounded,
                             label: 'Share',
                             onPressed: () =>
@@ -980,7 +980,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
     );
   }
 
-  Widget _ActionButton({
+  Widget _actionButton({
     required IconData icon,
     required String label,
     required VoidCallback onPressed,
@@ -1060,7 +1060,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
             Row(
               children: [
                 Expanded(
-                  child: _ShareOption(
+                  child: _shareOption(
                     icon: Icons.link_rounded,
                     label: 'Link',
                     color: Theme.of(context).colorScheme.primary,
@@ -1075,7 +1075,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: _ShareOption(
+                  child: _shareOption(
                     icon: Icons.text_fields_rounded,
                     label: 'Text',
                     color: Theme.of(context).colorScheme.secondary,
@@ -1089,7 +1089,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: _ShareOption(
+                  child: _shareOption(
                     icon: Icons.image_rounded,
                     label: 'Image',
                     color: Theme.of(context).colorScheme.tertiary,
@@ -1115,7 +1115,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
     );
   }
 
-  Widget _ShareOption({
+  Widget _shareOption({
     required IconData icon,
     required String label,
     required Color color,

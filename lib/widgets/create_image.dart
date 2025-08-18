@@ -382,7 +382,7 @@ class _CreateImageState extends State<CreateImagePage> {
     }
   }
 
-  _showToast(String text) {
+  void _showToast(String text) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -632,16 +632,16 @@ class _CreateImageState extends State<CreateImagePage> {
         widgetTopRight: widgetTopRight,
         widgetBottomLeft: widgetBottomLeft,
         widgetBottomRight: widgetBottomRight,
-        bgColor: bgColor.value,
-        topLeftColor: topLeftColor.value,
-        topRightColor: topRightColor.value,
-        bottomLeftColor: bottomLeftColor.value,
-        bottomRightColor: bottomRightColor.value,
-        lineColor: lineColor.value,
-        beforeLineColor: beforeLineColor.value,
-        afterLineColor: afterLineColor.value,
-        psychphinderColor: psychphinderColor.value,
-        backgroundImageColor: backgroundImageColor.value,
+        bgColor: bgColor.toARGB32(),
+        topLeftColor: topLeftColor.toARGB32(),
+        topRightColor: topRightColor.toARGB32(),
+        bottomLeftColor: bottomLeftColor.toARGB32(),
+        bottomRightColor: bottomRightColor.toARGB32(),
+        lineColor: lineColor.toARGB32(),
+        beforeLineColor: beforeLineColor.toARGB32(),
+        afterLineColor: afterLineColor.toARGB32(),
+        psychphinderColor: psychphinderColor.toARGB32(),
+        backgroundImageColor: backgroundImageColor.toARGB32(),
         showMadeWithPsychphinder: showPsychphinder,
         applyGradient: applyGradient,
         showBackgroundImage: showBackgroundImage,
@@ -748,16 +748,16 @@ class _CreateImageState extends State<CreateImagePage> {
           widgetTopRight: "Episode name",
           widgetBottomLeft: "Season and episode",
           widgetBottomRight: "Time",
-          bgColor: const Color(0xFF146B3A).value,
-          topLeftColor: const Color(0xFFF8B229).value,
-          topRightColor: const Color(0xFFF8B229).value,
-          bottomLeftColor: const Color(0xFFF8B229).value,
-          bottomRightColor: const Color(0xFFF8B229).value,
-          lineColor: const Color(0xFFEA4630).value,
-          beforeLineColor: const Color(0xFFFFFFFF).value,
-          afterLineColor: const Color(0xFFFFFFFF).value,
-          psychphinderColor: const Color(0xFFF8B229).value,
-          backgroundImageColor: const Color(0x3B000000).value,
+          bgColor: const Color(0xFF146B3A).toARGB32(),
+          topLeftColor: const Color(0xFFF8B229).toARGB32(),
+          topRightColor: const Color(0xFFF8B229).toARGB32(),
+          bottomLeftColor: const Color(0xFFF8B229).toARGB32(),
+          bottomRightColor: const Color(0xFFF8B229).toARGB32(),
+          lineColor: const Color(0xFFEA4630).toARGB32(),
+          beforeLineColor: const Color(0xFFFFFFFF).toARGB32(),
+          afterLineColor: const Color(0xFFFFFFFF).toARGB32(),
+          psychphinderColor: const Color(0xFFF8B229).toARGB32(),
+          backgroundImageColor: const Color(0x3B000000).toARGB32(),
           showMadeWithPsychphinder: true,
           applyGradient: true,
           showBackgroundImage: true,
@@ -772,16 +772,16 @@ class _CreateImageState extends State<CreateImagePage> {
           widgetTopRight: "Episode name",
           widgetBottomLeft: "Season and episode",
           widgetBottomRight: "Time",
-          bgColor: const Color(0xFFA22C2B).value,
-          topLeftColor: const Color(0xFF209954).value,
-          topRightColor: const Color(0xFF209954).value,
-          bottomLeftColor: const Color(0xFF209954).value,
-          bottomRightColor: const Color(0xFF209954).value,
-          lineColor: const Color(0xFFF8B229).value,
-          beforeLineColor: const Color(0xFFFFFFFF).value,
-          afterLineColor: const Color(0xFFFFFFFF).value,
-          psychphinderColor: const Color(0xFF209954).value,
-          backgroundImageColor: const Color(0x2C000000).value,
+          bgColor: const Color(0xFFA22C2B).toARGB32(),
+          topLeftColor: const Color(0xFF209954).toARGB32(),
+          topRightColor: const Color(0xFF209954).toARGB32(),
+          bottomLeftColor: const Color(0xFF209954).toARGB32(),
+          bottomRightColor: const Color(0xFF209954).toARGB32(),
+          lineColor: const Color(0xFFF8B229).toARGB32(),
+          beforeLineColor: const Color(0xFFFFFFFF).toARGB32(),
+          afterLineColor: const Color(0xFFFFFFFF).toARGB32(),
+          psychphinderColor: const Color(0xFF209954).toARGB32(),
+          backgroundImageColor: const Color(0x2C000000).toARGB32(),
           showMadeWithPsychphinder: true,
           applyGradient: true,
           showBackgroundImage: true,
@@ -1715,7 +1715,7 @@ class _CreateImageState extends State<CreateImagePage> {
               foregroundColor: Colors.white,
             ),
             onPressed: () {
-              setColors(key, selectedColor.value);
+              setColors(key, selectedColor.toARGB32());
               Navigator.of(context).pop();
             },
             child: const Text('Apply'),
@@ -1734,20 +1734,20 @@ class _CreateImageState extends State<CreateImagePage> {
                   updateColor(selectedColor, 4);
                   updateColor(selectedColor, 5);
                   updateColor(selectedColor, 6);
-                  setColors('beforeLineColor', selectedColor.value);
-                  setColors('lineColor', selectedColor.value);
-                  setColors('afterLineColor', selectedColor.value);
+                  setColors('beforeLineColor', selectedColor.toARGB32());
+                  setColors('lineColor', selectedColor.toARGB32());
+                  setColors('afterLineColor', selectedColor.toARGB32());
                 } else {
                   updateColor(selectedColor, 0);
                   updateColor(selectedColor, 1);
                   updateColor(selectedColor, 2);
                   updateColor(selectedColor, 3);
                   updateColor(selectedColor, 8);
-                  setColors('topLeftColor', selectedColor.value);
-                  setColors('topRightColor', selectedColor.value);
-                  setColors('bottomLeftColor', selectedColor.value);
-                  setColors('bottomRightColor', selectedColor.value);
-                  setColors('psychphinderColor', selectedColor.value);
+                  setColors('topLeftColor', selectedColor.toARGB32());
+                  setColors('topRightColor', selectedColor.toARGB32());
+                  setColors('bottomLeftColor', selectedColor.toARGB32());
+                  setColors('bottomRightColor', selectedColor.toARGB32());
+                  setColors('psychphinderColor', selectedColor.toARGB32());
                 }
                 Navigator.of(context).pop();
               },
@@ -1950,7 +1950,7 @@ class _CreateImageState extends State<CreateImagePage> {
           children: [
             Expanded(
               child: _buildSwitchRow(
-                  'Show \"Made with psychphinder\"', showPsychphinder, (value) {
+                  'Show "Made with psychphinder"', showPsychphinder, (value) {
                 setState(() {
                   showPsychphinder = value;
                   setShowMadeWithPsychphinder(showPsychphinder);
@@ -2074,7 +2074,7 @@ class _CreateImageState extends State<CreateImagePage> {
                   if (value.trim().isNotEmpty) {
                     addProfile(value.trim());
                     Navigator.pop(context);
-                    _showToast('Profile \"$value\" created!');
+                    _showToast('Profile "$value" created!');
                   }
                 },
               ),
@@ -2108,7 +2108,7 @@ class _CreateImageState extends State<CreateImagePage> {
               if (name.trim().isNotEmpty) {
                 addProfile(name.trim());
                 Navigator.pop(context);
-                _showToast('Profile \"$name\" created!');
+                _showToast('Profile "$name" created!');
               }
             },
             icon: const Icon(Icons.check_rounded, size: 18),
@@ -2134,7 +2134,7 @@ class _CreateImageState extends State<CreateImagePage> {
           ),
         ),
         content: Text(
-          'Are you sure you want to delete the profile \"$profileName\"?\\n\\nThis action cannot be undone.',
+          'Are you sure you want to delete the profile "$profileName"?\\n\\nThis action cannot be undone.',
           style: const TextStyle(fontSize: 14),
         ),
         actions: [
@@ -2152,8 +2152,10 @@ class _CreateImageState extends State<CreateImagePage> {
             ),
             onPressed: () async {
               await box.deleteAt(index);
-              Navigator.pop(context);
-              _showToast('Profile \"$profileName\" deleted!');
+              if (context.mounted) {
+                Navigator.pop(context);
+              }
+              _showToast('Profile "$profileName" deleted!');
             },
             child: const Text('Delete'),
           ),
@@ -2276,7 +2278,7 @@ class _CreateImageState extends State<CreateImagePage> {
                             onTap: () async {
                               await loadProfile(profilesList[index]);
                               _showToast(
-                                  'Profile \"${profilesList[index].name}\" applied!');
+                                  'Profile "${profilesList[index].name}" applied!');
                             },
                           ),
                         );
@@ -2425,7 +2427,9 @@ class _CreateImageState extends State<CreateImagePage> {
         final cacheDir = await getTemporaryDirectory();
         final fileName = path.join(cacheDir.path, 'image.png');
         await File(fileName).writeAsBytes(bytes!);
-        final result = await Share.shareXFiles([XFile(fileName)]);
+        final result = await SharePlus.instance.share(ShareParams(
+          files: [XFile(fileName)],
+        ));
         if (cacheDir.existsSync()) {
           cacheDir.deleteSync(recursive: true);
         }
@@ -2531,7 +2535,9 @@ class _CreateImageState extends State<CreateImagePage> {
               cacheDir.deleteSync(recursive: true);
             }
           }
-          Navigator.pop(context);
+          if (mounted) {
+            Navigator.pop(context);
+          }
         },
         icon: Icon(icon),
         label: Text(
@@ -3057,7 +3063,7 @@ class _CreateImageState extends State<CreateImagePage> {
                 child: SingleChildScrollView(
                   child: PopScope(
                       onPopInvokedWithResult: (bool didPop, Object? result) {
-                        setColors(key, newColor.value);
+                        setColors(key, newColor.toARGB32());
                         if (didPop) {
                           return;
                         }
@@ -3080,7 +3086,7 @@ class _CreateImageState extends State<CreateImagePage> {
                 ElevatedButton(
                   child: const Text('Apply'),
                   onPressed: () {
-                    setColors(key, newColor.value);
+                    setColors(key, newColor.toARGB32());
                     Navigator.of(context).pop();
                   },
                 ),
@@ -3094,9 +3100,9 @@ class _CreateImageState extends State<CreateImagePage> {
                               updateColor(newColor, 4);
                               updateColor(newColor, 5);
                               updateColor(newColor, 6);
-                              setColors("beforeLineColor", newColor.value);
-                              setColors("lineColor", newColor.value);
-                              setColors("afterLineColor", newColor.value);
+                              setColors("beforeLineColor", newColor.toARGB32());
+                              setColors("lineColor", newColor.toARGB32());
+                              setColors("afterLineColor", newColor.toARGB32());
                               Navigator.of(context).pop();
                             },
                           )
@@ -3108,11 +3114,13 @@ class _CreateImageState extends State<CreateImagePage> {
                               updateColor(newColor, 2);
                               updateColor(newColor, 3);
                               updateColor(newColor, 8);
-                              setColors("topLeftColor", newColor.value);
-                              setColors("topRightColor", newColor.value);
-                              setColors("bottomLeftColor", newColor.value);
-                              setColors("bottomRightColor", newColor.value);
-                              setColors("psychphinderColor", newColor.value);
+                              setColors("topLeftColor", newColor.toARGB32());
+                              setColors("topRightColor", newColor.toARGB32());
+                              setColors("bottomLeftColor", newColor.toARGB32());
+                              setColors(
+                                  "bottomRightColor", newColor.toARGB32());
+                              setColors(
+                                  "psychphinderColor", newColor.toARGB32());
                               Navigator.of(context).pop();
                             },
                           )

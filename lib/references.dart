@@ -522,7 +522,7 @@ class _ReferencesPageState extends State<ReferencesPage>
     );
   }
 
-  Widget _buildReferenceCard(reference, int index) {
+  Widget _buildReferenceCard(Reference reference, int index) {
     final titleText = reference.reference.split("(").first.trim();
     final subtitleText =
         reference.reference.split("(").last.replaceAll(')', '').trim();
