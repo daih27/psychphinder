@@ -1,4 +1,11 @@
-# 1.1.4 (05/13/2023)
+# 1.1.5 (18/08/2025)
+
+- Major visual changes for the whole app.
+- Improved the app speed considerably by switching to a database approach instead of using CSV files.
+- Made the UI responsive (different UI for desktop and smartphones).
+- Added a reference search functionality.
+
+# 1.1.4 (05/12/2023)
 
 - Added tons of customization to the image creator. This are the new options:
     - Choose the colors for all the elements on the wallpaper.

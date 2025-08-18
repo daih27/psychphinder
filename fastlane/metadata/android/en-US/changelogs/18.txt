@@ -1,0 +1,4 @@
+- Major visual changes for the whole app.
+- Improved the app speed considerably by switching to a database approach instead of using CSV files.
+- Made the UI responsive (different UI for desktop and smartphones).
+- Added a reference search functionality.
