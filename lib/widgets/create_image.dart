@@ -9,8 +9,9 @@ import 'package:gal/gal.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/global/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:widgets_to_image/widgets_to_image.dart';
 import 'dart:io';
+import 'dart:ui' as ui;
+import 'package:flutter/rendering.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:psychphinder/main.dart';
 import 'package:path_provider/path_provider.dart';
@@ -35,7 +36,7 @@ class CreateImagePage extends StatefulWidget {
 }
 
 class _CreateImageState extends State<CreateImagePage> {
-  WidgetsToImageController controller = WidgetsToImageController();
+  GlobalKey repaintBoundaryKey = GlobalKey();
   TextEditingController resolutionWidthController = TextEditingController();
   TextEditingController resolutionHeightController = TextEditingController();
   Uint8List? bytes;
@@ -957,11 +958,29 @@ class _CreateImageState extends State<CreateImagePage> {
 
   Widget _buildImagePreview() {
     return GestureDetector(
-      child: WidgetsToImage(
-        controller: controller,
+      child: RepaintBoundary(
+        key: repaintBoundaryKey,
         child: _buildImageContent(),
       ),
     );
+  }
+
+  Future<Uint8List> captureHighResolution() async {
+    try {
+      RenderRepaintBoundary boundary = repaintBoundaryKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
+
+      if (boundary.debugNeedsPaint) {
+        await Future.delayed(const Duration(milliseconds: 20));
+        return captureHighResolution();
+      }
+      ui.Image image = await boundary.toImage(pixelRatio: 6.0);
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      return byteData!.buffer.asUint8List();
+    } catch (e) {
+      return Uint8List(0);
+    }
   }
 
   Widget _buildOptionsPanel() {
@@ -2417,7 +2436,7 @@ class _CreateImageState extends State<CreateImagePage> {
   }
 
   Future<void> _handleShareImage() async {
-    final bytes = await controller.capture();
+    final bytes = await captureHighResolution();
     setState(() {
       this.bytes = bytes;
     });
@@ -2426,7 +2445,7 @@ class _CreateImageState extends State<CreateImagePage> {
       if (Platform.isAndroid) {
         final cacheDir = await getTemporaryDirectory();
         final fileName = path.join(cacheDir.path, 'image.png');
-        await File(fileName).writeAsBytes(bytes!);
+        await File(fileName).writeAsBytes(bytes);
         final result = await SharePlus.instance.share(ShareParams(
           files: [XFile(fileName)],
         ));
@@ -2442,26 +2461,25 @@ class _CreateImageState extends State<CreateImagePage> {
           fileName: 'image.png',
         );
         if (outputFile != null) {
-          File(outputFile).writeAsBytes(bytes!);
+          File(outputFile).writeAsBytes(bytes);
           _showToast("Saved image!");
         }
       }
     } else {
-      await FileSaver.instance
-          .saveFile(name: 'psychphinder.png', bytes: bytes!);
+      await FileSaver.instance.saveFile(name: 'psychphinder.png', bytes: bytes);
       _showToast("Downloaded image!");
     }
   }
 
   Future<void> _handleSaveToGallery() async {
-    final bytes = await controller.capture();
+    final bytes = await captureHighResolution();
     setState(() {
       this.bytes = bytes;
     });
 
     if (!kIsWeb && Platform.isAndroid) {
       final cacheDir = await getTemporaryDirectory();
-      await Gal.putImageBytes(bytes!);
+      await Gal.putImageBytes(bytes);
       if (cacheDir.existsSync()) {
         cacheDir.deleteSync(recursive: true);
       }
@@ -2520,13 +2538,13 @@ class _CreateImageState extends State<CreateImagePage> {
           ),
         ),
         onPressed: () async {
-          final bytes = await controller.capture();
+          final bytes = await captureHighResolution();
           setState(() {
             this.bytes = bytes;
           });
           final cacheDir = await getTemporaryDirectory();
           final fileName = path.join(cacheDir.path, 'wallpaper.png');
-          await File(fileName).writeAsBytes(bytes!);
+          await File(fileName).writeAsBytes(bytes);
           bool result = await WallpaperHandler.instance
               .setWallpaperFromFile(fileName, location);
           if (result) {
