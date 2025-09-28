@@ -16,41 +16,57 @@ class PsychDatabase extends _$PsychDatabase implements DatabaseInterface {
   @override
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (Migrator m) async {
-          await m.createAll();
-          await customStatement('''
-        CREATE VIRTUAL TABLE quotes_fts USING fts5(
-          searchable_text,
-          content='quotes',
-          content_rowid='id'
-        )
-      ''');
-          await customStatement('''
-        CREATE VIRTUAL TABLE references_fts USING fts5(
-          name, reference,
-          content='quote_references',
-          content_rowid='id'
-        )
-      ''');
-          await customStatement('PRAGMA foreign_keys = ON');
+          try {
+            await m.createAll();
+
+            await customStatement('''
+              CREATE VIRTUAL TABLE quotes_fts USING fts5(
+                searchable_text,
+                content='quotes',
+                content_rowid='id'
+              )
+            ''');
+
+            await customStatement('''
+              CREATE VIRTUAL TABLE references_fts USING fts5(
+                name, reference,
+                content='quote_references',
+                content_rowid='id'
+              )
+            ''');
+
+            await customStatement('PRAGMA foreign_keys = ON');
+          } catch (e) {
+            rethrow;
+          }
         },
         onUpgrade: (Migrator m, int from, int to) async {
-          await customStatement('''
-            CREATE VIRTUAL TABLE IF NOT EXISTS quotes_fts USING fts5(
-              searchable_text,
-              content='quotes',
-              content_rowid='id'
-            )
-          ''');
-          await customStatement('''
-            CREATE VIRTUAL TABLE IF NOT EXISTS references_fts USING fts5(
-              name, reference,
-              content='quote_references',
-              content_rowid='id'
-            )
-          ''');
+          try {
+            await customStatement('''
+              CREATE VIRTUAL TABLE IF NOT EXISTS quotes_fts USING fts5(
+                searchable_text,
+                content='quotes',
+                content_rowid='id'
+              )
+            ''');
+
+            await customStatement('''
+              CREATE VIRTUAL TABLE IF NOT EXISTS references_fts USING fts5(
+                name, reference,
+                content='quote_references',
+                content_rowid='id'
+              )
+            ''');
+          } catch (e) {
+            //
+          }
         },
         beforeOpen: (details) async {
-          await customStatement('PRAGMA foreign_keys = ON');
+          try {
+            await customStatement('PRAGMA foreign_keys = ON');
+          } catch (e) {
+            //
+          }
         },
       );
 

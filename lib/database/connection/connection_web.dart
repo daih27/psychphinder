@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 
 DatabaseConnection createConnection() {
   return DatabaseConnection.delayed(Future(() async {
+    await Future.delayed(const Duration(milliseconds: 100));
+
     final result = await WasmDatabase.open(
       databaseName: 'psychphinder_db',
       sqlite3Uri: Uri.parse('sqlite3.wasm'),
@@ -13,7 +15,6 @@ DatabaseConnection createConnection() {
         return data.buffer.asUint8List();
       },
     );
-
     return DatabaseConnection(result.resolvedExecutor);
   }));
 }
