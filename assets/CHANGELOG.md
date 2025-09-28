@@ -1,3 +1,8 @@
+# 1.1.6 (28/09/2025)
+
+- Fixed saving and sharing images, as they were being saved with a low resolution instead of the correct one.
+- Fixed the app not working on Android 16, as reported by u/JoeCo15. Thanks!
+
 # 1.1.5 (18/08/2025)
 
 - Major visual changes for the whole app.

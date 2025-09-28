@@ -1,7 +1,7 @@
 {
     "app_name": "psychphinder",
-    "new_app_version": "1.1.5",
-    "new_app_code": "18",
+    "new_app_version": "1.1.6",
+    "new_app_code": "19",
     "android_package": "com.daih.psychphinder",
     "windows_package" : "psychphinder",
     "linux_package" : "psychphinder"
