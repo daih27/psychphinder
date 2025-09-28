@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/foundation.dart';
-import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
+import 'package:web/web.dart' as web;
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:psychphinder/global/search_engine.dart';
 import 'package:path_provider/path_provider.dart';
@@ -123,7 +123,9 @@ class _SettingsPageState extends State<SettingsPage> {
           for (var object in mapList) {
             await Hive.box('favorites').put(object, object);
           }
-          html.window.location.reload();
+          if (kIsWeb) {
+            web.window.location.reload();
+          }
           return "Restore successful.";
         } else {
           return "No file selected.";
@@ -172,7 +174,8 @@ class _SettingsPageState extends State<SettingsPage> {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Card(
         elevation: 6,
-        shadowColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+        shadowColor:
+            Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -197,7 +200,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -223,7 +229,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 "Set your favorite search engine to use when clicking on the search icon while looking for a reference.",
                 style: TextStyle(
                   fontSize: 14,
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.7),
                   height: 1.4,
                 ),
               ),
@@ -245,79 +254,82 @@ class _SettingsPageState extends State<SettingsPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .outline
+                              .withValues(alpha: 0.3),
                         ),
                       ),
                       child: DropdownButtonFormField<SearchEngineType>(
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 16,
+                        icon: Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
-                        border: InputBorder.none,
-                        filled: true,
-                        fillColor: Colors.transparent,
-                      ),
-                      value: searchEngineProvider.currentSearchEngineType,
-                      items: [
-                        DropdownMenuItem(
-                          value: SearchEngineType.google,
-                          child: Text(
-                            'Google',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontSize: 14,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 16,
+                          ),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.transparent,
+                        ),
+                        value: searchEngineProvider.currentSearchEngineType,
+                        items: [
+                          DropdownMenuItem(
+                            value: SearchEngineType.google,
+                            child: Text(
+                              'Google',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                        DropdownMenuItem(
-                          value: SearchEngineType.ddg,
-                          child: Text(
-                            'DuckDuckGo',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontSize: 14,
+                          DropdownMenuItem(
+                            value: SearchEngineType.ddg,
+                            child: Text(
+                              'DuckDuckGo',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                        DropdownMenuItem(
-                          value: SearchEngineType.bing,
-                          child: Text(
-                            'Bing',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontSize: 14,
+                          DropdownMenuItem(
+                            value: SearchEngineType.bing,
+                            child: Text(
+                              'Bing',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                        DropdownMenuItem(
-                          value: SearchEngineType.startpage,
-                          child: Text(
-                            'Startpage',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontSize: 14,
+                          DropdownMenuItem(
+                            value: SearchEngineType.startpage,
+                            child: Text(
+                              'Startpage',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                        DropdownMenuItem(
-                          value: SearchEngineType.brave,
-                          child: Text(
-                            'Brave',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontSize: 14,
+                          DropdownMenuItem(
+                            value: SearchEngineType.brave,
+                            child: Text(
+                              'Brave',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        searchEngineProvider.setSearchEngine(value!);
-                      },
+                        ],
+                        onChanged: (value) {
+                          searchEngineProvider.setSearchEngine(value!);
+                        },
                       ),
                     ),
                   ),
@@ -328,7 +340,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.3),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primaryContainer
+                        .withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
@@ -350,7 +365,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               "Open reference links within the app instead of external browser",
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withValues(alpha: 0.6),
                               ),
                             ),
                           ],
@@ -381,7 +399,8 @@ class _SettingsPageState extends State<SettingsPage> {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Card(
         elevation: 6,
-        shadowColor: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
+        shadowColor:
+            Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -406,7 +425,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -432,7 +454,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.3),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primaryContainer
+                      .withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
@@ -440,7 +465,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: TextStyle(
                     fontSize: 14,
                     height: 1.5,
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.8),
                   ),
                   textAlign: TextAlign.justify,
                 ),
@@ -469,7 +497,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           launchUrl(Uri.parse("https://ko-fi.com/daih27"));
                         },
                         child: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -512,14 +541,17 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(12),
                         onTap: () {
-                          launchUrl(Uri.parse("https://github.com/daih27/psychphinder"));
+                          launchUrl(Uri.parse(
+                              "https://github.com/daih27/psychphinder"));
                         },
                         child: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(FontAwesomeIcons.github, color: Colors.white, size: 20),
+                              Icon(FontAwesomeIcons.github,
+                                  color: Colors.white, size: 20),
                               SizedBox(width: 12),
                               Text(
                                 "Star the repository on Github",
@@ -549,7 +581,8 @@ class _SettingsPageState extends State<SettingsPage> {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Card(
         elevation: 6,
-        shadowColor: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.2),
+        shadowColor:
+            Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -574,7 +607,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.2),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .tertiary
+                          .withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -613,92 +649,101 @@ class _SettingsPageState extends State<SettingsPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .outline
+                              .withValues(alpha: 0.3),
                         ),
                       ),
                       child: DropdownButtonFormField<ThemeType>(
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 16,
+                        icon: Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
-                        border: InputBorder.none,
-                        filled: true,
-                        fillColor: Colors.transparent,
-                      ),
-                      value: themeProvider.currentThemeType,
-                      items: [
-                        DropdownMenuItem(
-                          value: ThemeType.light,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.light_mode_rounded,
-                                size: 16,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Light',
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.onSurface,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 16,
                           ),
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.transparent,
                         ),
-                        DropdownMenuItem(
-                          value: ThemeType.dark,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.dark_mode_rounded,
-                                size: 16,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Dark',
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.onSurface,
-                                  fontSize: 14,
+                        value: themeProvider.currentThemeType,
+                        items: [
+                          DropdownMenuItem(
+                            value: ThemeType.light,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.light_mode_rounded,
+                                  size: 16,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        DropdownMenuItem(
-                          value: ThemeType.black,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.brightness_1_rounded,
-                                size: 16,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Black',
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.onSurface,
-                                  fontSize: 14,
+                                const SizedBox(width: 8),
+                                Text(
+                                  'Light',
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    fontSize: 14,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        themeProvider.setTheme(value!);
-                      },
+                          DropdownMenuItem(
+                            value: ThemeType.dark,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.dark_mode_rounded,
+                                  size: 16,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  'Dark',
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: ThemeType.black,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.brightness_1_rounded,
+                                  size: 16,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  'Black',
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          themeProvider.setTheme(value!);
+                        },
                       ),
                     ),
                   ),
@@ -711,13 +756,13 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget backupRestoreFav(
-      BuildContext context, ThemeProvider themeProvider) {
+  Widget backupRestoreFav(BuildContext context, ThemeProvider themeProvider) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Card(
         elevation: 6,
-        shadowColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+        shadowColor:
+            Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -768,7 +813,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 "Create a backup of your favorites or restore from a previous backup file.",
                 style: TextStyle(
                   fontSize: 14,
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.7),
                   height: 1.4,
                 ),
               ),
@@ -781,13 +829,19 @@ class _SettingsPageState extends State<SettingsPage> {
                         gradient: LinearGradient(
                           colors: [
                             Theme.of(context).colorScheme.primary,
-                            Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+                            Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withValues(alpha: 0.8),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withValues(alpha: 0.3),
                             blurRadius: 8,
                             offset: const Offset(0, 4),
                           ),
@@ -803,15 +857,19 @@ class _SettingsPageState extends State<SettingsPage> {
                                 if (!context.mounted) return;
                                 showDialog<String>(
                                   context: context,
-                                  builder: (BuildContext context) => AlertDialog(
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16),
                                     ),
-                                    backgroundColor: Theme.of(context).colorScheme.surface,
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.surface,
                                     title: Text(
                                       value!,
                                       style: TextStyle(
-                                        color: Theme.of(context).colorScheme.onSurface,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
                                         fontSize: 16,
                                       ),
                                     ),
@@ -821,7 +879,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             );
                           },
                           child: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 14),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -853,13 +912,19 @@ class _SettingsPageState extends State<SettingsPage> {
                         gradient: LinearGradient(
                           colors: [
                             Theme.of(context).colorScheme.primary,
-                            Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+                            Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withValues(alpha: 0.8),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withValues(alpha: 0.3),
                             blurRadius: 8,
                             offset: const Offset(0, 4),
                           ),
@@ -875,15 +940,19 @@ class _SettingsPageState extends State<SettingsPage> {
                                 if (!context.mounted) return;
                                 showDialog<String>(
                                   context: context,
-                                  builder: (BuildContext context) => AlertDialog(
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16),
                                     ),
-                                    backgroundColor: Theme.of(context).colorScheme.surface,
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.surface,
                                     title: Text(
                                       value,
                                       style: TextStyle(
-                                        color: Theme.of(context).colorScheme.onSurface,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
                                         fontSize: 16,
                                       ),
                                     ),
@@ -893,7 +962,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             );
                           },
                           child: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 14),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
