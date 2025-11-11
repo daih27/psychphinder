@@ -3,7 +3,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:web/web.dart' as web;
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:psychphinder/global/search_engine.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:psychphinder/global/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:psychphinder/utils/web_utils.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -124,7 +124,7 @@ class _SettingsPageState extends State<SettingsPage> {
             await Hive.box('favorites').put(object, object);
           }
           if (kIsWeb) {
-            web.window.location.reload();
+            reloadPage();
           }
           return "Restore successful.";
         } else {
