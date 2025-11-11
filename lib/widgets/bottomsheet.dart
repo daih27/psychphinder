@@ -250,16 +250,6 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                           ],
                         ),
                         borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withValues(alpha: 0.1),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
                       ),
                       child: Column(
                         children: [
@@ -704,16 +694,9 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surface,
                         borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .shadow
-                                .withValues(alpha: 0.1),
-                            blurRadius: 8,
-                            offset: const Offset(0, -2),
-                          ),
-                        ],
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                        ),
                       ),
                       child: Row(
                         children: [
@@ -750,18 +733,6 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                         ],
                                 ),
                                 borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: (isFavorite
-                                            ? Colors.red
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .primary)
-                                        .withValues(alpha: 0.3),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
                               ),
                               child: Material(
                                 color: Colors.transparent,
@@ -780,9 +751,8 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 12, vertical: 8),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Icon(
                                           isFavorite
@@ -791,15 +761,15 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                                           color: Colors.white,
                                           size: 20,
                                         ),
-                                        const SizedBox(width: 8),
+                                        const SizedBox(height: 4),
                                         Text(
                                           isFavorite
                                               ? 'Remove'
-                                              : 'Add to favorites',
+                                              : 'Favorite',
                                           style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 16,
+                                            fontSize: 12,
                                           ),
                                         ),
                                       ],
@@ -1078,7 +1048,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                   child: _shareOption(
                     icon: Icons.text_fields_rounded,
                     label: 'Text',
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Theme.of(context).colorScheme.primary,
                     onTap: () async {
                       Navigator.pop(context);
                       await Clipboard.setData(
@@ -1092,7 +1062,7 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
                   child: _shareOption(
                     icon: Icons.image_rounded,
                     label: 'Image',
-                    color: Theme.of(context).colorScheme.tertiary,
+                    color: Theme.of(context).colorScheme.primary,
                     onTap: () {
                       Navigator.pop(context);
                       if (referencesList.isEmpty) {
@@ -1135,17 +1105,10 @@ class _BottomSheetEpisodeState extends State<BottomSheetEpisode> {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(
-                    icon,
-                    color: Colors.white,
-                    size: 24,
-                  ),
+                Icon(
+                  icon,
+                  color: color,
+                  size: 32,
                 ),
                 const SizedBox(height: 12),
                 Text(

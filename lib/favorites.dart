@@ -69,11 +69,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                 maxWidth: ResponsiveUtils.isDesktop(context) ? 600 : double.infinity,
                               ),
                               child: Card(
-                                elevation: ResponsiveUtils.getCardElevation(context) * 1.5,
-                                shadowColor: Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withValues(alpha: 0.2),
+                                elevation: 1,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(ResponsiveUtils.isDesktop(context) ? 24 : 20),
                                 ),
@@ -135,68 +131,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                           height: 1.4,
                                         ),
                                         textAlign: TextAlign.center,
-                                      ),
-                                      SizedBox(height: ResponsiveUtils.getVerticalPadding(context) * 3),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Theme.of(context)
-                                                  .colorScheme
-                                                  .primary,
-                                              Theme.of(context)
-                                                  .colorScheme
-                                                  .primary
-                                                  .withValues(alpha: 0.8),
-                                            ],
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(ResponsiveUtils.isDesktop(context) ? 16 : 12),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary
-                                                  .withValues(alpha: 0.3),
-                                              blurRadius: 8,
-                                              offset: const Offset(0, 4),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          child: InkWell(
-                                            borderRadius:
-                                                BorderRadius.circular(ResponsiveUtils.isDesktop(context) ? 16 : 12),
-                                            onTap: () {},
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: ResponsiveUtils.getHorizontalPadding(context) + 8,
-                                                vertical: ResponsiveUtils.getVerticalPadding(context) + 4,
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Icon(
-                                                    Icons.search_rounded,
-                                                    color: Colors.white,
-                                                    size: ResponsiveUtils.getIconSize(context),
-                                                  ),
-                                                  SizedBox(width: ResponsiveUtils.getHorizontalPadding(context) * 0.5),
-                                                  Text(
-                                                    "Start searching",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: ResponsiveUtils.getBodyFontSize(context),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
                                       ),
                                     ],
                                   ),

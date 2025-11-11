@@ -127,19 +127,7 @@ class _ReferencesPageState extends State<ReferencesPage>
   Widget _buildSearchBar(DatabaseService databaseService) {
     return Container(
       margin: const EdgeInsets.fromLTRB(15, 15, 15, 7),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color:
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: TextField(
+      child: TextField(
           controller: textEditingController,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
@@ -223,7 +211,6 @@ class _ReferencesPageState extends State<ReferencesPage>
             ),
           ),
         ),
-      ),
     );
   }
 
@@ -234,14 +221,9 @@ class _ReferencesPageState extends State<ReferencesPage>
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color:
-                Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+        ),
       ),
       child: ExpansionTile(
         controller: expansionController,
@@ -767,8 +749,7 @@ class _ReferencesPageState extends State<ReferencesPage>
         final seasonNum = seasons[index];
 
         return Card(
-          elevation: ResponsiveUtils.getCardElevation(context) * 2,
-          shadowColor: Colors.green.withValues(alpha: 0.3),
+          elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
                 ResponsiveUtils.isDesktop(context) ? 20 : 16),

@@ -89,9 +89,7 @@ class _SearchPageState extends State<SearchPage>
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Card(
-        elevation: 6,
-        shadowColor:
-            Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
+        elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -575,155 +573,134 @@ class _SearchPageState extends State<SearchPage>
       constraints: BoxConstraints(
         maxWidth: ResponsiveUtils.isDesktop(context) ? 600 : double.infinity,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(
-              ResponsiveUtils.isDesktop(context) ? 28 : 24),
-          boxShadow: [
-            BoxShadow(
-              color:
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
-              blurRadius: 20,
-              offset: const Offset(0, 8),
-            ),
-          ],
+      child: TextField(
+        controller: textEditingController,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface,
+          fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
+          fontWeight: FontWeight.w500,
         ),
-        child: TextField(
-          controller: textEditingController,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
+        onSubmitted: (text) async {
+          input = text;
+          setState(() {
+            isLoading = true;
+            isSearching = true;
+          });
+          var databaseService =
+              Provider.of<DatabaseService>(context, listen: false);
+          searched = await databaseService.searchQuotes(
+            text,
+            season: selectedSeason == "All" ? null : selectedSeason,
+            episode: selectedEpisode == "All" ? null : selectedEpisode,
+          );
+          setState(() {
+            isLoading = false;
+          });
+        },
+        cursorColor: Theme.of(context).colorScheme.primary,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.surface,
+          hintText: 'Search for "pineapple", "psychic", or any quote...',
+          hintStyle: TextStyle(
+            color:
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
             fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
-            fontWeight: FontWeight.w500,
           ),
-          onSubmitted: (text) async {
-            input = text;
-            setState(() {
-              isLoading = true;
-              isSearching = true;
-            });
-            var databaseService =
-                Provider.of<DatabaseService>(context, listen: false);
-            searched = await databaseService.searchQuotes(
-              text,
-              season: selectedSeason == "All" ? null : selectedSeason,
-              episode: selectedEpisode == "All" ? null : selectedEpisode,
-            );
-            setState(() {
-              isLoading = false;
-            });
-          },
-          cursorColor: Theme.of(context).colorScheme.primary,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Theme.of(context).colorScheme.surface,
-            hintText: 'Search for "pineapple", "psychic", or any quote...',
-            hintStyle: TextStyle(
-              color: Theme.of(context)
-                  .colorScheme
-                  .onSurface
-                  .withValues(alpha: 0.5),
-              fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
+          prefixIcon: Container(
+            margin: EdgeInsets.all(ResponsiveUtils.isDesktop(context) ? 12 : 8),
+            decoration: BoxDecoration(
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
             ),
-            prefixIcon: Container(
-              margin:
-                  EdgeInsets.all(ResponsiveUtils.isDesktop(context) ? 12 : 8),
-              decoration: BoxDecoration(
-                color: Theme.of(context)
-                    .colorScheme
-                    .primary
-                    .withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.search_rounded,
-                color: Theme.of(context).colorScheme.primary,
-                size: ResponsiveUtils.getIconSize(context) + 4,
-              ),
+            child: Icon(
+              Icons.search_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: ResponsiveUtils.getIconSize(context) + 4,
             ),
-            suffixIcon: textEditingController.text.isNotEmpty
-                ? IconButton(
-                    icon: Icon(
-                      Icons.clear_rounded,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.6),
+          ),
+          suffixIcon: textEditingController.text.isNotEmpty
+              ? IconButton(
+                  icon: Icon(
+                    Icons.clear_rounded,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.6),
+                  ),
+                  onPressed: () {
+                    textEditingController.clear();
+                    setState(() {
+                      searched.clear();
+                      isSearching = false;
+                      input = "";
+                    });
+                  },
+                )
+              : Container(
+                  margin: EdgeInsets.all(
+                      ResponsiveUtils.isDesktop(context) ? 8 : 6),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withValues(alpha: 0.8),
+                      ],
                     ),
-                    onPressed: () {
-                      textEditingController.clear();
+                    borderRadius: BorderRadius.circular(
+                        ResponsiveUtils.isDesktop(context) ? 16 : 12),
+                  ),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_forward_rounded,
+                      color: Colors.white,
+                      size: ResponsiveUtils.getIconSize(context),
+                    ),
+                    onPressed: () async {
+                      input = textEditingController.text;
                       setState(() {
-                        searched.clear();
-                        isSearching = false;
-                        input = "";
+                        isLoading = true;
+                        isSearching = true;
+                      });
+                      var databaseService =
+                          Provider.of<DatabaseService>(context, listen: false);
+                      searched = await databaseService.searchQuotes(
+                        textEditingController.text,
+                        season: selectedSeason == "All" ? null : selectedSeason,
+                        episode:
+                            selectedEpisode == "All" ? null : selectedEpisode,
+                      );
+                      setState(() {
+                        isLoading = false;
                       });
                     },
-                  )
-                : Container(
-                    margin: EdgeInsets.all(
-                        ResponsiveUtils.isDesktop(context) ? 8 : 6),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Theme.of(context).colorScheme.primary,
-                          Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withValues(alpha: 0.8),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(
-                          ResponsiveUtils.isDesktop(context) ? 16 : 12),
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_forward_rounded,
-                        color: Colors.white,
-                        size: ResponsiveUtils.getIconSize(context),
-                      ),
-                      onPressed: () async {
-                        input = textEditingController.text;
-                        setState(() {
-                          isLoading = true;
-                          isSearching = true;
-                        });
-                        var databaseService = Provider.of<DatabaseService>(
-                            context,
-                            listen: false);
-                        searched = await databaseService.searchQuotes(
-                          textEditingController.text,
-                          season:
-                              selectedSeason == "All" ? null : selectedSeason,
-                          episode:
-                              selectedEpisode == "All" ? null : selectedEpisode,
-                        );
-                        setState(() {
-                          isLoading = false;
-                        });
-                      },
-                    ),
                   ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  ResponsiveUtils.isDesktop(context) ? 28 : 24),
-              borderSide: BorderSide.none,
+                ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveUtils.isDesktop(context) ? 28 : 24),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveUtils.isDesktop(context) ? 28 : 24),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveUtils.isDesktop(context) ? 28 : 24),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 2,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  ResponsiveUtils.isDesktop(context) ? 28 : 24),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  ResponsiveUtils.isDesktop(context) ? 28 : 24),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 2,
-              ),
-            ),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: ResponsiveUtils.getHorizontalPadding(context) + 8,
-              vertical: ResponsiveUtils.getVerticalPadding(context) + 8,
-            ),
+          ),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: ResponsiveUtils.getHorizontalPadding(context) + 8,
+            vertical: ResponsiveUtils.getVerticalPadding(context) + 8,
           ),
         ),
       ),
@@ -740,153 +717,137 @@ class _SearchPageState extends State<SearchPage>
       ),
       child: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
-              boxShadow: [
-                BoxShadow(
+          TextField(
+            controller: textEditingController,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
+              fontWeight: FontWeight.w500,
+            ),
+            onSubmitted: (text) async {
+              input = text;
+              setState(() {
+                isLoading = true;
+                isSearching = true;
+              });
+              var databaseService =
+                  Provider.of<DatabaseService>(context, listen: false);
+              searched = await databaseService.searchQuotes(
+                text,
+                season: selectedSeason == "All" ? null : selectedSeason,
+                episode: selectedEpisode == "All" ? null : selectedEpisode,
+              );
+              setState(() {
+                isLoading = false;
+              });
+            },
+            cursorColor: Theme.of(context).colorScheme.primary,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Theme.of(context).colorScheme.surface,
+              hintText: 'Search for "pineapple", "psychic", or any quote...',
+              hintStyle: TextStyle(
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.5),
+                fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
+              ),
+              prefixIcon: Container(
+                margin: EdgeInsets.all(isDesktop ? 12 : 8),
+                decoration: BoxDecoration(
                   color: Theme.of(context)
                       .colorScheme
                       .primary
-                      .withValues(alpha: 0.15),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
+                      .withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-              ],
-            ),
-            child: TextField(
-              controller: textEditingController,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
-                fontWeight: FontWeight.w500,
+                child: Icon(
+                  Icons.search_rounded,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: ResponsiveUtils.getIconSize(context) + 4,
+                ),
               ),
-              onSubmitted: (text) async {
-                input = text;
-                setState(() {
-                  isLoading = true;
-                  isSearching = true;
-                });
-                var databaseService =
-                    Provider.of<DatabaseService>(context, listen: false);
-                searched = await databaseService.searchQuotes(
-                  text,
-                  season: selectedSeason == "All" ? null : selectedSeason,
-                  episode: selectedEpisode == "All" ? null : selectedEpisode,
-                );
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              cursorColor: Theme.of(context).colorScheme.primary,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.surface,
-                hintText: 'Search for "pineapple", "psychic", or any quote...',
-                hintStyle: TextStyle(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withValues(alpha: 0.5),
-                  fontSize: ResponsiveUtils.getBodyFontSize(context) + 1,
-                ),
-                prefixIcon: Container(
-                  margin: EdgeInsets.all(isDesktop ? 12 : 8),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(
-                    Icons.search_rounded,
-                    color: Theme.of(context).colorScheme.primary,
-                    size: ResponsiveUtils.getIconSize(context) + 4,
-                  ),
-                ),
-                suffixIcon: textEditingController.text.isNotEmpty
-                    ? IconButton(
-                        icon: Icon(
-                          Icons.clear_rounded,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.6),
+              suffixIcon: textEditingController.text.isNotEmpty
+                  ? IconButton(
+                      icon: Icon(
+                        Icons.clear_rounded,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.6),
+                      ),
+                      onPressed: () {
+                        textEditingController.clear();
+                        setState(() {
+                          searched.clear();
+                          isSearching = false;
+                          input = "";
+                        });
+                      },
+                    )
+                  : Container(
+                      margin: EdgeInsets.all(isDesktop ? 8 : 6),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Theme.of(context).colorScheme.primary,
+                            Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withValues(alpha: 0.8),
+                          ],
                         ),
-                        onPressed: () {
-                          textEditingController.clear();
+                        borderRadius:
+                            BorderRadius.circular(isDesktop ? 16 : 12),
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_forward_rounded,
+                          color: Colors.white,
+                          size: ResponsiveUtils.getIconSize(context),
+                        ),
+                        onPressed: () async {
+                          input = textEditingController.text;
                           setState(() {
-                            searched.clear();
-                            isSearching = false;
-                            input = "";
+                            isLoading = true;
+                            isSearching = true;
+                          });
+                          var databaseService = Provider.of<DatabaseService>(
+                              context,
+                              listen: false);
+                          searched = await databaseService.searchQuotes(
+                            textEditingController.text,
+                            season:
+                                selectedSeason == "All" ? null : selectedSeason,
+                            episode: selectedEpisode == "All"
+                                ? null
+                                : selectedEpisode,
+                          );
+                          setState(() {
+                            isLoading = false;
                           });
                         },
-                      )
-                    : Container(
-                        margin: EdgeInsets.all(isDesktop ? 8 : 6),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Theme.of(context).colorScheme.primary,
-                              Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withValues(alpha: 0.8),
-                            ],
-                          ),
-                          borderRadius:
-                              BorderRadius.circular(isDesktop ? 16 : 12),
-                        ),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.arrow_forward_rounded,
-                            color: Colors.white,
-                            size: ResponsiveUtils.getIconSize(context),
-                          ),
-                          onPressed: () async {
-                            input = textEditingController.text;
-                            setState(() {
-                              isLoading = true;
-                              isSearching = true;
-                            });
-                            var databaseService = Provider.of<DatabaseService>(
-                                context,
-                                listen: false);
-                            searched = await databaseService.searchQuotes(
-                              textEditingController.text,
-                              season: selectedSeason == "All"
-                                  ? null
-                                  : selectedSeason,
-                              episode: selectedEpisode == "All"
-                                  ? null
-                                  : selectedEpisode,
-                            );
-                            setState(() {
-                              isLoading = false;
-                            });
-                          },
-                        ),
                       ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
-                  borderSide: BorderSide.none,
+                    ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
+                borderSide: BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2,
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
-                  borderSide: BorderSide.none,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(isDesktop ? 28 : 24),
-                  borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2,
-                  ),
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: ResponsiveUtils.getHorizontalPadding(context) + 8,
-                  vertical: ResponsiveUtils.getVerticalPadding(context) + 8,
-                ),
+              ),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: ResponsiveUtils.getHorizontalPadding(context) + 8,
+                vertical: ResponsiveUtils.getVerticalPadding(context) + 8,
               ),
             ),
           ),
@@ -905,14 +866,9 @@ class _SearchPageState extends State<SearchPage>
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color:
-                Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+        ),
       ),
       child: ExpansionTile(
         controller: expansionController,
@@ -1140,7 +1096,7 @@ class _SearchPageState extends State<SearchPage>
     return Column(
       children: [
         Text(
-          "💡 Try searching for:",
+          "Try searching for:",
           style: TextStyle(
             fontSize: ResponsiveUtils.getSmallFontSize(context) + 1,
             color:
@@ -1214,14 +1170,9 @@ class _SearchPageState extends State<SearchPage>
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color:
-                Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+        ),
       ),
       child: ExpansionTile(
         controller: expansionController,
@@ -1380,130 +1331,113 @@ class _SearchPageState extends State<SearchPage>
   Widget _buildCompactSearchBar() {
     return Container(
       margin: const EdgeInsets.fromLTRB(15, 15, 15, 7),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color:
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
+      child: TextField(
+        controller: textEditingController,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
         ),
-        child: TextField(
-          controller: textEditingController,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
+        onSubmitted: (text) async {
+          input = text;
+          setState(() {
+            isLoading = true;
+            isSearching = true;
+          });
+          var databaseService =
+              Provider.of<DatabaseService>(context, listen: false);
+          searched = await databaseService.searchQuotes(
+            text,
+            season: selectedSeason == "All" ? null : selectedSeason,
+            episode: selectedEpisode == "All" ? null : selectedEpisode,
+          );
+          setState(() {
+            isLoading = false;
+          });
+        },
+        cursorColor: Theme.of(context).colorScheme.primary,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.surface,
+          hintText: 'Search for quotes...',
+          hintStyle: TextStyle(
+            color:
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
             fontSize: 16,
-            fontWeight: FontWeight.w500,
           ),
-          onSubmitted: (text) async {
-            input = text;
-            setState(() {
-              isLoading = true;
-              isSearching = true;
-            });
-            var databaseService =
-                Provider.of<DatabaseService>(context, listen: false);
-            searched = await databaseService.searchQuotes(
-              text,
-              season: selectedSeason == "All" ? null : selectedSeason,
-              episode: selectedEpisode == "All" ? null : selectedEpisode,
-            );
-            setState(() {
-              isLoading = false;
-            });
-          },
-          cursorColor: Theme.of(context).colorScheme.primary,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Theme.of(context).colorScheme.surface,
-            hintText: 'Search for quotes...',
-            hintStyle: TextStyle(
-              color: Theme.of(context)
-                  .colorScheme
-                  .onSurface
-                  .withValues(alpha: 0.6),
-              fontSize: 16,
-            ),
-            prefixIcon: Icon(
-              Icons.search_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: 24,
-            ),
-            suffixIcon: textEditingController.text.isNotEmpty
-                ? IconButton(
-                    icon: Icon(
-                      Icons.clear_rounded,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.6),
+          prefixIcon: Icon(
+            Icons.search_rounded,
+            color: Theme.of(context).colorScheme.primary,
+            size: 24,
+          ),
+          suffixIcon: textEditingController.text.isNotEmpty
+              ? IconButton(
+                  icon: Icon(
+                    Icons.clear_rounded,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.6),
+                  ),
+                  onPressed: () {
+                    textEditingController.clear();
+                    setState(() {
+                      searched.clear();
+                      isSearching = false;
+                      input = "";
+                    });
+                  },
+                )
+              : Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  margin: const EdgeInsets.all(8),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.search_rounded,
+                      color: Colors.white,
+                      size: 20,
                     ),
-                    onPressed: () {
-                      textEditingController.clear();
+                    onPressed: () async {
+                      input = textEditingController.text;
                       setState(() {
-                        searched.clear();
-                        isSearching = false;
-                        input = "";
+                        isLoading = true;
+                        isSearching = true;
+                      });
+                      var databaseService =
+                          Provider.of<DatabaseService>(context, listen: false);
+                      searched = await databaseService.searchQuotes(
+                        textEditingController.text,
+                        season: selectedSeason == "All" ? null : selectedSeason,
+                        episode:
+                            selectedEpisode == "All" ? null : selectedEpisode,
+                      );
+                      setState(() {
+                        isLoading = false;
                       });
                     },
-                  )
-                : Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    margin: const EdgeInsets.all(8),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.search_rounded,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      onPressed: () async {
-                        input = textEditingController.text;
-                        setState(() {
-                          isLoading = true;
-                          isSearching = true;
-                        });
-                        var databaseService = Provider.of<DatabaseService>(
-                            context,
-                            listen: false);
-                        searched = await databaseService.searchQuotes(
-                          textEditingController.text,
-                          season:
-                              selectedSeason == "All" ? null : selectedSeason,
-                          episode:
-                              selectedEpisode == "All" ? null : selectedEpisode,
-                        );
-                        setState(() {
-                          isLoading = false;
-                        });
-                      },
-                    ),
                   ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide.none,
+                ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 2,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 2,
-              ),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 16,
           ),
         ),
       ),
@@ -1517,14 +1451,9 @@ class _SearchPageState extends State<SearchPage>
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color:
-                Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+        ),
       ),
       child: ExpansionTile(
         controller: expansionController,
@@ -1605,130 +1534,113 @@ class _SearchPageState extends State<SearchPage>
   Widget searchBar(List<dynamic> data) {
     return Container(
       margin: const EdgeInsets.fromLTRB(15, 15, 15, 7),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color:
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
+      child: TextField(
+        controller: textEditingController,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
         ),
-        child: TextField(
-          controller: textEditingController,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
+        onSubmitted: (text) async {
+          input = text;
+          setState(() {
+            isLoading = true;
+            isSearching = true;
+          });
+          var databaseService =
+              Provider.of<DatabaseService>(context, listen: false);
+          searched = await databaseService.searchQuotes(
+            text,
+            season: selectedSeason == "All" ? null : selectedSeason,
+            episode: selectedEpisode == "All" ? null : selectedEpisode,
+          );
+          setState(() {
+            isLoading = false;
+          });
+        },
+        cursorColor: Theme.of(context).colorScheme.primary,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.surface,
+          hintText: 'Search for quotes...',
+          hintStyle: TextStyle(
+            color:
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
             fontSize: 16,
-            fontWeight: FontWeight.w500,
           ),
-          onSubmitted: (text) async {
-            input = text;
-            setState(() {
-              isLoading = true;
-              isSearching = true;
-            });
-            var databaseService =
-                Provider.of<DatabaseService>(context, listen: false);
-            searched = await databaseService.searchQuotes(
-              text,
-              season: selectedSeason == "All" ? null : selectedSeason,
-              episode: selectedEpisode == "All" ? null : selectedEpisode,
-            );
-            setState(() {
-              isLoading = false;
-            });
-          },
-          cursorColor: Theme.of(context).colorScheme.primary,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Theme.of(context).colorScheme.surface,
-            hintText: 'Search for quotes...',
-            hintStyle: TextStyle(
-              color: Theme.of(context)
-                  .colorScheme
-                  .onSurface
-                  .withValues(alpha: 0.6),
-              fontSize: 16,
-            ),
-            prefixIcon: Icon(
-              Icons.search_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: 24,
-            ),
-            suffixIcon: textEditingController.text.isNotEmpty
-                ? IconButton(
-                    icon: Icon(
-                      Icons.clear_rounded,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.6),
+          prefixIcon: Icon(
+            Icons.search_rounded,
+            color: Theme.of(context).colorScheme.primary,
+            size: 24,
+          ),
+          suffixIcon: textEditingController.text.isNotEmpty
+              ? IconButton(
+                  icon: Icon(
+                    Icons.clear_rounded,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.6),
+                  ),
+                  onPressed: () {
+                    textEditingController.clear();
+                    setState(() {
+                      searched.clear();
+                      isSearching = false;
+                      input = "";
+                    });
+                  },
+                )
+              : Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  margin: const EdgeInsets.all(8),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.search_rounded,
+                      color: Colors.white,
+                      size: 20,
                     ),
-                    onPressed: () {
-                      textEditingController.clear();
+                    onPressed: () async {
+                      input = textEditingController.text;
                       setState(() {
-                        searched.clear();
-                        isSearching = false;
-                        input = "";
+                        isLoading = true;
+                        isSearching = true;
+                      });
+                      var databaseService =
+                          Provider.of<DatabaseService>(context, listen: false);
+                      searched = await databaseService.searchQuotes(
+                        textEditingController.text,
+                        season: selectedSeason == "All" ? null : selectedSeason,
+                        episode:
+                            selectedEpisode == "All" ? null : selectedEpisode,
+                      );
+                      setState(() {
+                        isLoading = false;
                       });
                     },
-                  )
-                : Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    margin: const EdgeInsets.all(8),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.search_rounded,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      onPressed: () async {
-                        input = textEditingController.text;
-                        setState(() {
-                          isLoading = true;
-                          isSearching = true;
-                        });
-                        var databaseService = Provider.of<DatabaseService>(
-                            context,
-                            listen: false);
-                        searched = await databaseService.searchQuotes(
-                          textEditingController.text,
-                          season:
-                              selectedSeason == "All" ? null : selectedSeason,
-                          episode:
-                              selectedEpisode == "All" ? null : selectedEpisode,
-                        );
-                        setState(() {
-                          isLoading = false;
-                        });
-                      },
-                    ),
                   ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide.none,
+                ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 2,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 2,
-              ),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 16,
           ),
         ),
       ),
@@ -1791,9 +1703,7 @@ class _RandomReferenceWidgetState extends State<RandomReferenceWidget> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Card(
-        elevation: 8,
-        shadowColor:
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+        elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),

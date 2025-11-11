@@ -130,11 +130,7 @@ class ItemList extends StatelessWidget {
         vertical: ResponsiveUtils.getVerticalPadding(context) * 0.5,
       ),
       child: Card(
-        elevation: ResponsiveUtils.getCardElevation(context),
-        shadowColor: Theme.of(context)
-            .colorScheme
-            .shadow
-            .withValues(alpha: 0.08),
+        elevation: 1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
