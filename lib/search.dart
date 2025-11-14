@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_md/flutter_md.dart';
-import 'package:go_router/go_router.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:psychphinder/classes/phrase_class.dart';
 import 'package:psychphinder/database/database_service.dart';
 import 'package:psychphinder/widgets/itemlist.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:psychphinder/widgets/search/random_reference_widget.dart';
+import 'package:psychphinder/widgets/search/did_you_know_widget.dart';
+import 'package:psychphinder/widgets/search/update_notification_widget.dart';
+import 'package:psychphinder/widgets/search/search_filters.dart';
+import 'package:psychphinder/utils/update_checker.dart';
 import 'dart:math';
 import 'global/did_you_know.dart';
 import 'package:psychphinder/utils/responsive.dart';
@@ -44,7 +43,16 @@ class _SearchPageState extends State<SearchPage>
     super.initState();
     randomIndex = rng.nextInt(2606);
     randomIndexDYK = rng.nextInt(DYK.didYouKnowOptions.length);
-    checkUpdate();
+    _checkUpdate();
+  }
+
+  Future<void> _checkUpdate() async {
+    final shouldShow = await UpdateChecker.shouldShowUpdate();
+    if (mounted) {
+      setState(() {
+        showUpdate = shouldShow;
+      });
+    }
   }
 
   Future<Map<String, dynamic>> _loadSeasonEpisodeData(
@@ -86,239 +94,16 @@ class _SearchPageState extends State<SearchPage>
   }
 
   Widget didYouKnow() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Theme.of(context).colorScheme.secondaryContainer,
-                Theme.of(context)
-                    .colorScheme
-                    .secondaryContainer
-                    .withValues(alpha: 0.8),
-              ],
-            ),
-          ),
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .secondary
-                          .withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Icon(
-                      Icons.lightbulb_rounded,
-                      color: Theme.of(context).colorScheme.secondary,
-                      size: 20,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      "Did you know?",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'PsychFont',
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  DYK.didYouKnowOptions[randomIndexDYK],
-                  style: TextStyle(
-                    fontSize: 15,
-                    height: 1.4,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  List<DropdownMenuItem<String>> _buildEpisodeItems(
-      String season, Map<String, List<String>> episodesMap) {
-    final episodeList = episodesMap[season] ?? [];
-    final items = <DropdownMenuItem<String>>[
-      DropdownMenuItem<String>(
-        value: 'All',
-        child: Text(
-          'All',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
-            fontSize: 14,
-          ),
-        ),
-      ),
-    ];
-
-    for (final episode in episodeList) {
-      items.add(DropdownMenuItem<String>(
-        value: episode,
-        child: Text(
-          episode,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
-            fontSize: 14,
-          ),
-        ),
-      ));
-    }
-
-    return items;
-  }
-
-  Future<void> checkUpdate() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    int buildNumber = int.parse(packageInfo.buildNumber);
-    if (pref.getInt("latestAppVersion") == null) {
-      pref.setInt("latestAppVersion", 16);
-    }
-    int latestAppVersion = pref.getInt("latestAppVersion") ?? buildNumber;
-    if (buildNumber > latestAppVersion) {
-      setState(() {
-        showUpdate = true;
-      });
-    }
+    return DidYouKnowWidget(fact: DYK.didYouKnowOptions[randomIndexDYK]);
   }
 
   Widget showUpdateWidget() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context)
-            .colorScheme
-            .primaryContainer
-            .withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "psychphinder just got updated!",
-              style: TextStyle(
-                fontFamily: 'PsychFont',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  showUpdate = false;
-                });
-                whatsNewDialog(context);
-              },
-              child: Text(
-                "See what's new",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontFamily: 'PsychFont',
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> whatsNewDialog(BuildContext context) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    int buildNumber = int.parse(packageInfo.buildNumber);
-    String dialogContent = await rootBundle.loadString('assets/CHANGELOG.md');
-    pref.setInt("latestAppVersion", buildNumber);
-    if (!context.mounted) return;
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('What\'s new?'),
-          content: SizedBox(
-            width: double.maxFinite,
-            height: 500,
-            child: Center(
-              child: SingleChildScrollView(
-                child: MarkdownTheme(
-                  data: MarkdownThemeData(
-                    textStyle: TextStyle(
-                        fontSize: 16.0,
-                        color:
-                            Theme.of(context).colorScheme.onPrimaryContainer),
-                    h1Style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                    h2Style: TextStyle(
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                    quoteStyle: TextStyle(
-                      fontSize: 14.0,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey[600],
-                    ),
-                    onLinkTap: (url, title) {
-                      launchUrl(Uri.parse(title));
-                    },
-                    spanFilter: (span) =>
-                        !span.style.contains(MD$Style.spoiler),
-                  ),
-                  child: MarkdownWidget(
-                    markdown: Markdown.fromString(dialogContent),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            ElevatedButton(
-              child: const Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
+    return UpdateNotificationWidget(
+      onShowWhatsNew: () {
+        setState(() {
+          showUpdate = false;
+        });
+        UpdateChecker.showWhatsNewDialog(context);
       },
     );
   }
@@ -860,226 +645,29 @@ class _SearchPageState extends State<SearchPage>
 
   Widget _buildHeroFilters(
       List<String> seasons, Map<String, List<String>> episodesMap) {
-    final isLargeScreen = ResponsiveUtils.isLargeScreen(context);
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
-        ),
-      ),
-      child: ExpansionTile(
-        controller: expansionController,
-        shape: const RoundedRectangleBorder(),
-        collapsedShape: const RoundedRectangleBorder(),
-        tilePadding: EdgeInsets.symmetric(
-          horizontal: ResponsiveUtils.getHorizontalPadding(context),
-          vertical: ResponsiveUtils.getVerticalPadding(context) * 0.8,
-        ),
-        childrenPadding: EdgeInsets.fromLTRB(
-          ResponsiveUtils.getHorizontalPadding(context),
-          0,
-          ResponsiveUtils.getHorizontalPadding(context),
-          ResponsiveUtils.getVerticalPadding(context),
-        ),
-        title: Row(
-          children: [
-            Icon(
-              Icons.tune_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: 20,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              "Search filters",
-              style: TextStyle(
-                fontSize: ResponsiveUtils.getSmallFontSize(context) + 2,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-            const Spacer(),
-            if (selectedSeason != 'All' || selectedEpisode != 'All')
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  'Active',
-                  style: TextStyle(
-                    fontSize: ResponsiveUtils.getSmallFontSize(context) - 1,
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-          ],
-        ),
-        children: [
-          StatefulBuilder(
-            builder: (context, setFilterState) {
-              return Column(
-                children: [
-                  if (isLargeScreen)
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: _buildFilterDropdown(
-                              "Season", selectedSeason, ['All', ...seasons],
-                              (value) {
-                            setFilterState(() {
-                              selectedSeason = value!;
-                              selectedEpisode = "All";
-                            });
-                            setState(() {});
-                          }),
-                        ),
-                        SizedBox(
-                            width:
-                                ResponsiveUtils.getHorizontalPadding(context)),
-                        Expanded(
-                          flex: 2,
-                          child: _buildFilterDropdown(
-                              selectedSeason == "Movies" ? "Movie" : "Episode",
-                              selectedEpisode,
-                              _buildEpisodeItems(selectedSeason, episodesMap)
-                                  .map((item) => item.value!)
-                                  .toList(), (value) {
-                            setFilterState(() {
-                              selectedEpisode = value!;
-                            });
-                            setState(() {});
-                          }),
-                        ),
-                      ],
-                    )
-                  else
-                    Column(
-                      children: [
-                        _buildFilterDropdown(
-                            "Season", selectedSeason, ['All', ...seasons],
-                            (value) {
-                          setFilterState(() {
-                            selectedSeason = value!;
-                            selectedEpisode = "All";
-                          });
-                          setState(() {});
-                        }),
-                        SizedBox(
-                            height:
-                                ResponsiveUtils.getVerticalPadding(context)),
-                        _buildFilterDropdown(
-                            selectedSeason == "Movies" ? "Movie" : "Episode",
-                            selectedEpisode,
-                            _buildEpisodeItems(selectedSeason, episodesMap)
-                                .map((item) => item.value!)
-                                .toList(), (value) {
-                          setFilterState(() {
-                            selectedEpisode = value!;
-                          });
-                          setState(() {});
-                        }),
-                      ],
-                    ),
-                  if (selectedSeason != 'All' || selectedEpisode != 'All') ...[
-                    SizedBox(
-                        height: ResponsiveUtils.getVerticalPadding(context)),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton.icon(
-                        onPressed: () {
-                          setFilterState(() {
-                            selectedSeason = 'All';
-                            selectedEpisode = 'All';
-                          });
-                          setState(() {});
-                        },
-                        icon: Icon(
-                          Icons.clear_rounded,
-                          size: 16,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        label: Text(
-                          'Clear filters',
-                          style: TextStyle(
-                            fontSize: ResponsiveUtils.getSmallFontSize(context),
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFilterDropdown(String label, String value, List<String> items,
-      ValueChanged<String?> onChanged) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: ResponsiveUtils.getSmallFontSize(context),
-            fontWeight: FontWeight.w500,
-            color:
-                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-          ),
-        ),
-        const SizedBox(height: 6),
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color:
-                  Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
-            ),
-          ),
-          child: DropdownButtonFormField<String>(
-            icon: Icon(
-              Icons.keyboard_arrow_down_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: 20,
-            ),
-            decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-              border: InputBorder.none,
-              filled: true,
-              fillColor: Colors.transparent,
-            ),
-            value: value,
-            items: items.map((item) {
-              return DropdownMenuItem<String>(
-                value: item,
-                child: Text(
-                  item,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: ResponsiveUtils.getSmallFontSize(context),
-                  ),
-                ),
-              );
-            }).toList(),
-            onChanged: onChanged,
-          ),
-        ),
-      ],
+    return SearchFilters(
+      controller: expansionController,
+      selectedSeason: selectedSeason,
+      selectedEpisode: selectedEpisode,
+      seasons: seasons,
+      episodesMap: episodesMap,
+      onSeasonChanged: (value) {
+        setState(() {
+          selectedSeason = value;
+          selectedEpisode = "All";
+        });
+      },
+      onEpisodeChanged: (value) {
+        setState(() {
+          selectedEpisode = value;
+        });
+      },
+      onClearFilters: () {
+        setState(() {
+          selectedSeason = 'All';
+          selectedEpisode = 'All';
+        });
+      },
     );
   }
 
@@ -1165,166 +753,29 @@ class _SearchPageState extends State<SearchPage>
 
   Widget searchOptions(
       List<String> seasons, Map<String, List<String>> episodesMap) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
-        ),
-      ),
-      child: ExpansionTile(
-        controller: expansionController,
-        shape: const RoundedRectangleBorder(),
-        collapsedShape: const RoundedRectangleBorder(),
-        tilePadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        childrenPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-        title: Row(
-          children: [
-            Icon(
-              Icons.tune_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: 20,
-            ),
-            const SizedBox(width: 12),
-            Text(
-              "Search filters",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-          ],
-        ),
-        children: [
-          StatefulBuilder(
-            builder: (context, setDropdownState) {
-              return Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Season",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .outline
-                                  .withValues(alpha: 0.3),
-                            ),
-                          ),
-                          child: DropdownButtonFormField<String>(
-                            icon: Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 16),
-                              border: InputBorder.none,
-                              filled: true,
-                              fillColor: Colors.transparent,
-                            ),
-                            value: selectedSeason,
-                            items: ['All', ...seasons].map((season) {
-                              return DropdownMenuItem<String>(
-                                value: season,
-                                child: Text(
-                                  season,
-                                  style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (season) {
-                              if (season != null) {
-                                setDropdownState(() {
-                                  selectedSeason = season;
-                                  selectedEpisode = "All";
-                                });
-                              }
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          selectedSeason == "Movies" ? "Movie" : "Episode",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .outline
-                                  .withValues(alpha: 0.3),
-                            ),
-                          ),
-                          child: DropdownButtonFormField<String>(
-                            icon: Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            isExpanded: true,
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 16),
-                              border: InputBorder.none,
-                              filled: true,
-                              fillColor: Colors.transparent,
-                            ),
-                            value: selectedEpisode,
-                            items:
-                                _buildEpisodeItems(selectedSeason, episodesMap),
-                            onChanged: (episode) {
-                              if (episode != null) {
-                                setDropdownState(() {
-                                  selectedEpisode = episode;
-                                });
-                              }
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ],
-      ),
+    return SearchFilters(
+      controller: expansionController,
+      selectedSeason: selectedSeason,
+      selectedEpisode: selectedEpisode,
+      seasons: seasons,
+      episodesMap: episodesMap,
+      onSeasonChanged: (value) {
+        setState(() {
+          selectedSeason = value;
+          selectedEpisode = "All";
+        });
+      },
+      onEpisodeChanged: (value) {
+        setState(() {
+          selectedEpisode = value;
+        });
+      },
+      onClearFilters: () {
+        setState(() {
+          selectedSeason = 'All';
+          selectedEpisode = 'All';
+        });
+      },
     );
   }
 
@@ -1446,88 +897,29 @@ class _SearchPageState extends State<SearchPage>
 
   Widget _buildCompactFilters(
       List<String> seasons, Map<String, List<String>> episodesMap) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
-        ),
-      ),
-      child: ExpansionTile(
-        controller: expansionController,
-        shape: const RoundedRectangleBorder(),
-        collapsedShape: const RoundedRectangleBorder(),
-        tilePadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        childrenPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-        title: Row(
-          children: [
-            Icon(
-              Icons.tune_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: 20,
-            ),
-            const SizedBox(width: 12),
-            Text(
-              "Search filters",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-          ],
-        ),
-        children: [
-          StatefulBuilder(
-            builder: (context, setDropdownState) {
-              return Column(
-                children: [
-                  _buildFilterDropdown(
-                      "Season", selectedSeason, ['All', ...seasons], (value) {
-                    setDropdownState(() {
-                      selectedSeason = value!;
-                      selectedEpisode = "All";
-                    });
-                    setState(() {});
-                  }),
-                  const SizedBox(height: 16),
-                  _buildFilterDropdown(
-                      selectedSeason == "Movies" ? "Movie" : "Episode",
-                      selectedEpisode,
-                      _buildEpisodeItems(selectedSeason, episodesMap)
-                          .map((item) => item.value!)
-                          .toList(), (value) {
-                    setDropdownState(() {
-                      selectedEpisode = value!;
-                    });
-                    setState(() {});
-                  }),
-                  if (selectedSeason != 'All' || selectedEpisode != 'All') ...[
-                    const SizedBox(height: 16),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton.icon(
-                        onPressed: () {
-                          setDropdownState(() {
-                            selectedSeason = 'All';
-                            selectedEpisode = 'All';
-                          });
-                          setState(() {});
-                        },
-                        icon: const Icon(Icons.clear_rounded, size: 16),
-                        label: const Text('Clear filters',
-                            style: TextStyle(fontSize: 12)),
-                      ),
-                    ),
-                  ],
-                ],
-              );
-            },
-          ),
-        ],
-      ),
+    return SearchFilters(
+      controller: expansionController,
+      selectedSeason: selectedSeason,
+      selectedEpisode: selectedEpisode,
+      seasons: seasons,
+      episodesMap: episodesMap,
+      onSeasonChanged: (value) {
+        setState(() {
+          selectedSeason = value;
+          selectedEpisode = "All";
+        });
+      },
+      onEpisodeChanged: (value) {
+        setState(() {
+          selectedEpisode = value;
+        });
+      },
+      onClearFilters: () {
+        setState(() {
+          selectedSeason = 'All';
+          selectedEpisode = 'All';
+        });
+      },
     );
   }
 
@@ -1648,184 +1040,3 @@ class _SearchPageState extends State<SearchPage>
   }
 }
 
-class RandomReferenceWidget extends StatefulWidget {
-  const RandomReferenceWidget({super.key});
-
-  @override
-  State<RandomReferenceWidget> createState() => _RandomReferenceWidgetState();
-}
-
-class _RandomReferenceWidgetState extends State<RandomReferenceWidget> {
-  final DatabaseService _databaseService = DatabaseService();
-  Map<String, dynamic>? _currentData;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadRandomReference();
-  }
-
-  Future<void> _loadRandomReference() async {
-    try {
-      final quotesWithReferences =
-          await _databaseService.getRandomQuotesWithReferences(limit: 100);
-      if (quotesWithReferences.isNotEmpty) {
-        final randomQuote =
-            quotesWithReferences[Random().nextInt(quotesWithReferences.length)];
-
-        setState(() {
-          _currentData = {
-            'referenceName': randomQuote.reference ?? 'Unknown Reference',
-            'line': randomQuote.line,
-            'phrase': randomQuote,
-            'referenceId': randomQuote.reference ?? '',
-          };
-        });
-      }
-    } catch (e) {
-      //
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (_currentData == null) {
-      return const SizedBox(
-        height: 100,
-        child: Center(child: CircularProgressIndicator()),
-      );
-    }
-
-    final data = _currentData!;
-    final String line = data['line'];
-    final Phrase phrase = data['phrase'];
-
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Theme.of(context).colorScheme.primaryContainer,
-                Theme.of(context)
-                    .colorScheme
-                    .primaryContainer
-                    .withValues(alpha: 0.8),
-              ],
-            ),
-          ),
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Icon(
-                      Icons.format_quote_rounded,
-                      color: Theme.of(context).colorScheme.primary,
-                      size: 20,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Random Reference",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
-                          ),
-                        ),
-                        Text(
-                          phrase.season == 999
-                              ? phrase.time[0] == '0'
-                                  ? phrase.time.substring(2)
-                                  : phrase.time
-                              : "S${phrase.season}E${phrase.episode} • ${phrase.time[0] == '0' ? phrase.time.substring(2) : phrase.time}",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer
-                                .withValues(alpha: 0.7),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: _loadRandomReference,
-                    icon: Icon(
-                      Icons.refresh_rounded,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Text(
-                phrase.name,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'PsychFont',
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 12),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(12),
-                  onTap: () {
-                    context.go(
-                      '/s${phrase.season}/e${phrase.episode}/p${phrase.sequenceInEpisode}',
-                    );
-                  },
-                  child: Text(
-                    line,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.onSurface,
-                      height: 1.4,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
