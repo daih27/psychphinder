@@ -31,6 +31,20 @@
 
   <title>psychphinder</title>
   <link rel="manifest" href="manifest.json">
+
+  <script>
+    (function() {
+      var path = window.location.pathname;
+      var basePath = '/psychphinder/';
+
+      if (path !== basePath && path.startsWith(basePath)) {
+        var route = path.substring(basePath.length);
+        if (route && !window.location.hash) {
+          window.location.replace(basePath + '#/' + route);
+        }
+      }
+    })();
+  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>

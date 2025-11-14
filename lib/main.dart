@@ -103,7 +103,9 @@ class _HomeState extends State<Home> {
     _appLinks = AppLinks();
     final appLink = await _appLinks.getInitialLink();
     if (appLink != null) {
-      openAppLink(appLink);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        openAppLink(appLink);
+      });
     }
     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
       openAppLink(uri);
@@ -111,22 +113,22 @@ class _HomeState extends State<Home> {
   }
 
   void openAppLink(Uri uri) {
-    if (uri.toString() == "https://daih27.github.io/psychphinder" ||
-        uri.toString() == "https://daih27.github.io/psychphinder/") {
-      context.go(
-        "/",
-      );
-    } else if (uri
-        .toString()
-        .startsWith("https://daih27.github.io/psychphinder/#")) {
-      context.go(
-        uri
-            .toString()
-            .replaceAll("https://daih27.github.io/psychphinder/#", ""),
-      );
-    } else {
-      context.go("/");
+    String path = uri.path;
+
+    if (path.startsWith('/psychphinder')) {
+      path = path.substring('/psychphinder'.length);
     }
+
+    String fragment = uri.fragment;
+    if (fragment.isNotEmpty) {
+      path = fragment;
+    }
+
+    if (!path.startsWith('/')) {
+      path = '/$path';
+    }
+
+    context.go(path.isEmpty || path == '/' ? '/' : path);
   }
 
   void showUpdateLinuxWindows() async {
@@ -311,7 +313,8 @@ class _HomeState extends State<Home> {
               : Theme.of(context).colorScheme.surface,
           border: Border(
             top: BorderSide(
-              color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+              color:
+                  Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
               width: 1,
             ),
           ),

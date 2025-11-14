@@ -25,6 +25,40 @@ class ModalBottomSheetPage<T> extends Page<T> {
 
 final router = GoRouter(
   initialLocation: '/',
+  errorBuilder: (context, state) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Route not found'),
+      ),
+    );
+  },
+  redirect: (context, state) {
+    final uri = state.uri;
+
+    if (uri.hasScheme && uri.scheme.startsWith('http')) {
+      String path = uri.path;
+
+      if (path.startsWith('/psychphinder')) {
+        path = path.substring('/psychphinder'.length);
+      }
+
+      if (uri.fragment.isNotEmpty) {
+        path = uri.fragment;
+      }
+
+      if (path.isEmpty || path == '/') {
+        return '/';
+      }
+
+      if (!path.startsWith('/')) {
+        path = '/$path';
+      }
+
+      return path;
+    }
+
+    return null;
+  },
   routes: [
     GoRoute(
       path: '/',
