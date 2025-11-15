@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:psychphinder/classes/profile_class.dart';
 import 'package:psychphinder/global/routes.dart';
 import 'package:psychphinder/global/search_engine.dart';
+import 'package:psychphinder/global/search_history_provider.dart';
 import 'package:psychphinder/references.dart';
 import 'package:psychphinder/search.dart';
 import 'package:psychphinder/favorites.dart';
@@ -39,6 +40,7 @@ Future<void> main() async {
       Provider.value(value: databaseService),
       ChangeNotifierProvider.value(value: ThemeProvider()),
       ChangeNotifierProvider.value(value: SearchEngineProvider()),
+      ChangeNotifierProvider.value(value: SearchHistoryProvider()),
     ], child: const MyApp()),
   );
 }

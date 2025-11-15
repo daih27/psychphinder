@@ -5,6 +5,7 @@ import 'package:psychphinder/database/database_service.dart';
 import 'package:psychphinder/classes/reference_class.dart';
 import 'package:psychphinder/widgets/references/reference_card.dart';
 import 'package:psychphinder/utils/responsive.dart';
+import 'package:psychphinder/global/search_history_provider.dart';
 
 class ReferencesPage extends StatefulWidget {
   const ReferencesPage({super.key});
@@ -27,6 +28,37 @@ class _ReferencesPageState extends State<ReferencesPage>
   String selectedEpisode = 'All';
   final TextEditingController textEditingController = TextEditingController();
   final ExpansibleController expansionController = ExpansibleController();
+  final FocusNode _searchFocusNode = FocusNode();
+  final LayerLink _layerLink = LayerLink();
+  OverlayEntry? _overlayEntry;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _searchFocusNode.addListener(() {
+      if (_searchFocusNode.hasFocus && textEditingController.text.isEmpty) {
+        _showHistoryOverlay();
+      } else {
+        _hideHistoryOverlay();
+      }
+    });
+
+    textEditingController.addListener(() {
+      if (_searchFocusNode.hasFocus && textEditingController.text.isEmpty) {
+        _showHistoryOverlay();
+      } else {
+        _hideHistoryOverlay();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchFocusNode.dispose();
+    _hideHistoryOverlay();
+    super.dispose();
+  }
 
   Future<List<int>> _getSeasonsWithReferences(
       DatabaseService databaseService) async {
@@ -127,8 +159,11 @@ class _ReferencesPageState extends State<ReferencesPage>
   Widget _buildSearchBar(DatabaseService databaseService) {
     return Container(
       margin: const EdgeInsets.fromLTRB(15, 15, 15, 7),
-      child: TextField(
+      child: CompositedTransformTarget(
+        link: _layerLink,
+        child: TextField(
           controller: textEditingController,
+          focusNode: _searchFocusNode,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
             fontSize: 16,
@@ -211,6 +246,7 @@ class _ReferencesPageState extends State<ReferencesPage>
             ),
           ),
         ),
+      ),
     );
   }
 
@@ -587,8 +623,120 @@ class _ReferencesPageState extends State<ReferencesPage>
     );
   }
 
+  void _showHistoryOverlay() {
+    if (_overlayEntry != null || !mounted) return;
+
+    final searchHistory =
+        Provider.of<SearchHistoryProvider>(context, listen: false);
+    final history = searchHistory.referenceHistory;
+
+    if (history.isEmpty) return;
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        width: _layerLink.leaderSize?.width,
+        child: CompositedTransformFollower(
+          link: _layerLink,
+          showWhenUnlinked: false,
+          offset: Offset(0, _layerLink.leaderSize?.height ?? 0),
+          child: Material(
+            elevation: 8,
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              constraints: const BoxConstraints(maxHeight: 300),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .outline
+                      .withValues(alpha: 0.2),
+                ),
+              ),
+              child: Consumer<SearchHistoryProvider>(
+                builder: (context, searchHistory, _) {
+                  final history = searchHistory.referenceHistory;
+                  if (history.isEmpty) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _hideHistoryOverlay();
+                    });
+                    return const SizedBox.shrink();
+                  }
+                  return ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    shrinkWrap: true,
+                    itemCount: history.length,
+                    itemBuilder: (context, index) {
+                      final query = history[index];
+                      return Dismissible(
+                        key: Key('reference_history_$query'),
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.only(right: 16),
+                          color: Theme.of(context).colorScheme.error,
+                          child: Icon(
+                            Icons.delete_outline,
+                            color: Theme.of(context).colorScheme.onError,
+                          ),
+                        ),
+                        onDismissed: (_) {
+                          searchHistory.removeReferenceSearch(query);
+                        },
+                        child: ListTile(
+                          dense: true,
+                          leading: Icon(
+                            Icons.history,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.6),
+                            size: 20,
+                          ),
+                          title: Text(
+                            query,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontSize: 14,
+                            ),
+                          ),
+                          onTap: () {
+                            textEditingController.text = query;
+                            _hideHistoryOverlay();
+                            final databaseService =
+                                Provider.of<DatabaseService>(context,
+                                    listen: false);
+                            _performSearch(query, databaseService);
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context).insert(_overlayEntry!);
+  }
+
+  void _hideHistoryOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
   Future<void> _performSearch(
       String query, DatabaseService databaseService) async {
+    if (query.trim().isEmpty) return;
+
+    final searchHistory =
+        Provider.of<SearchHistoryProvider>(context, listen: false);
+    await searchHistory.addReferenceSearch(query);
+
     searchInput = query;
     setState(() {
       isLoading = true;
@@ -610,5 +758,4 @@ class _ReferencesPageState extends State<ReferencesPage>
       isLoading = false;
     });
   }
-
 }
